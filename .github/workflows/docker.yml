@@ -3,21 +3,29 @@ name: Docker
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - dev
     tags:
       - "v*"
+
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - dev
+
   workflow_dispatch:
     inputs:
       agent_server_image:
         description: Agent Server base image (ghcr.io/openhands/agent-server:TAG)
         type: string
         default: ""
+
       automation_version:
         description: Automation server version (pip)
         type: string
         default: ""
+
       image:
         description: GHCR image name
         type: string
