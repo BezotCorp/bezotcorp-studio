@@ -14,9 +14,10 @@ const resolverPath = path.join(
   repoRoot,
   "tests/e2e/mock-llm/scripts/resolve-affected-tests.mjs",
 );
-const workflowPath = path.join(repoRoot, ".github/workflows/mock-llm-e2e.yml");
+const workflowPath = path.join(repoRoot, "..", ".github/workflows/mock-llm-e2e.yml");
 const dockerWorkflowPath = path.join(
   repoRoot,
+  "..",
   ".github/workflows/mock-llm-docker-e2e.yml",
 );
 

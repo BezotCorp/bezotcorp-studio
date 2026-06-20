@@ -10,7 +10,7 @@ const repoRoot = path.resolve(
 );
 
 function read(rel: string): string {
-  return readFileSync(path.join(repoRoot, rel), "utf-8");
+  return readFileSync(path.join(repoRoot, rel.startsWith(".github/") ? `../${rel}` : rel), "utf-8");
 }
 
 describe("npm publish workflow", () => {
