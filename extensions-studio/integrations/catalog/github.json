@@ -1,0 +1,35 @@
+{
+  "id": "github",
+  "name": "GitHub",
+  "description": "Search code, manage issues and pull requests, and inspect repos via the GitHub API.",
+  "docsUrl": "https://github.com/github/github-mcp-server",
+  "iconBg": "var(--oh-surface)",
+  "keywords": [
+    "git",
+    "pr",
+    "repo",
+    "issues",
+    "code"
+  ],
+  "popularityRank": 100,
+  "kind": "mcp",
+  "defaultConnectionOptionId": "api",
+  "connectionOptions": [
+    {
+      "id": "api",
+      "provider": "mcp",
+      "transport": {
+        "kind": "shttp",
+        "url": "https://api.githubcopilot.com/mcp/"
+      },
+      "auth": {
+        "strategy": "api_key",
+        "credentialLabel": "Personal access token",
+        "credentialPlaceholder": "github_pat_...",
+        "credentialHelp": "Classic or fine-grained personal access token from GitHub settings.",
+        "credentialSecretName": "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "saveCredentialAsSecretByDefault": true
+      }
+    }
+  ]
+}
