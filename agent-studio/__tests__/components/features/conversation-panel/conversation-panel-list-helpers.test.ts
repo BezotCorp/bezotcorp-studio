@@ -288,7 +288,7 @@ describe("conversation-panel-list-helpers", () => {
       id: "4",
       title: "four",
       selected_workspace: null,
-      workspace: { working_dir: "/workspace/project/agent-canvas/wt-noop" },
+      workspace: { working_dir: "/workspace/project/agent-studio/wt-noop" },
       updated_at: "2024-01-01T00:00:00.000Z",
     };
 
@@ -333,7 +333,7 @@ describe("conversation-panel-list-helpers", () => {
       ...base,
       id: "1",
       title: "one",
-      selected_repository: "org/agent-canvas",
+      selected_repository: "org/agent-studio",
       updated_at: "2024-01-02T00:00:00.000Z",
     };
     const r2: AppConversation = {
@@ -349,7 +349,7 @@ describe("conversation-panel-list-helpers", () => {
       emptyRepository: "No repository",
     });
 
-    expect(groups.map((g) => g.label)).toEqual(["sdk", "agent-canvas"]);
+    expect(groups.map((g) => g.label)).toEqual(["sdk", "agent-studio"]);
     expect(groups[0].launch).toEqual({
       repository: {
         name: "org/sdk",
@@ -359,7 +359,7 @@ describe("conversation-panel-list-helpers", () => {
     });
     expect(groups[1].launch).toEqual({
       repository: {
-        name: "org/agent-canvas",
+        name: "org/agent-studio",
         gitProvider: "github",
         branch: "main",
       },

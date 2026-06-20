@@ -2,7 +2,7 @@
  * Mock-LLM E2E: UI regression tests.
  *
  * Ported from the former `tests/e2e/regressions/` directory so they run
- * against the real agent-server stack (via `bin/agent-canvas.mjs`) instead
+ * against the real agent-server stack (via `bin/agent-studio.mjs`) instead
  * of the MSW-only dev-mock server that was never wired into CI.
  *
  * Tests use `page.route()` where specific API responses need to be

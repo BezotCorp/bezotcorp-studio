@@ -40,13 +40,13 @@ import {
 test.describe.configure({ mode: "serial" });
 
 // ═══════════════════════════════════════════════════════════════════════
-// 0. Fresh-install path (the published `agent-canvas` binary case)
+// 0. Fresh-install path (the published `agent-studio` binary case)
 // ═══════════════════════════════════════════════════════════════════════
 
 test.describe("auth mode: fresh install with runtime-injected key", () => {
   // Regression for the bug a user hit on v1.0.0-beta.7:
   //
-  //   `npm install -g @openhands/agent-canvas && agent-canvas`
+  //   `npm install -g @bezotcorp/agent-studio && agent-studio`
   //
   // landed on the Manage Backends modal ("No extra backends added yet.")
   // with no way out, because the prebuilt bundle has no

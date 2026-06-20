@@ -1,6 +1,6 @@
 # Using ACP agents
 
-Agent Canvas can drive your conversations with the built-in **OpenHands** agent or
+BezotCorp Agent Studio can drive your conversations with the built-in **OpenHands** agent or
 with an external **ACP agent** — Claude Code, Codex, or Gemini CLI. This guide
 explains what ACP agents are, how to onboard one, and how to switch agents or
 models later.
@@ -9,14 +9,14 @@ models later.
 
 The [Agent Client Protocol (ACP)](https://agentclientprotocol.com/protocol/overview)
 is a standard for talking to coding agents over JSON-RPC on stdio. Instead of
-Agent Canvas calling an LLM directly, the Agent Server spawns the agent's own CLI
+BezotCorp Agent Studio calling an LLM directly, the Agent Server spawns the agent's own CLI
 as a subprocess and relays each turn to it. The external agent manages its own
-LLM, tools, and execution; Agent Canvas sends messages and renders what comes
+LLM, tools, and execution; BezotCorp Agent Studio sends messages and renders what comes
 back.
 
 ```mermaid
 flowchart LR
-    canvas["Agent Canvas<br/>(this UI)"]
+    canvas["BezotCorp Agent Studio<br/>(this UI)"]
     server["Agent Server"]
     acp["ACP subprocess<br/>(e.g. claude-agent-acp)"]
     llm["LLM provider<br/>(Anthropic / OpenAI / Google)"]
@@ -26,7 +26,7 @@ flowchart LR
     acp -- "API calls" --> llm
 ```
 
-The Agent Server owns the subprocess and the credentials; Agent Canvas only
+The Agent Server owns the subprocess and the credentials; BezotCorp Agent Studio only
 records *which* agent to run and surfaces a form for the secrets it needs. The
 agent choice is stored per backend, so switching backends can switch agents.
 
@@ -99,7 +99,7 @@ First-time users get a four-step onboarding modal. To onboard an ACP agent:
 
 1. **Choose agent** — pick Claude Code, Codex, or Gemini CLI instead of
    OpenHands. The choice is saved immediately to your backend's settings.
-2. **Check backend** — confirms Agent Canvas can reach the Agent Server.
+2. **Check backend** — confirms BezotCorp Agent Studio can reach the Agent Server.
 3. **Set up credentials** — enter the provider's credentials. Beyond the API
    key (+ optional base URL), this step also collects the credentials a
    *containerized* backend needs, since a fresh container has no host login:
@@ -208,8 +208,8 @@ race on the CLI's auth/config/lock files. The SDK supports opting into a
 per-conversation data dir (`acp_isolate_data_dir`, software-agent-sdk#3492), but
 the released `@openhands/typescript-client` does not yet expose it on
 `ACPAgentSettings`, so Canvas can't send it without risking a validation error on
-older servers. This is tracked as a follow-up (agent-canvas#1019); cloud
-grouping isolation is separate (agent-canvas#1016).
+older servers. This is tracked as a follow-up (agent-studio#1019); cloud
+grouping isolation is separate (agent-studio#1016).
 
 ## Switching agent or model later
 

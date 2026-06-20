@@ -1,4 +1,4 @@
-# Agent Canvas docs
+# BezotCorp Agent Studio docs
 
 This directory contains the project documentation.
 

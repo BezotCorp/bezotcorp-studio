@@ -172,7 +172,7 @@ export async function saveCloudSettings(diff: {
     // OpenHandsAgentSettings, whose `agent_context` is a required
     // AgentContext (not Optional). A literal `agent_context: null` fails
     // backend validation, so drop it and let the backend keep/default it.
-    // See OpenHands/agent-canvas#981.
+    // See BezotCorp/bezot-agent-studio#981.
     if (agentDiff.agent_context === null) {
       delete agentDiff.agent_context;
     }

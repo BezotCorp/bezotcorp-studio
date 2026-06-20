@@ -2,12 +2,12 @@
  * Playwright config for mock-LLM E2E tests against a Docker container.
  *
  * Reuses the same test specs as playwright.mock-llm.config.ts but launches
- * the agent-canvas stack inside a Docker container instead of via
- * bin/agent-canvas.mjs + uvx.
+ * the agent-studio stack inside a Docker container instead of via
+ * bin/agent-studio.mjs + uvx.
  *
  * Starts two processes:
  *   1. Mock LLM server (Python on the host, using openhands-sdk TestLLM)
- *   2. Docker container running the agent-canvas all-in-one image
+ *   2. Docker container running the agent-studio all-in-one image
  *      (agent-server + automation backend + static frontend + proxy)
  *      The container also starts a second static-server instance on
  *      PUBLIC_MODE_PORT with --auth-required for auth-mode E2E tests.
@@ -23,7 +23,7 @@
  *
  * Required:
  *   - A built Docker image. Set MOCK_LLM_DOCKER_IMAGE to the image tag
- *     (default: ghcr.io/openhands/agent-canvas:latest).
+ *     (default: ghcr.io/bezotcorp/agent-studio:latest).
  *   - Docker daemon must be running.
  */
 
@@ -34,12 +34,12 @@ import { resolve } from "node:path";
 
 // ── Docker image ────────────────────────────────────────────────────────
 const DOCKER_IMAGE =
-  process.env.MOCK_LLM_DOCKER_IMAGE ?? "ghcr.io/openhands/agent-canvas:latest";
+  process.env.MOCK_LLM_DOCKER_IMAGE ?? "ghcr.io/bezotcorp/agent-studio:latest";
 
 // Container name for cleanup — unique per run to avoid collisions.
 const CONTAINER_NAME =
   process.env.MOCK_LLM_CONTAINER_NAME ??
-  `agent-canvas-mock-llm-${randomBytes(4).toString("hex")}`;
+  `agent-studio-mock-llm-${randomBytes(4).toString("hex")}`;
 
 // ── Port allocation (separate from live E2E / dev to avoid collisions) ─
 const MOCK_LLM_PORT = process.env.MOCK_LLM_PORT ?? "9999";
@@ -186,7 +186,7 @@ export default defineConfig({
       stdout: "pipe",
       stderr: "pipe",
     },
-    // 2. Docker container running the agent-canvas all-in-one image
+    // 2. Docker container running the agent-studio all-in-one image
     //
     // Uses --network host so the container shares the host's network:
     //   - The ingress port is available at localhost:<INGRESS_PORT>

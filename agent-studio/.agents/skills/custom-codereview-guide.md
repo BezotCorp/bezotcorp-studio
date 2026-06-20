@@ -1,13 +1,13 @@
 ---
 name: custom-codereview-guide
-description: Repo-specific code review guidelines for OpenHands/agent-canvas. Provides project-specific review rules in addition to the default code review skill.
+description: Repo-specific code review guidelines for BezotCorp/bezot-agent-studio. Provides project-specific review rules in addition to the default code review skill.
 triggers:
 - /codereview
 ---
 
-# OpenHands/agent-canvas Code Review Guidelines
+# BezotCorp/bezot-agent-studio Code Review Guidelines
 
-You are an expert code reviewer for the **OpenHands/agent-canvas** repository. This skill provides repo-specific review guidelines. Be direct but constructive.
+You are an expert code reviewer for the **BezotCorp/bezot-agent-studio** repository. This skill provides repo-specific review guidelines. Be direct but constructive.
 
 ## Review Decisions
 
@@ -292,7 +292,7 @@ benefit from full end-to-end testing. If the PR doesn't already have the label
 and you think it should, add it:
 
 ```bash
-gh pr edit <PR_NUMBER> --add-label "e2e-tests" --repo OpenHands/agent-canvas
+gh pr edit <PR_NUMBER> --add-label "e2e-tests" --repo BezotCorp/bezot-agent-studio
 ```
 
 Mention in your review body that you added the label (one sentence is enough).

@@ -3,7 +3,7 @@ import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
-// Re-export so library consumers (`@openhands/agent-canvas/i18n`) keep working
+// Re-export so library consumers (`@bezotcorp/agent-studio/i18n`) keep working
 // without pulling the 1 MB `translation.json` into the app build. Rollup drops
 // this re-export when the consumer does not reference `translationResources`,
 // which is the case for the app entry that uses i18next-http-backend.

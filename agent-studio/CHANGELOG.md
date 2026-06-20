@@ -11,19 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial npm package release of `@openhands/agent-canvas`
-- CLI entry point (`npx @openhands/agent-canvas`) to run full stack locally
+- Initial npm package release of `@bezotcorp/agent-studio`
+- CLI entry point (`npx @bezotcorp/agent-studio`) to run full stack locally
 - Library build mode with component barrel exports
 - Subpath exports for modular imports:
-  - `@openhands/agent-canvas/browser`
-  - `@openhands/agent-canvas/conversation`
-  - `@openhands/agent-canvas/files`
-  - `@openhands/agent-canvas/settings`
-  - `@openhands/agent-canvas/sidebar`
-  - `@openhands/agent-canvas/terminal`
-  - `@openhands/agent-canvas/i18n`
+  - `@bezotcorp/agent-studio/browser`
+  - `@bezotcorp/agent-studio/conversation`
+  - `@bezotcorp/agent-studio/files`
+  - `@bezotcorp/agent-studio/settings`
+  - `@bezotcorp/agent-studio/sidebar`
+  - `@bezotcorp/agent-studio/terminal`
+  - `@bezotcorp/agent-studio/i18n`
 - TypeScript type declarations
 - GitHub Actions workflow for automated npm publishing (OIDC trusted publishing)
 
-[Unreleased]: https://github.com/OpenHands/agent-canvas/compare/v1.0.0-alpha.2...HEAD
-[1.0.0-alpha.2]: https://github.com/OpenHands/agent-canvas/releases/tag/v1.0.0-alpha.2
+[Unreleased]: https://github.com/BezotCorp/bezotcorp-studio/compare/v1.0.0-alpha.2...HEAD
+[1.0.0-alpha.2]: https://github.com/BezotCorp/bezotcorp-studio/releases/tag/v1.0.0-alpha.2

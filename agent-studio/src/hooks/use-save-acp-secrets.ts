@@ -17,7 +17,7 @@ import { retrieveAxiosErrorMessage } from "#/utils/retrieve-axios-error-message"
  * Settings → Agent section): persists each filled field as a global secret,
  * refreshes the secret queries, and toasts the outcome — a warning instead of
  * "Saved" when a file-content credential landed on a backend that can't
- * materialise it to disk (cloud, pending agent-canvas#1016), so we don't claim
+ * materialise it to disk (cloud, pending agent-studio#1016), so we don't claim
  * success for an orphaned credential.
  *
  * ``saveFilled`` resolves ``true`` when every filled field saved (or nothing

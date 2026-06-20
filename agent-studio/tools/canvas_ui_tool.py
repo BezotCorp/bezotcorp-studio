@@ -1,6 +1,6 @@
 """Canvas UI control tool.
 
-Shipped with Agent Canvas. Mounted into the agent-server container at
+Shipped with BezotCorp Agent Studio. Mounted into the agent-server container at
 ``/canvas-tools`` and loaded via ``tool_module_qualnames`` so the agent can
 direct the frontend (navigate to a file, switch tabs, show a preview).
 
@@ -29,7 +29,7 @@ CanvasTab = Literal[
 
 
 class CanvasUIAction(Action):
-    """Direct the Agent Canvas frontend to perform a UI action."""
+    """Direct the BezotCorp Agent Studio frontend to perform a UI action."""
 
     command: CanvasCommand = Field(description="UI command to dispatch.")
     path: str | None = Field(
@@ -59,11 +59,11 @@ class CanvasUIExecutor(ToolExecutor[CanvasUIAction, CanvasUIObservation]):
         conversation=None,  # noqa: ARG002
     ) -> CanvasUIObservation:
         return CanvasUIObservation.from_text(
-            f"UI command '{action.command}' dispatched to the Agent Canvas frontend."
+            f"UI command '{action.command}' dispatched to the BezotCorp Agent Studio frontend."
         )
 
 
-_CANVAS_UI_DESCRIPTION = """The user is interacting with you inside Agent Canvas — a web UI with a chat panel on the left and a tabbed right-side panel (files, terminal, browser, vscode, planner, tasklist). This tool lets you drive that right-side panel so the user sees what you just produced.
+_CANVAS_UI_DESCRIPTION = """The user is interacting with you inside BezotCorp Agent Studio — a web UI with a chat panel on the left and a tabbed right-side panel (files, terminal, browser, vscode, planner, tasklist). This tool lets you drive that right-side panel so the user sees what you just produced.
 
 They will NOT see the files you wrote, the terminal output, or the browser
 unless you call this tool to switch the right-side panel to the relevant
@@ -91,7 +91,7 @@ When to call (pick the most specific option that matches your last action):
 
 * You browsed to a URL the user should see →
     First call browser_get_state(include_screenshot=true) after your final
-    browser interaction so Agent Canvas has a screenshot to display, then call
+    browser interaction so BezotCorp Agent Studio has a screenshot to display, then call
     command="open_tab", tab="browser"
     (browser_navigate alone only updates the URL; without browser_get_state,
     the Browser tab will open without a screenshot.)
@@ -103,7 +103,7 @@ the same turn."""
 
 
 class CanvasUITool(ToolDefinition[CanvasUIAction, CanvasUIObservation]):
-    """Tool for controlling the Agent Canvas UI from the agent."""
+    """Tool for controlling the BezotCorp Agent Studio UI from the agent."""
 
     @classmethod
     def create(

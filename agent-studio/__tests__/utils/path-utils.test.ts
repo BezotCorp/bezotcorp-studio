@@ -9,11 +9,11 @@ describe("getPathBasename", () => {
   });
 
   it("handles POSIX paths with and without trailing slashes", () => {
-    expect(getPathBasename("/workspace/project/agent-canvas")).toBe(
-      "agent-canvas",
+    expect(getPathBasename("/workspace/project/agent-studio")).toBe(
+      "agent-studio",
     );
-    expect(getPathBasename("/workspace/project/agent-canvas/")).toBe(
-      "agent-canvas",
+    expect(getPathBasename("/workspace/project/agent-studio/")).toBe(
+      "agent-studio",
     );
   });
 

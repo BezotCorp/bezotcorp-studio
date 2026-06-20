@@ -196,10 +196,10 @@ export function buildRuntimeServicesSystemSuffix(): string | undefined {
   lines.push("<RUNTIME_SERVICES>");
   if (info.mode) {
     lines.push(
-      `You are running inside an agent-canvas dev stack started in '${info.mode}' mode.`,
+      `You are running inside an agent-studio dev stack started in '${info.mode}' mode.`,
     );
   } else {
-    lines.push("You are running inside an agent-canvas dev stack.");
+    lines.push("You are running inside an agent-studio dev stack.");
   }
   lines.push(
     "The following services are reachable from your sandbox. URLs are written",
@@ -668,7 +668,7 @@ function buildConfiguredAcpAgentSettings(
   // HOME. The SDK supports it (software-agent-sdk#3492), but the released
   // ``@openhands/typescript-client`` (1.24.3) doesn't surface it on
   // ``ACPAgentSettings`` yet, so sending it risks a validation error on older
-  // servers. Cloud grouping isolation is separate (agent-canvas#1016).
+  // servers. Cloud grouping isolation is separate (agent-studio#1016).
 
   for (const key of ACP_SETTINGS_KEYS) {
     // ``acp_model`` is resolved separately below so a saved ``null`` still
@@ -957,7 +957,7 @@ export function buildStartConversationRequest(
 
   // Every saved secret rides as a LookupSecret the agent-server resolves back
   // from its own store at spawn time — ``request.secrets`` is the sole channel,
-  // uniform for ACP and non-ACP (agent-canvas#1039). For ACP the resolution
+  // uniform for ACP and non-ACP (agent-studio#1039). For ACP the resolution
   // runs off the event loop (software-agent-sdk#3510, >=1.25.0), so the loopback
   // fetch can't deadlock.
   if (options.customSecrets && options.customSecrets.length > 0) {

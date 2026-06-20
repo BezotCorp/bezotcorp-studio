@@ -1,7 +1,7 @@
 /**
  * Development Stack with Automation Service
  *
- * Extends agent-canvas's dev-safe.mjs to additionally run the OpenHands Automation
+ * Extends agent-studio's dev-safe.mjs to additionally run the OpenHands Automation
  * backend via uvx. No cloning required - runs directly from git reference.
  *
  * Uses a standalone ingress proxy to route traffic to multiple backends.
@@ -225,9 +225,9 @@ function parseArgs() {
 
 function showHelp() {
   console.log(`
-Agent Canvas + Automation Development Stack
+BezotCorp Agent Studio + Automation Development Stack
 
-Runs agent-canvas with the automation backend (via uvx, no clone needed).
+Runs agent-studio with the automation backend (via uvx, no clone needed).
 Uses a standalone ingress proxy to route traffic.
 
 USAGE:
@@ -395,7 +395,7 @@ async function buildConfig(args, env = process.env) {
   // used directly; otherwise one is auto-generated and persisted.
   const stateDir =
     env.OH_CANVAS_SAFE_STATE_DIR ||
-    join(homedir(), ".openhands", "agent-canvas");
+    join(homedir(), ".openhands", "agent-studio");
 
   const safeConfig = buildSafeDevConfig(projectRoot, {
     ...env,
@@ -1095,10 +1095,10 @@ async function seedAutomationSecret(config, options = {}) {
 
 function printBanner(config) {
   const stackName = config.frontendOnly
-    ? "Agent Canvas Frontend Stack"
+    ? "BezotCorp Agent Studio Frontend Stack"
     : config.backendOnly
-      ? "Agent Canvas Backend Stack"
-      : "Agent Canvas + Automation Stack";
+      ? "BezotCorp Agent Studio Backend Stack"
+      : "BezotCorp Agent Studio + Automation Stack";
 
   // padEnd counts invisible ANSI escape bytes as visible characters, so we
   // compute the visible length separately and pad with spaces accordingly.
@@ -1179,7 +1179,7 @@ function printBanner(config) {
 
 async function main(options = {}) {
   const {
-    bannerTitle = "Agent Canvas + Automation Development Stack",
+    bannerTitle = "BezotCorp Agent Studio + Automation Development Stack",
     startAgentServer: startAgentServerOverride,
     extraPrereqs,
     viteWorkingDir,
@@ -1215,7 +1215,7 @@ async function main(options = {}) {
     args.public = isPublicOverride;
   }
 
-  // Allow options to override CLI args (for bin/agent-canvas.mjs)
+  // Allow options to override CLI args (for bin/agent-studio.mjs)
   const useStaticMode =
     staticModeOverride ??
     (args.dynamic ? false : args.static || defaultStaticMode);

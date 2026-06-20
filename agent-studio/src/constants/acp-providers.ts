@@ -155,7 +155,7 @@ const ACP_PROVIDER_UI: Record<
 // Built-in ACP providers Canvas surfaces, built by enriching each upstream
 // registry record (``@openhands/typescript-client`` → Python SDK) with the
 // Canvas UI metadata above. Model lists + defaults are no longer hand-kept
-// here (closes agent-canvas#740) — they track the SDK via the pinned client.
+// here (closes agent-studio#740) — they track the SDK via the pinned client.
 export const ACP_PROVIDERS: ACPProviderConfig[] = Object.entries(
   ACP_PROVIDER_UI,
 ).map(([key, ui]) => {
@@ -196,7 +196,7 @@ export interface ACPProviderSecretField {
   /** Render as a multi-line textarea rather than a single-line input. Set for
    * file-content credentials the user pastes verbatim (Codex ``auth.json``,
    * Gemini Vertex service-account / ADC JSON) — the ones the SDK materialises
-   * to disk, which a cloud backend can't consume yet (agent-canvas#1016). */
+   * to disk, which a cloud backend can't consume yet (agent-studio#1016). */
   multiline?: boolean;
   /** i18n key for the one-line helper text under the field. */
   hint_key: I18nKey;
@@ -213,7 +213,7 @@ export interface ACPProviderSecretField {
  * canvas collects per provider so a *containerized* agent-server (no host login
  * state) can authenticate the ACP CLI: subscription tokens plus the file-content
  * blobs and Vertex config the SDK's ``acp_file_secrets`` materialisation
- * consumes (agent-canvas#1013/#1014). They have no registry env-var entry
+ * consumes (agent-studio#1013/#1014). They have no registry env-var entry
  * because they're a deployment concern, not a model registry field. The Gemini
  * project/location/flag are plain config, not secrets — grouped here because
  * they travel with the SA blob.
@@ -324,7 +324,7 @@ export const ACP_VERTEX_SAFE_MODEL = "gemini-2.5-pro";
  * own.
  *
  * Distinct from {@link ACPProviderConfig.default_model} (which mirrors the SDK
- * registry verbatim, closing agent-canvas#740): this is the *preferred* default,
+ * registry verbatim, closing agent-studio#740): this is the *preferred* default,
  * deliberately diverging for Gemini where the registry value isn't safe on
  * every backend — so every default-model surface must route through this, not
  * read ``default_model`` directly.

@@ -6,7 +6,7 @@
 // `/locales/<lng>/openhands.json` at runtime; it never needs the embedded
 // resources object.
 //
-// Library consumers (`@openhands/agent-canvas/i18n`) can still import
+// Library consumers (`@bezotcorp/agent-studio/i18n`) can still import
 // `translationResources` from `src/i18n/index.ts`, which re-exports from here.
 // The re-export is `export … from`, which rollup is able to drop when the
 // app build does not reference `translationResources`.

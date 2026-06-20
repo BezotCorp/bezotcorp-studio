@@ -30,7 +30,7 @@ const PROJECT_ROOT = resolve(
   dirname(fileURLToPath(import.meta.url)),
   "../../../..",
 );
-const BIN = join(PROJECT_ROOT, "bin/agent-canvas.mjs");
+const BIN = join(PROJECT_ROOT, "bin/agent-studio.mjs");
 
 // ── Port ranges (high ports unlikely to collide with other tests) ──────
 //
@@ -219,7 +219,7 @@ test.describe("cross-connect: frontend-only → backend-only", () => {
     // Backend-only needs uvx → agent-server: 3+ minutes
     test.setTimeout(300_000);
 
-    // These tests spawn bin/agent-canvas.mjs locally, which needs a
+    // These tests spawn bin/agent-studio.mjs locally, which needs a
     // pre-built frontend. Skip when running in Docker-only CI (no local build).
     test.skip(
       !existsSync(join(PROJECT_ROOT, "build/index.html")),

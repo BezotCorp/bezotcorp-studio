@@ -103,7 +103,7 @@ jobs:
 
       # Determine if any full stable release (no pre-release suffix) has ever been
       # published. Until one exists, all releases use --tag latest so plain
-      # `npm install @openhands/agent-canvas` always resolves to the newest build.
+      # `npm install @bezotcorp/agent-studio` always resolves to the newest build.
       # Once a stable version is published, pre-release versions revert to their
       # own dist-tags (alpha / beta / rc) and only stable versions keep latest.
       # Note: OIDC trusted-publishing tokens cover only the `npm publish` call
@@ -113,7 +113,7 @@ jobs:
         id: dist_tag
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          VERSIONS_JSON=$(npm view @openhands/agent-canvas versions --json 2>/dev/null || echo "[]")
+          VERSIONS_JSON=$(npm view @bezotcorp/agent-studio versions --json 2>/dev/null || echo "[]")
           STABLE_EXISTS=$(VERSIONS_JSON="$VERSIONS_JSON" node -e "
             const vs = JSON.parse(process.env.VERSIONS_JSON);
             const arr = Array.isArray(vs) ? vs : [vs];

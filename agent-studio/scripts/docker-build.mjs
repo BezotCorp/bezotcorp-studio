@@ -27,7 +27,7 @@ const agentServerImage = `${config.images.agentServer}:${config.versions.agentSe
 const automationVersion = config.versions.automation;
 
 // Parse CLI: --tag <name> and everything after -- is passed to docker build
-let tag = "agent-canvas:local";
+let tag = "agent-studio:local";
 const extraArgs = [];
 const args = process.argv.slice(2);
 for (let i = 0; i < args.length; i++) {

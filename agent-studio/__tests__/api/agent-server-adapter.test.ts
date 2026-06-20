@@ -24,7 +24,7 @@ const {
   mockIsAgentServerToolAvailable,
   mockGetEffectiveLocalBackend,
 } = vi.hoisted(() => ({
-  mockGetAgentServerWorkingDir: vi.fn(() => "/workspace/project/agent-canvas"),
+  mockGetAgentServerWorkingDir: vi.fn(() => "/workspace/project/agent-studio"),
   mockIsAgentServerToolAvailable: vi.fn((_toolName: string) => true),
   mockGetEffectiveLocalBackend: vi.fn(() => ({
     id: "default-local",
@@ -158,7 +158,7 @@ describe("buildStartConversationRequest", () => {
     expect(payload.agent_settings.agent).toBe("CodeActAgent");
     expect(payload.agent_settings.enable_switch_llm_tool).toBe(true);
     expect(payload.workspace.working_dir).toBe(
-      "/workspace/project/agent-canvas",
+      "/workspace/project/agent-studio",
     );
     expect(payload.max_iterations).toBe(123);
     expect(payload.initial_message.content[0]?.text).toBe("hello");
@@ -475,7 +475,7 @@ describe("buildStartConversationRequest", () => {
     // ``secret_registry``, which is seeded from ``request.secrets``
     // (sdk#3299/#3464; the agent_context drain is gone entirely in sdk#3528).
     // Mirroring the map onto ``agent_context.secrets`` would keep a second,
-    // dead credential channel alive (agent-canvas#1039 wants exactly one).
+    // dead credential channel alive (agent-studio#1039 wants exactly one).
     const payload = buildStartConversationRequest({
       settings: {
         ...DEFAULT_SETTINGS,
@@ -929,7 +929,7 @@ describe("toAppConversation", () => {
   it("surfaces acp_server from tags.acpserver for ACP conversations", () => {
     // The ``acpserver`` conversation tag is stamped at create time
     // (``buildStartConversationRequest``) but never previously plumbed
-    // through on read — the sidebar chip in agent-canvas#405 needs this
+    // through on read — the sidebar chip in agent-studio#405 needs this
     // value to resolve the human display name ("Claude Code" / "Codex" /
     // "Gemini CLI").
     const result = toAppConversation({
@@ -1063,7 +1063,7 @@ describe("buildRuntimeServicesSystemSuffix", () => {
           agent_server: { url_from_agent: "http://localhost:18000" },
           frontend: {
             kind: "static",
-            description: "Static-file server hosting the agent-canvas build.",
+            description: "Static-file server hosting the agent-studio build.",
             url_from_agent: "http://localhost:3001",
           },
         },

@@ -26,7 +26,7 @@ export const MINIMAL_PNG_BASE64 =
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQAABjE+ibYAAAAASUVORK5CYII=";
 
 // Ports / URLs — set via env or defaults matching playwright.mock-llm.config.ts.
-// The agent-canvas binary exposes a single ingress port; API calls are proxied
+// The agent-studio binary exposes a single ingress port; API calls are proxied
 // through it, so BACKEND_URL = ingress URL (no separate backend port).
 export const MOCK_LLM_PORT = process.env.MOCK_LLM_PORT ?? "9999";
 
@@ -715,7 +715,7 @@ export const BACKEND_ONLY_INGRESS_PORT =
 export const BACKEND_ONLY_URL = `http://localhost:${BACKEND_ONLY_INGRESS_PORT}`;
 
 // Mock automation helpers removed — the automation test now hits the real
-// automation backend running inside the bin/agent-canvas.mjs stack.
+// automation backend running inside the bin/agent-studio.mjs stack.
 
 // ═══════════════════════════════════════════════════════════════════════
 // ACP agent configuration helpers

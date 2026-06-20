@@ -164,7 +164,7 @@ describe("ManageBackendsModal", () => {
     );
     expect(
       screen.getByTestId("manage-backends-status-detail-Local"),
-    ).toHaveTextContent("Agent Canvas requires agent-server 1.28.0 or newer");
+    ).toHaveTextContent("BezotCorp Agent Studio requires agent-server 1.28.0 or newer");
   });
 
   it("closes when the header close button is clicked", async () => {

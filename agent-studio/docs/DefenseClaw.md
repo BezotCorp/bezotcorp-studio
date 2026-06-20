@@ -1,8 +1,8 @@
-# Integrating DefenseClaw with Agent Canvas
+# Integrating DefenseClaw with BezotCorp Agent Studio
 
-[DefenseClaw](https://github.com/cisco-ai-defense/defenseclaw) is a security governance layer for agentic AI runtimes — it scans skills and MCP servers before they run, inspects LLM traffic at runtime, and produces durable audit evidence. This guide explains how to run DefenseClaw alongside the [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server) that powers Agent Canvas, without making any code-level changes to either project.
+[DefenseClaw](https://github.com/cisco-ai-defense/defenseclaw) is a security governance layer for agentic AI runtimes — it scans skills and MCP servers before they run, inspects LLM traffic at runtime, and produces durable audit evidence. This guide explains how to run DefenseClaw alongside the [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server) that powers BezotCorp Agent Studio, without making any code-level changes to either project.
 
-> **Status:** DefenseClaw is purpose-built around the OpenClaw runtime and its TypeScript plugin hooks. The integration described here targets the lowest-friction overlap points — skill injection, LLM proxying, CLI scanning, and audit export — that work without modifying Agent Canvas or DefenseClaw source code. [Future work](#future-work-code-level-extensions) describes deeper hooks that would require code changes.
+> **Status:** DefenseClaw is purpose-built around the OpenClaw runtime and its TypeScript plugin hooks. The integration described here targets the lowest-friction overlap points — skill injection, LLM proxying, CLI scanning, and audit export — that work without modifying BezotCorp Agent Studio or DefenseClaw source code. [Future work](#future-work-code-level-extensions) describes deeper hooks that would require code changes.
 
 ---
 
@@ -10,7 +10,7 @@
 
 ```mermaid
 flowchart TD
-    UI["Agent Canvas (browser)"]
+    UI["BezotCorp Agent Studio (browser)"]
     AS["OpenHands Agent Server\nlocalhost:18000"]
     GP["DefenseClaw Guardrail Proxy\nlocalhost:4000"]
     LLM["LLM Provider"]
@@ -30,7 +30,7 @@ flowchart TD
 
 **Shared concepts:**
 
-| Agent Canvas / Agent Server | DefenseClaw equivalent |
+| BezotCorp Agent Studio / Agent Server | DefenseClaw equivalent |
 |---|---|
 | Skills (`.agents/skills/`) | Skills (scanned by `cisco-ai-skill-scanner` + CodeGuard) |
 | MCP servers | MCP servers (scanned by `cisco-ai-mcp-scanner`) |
@@ -44,7 +44,7 @@ flowchart TD
 
 | Component | Version |
 |---|---|
-| Agent Canvas / Agent Server | Current `main` |
+| BezotCorp Agent Studio / Agent Server | Current `main` |
 | Python | 3.10+ |
 | Go | 1.26.2+ (for DefenseClaw gateway) |
 | DefenseClaw | Latest release |
@@ -75,9 +75,9 @@ Start the Go gateway sidecar (keep this running alongside the Agent Server):
 defenseclaw-gateway start
 ```
 
-### 2. Start Agent Canvas
+### 2. Start BezotCorp Agent Studio
 
-Follow the standard [Agent Canvas quickstart](../README.md). The integration steps below assume the Agent Server is reachable at `http://localhost:18000`.
+Follow the standard [BezotCorp Agent Studio quickstart](../README.md). The integration steps below assume the Agent Server is reachable at `http://localhost:18000`.
 
 ---
 
@@ -111,9 +111,9 @@ The Agent Server loads skills from these directories automatically at conversati
 
 The DefenseClaw guardrail proxy runs on `localhost:4000` and acts as an OpenAI-compatible reverse proxy. Pointing the Agent Server's LLM calls through it causes every prompt and completion to be inspected — in observe mode (log only) or action mode (block on policy violations).
 
-**Configure the LLM base URL in Agent Canvas:**
+**Configure the LLM base URL in BezotCorp Agent Studio:**
 
-Open the Agent Canvas settings panel → select your active backend → under **LLM settings**, set **Base URL** to:
+Open the BezotCorp Agent Studio settings panel → select your active backend → under **LLM settings**, set **Base URL** to:
 
 ```
 http://localhost:4000
@@ -166,7 +166,7 @@ defenseclaw skill list
 
 The scanner applies `cisco-ai-skill-scanner` rules plus CodeGuard static analysis and emits a verdict (`PASS`, `WARN`, `BLOCK`) with per-finding details. HIGH and CRITICAL findings block skill use in action mode.
 
-**Workflow recommendation:** Add `defenseclaw skill scan <skill-dir>` as a pre-commit or CI step in repositories that ship skills for Agent Canvas.
+**Workflow recommendation:** Add `defenseclaw skill scan <skill-dir>` as a pre-commit or CI step in repositories that ship skills for BezotCorp Agent Studio.
 
 ---
 
@@ -245,7 +245,7 @@ The TUI panels cover:
 
 ## Future Work: Code-Level Extensions
 
-The following integrations would require changes to Agent Canvas, the Agent Server, or DefenseClaw, but would significantly deepen the security posture.
+The following integrations would require changes to BezotCorp Agent Studio, the Agent Server, or DefenseClaw, but would significantly deepen the security posture.
 
 ### 1. Native `SecurityAnalyzer` hook
 
@@ -273,9 +273,9 @@ The Agent Server's `skills_service.py` (`service_install_skill`) runs skill vali
 
 The Agent Server loads `.openhands/hooks.json` from the workspace. An `on_conversation_end` hook that runs `defenseclaw codeguard scan <workspace>` and writes findings to a structured report file would give per-session security evidence without manual operator intervention.
 
-### 4. Agent Canvas security dashboard
+### 4. BezotCorp Agent Studio security dashboard
 
-A dedicated panel in the Agent Canvas UI that queries DefenseClaw's gateway REST API (`GET /alerts`, `GET /enforce/blocked`) would surface guardrail findings inline with the conversation view — correlating blocked prompts or tool calls with the agent turn that triggered them.
+A dedicated panel in the BezotCorp Agent Studio UI that queries DefenseClaw's gateway REST API (`GET /alerts`, `GET /enforce/blocked`) would surface guardrail findings inline with the conversation view — correlating blocked prompts or tool calls with the agent turn that triggered them.
 
 ### 5. Agent Server → DefenseClaw audit bridge
 
@@ -296,7 +296,7 @@ DefenseClaw's registry system (`defenseclaw registry add`) ingests external skil
 - [DefenseClaw CodeGuard Skill](https://github.com/cisco-ai-defense/defenseclaw/blob/main/skills/codeguard/SKILL.md)
 - [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server)
 - [OpenHands SDK Security Analyzer](https://docs.openhands.dev/sdk/arch/security.md)
-- [Agent Canvas Self-Hosting](../SELF_HOSTING.md)
+- [BezotCorp Agent Studio Self-Hosting](../SELF_HOSTING.md)
 
 ---
 

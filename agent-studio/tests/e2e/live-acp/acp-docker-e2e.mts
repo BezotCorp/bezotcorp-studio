@@ -1,5 +1,5 @@
 /**
- * Live e2e for the containerized ACP path (agent-canvas#1013/#1014).
+ * Live e2e for the containerized ACP path (agent-studio#1013/#1014).
  *
  * Exercises CANVAS'S OWN code path — it saves each credential to the
  * agent-server's secret store via {@link SecretsService.createSecret} (exactly

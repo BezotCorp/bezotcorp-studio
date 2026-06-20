@@ -152,7 +152,7 @@ describe("cloud settings", () => {
   });
 });
 
-describe("saveCloudSettings drops agent_context: null (agent-canvas#981)", () => {
+describe("saveCloudSettings drops agent_context: null (agent-studio#981)", () => {
   it("strips a null agent_context while preserving sibling agent settings", async () => {
     // Arrange: the cloud rejects agent_context: null against OpenHandsAgentSettings.
     vi.mocked(axios.request).mockResolvedValue({ data: {} });

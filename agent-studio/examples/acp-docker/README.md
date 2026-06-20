@@ -1,7 +1,7 @@
-# Containerized ACP agent-server for Agent Canvas
+# Containerized ACP agent-server for BezotCorp Agent Studio
 
 Run an ACP agent (Codex / Claude Code / Gemini CLI) against a **containerized**
-Agent Server and drive it from Agent Canvas, with credentials supplied through
+Agent Server and drive it from BezotCorp Agent Studio, with credentials supplied through
 the Canvas UI. This is the local-Docker counterpart of the cloud path — a fresh
 container has no host CLI login, so credentials come from you instead.
 

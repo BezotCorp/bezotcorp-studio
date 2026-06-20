@@ -35,7 +35,7 @@ describe("getSkillScope", () => {
   });
 
   it("classifies project skills from the workspace", () => {
-    const projectDir = "/workspace/project/agent-canvas";
+    const projectDir = "/workspace/project/agent-studio";
     expect(
       getSkillScope(
         buildSkill({

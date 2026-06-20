@@ -2,7 +2,7 @@
  * Mock-LLM E2E tests for partial stack modes (--frontend-only, --backend-only)
  * and port conflict handling.
  *
- * These tests spawn `bin/agent-canvas.mjs` with partial-stack flags and verify:
+ * These tests spawn `bin/agent-studio.mjs` with partial-stack flags and verify:
  *   1. --frontend-only: static frontend is served, backend APIs return 503
  *   2. --backend-only: backend APIs work, frontend root returns 503
  *   3. Port conflict: binary fails with a clear error when the port is busy,
@@ -34,11 +34,11 @@ const PROJECT_ROOT = resolve(
   dirname(fileURLToPath(import.meta.url)),
   "../../../..",
 );
-const BIN = join(PROJECT_ROOT, "bin/agent-canvas.mjs");
+const BIN = join(PROJECT_ROOT, "bin/agent-studio.mjs");
 
 // ── Helpers ────────────────────────────────────────────────────────────
 
-/** Spawn `bin/agent-canvas.mjs` with the given CLI flags and env overrides. */
+/** Spawn `bin/agent-studio.mjs` with the given CLI flags and env overrides. */
 function spawnAgentCanvas(
   flags: string[],
   env: Record<string, string> = {},
@@ -186,7 +186,7 @@ test.describe("partial stack: --frontend-only", () => {
   }) => {
     test.setTimeout(60_000);
 
-    // These tests spawn bin/agent-canvas.mjs locally, which needs a
+    // These tests spawn bin/agent-studio.mjs locally, which needs a
     // pre-built frontend. Skip when running in Docker-only CI (no local build).
     test.skip(
       !existsSync(join(PROJECT_ROOT, "build/index.html")),

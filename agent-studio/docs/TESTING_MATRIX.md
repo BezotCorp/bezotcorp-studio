@@ -1,4 +1,4 @@
-# Agent Canvas — Testing Matrix
+# BezotCorp Agent Studio — Testing Matrix
 
 **Priority key:** P0 = must pass before any release · P1 = must pass before GA · P2 = best-effort
 

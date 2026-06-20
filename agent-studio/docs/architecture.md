@@ -1,17 +1,17 @@
-# Agent Canvas architecture
+# BezotCorp Agent Studio architecture
 
-Agent Canvas is a React and TypeScript frontend for running and monitoring OpenHands agents across local, remote, and hosted environments. It is adapted from the OpenHands frontend to talk directly to the OpenHands Agent Server and related automation services.
+BezotCorp Agent Studio is a React and TypeScript frontend for running and monitoring OpenHands agents across local, remote, and hosted environments. It is adapted from the OpenHands frontend to talk directly to the OpenHands Agent Server and related automation services.
 
 ## System boundaries
 
-Agent Canvas is responsible for:
+BezotCorp Agent Studio is responsible for:
 
 - Rendering the agent conversation, terminal, browser, files, settings, and automation UI.
 - Managing frontend state for conversations, backend selection, settings, profiles, and local metadata.
 - Translating UI actions into OpenHands Agent Server API calls.
 - Packaging the UI both as a standalone app and as library entrypoints for host applications.
 
-Agent Canvas is not responsible for:
+BezotCorp Agent Studio is not responsible for:
 
 - Executing agent actions directly.
 - Providing the sandbox or workspace isolation layer.
@@ -20,7 +20,7 @@ Agent Canvas is not responsible for:
 
 ## Runtime services
 
-The primary backend is the [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server/openhands/agent_server). Agent Canvas can connect to one or more Agent Server instances and switch between them from the UI.
+The primary backend is the [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server/openhands/agent_server). BezotCorp Agent Studio can connect to one or more Agent Server instances and switch between them from the UI.
 
 Optional runtime services include:
 
@@ -44,7 +44,7 @@ The most important source areas are:
 
 ## Runtime modes
 
-Agent Canvas supports several modes:
+BezotCorp Agent Studio supports several modes:
 
 | Mode | Purpose |
 |---|---|
@@ -53,13 +53,13 @@ Agent Canvas supports several modes:
 | `npm run dev:automation` | Starts the local stack with an automation backend. |
 | `npm run dev:mock` | Runs the frontend against MSW mocks for UI development and tests. |
 | `npm run build` | Builds the standalone application. |
-| `npm run build:lib` | Builds library entrypoints for embedding Agent Canvas components. |
+| `npm run build:lib` | Builds library entrypoints for embedding BezotCorp Agent Studio components. |
 
 ## Packaging and distribution
 
-The npm package is `@openhands/agent-canvas`. The package exposes:
+The npm package is `@bezotcorp/agent-studio`. The package exposes:
 
-- The `agent-canvas` binary for launching a local stack.
+- The `agent-studio` binary for launching a local stack.
 - A standalone app build.
 - Library entrypoints for browser, conversation, files, settings, sidebar, terminal, and i18n modules.
 

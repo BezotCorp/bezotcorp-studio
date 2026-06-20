@@ -148,7 +148,7 @@ describe("buildConfig", () => {
 
   /**
    * Build an env that points persisted dev API key files at a fresh temp dir,
-   * so tests don't write to the user's real ~/.openhands/agent-canvas files.
+   * so tests don't write to the user's real ~/.openhands/agent-studio files.
    *
    * Also redirects all service ports to high port numbers so that buildConfig's
    * assertPortsFree check passes even when a real dev stack is running on the
@@ -282,7 +282,7 @@ describe("buildConfig", () => {
     const config = await buildConfig({}, envWithIsolatedKeyPath());
 
     expect(config.stateDir).toBe(
-      path.join(homedir(), ".openhands", "agent-canvas"),
+      path.join(homedir(), ".openhands", "agent-studio"),
     );
   });
 
@@ -517,7 +517,7 @@ describe("dev-with-automation CLI", () => {
     const [code] = await once(child, "exit");
 
     expect(code).toBe(0);
-    expect(output).toContain("Agent Canvas + Automation Development Stack");
+    expect(output).toContain("BezotCorp Agent Studio + Automation Development Stack");
     expect(output).toContain("--port");
     expect(output).toContain("--automation-ref");
     expect(output).toContain("--automation-repo");

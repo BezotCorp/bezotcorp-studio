@@ -1,6 +1,6 @@
 ---
 name: release
-description: Guide the release process for @openhands/agent-canvas — version bump on the release branch, QA, then tag to publish to npm and Docker.
+description: Guide the release process for @bezotcorp/agent-studio — version bump on the release branch, QA, then tag to publish to npm and Docker.
 triggers:
 - release
 - new release
@@ -9,7 +9,7 @@ triggers:
 - bump version
 ---
 
-# Release Process for @openhands/agent-canvas
+# Release Process for @bezotcorp/agent-studio
 
 ## Overview
 
@@ -101,7 +101,7 @@ const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
 config.versions.agentCanvas = version;
 fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + "\n");
 const image = `${config.images.agentCanvas}:${version}`;
-const imageRefPattern = /ghcr\.io\/openhands\/agent-canvas:[^\s`"]+/g;
+const imageRefPattern = /ghcr\.io\/openhands\/agent-studio:[^\s`"]+/g;
 for (const file of ["README.md", "README.windows.md"]) {
   fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace(imageRefPattern, image));
 }
@@ -148,11 +148,11 @@ Examples:
 gh release view v<version>
 
 # npm (allow ~2 min for publish to propagate)
-npm view @openhands/agent-canvas@<version>
-npm view @openhands/agent-canvas dist-tags  # confirm correct dist-tag
+npm view @bezotcorp/agent-studio@<version>
+npm view @bezotcorp/agent-studio dist-tags  # confirm correct dist-tag
 
 # Docker
-docker pull ghcr.io/openhands/agent-canvas:<version>
+docker pull ghcr.io/bezotcorp/agent-studio:<version>
 ```
 
 Monitor workflow runs:

@@ -18,9 +18,9 @@ import { describe, expect, it } from "vitest";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
-describe("agent-canvas CLI", () => {
+describe("agent-studio CLI", () => {
   it("shows usage info in --help output", async () => {
-    const child = spawn(process.execPath, ["bin/agent-canvas.mjs", "--help"], {
+    const child = spawn(process.execPath, ["bin/agent-studio.mjs", "--help"], {
       cwd: repoRoot,
       stdio: ["ignore", "pipe", "pipe"],
     });
@@ -39,7 +39,7 @@ describe("agent-canvas CLI", () => {
 
     expect(code).toBe(0);
     expect(stderr).toBe("");
-    expect(stdout).toContain("@openhands/agent-canvas");
+    expect(stdout).toContain("@bezotcorp/agent-studio");
     expect(stdout).toContain("USAGE:");
     expect(stdout).toContain("--frontend-only");
     expect(stdout).toContain("--backend-only");
@@ -47,16 +47,16 @@ describe("agent-canvas CLI", () => {
   });
 
   it("does not require build/ in --backend-only mode", async () => {
-    const tempRoot = mkdtempSync(resolve(tmpdir(), "agent-canvas-bin-"));
-    const stubBinDir = mkdtempSync(resolve(tmpdir(), "agent-canvas-stub-bin-"));
-    const badSdkDir = mkdtempSync(resolve(tmpdir(), "agent-canvas-bad-sdk-"));
+    const tempRoot = mkdtempSync(resolve(tmpdir(), "agent-studio-bin-"));
+    const stubBinDir = mkdtempSync(resolve(tmpdir(), "agent-studio-stub-bin-"));
+    const badSdkDir = mkdtempSync(resolve(tmpdir(), "agent-studio-bad-sdk-"));
     const isWindows = process.platform === "win32";
 
     try {
       mkdirSync(resolve(tempRoot, "bin"));
       copyFileSync(
-        resolve(repoRoot, "bin", "agent-canvas.mjs"),
-        resolve(tempRoot, "bin", "agent-canvas.mjs"),
+        resolve(repoRoot, "bin", "agent-studio.mjs"),
+        resolve(tempRoot, "bin", "agent-studio.mjs"),
       );
       symlinkSync(
         resolve(repoRoot, "scripts"),
@@ -79,7 +79,7 @@ describe("agent-canvas CLI", () => {
 
       const child = spawn(
         process.execPath,
-        [resolve(tempRoot, "bin", "agent-canvas.mjs"), "--backend-only"],
+        [resolve(tempRoot, "bin", "agent-studio.mjs"), "--backend-only"],
         {
           cwd: tempRoot,
           env: {

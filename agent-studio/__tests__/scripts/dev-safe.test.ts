@@ -349,20 +349,20 @@ describe("frontend dependency preflight", () => {
   it("formats an actionable npm ci message", () => {
     const guidance = formatMissingFrontendDependenciesGuidance(
       ["cross-env"],
-      "/workspace/project/agent-canvas",
+      "/workspace/project/agent-studio",
     );
 
     expect(guidance).toContain("Frontend dependencies are not installed");
     expect(guidance).toContain("Missing npm binaries: cross-env");
     expect(guidance).toContain("npm ci");
-    expect(guidance).toContain("/workspace/project/agent-canvas");
+    expect(guidance).toContain("/workspace/project/agent-studio");
   });
 });
 
 describe("formatMissingUvxGuidance", () => {
   it("includes install, PATH, README, and fallback workflow hints", () => {
     const guidance = formatMissingUvxGuidance(
-      "/workspace/project/agent-canvas",
+      "/workspace/project/agent-studio",
     );
 
     expect(guidance).toContain(
@@ -371,7 +371,7 @@ describe("formatMissingUvxGuidance", () => {
     expect(guidance).toContain('export PATH="$HOME/.local/bin:$PATH"');
     expect(guidance).toContain("command -v uvx");
     expect(guidance).toContain(
-      path.join("/workspace/project/agent-canvas", "README.md"),
+      path.join("/workspace/project/agent-studio", "README.md"),
     );
     expect(guidance).toContain(
       "https://docs.astral.sh/uv/getting-started/installation/",
@@ -583,7 +583,7 @@ describe("buildSafeDevConfig", () => {
   }
 
   it("builds isolated default paths and ports", () => {
-    const cwd = "/workspace/project/agent-canvas";
+    const cwd = "/workspace/project/agent-studio";
 
     const config = buildSafeDevConfig(cwd, {
       OH_SESSION_API_KEY_PATH: tempKeyPath(),
@@ -595,7 +595,7 @@ describe("buildSafeDevConfig", () => {
     expect(config.backendHost).toBe("127.0.0.1:18000");
     expect(config.workingDir).toBe(config.workspacesPath);
     expect(config.stateDir).toBe(
-      path.join(homedir(), ".openhands", "agent-canvas"),
+      path.join(homedir(), ".openhands", "agent-studio"),
     );
     expect(config.tmuxTmpDir).toBe(path.join(config.stateDir, "tmux"));
     expect(config.conversationsPath).toBe(
@@ -610,7 +610,7 @@ describe("buildSafeDevConfig", () => {
   });
 
   it("honors environment overrides", () => {
-    const cwd = "/workspace/project/agent-canvas";
+    const cwd = "/workspace/project/agent-studio";
 
     const config = buildSafeDevConfig(cwd, {
       OH_CANVAS_SAFE_BACKEND_PORT: "19000",
@@ -631,7 +631,7 @@ describe("buildSafeDevConfig", () => {
   });
 
   it("honors TMUX_TMPDIR for hosts without socket-capable homes", () => {
-    const config = buildSafeDevConfig("/workspace/project/agent-canvas", {
+    const config = buildSafeDevConfig("/workspace/project/agent-studio", {
       TMUX_TMPDIR: "/tmp",
       OH_SESSION_API_KEY_PATH: tempKeyPath(),
     });
@@ -641,7 +641,7 @@ describe("buildSafeDevConfig", () => {
 
   it("falls back to the persisted session key file when no env override is set", () => {
     const keyPath = tempKeyPath();
-    const config = buildSafeDevConfig("/workspace/project/agent-canvas", {
+    const config = buildSafeDevConfig("/workspace/project/agent-studio", {
       OH_SESSION_API_KEY_PATH: keyPath,
     });
 
@@ -653,7 +653,7 @@ describe("buildSafeDevConfig", () => {
   it("reuses the same key across config builds, simulating restarts", () => {
     const keyPath = tempKeyPath();
 
-    const first = buildSafeDevConfig("/workspace/project/agent-canvas", {
+    const first = buildSafeDevConfig("/workspace/project/agent-studio", {
       OH_SESSION_API_KEY_PATH: keyPath,
     });
 
@@ -661,7 +661,7 @@ describe("buildSafeDevConfig", () => {
     // on disk is what should make the key stable.
     resetPersistedSessionApiKeyCache();
 
-    const second = buildSafeDevConfig("/workspace/project/agent-canvas", {
+    const second = buildSafeDevConfig("/workspace/project/agent-studio", {
       OH_SESSION_API_KEY_PATH: keyPath,
     });
 
@@ -674,7 +674,7 @@ describe("buildSafeDevConfig", () => {
     mkdirSync(path.dirname(keyPath), { recursive: true });
     writeFileSync(keyPath, "persisted-key-value\n");
 
-    const config = buildSafeDevConfig("/workspace/project/agent-canvas", {
+    const config = buildSafeDevConfig("/workspace/project/agent-studio", {
       LOCAL_BACKEND_API_KEY: "env-key-wins",
       OH_SESSION_API_KEY_PATH: keyPath,
     });

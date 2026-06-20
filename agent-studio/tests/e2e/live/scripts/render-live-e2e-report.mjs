@@ -3,7 +3,7 @@
 import { existsSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
 import { dirname, isAbsolute, relative, resolve } from "node:path";
 
-const DEFAULT_MARKER = "<!-- agent-canvas-live-e2e-report -->";
+const DEFAULT_MARKER = "<!-- agent-studio-live-e2e-report -->";
 
 function parseArgs(argv) {
   const args = {};
@@ -435,7 +435,7 @@ function buildReport(args) {
 
   const lines = [
     args.marker || DEFAULT_MARKER,
-    "## Agent Canvas Live E2E",
+    "## BezotCorp Agent Studio Live E2E",
     "",
     `**Status:** ${formatStatus(summary.status)}`,
   ];

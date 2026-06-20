@@ -139,13 +139,13 @@ describe("ConversationCard", () => {
         title="Conversation 1"
         selectedRepository={null}
         lastUpdatedAt="2021-10-01T12:00:00Z"
-        workspaceWorkingDir="/workspace/project/agent-canvas"
+        workspaceWorkingDir="/workspace/project/agent-studio"
       />,
     );
 
-    expect(screen.getByText("agent-canvas")).toBeInTheDocument();
+    expect(screen.getByText("agent-studio")).toBeInTheDocument();
     expect(
-      screen.getByTitle("/workspace/project/agent-canvas"),
+      screen.getByTitle("/workspace/project/agent-studio"),
     ).toBeInTheDocument();
   });
 

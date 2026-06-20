@@ -38,7 +38,7 @@ function getConfiguredBaseUrl(): string | null {
  *      `npm run dev` so the dev server has the key without a round-trip).
  *   2. `window.__AGENT_CANVAS_SESSION_API_KEY__` — injected into `index.html`
  *      at serve time by `scripts/static-server.mjs --session-api-key <key>`.
- *      This is the path used by the published `agent-canvas` binary, where
+ *      This is the path used by the published `agent-studio` binary, where
  *      `VITE_SESSION_API_KEY` is empty in the prebuilt bundle and the
  *      runtime key is generated when the user launches the CLI.
  *

@@ -3,7 +3,7 @@
  *
  * Starts three processes:
  *   1. Mock LLM server (Python, using openhands-sdk TestLLM)
- *   2. Full agent-canvas stack via bin/agent-canvas.mjs (agent-server +
+ *   2. Full agent-studio stack via bin/agent-studio.mjs (agent-server +
  *      automation backend + static frontend + ingress proxy), matching the
  *      production npm-published binary.
  *   3. A second static-server instance with `--auth-required` (public mode)
@@ -25,7 +25,7 @@ import { dirname, join, resolve } from "node:path";
 // ── Port allocation (separate from live E2E / dev to avoid collisions) ─
 const MOCK_LLM_PORT = process.env.MOCK_LLM_PORT ?? "9999";
 
-// The agent-canvas binary exposes a single ingress port that routes:
+// The agent-studio binary exposes a single ingress port that routes:
 //   /api/automation/* → automation backend
 //   /api/*, /sockets  → agent-server
 //   /*                → static frontend
@@ -113,9 +113,9 @@ export default defineConfig({
       stdout: "pipe",
       stderr: "pipe",
     },
-    // 2. Full agent-canvas stack via bin/agent-canvas.mjs
+    // 2. Full agent-studio stack via bin/agent-studio.mjs
     //
-    // This mirrors the production `npx @openhands/agent-canvas` path:
+    // This mirrors the production `npx @bezotcorp/agent-studio` path:
     //   - Pre-built static frontend served via static-server.mjs
     //   - Agent-server via uvx
     //   - Automation backend via uvx
@@ -141,7 +141,7 @@ export default defineConfig({
           "VITE_ENABLE_BROWSER_TOOLS=false",
           // Bypass npm — exec directly into node so SIGTERM reaches
           // the shutdown handler (npm swallows it).
-          "node --env-file-if-exists=.env bin/agent-canvas.mjs",
+          "node --env-file-if-exists=.env bin/agent-studio.mjs",
         ].join(" "),
       // Probe the automation list endpoint through the ingress to ensure
       // the FULL stack (agent-server + automation backend + ingress) is

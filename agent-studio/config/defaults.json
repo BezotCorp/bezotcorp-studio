@@ -13,7 +13,7 @@
 
   "images": {
     "agentServer": "ghcr.io/openhands/agent-server",
-    "agentCanvas": "ghcr.io/openhands/agent-canvas"
+    "agentCanvas": "ghcr.io/bezotcorp/agent-studio"
   },
 
   "ports": {
@@ -23,9 +23,9 @@
   },
 
   "paths": {
-    "stateSubdir": "agent-canvas",
-    "conversations": "agent-canvas/conversations",
-    "bashEvents": "agent-canvas/bash_events",
+    "stateSubdir": "agent-studio",
+    "conversations": "agent-studio/conversations",
+    "bashEvents": "agent-studio/bash_events",
     "automationDb": "automation/automations.db"
   },
 

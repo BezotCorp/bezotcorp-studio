@@ -1,6 +1,6 @@
 # Development
 
-This document is for contributors working on `agent-canvas` itself.
+This document is for contributors working on `agent-studio` itself.
 
 ## Recommended local workflow
 
@@ -14,11 +14,11 @@ For a static frontend build (better for slow networks, remote access, tunnels):
 npm run dev:static
 ```
 
-The published `agent-canvas` binary also supports partial-stack modes when you want to run the frontend and backend processes separately:
+The published `agent-studio` binary also supports partial-stack modes when you want to run the frontend and backend processes separately:
 
 ```sh
-agent-canvas --frontend-only
-agent-canvas --backend-only
+agent-studio --frontend-only
+agent-studio --backend-only
 ```
 
 Both modes still start the ingress proxy; the proxy only routes to the services started by that mode.
@@ -27,7 +27,7 @@ The dev stack uses `uvx` to run a temporary `agent-server`
 installation on `127.0.0.1:18000` and points the frontend at it. It isolates
 conversation persistence by setting separate `OH_CONVERSATIONS_PATH`,
 `OH_BASH_EVENTS_DIR`, and `OH_VSCODE_PORT` values under `.openhands-dev/`, and
-keeps its tmux sockets under `~/.openhands/agent-canvas/tmux` (via
+keeps its tmux sockets under `~/.openhands/agent-studio/tmux` (via
 `TMUX_TMPDIR`), so it does not collide with other local or cloud-backed
 OpenHands sessions. If `$HOME` is on a filesystem that does not support Unix
 domain sockets (some devcontainers, NFS/CIFS homes), set the standard

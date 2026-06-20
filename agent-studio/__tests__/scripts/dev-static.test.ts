@@ -8,7 +8,7 @@ describe("dev-static", () => {
       agentServerPort: 18000,
       ingressPort: 8000,
       sessionApiKey: "shared-session-key",
-      stateDir: "/tmp/agent-canvas-state",
+      stateDir: "/tmp/agent-studio-state",
     });
 
     // Both backends receive the same key value

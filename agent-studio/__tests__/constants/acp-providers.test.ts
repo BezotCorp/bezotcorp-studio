@@ -90,7 +90,7 @@ describe("ACP provider registry", () => {
 
 describe("getAcpProviderSecrets — containerized credentials", () => {
   // These are the credentials a fresh container (no host login) needs, sourced
-  // from the validated container contract (agent-canvas#1013/#1014) — if a
+  // from the validated container contract (agent-studio#1013/#1014) — if a
   // refactor drops one, ACP auth in a container silently breaks, so assert
   // each provider's exact field set.
   it("collects the subscription cred, api key, then base URL — in that order — for Codex", () => {
@@ -125,7 +125,7 @@ describe("getAcpProviderSecrets — containerized credentials", () => {
 
   it("renders file-content blobs as multiline secret fields", () => {
     // ``multiline`` also drives the orphaned-credential warning on backends
-    // that can't materialise file secrets (cloud, agent-canvas#1016).
+    // that can't materialise file secrets (cloud, agent-studio#1016).
     const codexBlob = getAcpProviderSecrets("codex").find(
       (f) => f.name === "CODEX_AUTH_JSON",
     );

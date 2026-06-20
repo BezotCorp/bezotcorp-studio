@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════════════════════
-# agent-canvas all-in-one entrypoint
+# agent-studio all-in-one entrypoint
 #
 # Starts three services (plus an optional fourth):
 #   1. Agent Server   on port $AGENT_SERVER_PORT  (default 18000)
@@ -42,14 +42,14 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 set -uo pipefail
 
-log() { printf '[agent-canvas] %s\n' "$*"; }
-log_error() { printf '[agent-canvas] ERROR: %s\n' "$*" >&2; }
+log() { printf '[agent-studio] %s\n' "$*"; }
+log_error() { printf '[agent-studio] ERROR: %s\n' "$*" >&2; }
 
 # ── Load centralized defaults (generated from config/defaults.json at build) ─
 # shellcheck source=/dev/null
-if [ -f /opt/agent-canvas/defaults.env ]; then
+if [ -f /opt/agent-studio/defaults.env ]; then
   # shellcheck disable=SC1091
-  . /opt/agent-canvas/defaults.env
+  . /opt/agent-studio/defaults.env
 fi
 
 PORT="${PORT:-${CONFIG_PROXY_PORT:-8000}}"
@@ -59,10 +59,10 @@ AUTOMATION_PORT="${AUTOMATION_PORT:-${CONFIG_AUTOMATION_PORT:-18001}}"
 # Persistence paths — keep settings, conversations, bash history under a
 # single well-known directory that the VOLUME directive exposes.
 OPENHANDS_DIR="${HOME}/.openhands"
-STATE_DIR="${OPENHANDS_DIR}/${CONFIG_STATE_SUBDIR:-agent-canvas}"
+STATE_DIR="${OPENHANDS_DIR}/${CONFIG_STATE_SUBDIR:-agent-studio}"
 export OH_PERSISTENCE_DIR="${OH_PERSISTENCE_DIR:-${OPENHANDS_DIR}}"
-export OH_CONVERSATIONS_PATH="${OH_CONVERSATIONS_PATH:-${OPENHANDS_DIR}/${CONFIG_CONVERSATIONS:-agent-canvas/conversations}}"
-export OH_BASH_EVENTS_DIR="${OH_BASH_EVENTS_DIR:-${OPENHANDS_DIR}/${CONFIG_BASH_EVENTS:-agent-canvas/bash_events}}"
+export OH_CONVERSATIONS_PATH="${OH_CONVERSATIONS_PATH:-${OPENHANDS_DIR}/${CONFIG_CONVERSATIONS:-agent-studio/conversations}}"
+export OH_BASH_EVENTS_DIR="${OH_BASH_EVENTS_DIR:-${OPENHANDS_DIR}/${CONFIG_BASH_EVENTS:-agent-studio/bash_events}}"
 
 # OH_SECRET_KEY is required for settings/secrets encryption. Without it the
 # agent-server refuses to return encrypted secrets → conversation creation
@@ -126,7 +126,7 @@ export AUTOMATION_AGENT_SERVER_URL="${AUTOMATION_AGENT_SERVER_URL:-http://127.0.
 # Make custom tools (e.g. canvas_ui_tool.py) importable by the agent-server
 # via tool_module_qualnames. Matches what scripts/dev-safe.mjs does with
 # OH_EXTRA_PYTHON_PATH: config.canvasToolsDir.
-export OH_EXTRA_PYTHON_PATH="${OH_EXTRA_PYTHON_PATH:-/opt/agent-canvas/tools}"
+export OH_EXTRA_PYTHON_PATH="${OH_EXTRA_PYTHON_PATH:-/opt/agent-studio/tools}"
 
 # Track child PIDs so we can clean up on exit.
 PIDS=()
@@ -159,7 +159,7 @@ PIDS+=($!)
 # ── 2. Start Automation Server ───────────────────────────────────────────────
 log "Starting automation server on port $AUTOMATION_PORT..."
 
-# Disable the automation's own frontend — agent-canvas provides the UI.
+# Disable the automation's own frontend — agent-studio provides the UI.
 export AUTOMATION_FRONTEND_DIR=""
 
 # File storage — use local filesystem unless the user has configured cloud
@@ -237,17 +237,17 @@ log "Starting frontend + proxy on port $PORT..."
 # already exports and inject it at serve time via
 # static-server.mjs --runtime-services-info. The shape comes from the same
 # builder the dev stack uses (scripts/runtime-services-info.mjs).
-RUNTIME_SERVICES_INFO="$(node /opt/agent-canvas/runtime-services-info.mjs \
+RUNTIME_SERVICES_INFO="$(node /opt/agent-studio/runtime-services-info.mjs \
   --mode docker \
   --agent-host-alias 127.0.0.1 \
   --agent-server-url "$AGENT_SERVER_URL" \
   --automation-url "$AUTOMATION_BASE_URL")"
 
 # EFFECTIVE_SESSION_KEY is set above from LOCAL_BACKEND_API_KEY or the persisted api-key.txt
-node /opt/agent-canvas/static-server.mjs \
+node /opt/agent-studio/static-server.mjs \
   --port "$PORT" \
   --host :: \
-  --dir /opt/agent-canvas/frontend \
+  --dir /opt/agent-studio/frontend \
   --session-api-key "$EFFECTIVE_SESSION_KEY" \
   --runtime-services-info "$RUNTIME_SERVICES_INFO" \
   --route "/api/automation=http://127.0.0.1:${AUTOMATION_PORT}" \
@@ -270,10 +270,10 @@ PIDS+=("$STATIC_PID")
 # ApiKeyEntryScreen gate, key rotation recovery, etc.
 if [ -n "${PUBLIC_MODE_PORT:-}" ]; then
   log "Starting public-mode frontend on port $PUBLIC_MODE_PORT (--auth-required)..."
-  node /opt/agent-canvas/static-server.mjs \
+  node /opt/agent-studio/static-server.mjs \
     --port "$PUBLIC_MODE_PORT" \
     --host :: \
-    --dir /opt/agent-canvas/frontend \
+    --dir /opt/agent-studio/frontend \
     --auth-required \
     --runtime-services-info "$RUNTIME_SERVICES_INFO" \
     --route "/api/automation=http://127.0.0.1:${AUTOMATION_PORT}" \

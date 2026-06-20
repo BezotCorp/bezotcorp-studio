@@ -19,7 +19,7 @@
 #      https — this catches anything npm has already cached as an ssh URL
 #      and any future git deps that hit the same bug.
 #
-# See https://github.com/OpenHands/agent-canvas/issues/384 for the original
+# See https://github.com/BezotCorp/bezotcorp-studio/issues/384 for the original
 # bug report.
 set -euo pipefail
 

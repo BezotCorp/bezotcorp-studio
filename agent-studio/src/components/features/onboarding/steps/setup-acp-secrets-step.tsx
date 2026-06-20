@@ -93,7 +93,7 @@ export function SetupAcpSecretsStep({
   // masked ``secret`` field (blob, OAuth token, or API key), typed now or
   // previously saved. A base URL or GCP project/location alone can't
   // authenticate anything, so it doesn't count — and neither does a file blob
-  // on a backend that can't materialise it (cloud, agent-canvas#1016): the
+  // on a backend that can't materialise it (cloud, agent-studio#1016): the
   // save flow warns it's orphaned, so it can't be what satisfies the gate.
   // An existing login also satisfies it.
   const satisfied =

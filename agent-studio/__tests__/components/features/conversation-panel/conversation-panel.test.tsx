@@ -1377,7 +1377,7 @@ describe("ConversationPanel", () => {
             id: "old-with-repo",
             title: "Old With Repo",
             updated_at: olderIso(),
-            selected_repository: "openhands/agent-canvas",
+            selected_repository: "openhands/agent-studio",
             selected_branch: "main",
             git_provider: "github",
           }),
@@ -1400,7 +1400,7 @@ describe("ConversationPanel", () => {
 
       expect(
         await screen.findByTestId("conversation-card-selected-repository"),
-      ).toHaveTextContent("openhands/agent-canvas");
+      ).toHaveTextContent("openhands/agent-studio");
       expect(
         await screen.findByTestId("conversation-card-selected-branch"),
       ).toHaveTextContent("main");

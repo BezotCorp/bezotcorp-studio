@@ -361,7 +361,7 @@ describe("OnboardingModal", () => {
     await user.keyboard("{Escape}");
 
     // Assert: neither dismisses the flow nor marks onboarding completed
-    // (https://github.com/OpenHands/agent-canvas/issues/1085); the modal
+    // (https://github.com/BezotCorp/bezotcorp-studio/issues/1085); the modal
     // only closes via explicit actions (Skip / launch).
     expect(onClose).not.toHaveBeenCalled();
     expect(screen.getByTestId("onboarding-modal")).toBeInTheDocument();

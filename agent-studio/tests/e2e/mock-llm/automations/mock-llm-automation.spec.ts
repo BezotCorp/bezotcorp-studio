@@ -6,7 +6,7 @@
  *
  *   1. Setup: configure mock LLM profile and register a scripted trajectory
  *      whose terminal tool calls hit the REAL automation backend (running
- *      inside the bin/agent-canvas.mjs stack). The trajectory includes extra
+ *      inside the bin/agent-studio.mjs stack). The trajectory includes extra
  *      responses for the automation run's spawned conversation so it can
  *      finish and report COMPLETED.
  *   2. Conversation: type a prompt in the home chat launcher → mock LLM
@@ -19,7 +19,7 @@
  *      navigates to the correct conversation page.
  *
  * No mock automation server is used — the real automation backend started by
- * bin/agent-canvas.mjs handles all /api/automation/* requests. The agent's
+ * bin/agent-studio.mjs handles all /api/automation/* requests. The agent's
  * terminal commands authenticate with X-Session-API-Key header using the
  * stack's session API key.
  */
@@ -462,7 +462,7 @@ test.describe("mock-LLM automation lifecycle", () => {
       ).toBeTruthy();
 
       // Verify the block includes key services that should be present
-      // in the full agent-canvas stack (agent-server + automation + ingress).
+      // in the full agent-studio stack (agent-server + automation + ingress).
       expect(runtimeBlock).toContain("Agent Server");
       expect(runtimeBlock).toContain("Automation backend");
       expect(runtimeBlock).toContain("/api/automation");

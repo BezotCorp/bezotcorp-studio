@@ -29,7 +29,7 @@ function isInvalidTimestamp(dateStr: string | null | undefined): boolean {
 }
 
 function getConversationUrl(conversationId: string): string {
-  // In agent-canvas, conversations are at /conversations/:id
+  // In agent-studio, conversations are at /conversations/:id
   return `/conversations/${conversationId}`;
 }
 

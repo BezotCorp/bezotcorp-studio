@@ -1,10 +1,10 @@
 /**
- * Shared file logger for agent-canvas dev scripts.
+ * Shared file logger for agent-studio dev scripts.
  *
  * Writes log output to a daily-rotating file under <project-root>/logs/
  * alongside the existing console output (which is unchanged).
  *
- * File naming:  logs/agent-canvas.YYYY-MM-DD.log
+ * File naming:  logs/agent-studio.YYYY-MM-DD.log
  * Retention:    7 days (files older than 7 days are automatically deleted)
  */
 
@@ -16,11 +16,11 @@ import { createLogger, format } from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
 
 // Mirror the state-directory logic from dev-safe.mjs so log files live
-// alongside all other agent-canvas runtime state (e.g. ~/.openhands/agent-canvas).
+// alongside all other agent-studio runtime state (e.g. ~/.openhands/agent-studio).
 // The same env var (OH_CANVAS_SAFE_STATE_DIR) overrides both.
 const stateDir =
   process.env.OH_CANVAS_SAFE_STATE_DIR ||
-  join(homedir(), ".openhands", "agent-canvas");
+  join(homedir(), ".openhands", "agent-studio");
 const logDir = join(stateDir, "logs");
 
 // Ensure the logs directory exists before the transport tries to open a file.
@@ -40,7 +40,7 @@ export function stripAnsi(str) {
 
 const fileTransport = new DailyRotateFile({
   dirname: logDir,
-  filename: "agent-canvas.%DATE%.log",
+  filename: "agent-studio.%DATE%.log",
   datePattern: "YYYY-MM-DD",
   maxFiles: "7d",
   // Audit file tracks which rotated files exist; kept alongside log files.

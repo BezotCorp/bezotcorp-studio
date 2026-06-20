@@ -1,7 +1,7 @@
 /**
  * Telemetry service for tracking library usage.
  *
- * This module handles anonymous telemetry for the @openhands/agent-canvas package
+ * This module handles anonymous telemetry for the @bezotcorp/agent-studio package
  * using the PostHog SDK for reliable event delivery with batching, retry logic,
  * and offline support.
  *

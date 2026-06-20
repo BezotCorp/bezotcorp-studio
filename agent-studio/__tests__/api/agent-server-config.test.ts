@@ -145,7 +145,7 @@ describe("isAuthRequiredAndMissing", () => {
   });
 });
 
-// Covers the published `agent-canvas` binary path: the prebuilt bundle has
+// Covers the published `agent-studio` binary path: the prebuilt bundle has
 // no VITE_SESSION_API_KEY baked in, but `scripts/static-server.mjs` injects
 // the runtime key into `window.__AGENT_CANVAS_SESSION_API_KEY__`. Without
 // this fallback, `makeDefaultLocalBackend()` returns null on a fresh install

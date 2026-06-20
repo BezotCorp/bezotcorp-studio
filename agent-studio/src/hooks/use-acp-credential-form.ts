@@ -20,7 +20,7 @@ export interface AcpCredentialForm {
   /** ``[credential, conflicting]`` pairs currently both set (typed or saved). */
   conflicts: Array<[string, string]>;
   /** Whether the active backend can materialise file-content (``multiline``)
-   * credentials to disk. False on cloud (agent-canvas#1016), where such a
+   * credentials to disk. False on cloud (agent-studio#1016), where such a
    * credential would be orphaned. */
   consumesFileCredentials: boolean;
   /** At least one field has a non-blank typed value. */

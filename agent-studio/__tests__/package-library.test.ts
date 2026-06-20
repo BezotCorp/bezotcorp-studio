@@ -17,8 +17,8 @@ const packageJson = JSON.parse(
 };
 
 describe("package library metadata", () => {
-  it("publishes the agent-canvas package entrypoints", () => {
-    expect(packageJson.name).toBe("@openhands/agent-canvas");
+  it("publishes the agent-studio package entrypoints", () => {
+    expect(packageJson.name).toBe("@bezotcorp/agent-studio");
     expect(packageJson.main).toBe("./dist/index.cjs");
     expect(packageJson.module).toBe("./dist/index.js");
     expect(packageJson.types).toBe("./dist/index.d.ts");

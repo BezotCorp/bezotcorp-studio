@@ -3,7 +3,7 @@
 import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { dirname, isAbsolute, relative, resolve } from "node:path";
 
-const DEFAULT_MARKER = "<!-- agent-canvas-live-e2e-report -->";
+const DEFAULT_MARKER = "<!-- agent-studio-live-e2e-report -->";
 const API_ROOT = process.env.GITHUB_API_URL ?? "https://api.github.com";
 
 function parseArgs(argv) {

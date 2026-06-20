@@ -103,7 +103,7 @@ describe("static-server.mjs", () => {
     // <RUNTIME_SERVICES> block is populated from this injected window global
     // (see `parseRuntimeServicesInfo()` in src/api/agent-server-adapter.ts).
     it("exposes the JSON on window.__AGENT_CANVAS_RUNTIME_SERVICES_INFO__", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       writeFileSync(
         path.join(buildDir, "index.html"),
@@ -127,7 +127,7 @@ describe("static-server.mjs", () => {
     });
 
     it("does not inject when runtimeServicesInfo is null", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       writeFileSync(
         path.join(buildDir, "index.html"),
@@ -169,7 +169,7 @@ describe("static-server.mjs", () => {
     }
 
     it("injects session key script into index.html", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       writeFileSync(
         path.join(buildDir, "index.html"),
@@ -186,7 +186,7 @@ describe("static-server.mjs", () => {
       expect(body).toContain("sessionApiKey");
     });
 
-    // Regression test: the published `agent-canvas` binary builds without
+    // Regression test: the published `agent-studio` binary builds without
     // VITE_SESSION_API_KEY baked in, so the React app reads the key from
     // `window.__AGENT_CANVAS_SESSION_API_KEY__` (see
     // `getBakedSessionApiKey()` in `src/api/agent-server-config.ts`).
@@ -194,7 +194,7 @@ describe("static-server.mjs", () => {
     // on a fresh install and the user gets the Manage Backends modal
     // instead of onboarding.
     it("exposes the session key on window.__AGENT_CANVAS_SESSION_API_KEY__", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       writeFileSync(
         path.join(buildDir, "index.html"),
@@ -217,7 +217,7 @@ describe("static-server.mjs", () => {
     });
 
     it("injects session key into SPA fallback index.html", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       writeFileSync(
         path.join(buildDir, "index.html"),
@@ -233,7 +233,7 @@ describe("static-server.mjs", () => {
     });
 
     it("does not inject into non-html asset responses", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       mkdirSync(path.join(buildDir, "assets"));
       writeFileSync(
@@ -254,7 +254,7 @@ describe("static-server.mjs", () => {
     });
 
     it("sets Cache-Control: no-cache for injected index.html", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       writeFileSync(
         path.join(buildDir, "index.html"),
@@ -268,7 +268,7 @@ describe("static-server.mjs", () => {
     });
 
     it("does not inject when sessionApiKey is null", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       writeFileSync(
         path.join(buildDir, "index.html"),
@@ -294,7 +294,7 @@ describe("static-server.mjs", () => {
     });
 
     it("injects session key into HTML without </head> tag (falls back to </body>)", async () => {
-      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+      const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
       tempDirs.push(buildDir);
       writeFileSync(
         path.join(buildDir, "index.html"),
@@ -315,7 +315,7 @@ describe("static-server.mjs", () => {
   });
 
   it("serves nested build assets on all platforms", async () => {
-    const buildDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-build-"));
+    const buildDir = mkdtempSync(path.join(tmpdir(), "agent-studio-build-"));
     tempDirs.push(buildDir);
     mkdirSync(path.join(buildDir, "assets"));
     writeFileSync(path.join(buildDir, "index.html"), "<main>app</main>");
@@ -335,7 +335,7 @@ describe("static-server.mjs", () => {
   });
 
   it("keeps paths confined to the static directory", async () => {
-    const parentDir = mkdtempSync(path.join(tmpdir(), "agent-canvas-parent-"));
+    const parentDir = mkdtempSync(path.join(tmpdir(), "agent-studio-parent-"));
     tempDirs.push(parentDir);
     const buildDir = path.join(parentDir, "build");
     mkdirSync(buildDir);

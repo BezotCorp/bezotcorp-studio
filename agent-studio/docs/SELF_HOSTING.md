@@ -1,10 +1,10 @@
-# Self-Hosting Agent Canvas on a Virtual Machine
+# Self-Hosting BezotCorp Agent Studio on a Virtual Machine
 
-This guide walks through running Agent Canvas on a virtual machine (VM) so you
+This guide walks through running BezotCorp Agent Studio on a virtual machine (VM) so you
 can reach it from anywhere via a browser.
 
 > [!WARNING]
-> Agent Canvas drives an agent that can read and write the filesystem of the
+> BezotCorp Agent Studio drives an agent that can read and write the filesystem of the
 > machine it runs on, execute shell commands, and reach the network. Anyone who
 > can talk to the agent server can do the same. **Treat the VM as you would any
 > machine that holds production credentials**, and lock it down before exposing
@@ -14,9 +14,9 @@ can reach it from anywhere via a browser.
 
 1. **Provision a machine** — a cloud VM or dedicated hardware (Mac Mini, NUC, etc.)
 2. **Secure the machine** — lock down the network firewall
-3. **Run Agent Canvas** — generate a key with `openssl rand -base64 32`, then `export LOCAL_BACKEND_API_KEY=<key>` and `npx @openhands/agent-canvas --public`
+3. **Run BezotCorp Agent Studio** — generate a key with `openssl rand -base64 32`, then `export LOCAL_BACKEND_API_KEY=<key>` and `npx @bezotcorp/agent-studio --public`
 4. **(Optional) Get a domain** — point a domain at the machine with nginx + Let's Encrypt for TLS
-5. **(Optional) Connect locally** — add the remote as a backend in your local Agent Canvas
+5. **(Optional) Connect locally** — add the remote as a backend in your local BezotCorp Agent Studio
 
 ## Details
 
@@ -40,7 +40,7 @@ flowchart LR
     user -- "HTTPS / 443" --> nginx
 ```
 
-`npx @openhands/agent-canvas --public` spins up the static frontend server,
+`npx @bezotcorp/agent-studio --public` spins up the static frontend server,
 the agent server, and the automation backend, fronted by an ingress proxy on
 `127.0.0.1:8000` that routes by path. nginx only needs to know about that
 single ingress port.
@@ -92,7 +92,7 @@ the agent (step 3) and access the UI through an SSH tunnel. If you also want
 to reach it from a browser without tunneling, you'll open ports 80 and 443
 in step 4.
 
-## 3. Run Agent Canvas
+## 3. Run BezotCorp Agent Studio
 
 Install the prerequisites on the machine. On Ubuntu:
 
@@ -106,11 +106,11 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 On macOS (Mac Mini, etc.) install Node and `uv` via `brew` instead.
 
-Start Agent Canvas in public mode:
+Start BezotCorp Agent Studio in public mode:
 
 ```bash
 export LOCAL_BACKEND_API_KEY=$(openssl rand -base64 32)   # generate once; store securely
-npx @openhands/agent-canvas --public
+npx @bezotcorp/agent-studio --public
 ```
 
 Using `export` keeps the key out of the process list (`ps aux`). The
@@ -127,22 +127,22 @@ To keep the service running after your SSH session ends, use a process manager.
 
 ```bash
 export LOCAL_BACKEND_API_KEY=<your-saved-key>
-tmux new-session -d -s canvas 'npx @openhands/agent-canvas --public'
+tmux new-session -d -s canvas 'npx @bezotcorp/agent-studio --public'
 # Reconnect later with: tmux attach -t canvas
 ```
 
 **Option B — systemd (recommended for long-term deployments):**
 
-Create `/etc/systemd/system/agent-canvas.service`:
+Create `/etc/systemd/system/agent-studio.service`:
 
 ```ini
 [Unit]
-Description=Agent Canvas
+Description=BezotCorp Agent Studio
 After=network.target
 
 [Service]
 Environment=LOCAL_BACKEND_API_KEY=<your-key>
-ExecStart=npx @openhands/agent-canvas --public
+ExecStart=npx @bezotcorp/agent-studio --public
 Restart=on-failure
 RestartSec=5
 
@@ -154,7 +154,7 @@ Then enable and start the unit:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable --now agent-canvas
+sudo systemctl enable --now agent-studio
 ```
 
 > [!WARNING]
@@ -259,14 +259,14 @@ If you see `502 Bad Gateway`, the app on `127.0.0.1:8000` is down — check
 whether the `npx` process is still running.
 
 Open `https://canvas.example.com/` in a browser, enter your
-`LOCAL_BACKEND_API_KEY`, and confirm that you land in Agent Canvas.
+`LOCAL_BACKEND_API_KEY`, and confirm that you land in BezotCorp Agent Studio.
 
-## 5. (Optional) Connect your local Agent Canvas to the remote machine
+## 5. (Optional) Connect your local BezotCorp Agent Studio to the remote machine
 
-If you already run Agent Canvas locally, you can register the remote machine
+If you already run BezotCorp Agent Studio locally, you can register the remote machine
 as an additional backend and switch between local and remote from the UI.
 
-1. In your local Agent Canvas, open **Manage backends** → **Add a backend**:
+1. In your local BezotCorp Agent Studio, open **Manage backends** → **Add a backend**:
    - **Host Name** — anything memorable, e.g. `my-vm`.
    - **Host** — the URL from step 4, e.g. `https://canvas.example.com`.
      If using an SSH tunnel instead, use `http://localhost:8000`.

@@ -75,7 +75,7 @@ vi.mock("#/api/agent-server-config", () => ({
   DEFAULT_WORKING_DIR: "workspace/project",
   getAgentServerBaseUrl: vi.fn(() => "http://localhost:54928"),
   getAgentServerSessionApiKey: vi.fn(() => "test-api-key"),
-  getAgentServerWorkingDir: vi.fn(() => "/workspace/project/agent-canvas"),
+  getAgentServerWorkingDir: vi.fn(() => "/workspace/project/agent-studio"),
   buildConversationWorkingDir: vi.fn(
     (id: string) => `/state/workspaces/${id.replace(/-/g, "")}`,
   ),
@@ -166,7 +166,7 @@ describe("AgentServerConversationService", () => {
                 created_at: "2024-01-01",
                 updated_at: "2024-01-01",
                 workspace: {
-                  working_dir: "/workspace/project/agent-canvas/conv-123",
+                  working_dir: "/workspace/project/agent-studio/conv-123",
                 },
               },
             ],
@@ -182,18 +182,18 @@ describe("AgentServerConversationService", () => {
       expect(ConversationClient).toHaveBeenCalledWith({
         host: "http://localhost:54928",
         apiKey: "test-api-key",
-        workingDir: "/workspace/project/agent-canvas",
+        workingDir: "/workspace/project/agent-studio",
       });
       expect(FileClient).toHaveBeenCalledWith({
         host: "http://localhost:54928",
         apiKey: "test-api-key",
-        workingDir: "/workspace/project/agent-canvas",
+        workingDir: "/workspace/project/agent-studio",
       });
       expect(mockHttpGet).toHaveBeenCalledWith(
         "/api/file/download",
         expect.objectContaining({
           params: {
-            path: "/workspace/project/agent-canvas/conv-123/.agents_tmp/PLAN.md",
+            path: "/workspace/project/agent-studio/conv-123/.agents_tmp/PLAN.md",
           },
           responseType: "arrayBuffer",
         }),
@@ -210,7 +210,7 @@ describe("AgentServerConversationService", () => {
                 created_at: "2024-01-01",
                 updated_at: "2024-01-01",
                 workspace: {
-                  working_dir: "/workspace/project/agent-canvas/conv-123",
+                  working_dir: "/workspace/project/agent-studio/conv-123",
                 },
               },
             ],
@@ -222,7 +222,7 @@ describe("AgentServerConversationService", () => {
       await expect(
         AgentServerConversationService.readConversationFile(
           "conv-123",
-          "/workspace/project/agent-canvas/other/PLAN.md",
+          "/workspace/project/agent-studio/other/PLAN.md",
         ),
       ).rejects.toThrow(
         "Conversation file path must stay inside the workspace",
@@ -259,7 +259,7 @@ describe("AgentServerConversationService", () => {
       expect(ConversationClient).toHaveBeenCalledWith({
         host: "http://localhost:54928",
         apiKey: "test-api-key",
-        workingDir: "/workspace/project/agent-canvas",
+        workingDir: "/workspace/project/agent-studio",
       });
       expect(mockHttpPost).toHaveBeenCalledTimes(2);
       const [firstCall, secondCall] = mockHttpPost.mock.calls;
@@ -464,7 +464,7 @@ describe("AgentServerConversationService", () => {
       await expect(
         AgentServerConversationService.updateConversationRepository(
           "missing-conv",
-          "OpenHands/agent-canvas",
+          "BezotCorp/bezot-agent-studio",
         ),
       ).rejects.toThrow("Conversation missing-conv was not found");
     });
@@ -614,7 +614,7 @@ describe("AgentServerConversationService", () => {
       });
       expect(conversation?.llm_model).toBeTruthy();
       expect(conversation?.workspace?.working_dir).toBe(
-        "/workspace/project/agent-canvas",
+        "/workspace/project/agent-studio",
       );
     });
 

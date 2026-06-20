@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1.7
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# agent-canvas all-in-one Docker image
+# agent-studio all-in-one Docker image
 #
 # Combines three services into a single image:
 #   1. Agent Server  — from ghcr.io/openhands/agent-server (upstream SDK image)
 #   2. Automation    — installed via pip from openhands-automation
-#   3. Frontend      — agent-canvas static build served by Node.js
+#   3. Frontend      — agent-studio static build served by Node.js
 #
 # The entrypoint starts all three services and an ingress proxy that unifies
 # them behind a single port (default 8000):
@@ -74,9 +74,9 @@ ARG OPENHANDS_BUILD_GIT_SHA=unknown
 ARG OPENHANDS_BUILD_GIT_REF=unknown
 
 ARG AGENT_CANVAS_VERSION=dev
-LABEL org.opencontainers.image.title="agent-canvas"
-LABEL org.opencontainers.image.description="All-in-one agent-canvas: Agent Server + Automation + Frontend"
-LABEL org.opencontainers.image.source="https://github.com/OpenHands/agent-canvas"
+LABEL org.opencontainers.image.title="agent-studio"
+LABEL org.opencontainers.image.description="All-in-one agent-studio: Agent Server + Automation + Frontend"
+LABEL org.opencontainers.image.source="https://github.com/BezotCorp/bezotcorp-studio"
 LABEL org.opencontainers.image.version="${AGENT_CANVAS_VERSION}"
 LABEL org.opencontainers.image.revision="${OPENHANDS_BUILD_GIT_SHA}"
 
@@ -102,31 +102,31 @@ RUN uv pip install --system "openhands-automation==${AUTOMATION_VERSION}" 2>/dev
 
 # Copy the frontend build output.
 # react-router.config.ts unpacks build/client/ into build/ for non-Vercel builds.
-COPY --from=frontend-build /build/build /opt/agent-canvas/frontend
+COPY --from=frontend-build /build/build /opt/agent-studio/frontend
 
 # Copy the static-server script (serves frontend + proxies to backends)
-COPY scripts/static-server.mjs /opt/agent-canvas/static-server.mjs
+COPY scripts/static-server.mjs /opt/agent-studio/static-server.mjs
 
 # Copy the runtime-services-info builder (entrypoint.sh runs it as a CLI to
 # emit the agent's <RUNTIME_SERVICES> block; same builder the dev stack uses).
-COPY scripts/runtime-services-info.mjs /opt/agent-canvas/runtime-services-info.mjs
+COPY scripts/runtime-services-info.mjs /opt/agent-studio/runtime-services-info.mjs
 
 # Copy custom tools (e.g. canvas_ui_tool.py) so the agent-server can import
 # them via tool_module_qualnames. OH_EXTRA_PYTHON_PATH is set in entrypoint.sh.
-COPY tools/ /opt/agent-canvas/tools/
+COPY tools/ /opt/agent-studio/tools/
 
 # Copy generated defaults.env (from config/defaults.json via config-gen stage)
-COPY --from=config-gen /tmp/defaults.env /opt/agent-canvas/defaults.env
+COPY --from=config-gen /tmp/defaults.env /opt/agent-studio/defaults.env
 
 # Copy the entrypoint
-COPY docker/entrypoint.sh /opt/agent-canvas/entrypoint.sh
-RUN chmod +x /opt/agent-canvas/entrypoint.sh
+COPY docker/entrypoint.sh /opt/agent-studio/entrypoint.sh
+RUN chmod +x /opt/agent-studio/entrypoint.sh
 
 # Pre-create persistence directories with correct ownership so the
 # openhands user can write to them even when Docker creates anonymous
 # volumes (which default to root).
-RUN mkdir -p /home/openhands/.openhands/agent-canvas/conversations \
-             /home/openhands/.openhands/agent-canvas/bash_events \
+RUN mkdir -p /home/openhands/.openhands/agent-studio/conversations \
+             /home/openhands/.openhands/agent-studio/bash_events \
              /home/openhands/.openhands/automation \
              /projects && \
     chown -R openhands:openhands /home/openhands/.openhands /projects
@@ -144,4 +144,4 @@ VOLUME ["/home/openhands/.openhands", "/projects"]
 # Port 8000 is the unified entry point.
 EXPOSE 8000
 
-ENTRYPOINT ["tini", "--", "/opt/agent-canvas/entrypoint.sh"]
+ENTRYPOINT ["tini", "--", "/opt/agent-studio/entrypoint.sh"]

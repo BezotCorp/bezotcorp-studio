@@ -111,8 +111,8 @@ export function buildRuntimeServicesInfo(options) {
       kind: frontendKind,
       description:
         frontendKind === "static"
-          ? "Static-file server hosting the agent-canvas production build."
-          : "Vite dev server hosting the agent-canvas frontend.",
+          ? "Static-file server hosting the agent-studio production build."
+          : "Vite dev server hosting the agent-studio frontend.",
       url_from_agent: `http://${agentHostAlias}:${frontendPort}`,
     };
   }

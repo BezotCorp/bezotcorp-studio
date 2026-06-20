@@ -69,7 +69,7 @@ export function generateRandomApiKey() {
 export const DEFAULT_API_KEY_PATH = path.join(
   homedir(),
   ".openhands",
-  "agent-canvas",
+  "agent-studio",
   "api-key.txt",
 );
 
@@ -86,7 +86,7 @@ export const DEFAULT_SESSION_API_KEY_PATH = DEFAULT_API_KEY_PATH;
 export const DEFAULT_SECRET_KEY_PATH = path.join(
   homedir(),
   ".openhands",
-  "agent-canvas",
+  "agent-studio",
   "secret-key.txt",
 );
 
@@ -242,7 +242,7 @@ function tryPort(port, host = "127.0.0.1") {
  * any are already in use.
  *
  * Intended as a pre-flight check before spawning services so that a concurrent
- * agent-canvas instance is detected immediately rather than silently starting
+ * agent-studio instance is detected immediately rather than silently starting
  * on a different port.
  *
  * @param {Array<{name: string, port: number}>} portConfigs - Named port list
@@ -262,7 +262,7 @@ export async function assertPortsFree(portConfigs, host = "127.0.0.1") {
   const lines = busy.map(({ name, port }) => `   • ${name}: port ${port}`).join("\n");
   throw new Error(
     `Cannot start: the following ports are already in use:\n\n${lines}\n\n` +
-      `Another agent-canvas instance may already be running.\n` +
+      `Another agent-studio instance may already be running.\n` +
       `Stop it first, or override the port via environment variables (e.g. PORT=<other>).`,
   );
 }
@@ -600,12 +600,12 @@ function buildConfigFromPorts(ports, cwd, env) {
   const stateDir = path.resolve(
     cwd,
     env.OH_CANVAS_SAFE_STATE_DIR ||
-      path.join(homedir(), ".openhands", "agent-canvas"),
+      path.join(homedir(), ".openhands", "agent-studio"),
   );
   const conversationsPath = path.join(stateDir, "dev_conversations");
   const workspacesPath = path.join(stateDir, "workspaces");
   // Use provided secret key, or read/generate one persisted to
-  // ~/.openhands/agent-canvas/secret-key.txt. Persisting ensures dev mode
+  // ~/.openhands/agent-studio/secret-key.txt. Persisting ensures dev mode
   // and Docker mode share the same encryption key when they mount the same
   // ~/.openhands directory (docker/entrypoint.sh reads/writes the same file).
   const secretKeyPath =
@@ -613,7 +613,7 @@ function buildConfigFromPorts(ports, cwd, env) {
   const secretKey =
     env.OH_SECRET_KEY || getOrCreatePersistedApiKey(secretKeyPath, "secret");
   // Use the user-provided LOCAL_BACKEND_API_KEY or fall back to a key
-  // persisted to ~/.openhands/agent-canvas/api-key.txt. Persisting on disk
+  // persisted to ~/.openhands/agent-studio/api-key.txt. Persisting on disk
   // keeps the agent-server, the Vite-baked VITE_SESSION_API_KEY, and any
   // `openhands-backends` localStorage entries the frontend has cached all
   // pointing at the same value across dev restarts.
@@ -637,7 +637,7 @@ function buildConfigFromPorts(ports, cwd, env) {
     vscodePort,
     stateDir,
     // tmux socket directory. Defaults to <stateDir>/tmux (under
-    // ~/.openhands/agent-canvas), matching where the rest of dev state lives
+    // ~/.openhands/agent-studio), matching where the rest of dev state lives
     // and persisting across restarts.
     //
     // Do NOT use os.tmpdir() here: on macOS it resolves to the per-user

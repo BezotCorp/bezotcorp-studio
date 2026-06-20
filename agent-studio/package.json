@@ -1,20 +1,20 @@
 {
-  "name": "@openhands/agent-canvas",
+  "name": "@bezotcorp/agent-studio",
   "version": "1.0.0-rc.6",
-  "description": "Agent Canvas UI for OpenHands - run AI coding agents with a visual interface",
+  "description": "BezotCorp Agent Studio UI for OpenHands - run AI coding agents with a visual interface",
   "license": "MIT",
   "private": false,
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OpenHands/agent-canvas"
+    "url": "https://github.com/BezotCorp/bezotcorp-studio"
   },
-  "homepage": "https://github.com/OpenHands/agent-canvas#readme",
+  "homepage": "https://github.com/BezotCorp/bezotcorp-studio#readme",
   "bugs": {
-    "url": "https://github.com/OpenHands/agent-canvas/issues"
+    "url": "https://github.com/BezotCorp/bezotcorp-studio/issues"
   },
   "bin": {
-    "agent-canvas": "bin/agent-canvas.mjs"
+    "agent-studio": "bin/agent-studio.mjs"
   },
   "engines": {
     "node": ">=22.12.0"
