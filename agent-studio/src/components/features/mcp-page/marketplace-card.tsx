@@ -1,6 +1,6 @@
 import type { KeyboardEvent } from "react";
 import { I18nKey } from "#/i18n/declaration";
-import type { IntegrationCatalogEntry as MarketplaceEntry } from "@bezotcorp/extensions/integrations";
+import type { IntegrationCatalogEntry as MarketplaceEntry } from "@bezotcorp/extensions-studio/integrations";
 import { McpLogoBadge } from "#/components/features/mcp-logo-badge";
 import { CirclePlusCheckToggle } from "#/components/shared/buttons/circle-plus-check-toggle";
 import { getDefaultMcpTransport } from "#/utils/mcp-marketplace-utils";

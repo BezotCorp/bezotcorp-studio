@@ -23,7 +23,7 @@ import {
 import {
   INTEGRATION_CATALOG as MCP_MARKETPLACE,
   type IntegrationCatalogEntry as MarketplaceEntry,
-} from "@bezotcorp/extensions/integrations";
+} from "@bezotcorp/extensions-studio/integrations";
 import { MCPServerConfig } from "#/types/mcp-server";
 import { flattenMcpConfig } from "#/utils/mcp-installed-servers";
 import {

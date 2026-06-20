@@ -5,7 +5,7 @@ import { I18nKey } from "#/i18n/declaration";
 import { McpLogoBadge } from "#/components/features/mcp-logo-badge";
 import { CirclePlusCheckToggle } from "#/components/shared/buttons/circle-plus-check-toggle";
 import { MCPServerConfig } from "#/types/mcp-server";
-import { INTEGRATION_CATALOG as MCP_MARKETPLACE } from "@bezotcorp/extensions/integrations";
+import { INTEGRATION_CATALOG as MCP_MARKETPLACE } from "@bezotcorp/extensions-studio/integrations";
 import {
   findCatalogEntryForServer,
   getMcpMarketplaceCatalog,

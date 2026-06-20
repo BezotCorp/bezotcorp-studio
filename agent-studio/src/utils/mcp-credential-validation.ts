@@ -1,4 +1,4 @@
-import { INTEGRATION_CATALOG as MCP_MARKETPLACE } from "@bezotcorp/extensions/integrations";
+import { INTEGRATION_CATALOG as MCP_MARKETPLACE } from "@bezotcorp/extensions-studio/integrations";
 import {
   findCatalogEntryForServer,
   getMcpMarketplaceCatalog,

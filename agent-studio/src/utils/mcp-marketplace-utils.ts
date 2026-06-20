@@ -4,7 +4,7 @@ import type {
   IntegrationCatalogEntry as MarketplaceEntry,
   IntegrationConnectionOption,
   IntegrationTransport,
-} from "@bezotcorp/extensions/integrations";
+} from "@bezotcorp/extensions-studio/integrations";
 
 export type { MarketplaceEntry };
 
@@ -74,7 +74,7 @@ const LINEAR_SHTTP_URL = "https://mcp.linear.app/mcp";
 const LINEAR_DOCS_URL = "https://linear.app/docs/mcp";
 
 /**
- * Upstream @bezotcorp/extensions still ships Linear's deprecated SSE
+ * Upstream @bezotcorp/extensions-studio still ships Linear's deprecated SSE
  * transport (removed upstream on 2026-04-08; the /sse endpoint now
  * rejects every call). Rewrite the entry to streamable HTTP at the
  * /mcp replacement endpoint until the pinned dependency catches up.

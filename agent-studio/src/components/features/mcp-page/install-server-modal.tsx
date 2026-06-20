@@ -11,7 +11,7 @@ import { I18nKey } from "#/i18n/declaration";
 import type {
   IntegrationCatalogEntry as MarketplaceEntry,
   MarketplaceField,
-} from "@bezotcorp/extensions/integrations";
+} from "@bezotcorp/extensions-studio/integrations";
 import { McpLogoBadge } from "#/components/features/mcp-logo-badge";
 import { ExtendedMCPTestFailure, MCPServerConfig } from "#/types/mcp-server";
 import { useAddMcpServer } from "#/hooks/mutation/use-add-mcp-server";

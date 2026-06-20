@@ -1,4 +1,4 @@
-import type { IntegrationCatalogEntry } from "@bezotcorp/extensions/integrations";
+import type { IntegrationCatalogEntry } from "@bezotcorp/extensions-studio/integrations";
 import {
   McpLogoBadge,
   type McpLogoEntry,

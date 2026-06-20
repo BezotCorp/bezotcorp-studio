@@ -1,5 +1,5 @@
 import { ACP_SETTINGS_KEYS } from "@bezotcorp/typescript-client";
-import { SKILLS_CATALOG } from "@bezotcorp/extensions/skills";
+import { SKILLS_CATALOG } from "@bezotcorp/extensions-studio/skills";
 import { DEFAULT_SETTINGS } from "#/services/settings";
 import { ExecutionStatus } from "#/types/agent-server/core";
 import { Settings, SettingsValue } from "#/types/settings";
@@ -608,7 +608,7 @@ function buildAgentContext(agentSettings: SettingsRecord): SettingsRecord {
 
   return {
     ...existingContext,
-    // Public skills are bundled at build time from the @bezotcorp/extensions
+    // Public skills are bundled at build time from the @bezotcorp/extensions-studio
     // npm package and passed directly in agent_context.skills. Setting
     // load_public_skills to false tells the agent-server SDK to skip its own
     // extensions-repo clone — the frontend is the sole source of public

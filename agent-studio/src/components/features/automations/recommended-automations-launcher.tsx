@@ -9,13 +9,13 @@ import {
   setConversationState,
   setPendingTaskDraft,
 } from "#/utils/conversation-local-storage";
-import type { RecommendedAutomation } from "@bezotcorp/extensions/automations";
+import type { RecommendedAutomation } from "@bezotcorp/extensions-studio/automations";
 import { parseMcpConfig } from "#/utils/mcp-config";
 import { flattenMcpConfig } from "#/utils/mcp-installed-servers";
 import {
   INTEGRATION_CATALOG as MCP_MARKETPLACE,
   type IntegrationCatalogEntry as MarketplaceEntry,
-} from "@bezotcorp/extensions/integrations";
+} from "@bezotcorp/extensions-studio/integrations";
 import {
   findInstalledEntryMatch,
   getMarketplaceEntryById,

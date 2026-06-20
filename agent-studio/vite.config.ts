@@ -31,7 +31,7 @@ const APP_CHUNK_MAX_BYTES = 450 * 1024;
 // resolve bundled skill resources like scripts/ and references/).
 const _require = createRequire(import.meta.url);
 const EXTENSIONS_SKILLS_DIR = resolve(
-  dirname(_require.resolve("@bezotcorp/extensions/package.json")),
+  dirname(_require.resolve("@bezotcorp/extensions-studio/package.json")),
   "skills",
 );
 const PUBLIC_LOCALES_DIR = resolve(process.cwd(), "public", "locales");

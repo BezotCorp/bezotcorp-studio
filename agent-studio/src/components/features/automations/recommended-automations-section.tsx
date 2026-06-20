@@ -4,11 +4,11 @@ import { I18nKey } from "#/i18n/declaration";
 import {
   AUTOMATION_CATALOG,
   type RecommendedAutomation,
-} from "@bezotcorp/extensions/automations";
+} from "@bezotcorp/extensions-studio/automations";
 import {
   INTEGRATION_CATALOG as MCP_MARKETPLACE,
   type IntegrationCatalogEntry as MarketplaceEntry,
-} from "@bezotcorp/extensions/integrations";
+} from "@bezotcorp/extensions-studio/integrations";
 import { McpLogoStackBadge } from "#/components/features/mcp-page/mcp-logo-stack-badge";
 import { McpLogoBadge } from "#/components/features/mcp-logo-badge";
 import {
