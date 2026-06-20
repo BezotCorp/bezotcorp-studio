@@ -3,25 +3,33 @@ name: Docker
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - dev
     tags:
       - "v*"
+
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - dev
+
   workflow_dispatch:
     inputs:
       agent_server_image:
-        description: Agent Server base image (ghcr.io/openhands/agent-server:TAG)
+        description: Agent Server base image (ghcr.io/bezotcorp/agent-server:TAG)
         type: string
         default: ""
+
       automation_version:
         description: Automation server version (pip)
         type: string
         default: ""
+
       image:
         description: GHCR image name
         type: string
-        default: ghcr.io/openhands/agent-canvas
+        default: ghcr.io/bezotcorp/agent-studio
 
 # Cancel redundant runs for the same branch/PR.
 concurrency:
@@ -33,7 +41,7 @@ permissions:
   packages: write
 
 env:
-  IMAGE: ${{ inputs.image != '' && inputs.image || 'ghcr.io/openhands/agent-canvas' }}
+  IMAGE: ${{ inputs.image != '' && inputs.image || 'ghcr.io/bezotcorp/agent-studio' }}
   # Use the PR head SHA for PR events so tags point at the actual code.
   RELEVANT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
   RELEVANT_REF: ${{ github.head_ref != '' && format('refs/heads/{0}', github.head_ref) || github.ref }}
@@ -87,10 +95,10 @@ jobs:
         id: config
         run: |
           # Single source of truth for version pins — no hardcoded values in this workflow.
-          AGENT_SERVER_VERSION=$(node -p "require('./config/defaults.json').versions.agentServer")
-          AGENT_SERVER_IMAGE_BASE=$(node -p "require('./config/defaults.json').images.agentServer")
-          AUTOMATION_VERSION=$(node -p "require('./config/defaults.json').versions.automation")
-          AGENT_CANVAS_VERSION=$(node -p "require('./package.json').version")
+          AGENT_SERVER_VERSION=$(node -p "require('./agent-studio/config/defaults.json').versions.agentServer")
+          AGENT_SERVER_IMAGE_BASE=$(node -p "require('./agent-studio/config/defaults.json').images.agentServer")
+          AUTOMATION_VERSION=$(node -p "require('./agent-studio/config/defaults.json').versions.automation")
+          AGENT_CANVAS_VERSION=$(node -p "require('./agent-studio/package.json').version")
           echo "agent_server_version=$AGENT_SERVER_VERSION" >> "$GITHUB_OUTPUT"
           echo "default_agent_server_image=${AGENT_SERVER_IMAGE_BASE}:${AGENT_SERVER_VERSION}-python" >> "$GITHUB_OUTPUT"
           echo "default_automation_version=$AUTOMATION_VERSION" >> "$GITHUB_OUTPUT"
@@ -189,8 +197,8 @@ jobs:
         id: build
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: docker/Dockerfile
+          context: agent-studio
+          file: agent-studio/docker/Dockerfile
           platforms: ${{ matrix.platform }}
           push: true
           tags: ${{ steps.prep.outputs.tags }}
@@ -198,8 +206,8 @@ jobs:
             AGENT_SERVER_IMAGE=${{ steps.prep.outputs.agent_server_image }}
             AUTOMATION_VERSION=${{ steps.prep.outputs.automation_version }}
             AGENT_CANVAS_VERSION=${{ steps.config.outputs.agent_canvas_version }}
-            OPENHANDS_BUILD_GIT_SHA=${{ env.RELEVANT_SHA }}
-            OPENHANDS_BUILD_GIT_REF=${{ env.RELEVANT_REF }}
+            BEZOTCORP_BUILD_GIT_SHA=${{ env.RELEVANT_SHA }}
+            BEZOTCORP_BUILD_GIT_REF=${{ env.RELEVANT_REF }}
             VITE_APP_ENV=${{ steps.prep.outputs.vite_app_env }}
             VITE_POSTHOG_CLIENT_KEY=${{ steps.prep.outputs.posthog_client_key }}
           cache-from: type=gha
@@ -450,7 +458,7 @@ jobs:
             --arg automation_version "$AUTOMATION_VERSION" \
             --arg git_sha "$GIT_SHA" \
             --arg git_ref "$GIT_REF" \
-            --arg ghcr_url "https://github.com/OpenHands/agent-canvas/pkgs/container/agent-canvas" \
+            --arg ghcr_url "https://github.com/BezotCorp/bezotcorp-studio/pkgs/container/agent-studio" \
             '{image: $image, short_sha: $short_sha, all_tags: $all_tags, architectures: $archs, agent_server_image: $agent_server_image, automation_version: $automation_version, git_sha: $git_sha, git_ref: $git_ref, ghcr_package_url: $ghcr_url}')
 
           echo "Consolidated build summary:"
@@ -505,7 +513,7 @@ jobs:
           | **Image** | \`${IMAGE}\` |
           | **Architectures** | ${ARCHS} |
           | **Agent Server** | \`${AGENT_SERVER_IMAGE}\` |
-          | **Automation** | \`openhands-automation==${AUTOMATION_VERSION}\` |
+          | **Automation** | \`bezot-corp-automation==${AUTOMATION_VERSION}\` |
           | **Commit** | \`${GIT_SHA}\` |
 
           **Pull (multi-arch manifest)**

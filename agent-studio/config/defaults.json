@@ -1,0 +1,38 @@
+{
+  "_comment": "Single source of truth for version pins, ports, paths, and defaults shared across the npm and Docker install paths. Read by scripts/dev-safe.mjs, scripts/dev-with-automation.mjs, docker/entrypoint.sh (via generated defaults.env), and .github/workflows/docker.yml.",
+
+  "versions": {
+    "agentServer": "1.28.1",
+    "agentCanvas": "0.0.1",
+    "automation": "1.0.0a10"
+  },
+
+  "compatibility": {
+    "minimumAgentServer": "1.28.0"
+  },
+
+  "images": {
+    "agentServer": "ghcr.io/bezotcorp/agent-server",
+    "agentCanvas": "ghcr.io/bezotcorp/agent-studio"
+  },
+
+  "ports": {
+    "agentServer": 18000,
+    "automation": 18001,
+    "proxy": 8000
+  },
+
+  "paths": {
+    "stateSubdir": "agent-studio",
+    "conversations": "agent-studio/conversations",
+    "bashEvents": "agent-studio/bash_events",
+    "automationDb": "automation/automations.db"
+  },
+
+  "packages": {
+    "agentServer": "bezotcorp-agent-server",
+    "automation": "bezotcorp-automation",
+    "tools": "bezotcorp-tools",
+    "workspace": "bezotcorp-workspace"
+  }
+}

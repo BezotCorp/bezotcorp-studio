@@ -1,7 +1,7 @@
 name: Mock-LLM Docker E2E Tests
 
 # Runs the same mock-LLM E2E test specs as mock-llm-e2e.yml, but against
-# the Docker image instead of the npm build path (bin/agent-canvas.mjs).
+# the Docker image instead of the npm build path (bin/agent-studio.mjs).
 #
 # Trigger chain:
 #   1. workflow_run — fires automatically after the "Docker" workflow
@@ -23,7 +23,7 @@ on:
   workflow_dispatch:
     inputs:
       docker_image:
-        description: "Docker image to test (e.g., ghcr.io/openhands/agent-canvas:sha-abc1234-amd64)"
+        description: "Docker image to test (e.g., ghcr.io/bezotcorp/agent-studio:sha-abc1234-amd64)"
         type: string
         default: ""
 
@@ -47,6 +47,10 @@ permissions:
   pull-requests: write
   actions: read
 
+defaults:
+  run:
+    working-directory: agent-studio
+
 jobs:
   detect-pr-changes:
     runs-on: ubuntu-24.04
@@ -55,6 +59,7 @@ jobs:
     steps:
       - name: Detect PR changes relevant to Docker E2E
         id: detect
+        working-directory: .
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -70,7 +75,7 @@ jobs:
           SHOULD_RUN=false
           while IFS= read -r file; do
             case "$file" in
-              src/*|public/*|scripts/*|bin/*|config/*|docker/*|tests/e2e/mock-llm/*|tests/e2e/support/*|package.json|package-lock.json|vite.config.ts|tsconfig.json|react-router.config.ts|playwright.mock-llm.config.ts|playwright.mock-llm-docker.config.ts|tailwind.config.js|hero.ts|.github/workflows/mock-llm-docker-e2e.yml)
+              agent-studio/src/*|agent-studio/public/*|agent-studio/scripts/*|agent-studio/bin/*|agent-studio/config/*|agent-studio/docker/*|agent-studio/tests/e2e/mock-llm/*|agent-studio/tests/e2e/support/*|agent-studio/package.json|agent-studio/package-lock.json|agent-studio/vite.config.ts|agent-studio/tsconfig.json|agent-studio/react-router.config.ts|agent-studio/playwright.mock-llm.config.ts|agent-studio/playwright.mock-llm-docker.config.ts|agent-studio/tailwind.config.js|agent-studio/hero.ts|.github/workflows/mock-llm-docker-e2e.yml)
                 SHOULD_RUN=true
                 break
                 ;;
@@ -109,6 +114,7 @@ jobs:
       # ── Resolve which commit / PR to test ──────────────────────────────
       - name: Resolve source context
         id: ctx
+        working-directory: .
         env:
           GITHUB_REF_VALUE: ${{ github.ref }}
         run: |
@@ -144,6 +150,7 @@ jobs:
       # building. Poll the Docker workflow until it completes for this SHA.
       - name: Wait for Docker workflow to complete
         if: github.event_name == 'pull_request'
+        working-directory: .
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -192,6 +199,7 @@ jobs:
       # ── Resolve Docker image tag ───────────────────────────────────────
       - name: Resolve Docker image
         id: image
+        working-directory: .
         env:
           DOCKER_IMAGE_INPUT: ${{ inputs.docker_image }}
         run: |
@@ -200,7 +208,7 @@ jobs:
           else
             SHORT_SHA=$(echo "${{ steps.ctx.outputs.sha }}" | cut -c1-7)
             # Use the amd64-specific tag (always pushed by the Docker workflow).
-            echo "tag=ghcr.io/openhands/agent-canvas:sha-${SHORT_SHA}-amd64" >> "$GITHUB_OUTPUT"
+            echo "tag=ghcr.io/bezotcorp/agent-studio:sha-${SHORT_SHA}-amd64" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Log in to GHCR
@@ -211,6 +219,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull Docker image
+        working-directory: .
         env:
           DOCKER_IMAGE_TAG: ${{ steps.image.outputs.tag }}
         run: |
@@ -226,6 +235,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
+          cache-dependency-path: agent-studio/package-lock.json
 
       - name: Install npm dependencies
         run: npm ci
@@ -253,12 +263,12 @@ jobs:
           curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: Install openhands-sdk (for mock LLM server)
+      - name: Install bezotcorp-sdk (for mock LLM server)
         env:
           AGENT_SERVER_VERSION: ${{ steps.defaults.outputs.agent_server_version }}
         run: |
           uv venv .mock-llm-venv
-          uv pip install -p .mock-llm-venv "openhands-sdk==$AGENT_SERVER_VERSION"
+          uv pip install -p .mock-llm-venv "bezot-corp-sdk==$AGENT_SERVER_VERSION"
 
       - name: Verify mock LLM server starts
         run: |
@@ -279,7 +289,7 @@ jobs:
           kill $SERVER_PID
 
       # ── Build frontend (needed by partial-stack tests) ─────────────────
-      # partial-stack tests spawn bin/agent-canvas.mjs directly (not through
+      # partial-stack tests spawn bin/agent-studio.mjs directly (not through
       # Docker) and require build/index.html to exist locally. The regular
       # mock-llm-e2e workflow builds before running; we do the same here.
       - name: Build frontend (for partial-stack tests)
@@ -351,7 +361,7 @@ jobs:
           fi
 
           # Clean up the Docker container (belt-and-suspenders)
-          docker ps -q --filter "name=agent-canvas-mock-llm" | xargs -r docker stop 2>/dev/null || true
+          docker ps -q --filter "name=agent-studio-mock-llm" | xargs -r docker stop 2>/dev/null || true
 
           echo "exit_code=$pw_exit" >> "$GITHUB_OUTPUT"
           exit 0
@@ -380,7 +390,7 @@ jobs:
             "/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
             --paginate \
             --jq '[.[] | select(.status == "added") | .filename
-                   | select(test("tests/e2e/mock-llm/.*\\.spec\\.ts$"))]
+                   | select(test("^(agent-studio/)?tests/e2e/mock-llm/.*\\.spec\\.ts$"))]
                    | join(",")')
           echo "files=$NEW_FILES" >> "$GITHUB_OUTPUT"
 

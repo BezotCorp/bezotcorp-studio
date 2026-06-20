@@ -13,6 +13,10 @@ permissions:
   contents: read
   pull-requests: write
 
+defaults:
+  run:
+    working-directory: agent-studio
+
 jobs:
   detect-pr-changes:
     runs-on: ubuntu-24.04
@@ -21,6 +25,7 @@ jobs:
     steps:
       - name: Detect PR changes relevant to mock-LLM E2E
         id: detect
+        working-directory: .
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -36,7 +41,7 @@ jobs:
           SHOULD_RUN=false
           while IFS= read -r file; do
             case "$file" in
-              src/*|public/*|scripts/*|bin/*|config/*|tests/e2e/mock-llm/*|tests/e2e/support/*|package.json|package-lock.json|vite.config.ts|tsconfig.json|react-router.config.ts|playwright.mock-llm.config.ts|tailwind.config.js|hero.ts|.github/workflows/mock-llm-e2e.yml)
+              agent-studio/src/*|agent-studio/public/*|agent-studio/scripts/*|agent-studio/bin/*|agent-studio/config/*|agent-studio/tests/e2e/mock-llm/*|agent-studio/tests/e2e/support/*|agent-studio/package.json|agent-studio/package-lock.json|agent-studio/vite.config.ts|agent-studio/tsconfig.json|agent-studio/react-router.config.ts|agent-studio/playwright.mock-llm.config.ts|agent-studio/tailwind.config.js|agent-studio/hero.ts|.github/workflows/mock-llm-e2e.yml)
                 SHOULD_RUN=true
                 break
                 ;;
@@ -73,6 +78,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
+          cache-dependency-path: agent-studio/package-lock.json
 
       - name: Install npm dependencies
         run: npm ci
@@ -100,28 +106,28 @@ jobs:
           curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: Install openhands-sdk (for mock LLM server)
+      - name: Install bezotcorp-sdk (for mock LLM server)
         env:
           AGENT_SERVER_VERSION: ${{ steps.defaults.outputs.agent_server_version }}
         run: |
           uv venv .mock-llm-venv
-          uv pip install -p .mock-llm-venv "openhands-sdk==$AGENT_SERVER_VERSION"
+          uv pip install -p .mock-llm-venv "bezotcorp-sdk==$AGENT_SERVER_VERSION"
 
       - name: Pre-warm automation backend (uvx cache)
         env:
           AUTOMATION_VERSION: ${{ steps.defaults.outputs.automation_version }}
         run: |
-          # Pre-install openhands-automation into the uvx cache so the
-          # agent-canvas binary doesn't need to download it at startup.
+          # Pre-install bezotcorp-automation into the uvx cache so the
+          # agent-studio binary doesn't need to download it at startup.
           # Without this, the 180s Playwright webServer timeout expires
           # before the automation backend finishes installing (~60-90s).
-          uvx --from "openhands-automation==$AUTOMATION_VERSION" python -c "from openhands.automation.app import app; print('automation package cached')"
+          uvx --from "bezotcorp-automation==$AUTOMATION_VERSION" python -c "from bezotcorp.automation.app import app; print('automation package cached')"
 
       - name: Verify mock LLM server starts
         run: |
           .mock-llm-venv/bin/python3 tests/e2e/mock-llm/scripts/mock-llm-server.py --port 9998 &
           SERVER_PID=$!
-          # Retry up to 30 seconds — openhands-sdk's litellm import is slow
+          # Retry up to 30 seconds — bezotcorp-sdk's litellm import is slow
           for i in $(seq 1 30); do
             if curl -sf http://127.0.0.1:9998/v1/chat/completions \
               -H "Content-Type: application/json" \
@@ -136,7 +142,7 @@ jobs:
             -d '{"model":"test","messages":[]}' | python3 -m json.tool
           kill $SERVER_PID
 
-      - name: Build frontend (for agent-canvas binary)
+      - name: Build frontend (for agent-studio binary)
         run: npm run build:app
 
       - name: Resolve affected test directories
@@ -148,7 +154,7 @@ jobs:
           # Get changed files from the PR
           CHANGED_FILES=$(gh api \
             "/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
-            --paginate --jq '.[].filename' | tr '\n' ',')
+            --paginate --jq '.[].filename' | sed 's#^agent-studio/##' | tr '\n' ',')
 
           # Resolve which test directories to run. If the resolver fails
           # (for example malformed test-mapping.json), fail closed by

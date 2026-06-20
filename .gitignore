@@ -1,30 +1,66 @@
-# i18n translation files make by script using `make build`
-public/locales/**/*
-src/i18n/declaration.ts
+# Environment
 .env
 .envrc
+
+# Dependencies
 node_modules/
-build/
-logs/
-/.tmp/live-e2e-state/
-/.tmp/mock-llm-state/
-/.tmp/mock-llm-skill-repos/
+
+# Build outputs
 dist/
-__pycache__
-
-
-/test-results/
-/test-results-live/
-/test-results-mock-llm/
-/test-results-mock-llm-docker/
-/.mock-llm-markers/
-/playwright-report/
-/playwright-report-live/
-/playwright-report-mock-llm/
-/playwright-report-mock-llm-docker/
-/blob-report/
-/playwright/.cache/
+build/
 .react-router/
-ralph/
-.vercel
+.vercel/
+
+# Logs
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+venv/
+.venv/
+env/
+
+# Tests and reports
+test-results/
+test-results-live/
+test-results-mock-llm/
+test-results-mock-llm-docker/
+playwright-report/
+playwright-report-live/
+playwright-report-mock-llm/
+playwright-report-mock-llm-docker/
+blob-report/
+.mock-llm-markers/
+playwright/.cache/
+
+# OS / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Packages
 *.tgz
+
+# Generated i18n
+**/public/locales/**/*
+**/src/i18n/declaration.ts
+
+# Temporary runtime state
+.tmp/live-e2e-state/
+.tmp/mock-llm-state/
+.tmp/mock-llm-skill-repos/
+
+# Extensions Studio agent local state
+extensions-studio/.agents/*
+!extensions-studio/.agents/skills/
+extensions-studio/.agents/skills/*
+!extensions-studio/.agents/skills/custom-codereview-guide.md
+
+# uv lock file inherited from extensions-studio policy
+uv.lock

@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug or unexpected behavior in Agent Canvas.
+description: Report a bug or unexpected behavior in BezotCorp Agent Studio.
 title: "[Bug]: "
 labels: ["bug"]
 body:
@@ -23,10 +23,10 @@ body:
     id: install-method
     attributes:
       label: Installation Method
-      description: How did you install / run Agent Canvas?
+      description: How did you install / run BezotCorp Agent Studio?
       options:
-        - npm (`npx @openhands/agent-canvas` or `npm install -g @openhands/agent-canvas`)
-        - Docker (`ghcr.io/openhands/agent-canvas`)
+        - npm (`npx @bezotcorp/agent-studio` or `npm install -g @bezotcorp/agent-studio`)
+        - Docker (`ghcr.io/bezotcorp/agent-studio`)
         - From source (`npm run dev` / `npm run dev:minimal`)
         - Other
     validations:
@@ -35,8 +35,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: Agent Canvas Version
-      description: "npm: `agent-canvas --version` · Docker: the image tag you pulled (e.g. `ghcr.io/openhands/agent-canvas:latest`)"
+      label: BezotCorp Agent Studio Version
+      description: "npm: `agent-studio --version` · Docker: the image tag you pulled (e.g. `ghcr.io/bezotcorp/agent-studio:latest`)"
       placeholder: "e.g. 1.0.0-alpha.6"
     validations:
       required: true

@@ -1,0 +1,73 @@
+import { ActionEvent, BezotCorpEvent } from "#/types/agent-server/core";
+import { ThinkingBlock } from "#/types/agent-server/core/base/event";
+import {
+  isActionEvent,
+  isObservationEvent,
+} from "#/types/agent-server/type-guards";
+
+/**
+ * Returns the displayable thought text of an `ActionEvent`, or an empty
+ * string if the event has no usable thought content.
+ *
+ * Mirrors the logic used by `ThoughtEventMessage` so callers stay in sync
+ * with what gets rendered.
+ */
+export const getActionThoughtText = (action: ActionEvent): string =>
+  action.thought
+    .filter((t) => t.type === "text")
+    .map((t) => t.text)
+    .join("\n");
+
+/**
+ * Extracts extended thinking / reasoning content from an `ActionEvent`.
+ *
+ * Prefers `reasoning_content` (a plain string produced by many reasoning
+ * models). Falls back to the text from `thinking_blocks` (Anthropic
+ * extended thinking). Returns an empty string when neither is available.
+ */
+export const getReasoningContent = (action: ActionEvent): string => {
+  if (action.reasoning_content) {
+    return action.reasoning_content;
+  }
+
+  if (action.thinking_blocks?.length) {
+    return action.thinking_blocks
+      .filter((b): b is ThinkingBlock => b.type === "thinking")
+      .map((b) => b.thinking)
+      .join("\n\n");
+  }
+
+  return "";
+};
+
+export const hasNonEmptyThought = (action: ActionEvent): boolean =>
+  getActionThoughtText(action).trim().length > 0;
+
+/**
+ * Find the `ActionEvent` whose thought should be rendered alongside the
+ * given UI event. For an `ActionEvent` the thought belongs to itself; for
+ * an `ObservationEvent` we look up the matching action in `allEvents`.
+ *
+ * `ThinkAction` is intentionally excluded because its thought IS the
+ * action body and is rendered through a separate codepath.
+ */
+export const getThoughtSourceAction = (
+  event: BezotCorpEvent,
+  allEvents: BezotCorpEvent[],
+): ActionEvent | null => {
+  if (isActionEvent(event)) {
+    if (event.action.kind === "ThinkAction") return null;
+    return hasNonEmptyThought(event) ? event : null;
+  }
+
+  if (isObservationEvent(event)) {
+    const action = allEvents.find(
+      (e): e is ActionEvent => isActionEvent(e) && e.id === event.action_id,
+    );
+    if (!action) return null;
+    if (action.action.kind === "ThinkAction") return null;
+    return hasNonEmptyThought(action) ? action : null;
+  }
+
+  return null;
+};

@@ -40,10 +40,10 @@ jobs:
         id: docker_docs
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          PINNED=$(node -p "require('./config/defaults.json').versions.agentCanvas")
+          PINNED=$(node -p "require('./agent-studio/config/defaults.json').versions.agentCanvas")
           if [ "$PINNED" != "$VERSION" ]; then
             echo "❌ versions.agentCanvas is '$PINNED' but release tag is v$VERSION"
-            echo "Update config/defaults.json and README Docker examples before tagging."
+            echo "Update agent-studio/config/defaults.json and README Docker examples before tagging."
             exit 1
           fi
           echo "✅ versions.agentCanvas matches release ($VERSION)"
@@ -113,5 +113,5 @@ jobs:
           echo "- **Release**: https://github.com/${{ github.repository }}/releases/tag/$TAG" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "Downstream workflows triggered by the same tag push:" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **npm-publish.yml** — publish \`@openhands/agent-canvas\` to npm" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **docker.yml** — build and push \`ghcr.io/openhands/agent-canvas\` Docker images" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **npm-publish.yml** — publish \`@bezotcorp/agent-studio\` to npm" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **docker.yml** — build and push \`ghcr.io/bezotcorp/agent-studio\` Docker images" >> "$GITHUB_STEP_SUMMARY"
