@@ -17,7 +17,7 @@ export function ConfirmStopModal({
   onConfirm,
   onCancel,
 }: ConfirmStopModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <ModalBackdrop onClose={onCancel}>

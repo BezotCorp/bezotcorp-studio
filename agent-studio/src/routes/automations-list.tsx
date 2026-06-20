@@ -37,7 +37,7 @@ import type { Automation } from "#/types/automation";
 const PAGE_SIZE = 50;
 
 export default function AutomationsList() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<AutomationViewMode>(() =>
     readStoredAutomationViewMode(),

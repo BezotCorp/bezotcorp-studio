@@ -1,4 +1,4 @@
-import { MessageEvent, OpenHandsEvent } from "#/types/agent-server/core";
+import { MessageEvent, BezotCorpEvent } from "#/types/agent-server/core";
 import {
   isACPToolCallEvent,
   isActionEvent,
@@ -27,7 +27,7 @@ const appendContentToStreamingDeltaEvent = (
   content: `${existing.content ?? ""}${content}` || null,
 });
 
-const findLastUserMessageIndex = (events: OpenHandsEvent[]): number => {
+const findLastUserMessageIndex = (events: BezotCorpEvent[]): number => {
   for (let index = events.length - 1; index >= 0; index -= 1) {
     const event = events[index];
     if (isMessageEvent(event) && event.source === "user") {
@@ -47,7 +47,7 @@ const getAgentMessageText = (event: MessageEvent): string =>
     .map((content) => content.text)
     .join("");
 
-const getFinalAgentText = (event: OpenHandsEvent): string | null => {
+const getFinalAgentText = (event: BezotCorpEvent): string | null => {
   if (isActionEvent(event) && event.action.kind === "FinishAction") {
     return event.action.message;
   }
@@ -79,9 +79,9 @@ const findTextSegmentsInOrder = (
 };
 
 const finalizeStreamingDeltasInPlace = (
-  finalEvent: OpenHandsEvent,
-  uiEvents: OpenHandsEvent[],
-): OpenHandsEvent[] | null => {
+  finalEvent: BezotCorpEvent,
+  uiEvents: BezotCorpEvent[],
+): BezotCorpEvent[] | null => {
   const lastUserMessageIndex = findLastUserMessageIndex(uiEvents);
   const currentTurnStreamingDeltaIndexes = uiEvents
     .map((uiEvent, index) => ({ uiEvent, index }))
@@ -167,9 +167,9 @@ const finalizeStreamingDeltasInPlace = (
  * its action below.
  */
 export const handleEventForUI = (
-  event: OpenHandsEvent,
-  uiEvents: OpenHandsEvent[],
-): OpenHandsEvent[] => {
+  event: BezotCorpEvent,
+  uiEvents: BezotCorpEvent[],
+): BezotCorpEvent[] => {
   const newUiEvents = [...uiEvents];
 
   if (isStreamingDeltaEvent(event)) {

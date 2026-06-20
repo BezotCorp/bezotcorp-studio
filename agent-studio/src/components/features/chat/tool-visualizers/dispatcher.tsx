@@ -1,5 +1,5 @@
 import React from "react";
-import { OpenHandsEvent, ActionEvent } from "#/types/agent-server/core";
+import { BezotCorpEvent, ActionEvent } from "#/types/agent-server/core";
 import {
   isActionEvent,
   isObservationEvent,
@@ -17,7 +17,7 @@ import { actionVisualizers, observationVisualizers } from "./index";
  * file view range.
  */
 export function resolveVisualizerBody(
-  event: OpenHandsEvent,
+  event: BezotCorpEvent,
   correspondingAction?: ActionEvent,
 ): React.ReactNode | null {
   if (isActionEvent(event)) {

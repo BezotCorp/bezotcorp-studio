@@ -29,8 +29,8 @@ describe("ConfigService", () => {
 
   it("includes verified providers absent from /api/llm/providers and keeps them within the limit", async () => {
     // Arrange: mirror the real local agent-server, where
-    // /api/llm/providers comes from litellm (no "openhands"),
-    // but /api/llm/models/verified has "openhands" as a key.
+    // /api/llm/providers comes from litellm (no "bezotcorp"),
+    // but /api/llm/models/verified has "bezotcorp" as a key.
     const litellmOnlyProviders = Array.from(
       { length: 10 },
       (_, i) => `litellm_provider_${i}`,
@@ -42,7 +42,7 @@ describe("ConfigService", () => {
       http.get("/api/llm/models/verified", () =>
         HttpResponse.json({
           models: {
-            openhands: ["claude-opus-4-7", "gpt-5.5"],
+            bezotcorp: ["claude-opus-4-7", "gpt-5.5"],
             anthropic: ["claude-opus-4-5-20251101"],
           },
         }),
@@ -55,7 +55,7 @@ describe("ConfigService", () => {
     const page = await ConfigService.searchProviders({ limit: 3 });
 
     // Assert
-    const openhands = page.items.find((p) => p.name === "openhands");
-    expect(openhands).toEqual({ name: "openhands", verified: true });
+    const bezotcorp = page.items.find((p) => p.name === "bezotcorp");
+    expect(bezotcorp).toEqual({ name: "bezotcorp", verified: true });
   });
 });

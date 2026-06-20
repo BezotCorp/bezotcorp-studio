@@ -64,7 +64,7 @@ export function LocalNewConversationMenu({
   popoverTestId = "new-conversation-popover",
   useFixedPlacement = false,
 }: LocalNewConversationMenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { navigate } = useNavigation();
 
   const [open, setOpen] = React.useState(false);

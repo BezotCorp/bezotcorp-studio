@@ -73,7 +73,7 @@ export function ConversationTabsContextMenu({
       window.removeEventListener("scroll", updatePosition, true);
     };
   }, [isOpen, anchorRef]);
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { conversationId } = useConversationId();
   const {
     state,

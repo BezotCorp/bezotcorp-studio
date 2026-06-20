@@ -6,7 +6,7 @@ import { useIsCreatingConversation } from "#/hooks/use-is-creating-conversation"
 import { I18nKey } from "#/i18n/declaration";
 
 export function CreateConversationButton() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { navigate } = useNavigation();
 
   const {

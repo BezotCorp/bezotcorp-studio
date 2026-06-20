@@ -7,7 +7,7 @@ import {
   Server,
   Settings,
 } from "lucide-react";
-import { OpenHandsLogoButton } from "#/components/shared/buttons/openhands-logo-button";
+import { BezotCorpLogoButton } from "#/components/shared/buttons/bezotcorp-logo-button";
 import { NavigationLink } from "#/components/shared/navigation-link";
 import { SidebarCollapsedIconSlot } from "./sidebar-collapsed-icon-slot";
 import { SidebarNavLink } from "./sidebar-nav-link";
@@ -76,7 +76,7 @@ export function SidebarRailBody({
   onOpenAddBackend,
   onOpenManageBackends,
 }: SidebarRailBodyProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const backendCloseTimerRef = collapsedBackendCloseTimer;
 
   return (
@@ -97,7 +97,7 @@ export function SidebarRailBody({
               collapsed && showCollapsedExpandButton && "opacity-0",
             )}
           >
-            <OpenHandsLogoButton
+            <BezotCorpLogoButton
               logoWidth={SIDEBAR_LOGO_WIDTH}
               logoHeight={SIDEBAR_LOGO_HEIGHT}
               logoClassName="max-w-none"

@@ -1,4 +1,4 @@
-import { SettingsClient } from "@openhands/typescript-client/clients";
+import { SettingsClient } from "@bezotcorp/typescript-client/clients";
 import { DEFAULT_SETTINGS } from "#/services/settings";
 import { Settings, SettingsSchema, SettingsValue } from "#/types/settings";
 import { getActiveBackend } from "../backend-registry/active-store";
@@ -12,7 +12,7 @@ import { getAgentServerClientOptions } from "../agent-server-client-options";
 
 /**
  * Fields the agent-server stores under `misc_settings.app_preferences` (see
- * SDK `openhands.sdk.settings.AppPreferences`). Mirrored here as a flat
+ * SDK `bezotcorp.sdk.settings.AppPreferences`). Mirrored here as a flat
  * partial of Settings so the rest of the frontend can keep treating them as
  * top-level keys (`settings.language`, `settings.disabled_skills`, …).
  */
@@ -438,7 +438,7 @@ class SettingsService {
 
     // The backend applies ``agent_settings_diff`` by deep-merging it into the
     // existing ``agent_settings`` dict (see SDK
-    // ``openhands.agent_server.persistence.models._deep_merge``). That works
+    // ``bezotcorp.agent_server.persistence.models._deep_merge``). That works
     // for scalar fields but is wrong for ``mcp_config.mcpServers``, which is
     // a name-keyed map: a diff that omits a server cannot remove it (stale
     // key stays), and a diff whose key indices shift (e.g. after deleting

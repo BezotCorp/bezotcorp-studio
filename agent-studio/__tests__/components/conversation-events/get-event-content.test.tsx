@@ -48,11 +48,11 @@ const terminalObservationEvent: ObservationEvent = {
     metadata: {
       exit_code: 0,
       pid: 1,
-      username: "openhands",
+      username: "bezotcorp",
       hostname: "runtime",
       prefix: "",
       suffix: "",
-      working_dir: "/workspace/project/OpenHands",
+      working_dir: "/workspace/project/BezotCorp",
       py_interpreter_path: null,
     },
   },

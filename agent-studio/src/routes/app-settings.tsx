@@ -21,7 +21,7 @@ import { AppSettingsInputsSkeleton } from "#/components/features/settings/app-se
 
 export function AppSettingsScreen() {
   const posthog = usePostHog();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const { mutate: saveSettings, isPending } = useSaveSettings();
   const { data: settings, isLoading } = useSettings();

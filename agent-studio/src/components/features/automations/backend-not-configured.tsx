@@ -8,7 +8,7 @@ interface BackendUnavailableProps {
 }
 
 export function BackendUnavailable({ onRetry }: BackendUnavailableProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div className="flex flex-col items-center justify-center py-20 px-4">

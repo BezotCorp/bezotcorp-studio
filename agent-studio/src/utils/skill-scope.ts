@@ -10,8 +10,8 @@ export const SKILL_SCOPE_ORDER: SkillScope[] = [
 
 const USER_SKILL_DIR_MARKERS = [
   "/.agents/skills/",
-  "/.openhands/skills/",
-  "/.openhands/microagents/",
+  "/.bezotcorp/skills/",
+  "/.bezotcorp/microagents/",
 ] as const;
 
 function normalizePath(path: string): string {
@@ -24,16 +24,16 @@ function isPublicSource(source: string): boolean {
     return true;
   }
   return (
-    norm.includes("public-skills") || norm.includes("/.openhands/cache/skills/")
+    norm.includes("public-skills") || norm.includes("/.bezotcorp/cache/skills/")
   );
 }
 
 function isUserHomeSkillPath(source: string): boolean {
   const norm = normalizePath(source);
-  if (/^\/Users\/[^/]+\/\.(agents|openhands)\//.test(norm)) {
+  if (/^\/Users\/[^/]+\/\.(agents|bezotcorp)\//.test(norm)) {
     return true;
   }
-  if (/^\/home\/[^/]+\/\.(agents|openhands)\//.test(norm)) {
+  if (/^\/home\/[^/]+\/\.(agents|bezotcorp)\//.test(norm)) {
     return true;
   }
 

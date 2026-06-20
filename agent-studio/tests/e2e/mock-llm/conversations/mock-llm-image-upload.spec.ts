@@ -91,7 +91,7 @@ test.describe("mock-LLM image upload", () => {
     //    called and the conversation completed successfully.
     //
     //    ⚠️  Padding note (mirrors the automation test's pattern):
-    //    Public skills are bundled from @openhands/extensions at build time.
+    //    Public skills are bundled from @bezotcorp/extensions at build time.
     //    The agent-server may make one internal LLM call for skill-analysis
     //    before the agent loop starts, consuming one trajectory slot.
     //    Turn 0 is a throwaway empty response that absorbs this internal call.

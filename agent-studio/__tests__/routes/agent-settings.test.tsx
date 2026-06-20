@@ -72,12 +72,12 @@ describe("AgentSettingsScreen", () => {
     toastMocks.warning.mockClear();
   });
 
-  it("renders the agent type selector defaulting to OpenHands with sub-agents toggle", async () => {
+  it("renders the agent type selector defaulting to BezotCorp with sub-agents toggle", async () => {
     vi.spyOn(SettingsService, "getSettings").mockResolvedValue(
       buildSettings({
         agent_settings: {
           ...MOCK_DEFAULT_USER_SETTINGS.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
         },
       }),
     );
@@ -85,11 +85,11 @@ describe("AgentSettingsScreen", () => {
     renderAgentSettingsScreen();
     await screen.findByTestId("agent-settings-screen");
     expect(screen.getByTestId("agent-type-selector")).toBeInTheDocument();
-    // Sub-agents toggle visible on the OpenHands branch.
+    // Sub-agents toggle visible on the BezotCorp branch.
     expect(
       screen.getByTestId("agent-settings-enable-sub-agents"),
     ).toBeInTheDocument();
-    // ACP-only fields stay hidden on the OpenHands branch.
+    // ACP-only fields stay hidden on the BezotCorp branch.
     expect(screen.queryByTestId("agent-command-input")).not.toBeInTheDocument();
   });
 
@@ -100,7 +100,7 @@ describe("AgentSettingsScreen", () => {
       buildSettings({
         agent_settings: {
           ...MOCK_DEFAULT_USER_SETTINGS.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
         },
       }),
     );
@@ -111,19 +111,19 @@ describe("AgentSettingsScreen", () => {
 
     // Assert — t() is stubbed to return the key, so the rendered text is
     // the translation key. SETTINGS$SAVE_CHANGES = "Save Changes" in
-    // public/locales/en/openhands.json; BUTTON$SAVE = "Save" (the bug).
+    // public/locales/en/bezotcorp.json; BUTTON$SAVE = "Save" (the bug).
     expect(screen.getByTestId("agent-save-button")).toHaveTextContent(
       "SETTINGS$SAVE_CHANGES",
     );
   });
 
-  it("saves enable_sub_agents when toggling on the OpenHands path", async () => {
+  it("saves enable_sub_agents when toggling on the BezotCorp path", async () => {
     const user = userEvent.setup();
     vi.spyOn(SettingsService, "getSettings").mockResolvedValue(
       buildSettings({
         agent_settings: {
           ...MOCK_DEFAULT_USER_SETTINGS.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
           enable_sub_agents: false,
         },
       }),
@@ -147,7 +147,7 @@ describe("AgentSettingsScreen", () => {
       agent_settings_diff?: Record<string, unknown>;
     };
     expect(call.agent_settings_diff).toEqual({
-      agent_kind: "openhands",
+      agent_kind: "bezotcorp",
       enable_sub_agents: true,
     });
   });
@@ -158,7 +158,7 @@ describe("AgentSettingsScreen", () => {
       buildSettings({
         agent_settings: {
           ...MOCK_DEFAULT_USER_SETTINGS.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
         },
       }),
     );
@@ -377,7 +377,7 @@ describe("AgentSettingsScreen", () => {
       buildSettings({
         agent_settings: {
           ...MOCK_DEFAULT_USER_SETTINGS.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
         },
       }),
     );
@@ -426,7 +426,7 @@ describe("AgentSettingsScreen", () => {
     });
   });
 
-  it("clears ACP fields when switching back to OpenHands", async () => {
+  it("clears ACP fields when switching back to BezotCorp", async () => {
     const user = userEvent.setup();
     vi.spyOn(SettingsService, "getSettings").mockResolvedValue(
       buildSettings({
@@ -446,7 +446,7 @@ describe("AgentSettingsScreen", () => {
     await user.click(screen.getByTestId("agent-type-selector"));
     await user.click(
       await screen.findByRole("option", {
-        name: "SETTINGS$AGENT_TYPE_OPENHANDS",
+        name: "SETTINGS$AGENT_TYPE_BEZOTCORP",
       }),
     );
     await user.click(screen.getByTestId("agent-save-button"));
@@ -458,7 +458,7 @@ describe("AgentSettingsScreen", () => {
       agent_settings_diff?: Record<string, unknown>;
     };
     expect(call.agent_settings_diff).toEqual({
-      agent_kind: "openhands",
+      agent_kind: "bezotcorp",
       enable_sub_agents: false,
     });
   });
@@ -521,7 +521,7 @@ describe("AgentSettingsScreen", () => {
       buildSettings({
         agent_settings: {
           ...MOCK_DEFAULT_USER_SETTINGS.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
         },
       }),
     );
@@ -726,7 +726,7 @@ describe("AgentSettingsScreen", () => {
       buildSettings({
         agent_settings: {
           ...MOCK_DEFAULT_USER_SETTINGS.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
         },
       }),
     );

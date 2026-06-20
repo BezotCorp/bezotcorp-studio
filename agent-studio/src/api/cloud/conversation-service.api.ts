@@ -104,10 +104,10 @@ export async function batchGetCloudConversations(
 /**
  * Create a v1 app-conversation on the cloud backend.
  *
- * Mirrors OpenHands' cloud flow: POST /api/v1/app-conversations with the
+ * Mirrors BezotCorp' cloud flow: POST /api/v1/app-conversations with the
  * `AppConversationStartRequest` payload, returning a
  * `AppConversationStartTask`. The task is initially WORKING; the caller
- * polls `getCloudAppConversationStartTask` (3s cadence per OpenHands)
+ * polls `getCloudAppConversationStartTask` (3s cadence per BezotCorp)
  * until status is READY (then `app_conversation_id`, `agent_server_url`,
  * and `session_api_key` are populated) or ERROR.
  *
@@ -169,7 +169,7 @@ export async function deleteCloudConversation(
 
 /**
  * Toggle the public-sharing flag on a cloud v1 app-conversation. Mirrors
- * OpenHands' `AgentServerConversationService.updateConversationPublicFlag`:
+ * BezotCorp' `AgentServerConversationService.updateConversationPublicFlag`:
  * `PATCH /api/v1/app-conversations/{id}` with `{ public }`, returning
  * the updated conversation.
  */
@@ -189,7 +189,7 @@ export async function updateCloudConversationPublicFlag(
 
 /**
  * Pause the cloud sandbox backing a v1 app-conversation. Mirrors
- * OpenHands' `SandboxService.pauseSandbox`:
+ * BezotCorp' `SandboxService.pauseSandbox`:
  * `POST /api/v1/sandboxes/{sandboxId}/pause` on the cloud backend, which stops
  * the runtime owning the conversation.
  */
@@ -203,7 +203,7 @@ export async function pauseCloudSandbox(sandboxId: string): Promise<void> {
 }
 
 /**
- * Resume a paused cloud sandbox. Mirrors OpenHands' `SandboxService.resumeSandbox`
+ * Resume a paused cloud sandbox. Mirrors BezotCorp' `SandboxService.resumeSandbox`
  * by calling `POST /api/v1/sandboxes/{sandboxId}/resume` on the SaaS.
  *
  * This is the correct endpoint for waking a PAUSED sandbox. It is a
@@ -222,7 +222,7 @@ export async function resumeCloudSandbox(sandboxId: string): Promise<void> {
 
 /**
  * Read a file from a cloud conversation's sandbox workspace. Mirrors
- * OpenHands' `AgentServerConversationService.readConversationFile` — hits
+ * BezotCorp' `AgentServerConversationService.readConversationFile` — hits
  * `GET /api/v1/app-conversations/{id}/file?file_path=...` on the cloud backend
  * and returns the file content as a string.
  */
@@ -242,7 +242,7 @@ export async function readCloudConversationFile(
 }
 
 /**
- * Fetch a single v1 app-conversation start task. Mirrors OpenHands'
+ * Fetch a single v1 app-conversation start task. Mirrors BezotCorp'
  * `AgentServerConversationService.getStartTask` — uses the batch search endpoint
  * with a single id and unwraps the first result.
  */

@@ -1,13 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { isHookExecutionEvent } from "#/types/agent-server/type-guards";
-import { OpenHandsEvent } from "#/types/agent-server/core";
+import { BezotCorpEvent } from "#/types/agent-server/core";
 import { GenericEventMessage } from "#/components/features/chat/generic-event-message";
 import { cn } from "#/utils/utils";
 import { I18nKey } from "#/i18n/declaration";
 
 interface HookExecutionEventMessageProps {
-  event: OpenHandsEvent;
+  event: BezotCorpEvent;
 }
 
 function getHookIcon(hookType: string, blocked: boolean): string {
@@ -56,7 +56,7 @@ function getStatusClassName(blocked: boolean, success: boolean): string {
 export function HookExecutionEventMessage({
   event,
 }: HookExecutionEventMessageProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   if (!isHookExecutionEvent(event)) {
     return null;

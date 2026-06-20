@@ -22,7 +22,7 @@ export function GitControlBarPullButton({
   providerTokensReady,
   isConversationReady = true,
 }: GitControlBarPullButtonProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { trackPullButtonClick } = useTracking();
 
   const isButtonEnabled =

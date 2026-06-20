@@ -17,7 +17,7 @@ import { BackendFormModal } from "#/components/features/backends/backend-form-mo
 
 const getServerInfoMock = vi.hoisted(() => vi.fn());
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   ServerClient: vi.fn(function ServerClientMock() {
     return {
       getServerInfo: getServerInfoMock,
@@ -169,7 +169,7 @@ describe("BackendFormModal – edit mode (BackendForm entry point)", () => {
     await waitFor(() => expect(onClose).toHaveBeenCalled());
 
     const stored = JSON.parse(
-      window.localStorage.getItem("openhands-backends") ?? "[]",
+      window.localStorage.getItem("bezotcorp-backends") ?? "[]",
     );
     const updated = stored.find((b: { id: string }) => b.id === backendId);
     expect(updated).toMatchObject({
@@ -240,7 +240,7 @@ describe("BackendFormModal – edit mode (BackendForm entry point)", () => {
         onMount={(ctx) => {
           backendId = ctx
             .addBackend({
-              name: "OpenHands Cloud",
+              name: "BezotCorp Cloud",
               host: "https://app.all-hands.dev",
               apiKey: "sk-cloud",
               kind: "cloud",
@@ -252,7 +252,7 @@ describe("BackendFormModal – edit mode (BackendForm entry point)", () => {
           mode="edit"
           backend={{
             id: backendId,
-            name: "OpenHands Cloud",
+            name: "BezotCorp Cloud",
             host: "https://app.all-hands.dev",
             apiKey: "sk-cloud",
             kind: "cloud",
@@ -264,7 +264,7 @@ describe("BackendFormModal – edit mode (BackendForm entry point)", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("edit-backend-name")).toHaveValue(
-        "OpenHands Cloud",
+        "BezotCorp Cloud",
       );
     });
 
@@ -282,7 +282,7 @@ describe("BackendFormModal – edit mode (BackendForm entry point)", () => {
     await waitFor(() => expect(onClose).toHaveBeenCalled());
 
     const stored = JSON.parse(
-      window.localStorage.getItem("openhands-backends") ?? "[]",
+      window.localStorage.getItem("bezotcorp-backends") ?? "[]",
     );
     const updated = stored.find((b: { id: string }) => b.id === backendId);
     expect(updated).toMatchObject({

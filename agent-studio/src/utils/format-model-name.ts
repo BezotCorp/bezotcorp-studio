@@ -1,5 +1,5 @@
 /**
- * Format a native (OpenHands-kind) routing model string for display, stripping
+ * Format a native (BezotCorp-kind) routing model string for display, stripping
  * the provider route prefix (e.g. ``"anthropic/claude-sonnet-4-5-20250929"`` →
  * ``"claude-sonnet-4-5-20250929"``, ``"litellm_proxy/openai/gpt-4o"`` →
  * ``"gpt-4o"``) so a conversation chip shows a meaningful model name rather than

@@ -389,13 +389,13 @@ describe("buildAgentServerCommand", () => {
     // Defaults to the released PyPI version with all SDK packages pinned to same version
     expect(cmd.args).toEqual([
       "--from",
-      "openhands-agent-server==1.28.1",
+      "bezotcorp-agent-server==1.28.1",
       "--with",
-      "openhands-sdk==1.28.1",
+      "bezotcorp-sdk==1.28.1",
       "--with",
-      "openhands-tools==1.28.1",
+      "bezotcorp-tools==1.28.1",
       "--with",
-      "openhands-workspace==1.28.1",
+      "bezotcorp-workspace==1.28.1",
       "agent-server",
     ]);
     expect(cmd.source).toBe("PyPI (1.28.1, default)");
@@ -405,17 +405,17 @@ describe("buildAgentServerCommand", () => {
     const cmd = buildAgentServerCommand({ OH_AGENT_SERVER_VERSION: "1.18.0" });
 
     expect(cmd.command).toBe("uvx");
-    // Uses --from syntax because executable name (agent-server) differs from package name (openhands-agent-server)
+    // Uses --from syntax because executable name (agent-server) differs from package name (bezotcorp-agent-server)
     // All SDK packages are pinned to the same version
     expect(cmd.args).toEqual([
       "--from",
-      "openhands-agent-server==1.18.0",
+      "bezotcorp-agent-server==1.18.0",
       "--with",
-      "openhands-sdk==1.18.0",
+      "bezotcorp-sdk==1.18.0",
       "--with",
-      "openhands-tools==1.18.0",
+      "bezotcorp-tools==1.18.0",
       "--with",
-      "openhands-workspace==1.18.0",
+      "bezotcorp-workspace==1.18.0",
       "agent-server",
     ]);
     expect(cmd.source).toBe("PyPI (1.18.0)");
@@ -430,13 +430,13 @@ describe("buildAgentServerCommand", () => {
     expect(cmd.args).toEqual([
       "--reinstall",
       "--from",
-      "git+https://github.com/OpenHands/software-agent-sdk@feature-branch#subdirectory=openhands-agent-server",
+      "git+https://github.com/BezotCorp/software-agent-sdk@feature-branch#subdirectory=bezotcorp-agent-server",
       "--with",
-      "git+https://github.com/OpenHands/software-agent-sdk@feature-branch#subdirectory=openhands-sdk",
+      "git+https://github.com/BezotCorp/software-agent-sdk@feature-branch#subdirectory=bezotcorp-sdk",
       "--with",
-      "git+https://github.com/OpenHands/software-agent-sdk@feature-branch#subdirectory=openhands-tools",
+      "git+https://github.com/BezotCorp/software-agent-sdk@feature-branch#subdirectory=bezotcorp-tools",
       "--with",
-      "git+https://github.com/OpenHands/software-agent-sdk@feature-branch#subdirectory=openhands-workspace",
+      "git+https://github.com/BezotCorp/software-agent-sdk@feature-branch#subdirectory=bezotcorp-workspace",
       "agent-server",
     ]);
     expect(cmd.source).toBe("git (feature-branch)");
@@ -449,13 +449,13 @@ describe("buildAgentServerCommand", () => {
     expect(cmd.args).toEqual([
       "--reinstall",
       "--from",
-      "git+https://github.com/OpenHands/software-agent-sdk@abc1234#subdirectory=openhands-agent-server",
+      "git+https://github.com/BezotCorp/software-agent-sdk@abc1234#subdirectory=bezotcorp-agent-server",
       "--with",
-      "git+https://github.com/OpenHands/software-agent-sdk@abc1234#subdirectory=openhands-sdk",
+      "git+https://github.com/BezotCorp/software-agent-sdk@abc1234#subdirectory=bezotcorp-sdk",
       "--with",
-      "git+https://github.com/OpenHands/software-agent-sdk@abc1234#subdirectory=openhands-tools",
+      "git+https://github.com/BezotCorp/software-agent-sdk@abc1234#subdirectory=bezotcorp-tools",
       "--with",
-      "git+https://github.com/OpenHands/software-agent-sdk@abc1234#subdirectory=openhands-workspace",
+      "git+https://github.com/BezotCorp/software-agent-sdk@abc1234#subdirectory=bezotcorp-workspace",
       "agent-server",
     ]);
     expect(cmd.source).toBe("git (abc1234)");
@@ -470,9 +470,9 @@ describe("buildAgentServerCommand", () => {
     expect(cmd.command).toBe("uvx");
     expect(cmd.args).toContain("--from");
     expect(cmd.args).toContain(
-      "git+https://github.com/OpenHands/software-agent-sdk@feature-branch#subdirectory=openhands-agent-server",
+      "git+https://github.com/BezotCorp/software-agent-sdk@feature-branch#subdirectory=bezotcorp-agent-server",
     );
-    expect(cmd.args).not.toContain("openhands-agent-server==1.18.0");
+    expect(cmd.args).not.toContain("bezotcorp-agent-server==1.18.0");
   });
 
   it("uses local path with editable workspace packages when OH_AGENT_SERVER_LOCAL_PATH is set", () => {
@@ -483,13 +483,13 @@ describe("buildAgentServerCommand", () => {
     expect(cmd.args).toEqual([
       "--reinstall",
       "--from",
-      path.join(sdk, "openhands-agent-server"),
+      path.join(sdk, "bezotcorp-agent-server"),
       "--with-editable",
-      path.join(sdk, "openhands-sdk"),
+      path.join(sdk, "bezotcorp-sdk"),
       "--with-editable",
-      path.join(sdk, "openhands-tools"),
+      path.join(sdk, "bezotcorp-tools"),
       "--with-editable",
-      path.join(sdk, "openhands-workspace"),
+      path.join(sdk, "bezotcorp-workspace"),
       "agent-server",
     ]);
     expect(cmd.source).toBe(`local (${sdk})`);
@@ -504,11 +504,11 @@ describe("buildAgentServerCommand", () => {
     });
 
     expect(cmd.source).toBe(`local (${sdk})`);
-    expect(cmd.args).toContain(path.join(sdk, "openhands-agent-server"));
+    expect(cmd.args).toContain(path.join(sdk, "bezotcorp-agent-server"));
     expect(cmd.args).not.toContain(
-      "git+https://github.com/OpenHands/software-agent-sdk@feature-branch#subdirectory=openhands-agent-server",
+      "git+https://github.com/BezotCorp/software-agent-sdk@feature-branch#subdirectory=bezotcorp-agent-server",
     );
-    expect(cmd.args).not.toContain("openhands-agent-server==1.18.0");
+    expect(cmd.args).not.toContain("bezotcorp-agent-server==1.18.0");
   });
 
   it("rejects relative OH_AGENT_SERVER_LOCAL_PATH", () => {
@@ -525,10 +525,10 @@ describe("validateLocalAgentServerPath", () => {
     const tmp = mkdtempSync(path.join(tmpdir(), "sdk-"));
     try {
       for (const subdir of [
-        "openhands-agent-server",
-        "openhands-sdk",
-        "openhands-tools",
-        "openhands-workspace",
+        "bezotcorp-agent-server",
+        "bezotcorp-sdk",
+        "bezotcorp-tools",
+        "bezotcorp-workspace",
       ]) {
         mkdirSync(path.join(tmp, subdir));
       }
@@ -547,12 +547,12 @@ describe("validateLocalAgentServerPath", () => {
   it("throws when a workspace package subdirectory is missing", () => {
     const tmp = mkdtempSync(path.join(tmpdir(), "sdk-"));
     try {
-      mkdirSync(path.join(tmp, "openhands-agent-server"));
-      mkdirSync(path.join(tmp, "openhands-sdk"));
-      mkdirSync(path.join(tmp, "openhands-tools"));
-      // openhands-workspace is intentionally absent
+      mkdirSync(path.join(tmp, "bezotcorp-agent-server"));
+      mkdirSync(path.join(tmp, "bezotcorp-sdk"));
+      mkdirSync(path.join(tmp, "bezotcorp-tools"));
+      // bezotcorp-workspace is intentionally absent
       expect(() => validateLocalAgentServerPath(tmp)).toThrow(
-        /openhands-workspace/,
+        /bezotcorp-workspace/,
       );
     } finally {
       rmSync(tmp, { recursive: true, force: true });
@@ -595,7 +595,7 @@ describe("buildSafeDevConfig", () => {
     expect(config.backendHost).toBe("127.0.0.1:18000");
     expect(config.workingDir).toBe(config.workspacesPath);
     expect(config.stateDir).toBe(
-      path.join(homedir(), ".openhands", "agent-studio"),
+      path.join(homedir(), ".bezotcorp", "agent-studio"),
     );
     expect(config.tmuxTmpDir).toBe(path.join(config.stateDir, "tmux"));
     expect(config.conversationsPath).toBe(
@@ -921,7 +921,7 @@ describe("buildRuntimeServicesInfo", () => {
       api_prefix: "/api/automation",
       docs_url: "http://localhost:18001/api/automation/docs",
       openapi_url: "http://localhost:18001/api/automation/openapi.json",
-      auth_env_var: "OPENHANDS_AUTOMATION_API_KEY",
+      auth_env_var: "BEZOTCORP_AUTOMATION_API_KEY",
     });
   });
 

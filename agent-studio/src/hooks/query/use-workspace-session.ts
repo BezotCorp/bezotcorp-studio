@@ -1,4 +1,4 @@
-import { RemoteWorkspace } from "@openhands/typescript-client/workspace/remote-workspace";
+import { RemoteWorkspace } from "@bezotcorp/typescript-client/workspace/remote-workspace";
 import { useQuery } from "@tanstack/react-query";
 
 import { getActiveBackend } from "#/api/backend-registry/active-store";

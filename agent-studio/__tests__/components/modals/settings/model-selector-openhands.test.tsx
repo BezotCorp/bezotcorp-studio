@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ModelSelector } from "#/components/shared/modals/settings/model-selector";
 import { server } from "#/mocks/node";
 
-describe("ModelSelector — OpenHands provider display", () => {
+describe("ModelSelector — BezotCorp provider display", () => {
   let providersCount = 0;
   let verifiedCount = 0;
   let modelsCount = 0;
@@ -21,14 +21,14 @@ describe("ModelSelector — OpenHands provider display", () => {
       http.get("*/api/llm/providers", () => {
         providersCount += 1;
         return HttpResponse.json({
-          providers: ["openhands", "anthropic", "openai"],
+          providers: ["bezotcorp", "anthropic", "openai"],
         });
       }),
       http.get("*/api/llm/models/verified", () => {
         verifiedCount += 1;
         return HttpResponse.json({
           models: {
-            openhands: ["claude-opus-4-7"],
+            bezotcorp: ["claude-opus-4-7"],
             anthropic: ["claude-opus-4-5-20251101"],
           },
         });
@@ -49,11 +49,11 @@ describe("ModelSelector — OpenHands provider display", () => {
     );
   }
 
-  it("shows OpenHands immediately for current openhands/<m> settings", async () => {
-    renderWithQuery(<ModelSelector currentModel="openhands/claude-opus-4-7" />);
+  it("shows BezotCorp immediately for current bezotcorp/<m> settings", async () => {
+    renderWithQuery(<ModelSelector currentModel="bezotcorp/claude-opus-4-7" />);
 
     await waitFor(() => {
-      expect(screen.getByLabelText("LLM$PROVIDER")).toHaveValue("OpenHands");
+      expect(screen.getByLabelText("LLM$PROVIDER")).toHaveValue("BezotCorp");
     });
 
     expect(providersCount).toBe(1);

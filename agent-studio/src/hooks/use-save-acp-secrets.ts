@@ -34,7 +34,7 @@ export function useSaveAcpSecrets(
   fields: ACPProviderSecretField[],
   consumesFileCredentials: boolean,
 ) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const queryClient = useQueryClient();
   const { mutateAsync: createSecret } = useCreateSecret();
   const [isSaving, setIsSaving] = React.useState(false);

@@ -7,7 +7,7 @@ interface HooksEmptyStateProps {
 }
 
 export function HooksEmptyState({ isError }: HooksEmptyStateProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div className="flex items-center justify-center h-full p-4">

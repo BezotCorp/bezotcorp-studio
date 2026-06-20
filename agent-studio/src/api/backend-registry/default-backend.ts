@@ -19,7 +19,7 @@ export const DEFAULT_LOCAL_BACKEND_NAME = "Local";
  * Construct the default local backend from environment/runtime config.
  * Returns null unless both a backend location and API key are available.
  *
- * Used as the seed entry written to `openhands-backends` on first load;
+ * Used as the seed entry written to `bezotcorp-backends` on first load;
  * if it returns null, onboarding is responsible for collecting backend
  * connection details from the user.
  */

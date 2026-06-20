@@ -3,7 +3,7 @@ import {
   FileClient,
   ProfilesClient,
   SettingsClient,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 import axios from "axios";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import {
@@ -44,10 +44,10 @@ const {
   mockActivateProfile: vi.fn(),
 }));
 
-vi.mock("@openhands/typescript-client/clients", async () => {
+vi.mock("@bezotcorp/typescript-client/clients", async () => {
   const actual = await vi.importActual<
-    typeof import("@openhands/typescript-client/clients")
-  >("@openhands/typescript-client/clients");
+    typeof import("@bezotcorp/typescript-client/clients")
+  >("@bezotcorp/typescript-client/clients");
   return {
     ...actual,
     ConversationClient: vi.fn(function ConversationClientMock() {
@@ -757,7 +757,7 @@ describe("AgentServerConversationService", () => {
       mockGetProfile.mockResolvedValue({
         name: "haiku",
         config: {
-          model: "openhands/claude-haiku-4-5",
+          model: "bezotcorp/claude-haiku-4-5",
           api_key: "encrypted-key",
         },
         api_key_set: true,
@@ -772,7 +772,7 @@ describe("AgentServerConversationService", () => {
       expect(mockSwitchLLM).toHaveBeenCalledWith(
         "conv-1",
         expect.objectContaining({
-          model: "openhands/claude-haiku-4-5",
+          model: "bezotcorp/claude-haiku-4-5",
           api_key: "encrypted-key",
           usage_id: expect.stringMatching(/^profile:haiku:/),
         }),

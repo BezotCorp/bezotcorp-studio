@@ -9,7 +9,7 @@ import {
   isMarketplaceEntryAvailable,
   marketplaceEntryMatchesQuery,
 } from "#/utils/mcp-marketplace-utils";
-import { INTEGRATION_CATALOG as MCP_MARKETPLACE } from "@openhands/extensions/integrations";
+import { INTEGRATION_CATALOG as MCP_MARKETPLACE } from "@bezotcorp/extensions/integrations";
 
 const mcpMarketplace = getMcpMarketplaceCatalog(MCP_MARKETPLACE);
 const slackEntry = mcpMarketplace.find((e) => e.id === "slack")!;

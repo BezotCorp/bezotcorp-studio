@@ -25,7 +25,7 @@ export function GitControlBarPushButton({
   currentGitProvider,
   isConversationReady = true,
 }: GitControlBarPushButtonProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { trackPushButtonClick } = useTracking();
 
   const isButtonEnabled =

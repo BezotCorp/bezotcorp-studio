@@ -1,9 +1,9 @@
-import { BashClient } from "@openhands/typescript-client/clients";
+import { BashClient } from "@bezotcorp/typescript-client/clients";
 import type {
   BashEvent,
   BashEventPage,
   BashOutput,
-} from "@openhands/typescript-client";
+} from "@bezotcorp/typescript-client";
 import { buildHttpBaseUrl } from "#/utils/websocket-url";
 import { getActiveBackend } from "../backend-registry/active-store";
 import { callCloudProxy } from "../cloud/proxy";

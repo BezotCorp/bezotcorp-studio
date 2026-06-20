@@ -12,7 +12,7 @@ const HOOK_PILL_CLASS =
   "inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium leading-4 border border-[var(--oh-border)] bg-[var(--oh-surface)] text-tertiary-light";
 
 export function HookMatcherContent({ matcher }: HookMatcherContentProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div className="py-3">

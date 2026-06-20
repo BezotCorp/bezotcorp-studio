@@ -12,12 +12,12 @@
  * - Users can opt out of all future tracking by declining consent.
  *
  * AD BLOCKER BYPASS:
- * By default, telemetry is routed through OpenHands' reverse proxy (z.openhands.dev)
+ * By default, telemetry is routed through BezotCorp' reverse proxy (z.bezotcorp.dev)
  * to avoid being blocked by ad blockers. Library consumers can override this with:
  * - VITE_POSTHOG_HOST: Custom proxy URL or direct PostHog URL
  * - VITE_POSTHOG_UI_HOST: PostHog UI host (defaults to https://us.posthog.com)
  *
- * IMPORTANT: By default, telemetry is sent to the OpenHands PostHog project.
+ * IMPORTANT: By default, telemetry is sent to the BezotCorp PostHog project.
  * Library consumers can override this by setting VITE_POSTHOG_API_KEY.
  *
  * Users can disable all telemetry (including install tracking) via:
@@ -28,9 +28,9 @@
 import type { PostHog } from "posthog-js";
 import packageJson from "../../package.json";
 
-const TELEMETRY_CONSENT_KEY = "openhands-telemetry-consent";
-const TELEMETRY_FIRST_USE_KEY = "openhands-telemetry-first-use";
-const TELEMETRY_SESSION_KEY = "openhands-telemetry-session";
+const TELEMETRY_CONSENT_KEY = "bezotcorp-telemetry-consent";
+const TELEMETRY_FIRST_USE_KEY = "bezotcorp-telemetry-first-use";
+const TELEMETRY_SESSION_KEY = "bezotcorp-telemetry-session";
 
 // PostHog project keys — one per deployment environment, hardcoded so they
 // are baked into the static bundle at build time and cannot drift at runtime.
@@ -47,11 +47,11 @@ const POSTHOG_API_KEY: string =
     ? POSTHOG_PROD_KEY
     : POSTHOG_STAGING_KEY);
 
-// Default to OpenHands' reverse proxy to bypass ad blockers.
-// The proxy at z.openhands.dev routes to PostHog's US region.
+// Default to BezotCorp' reverse proxy to bypass ad blockers.
+// The proxy at z.bezotcorp.dev routes to PostHog's US region.
 // Library consumers can override this with their own proxy or direct PostHog URL.
 const POSTHOG_HOST =
-  import.meta.env.VITE_POSTHOG_HOST || "https://z.openhands.dev";
+  import.meta.env.VITE_POSTHOG_HOST || "https://z.bezotcorp.dev";
 
 // UI host is needed for PostHog features like toolbar to work correctly
 // when using a reverse proxy. Defaults to US region.

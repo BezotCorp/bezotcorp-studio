@@ -37,7 +37,7 @@ export function ManageWorkspacesModal({
   onRemove,
   onRemoveParent,
 }: ManageWorkspacesModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [pendingRemoval, setPendingRemoval] =
     React.useState<PendingRemoval | null>(null);
 

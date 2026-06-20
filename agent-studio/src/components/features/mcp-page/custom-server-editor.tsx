@@ -39,7 +39,7 @@ export function CustomServerEditor({
   existingServers,
   onClose,
 }: CustomServerEditorProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { mutate: addMcpServer, isPending: isAdding } = useAddMcpServer();
   const { mutate: updateMcpServer, isPending: isUpdating } =
     useUpdateMcpServer();

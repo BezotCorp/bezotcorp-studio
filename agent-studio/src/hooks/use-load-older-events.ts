@@ -8,9 +8,9 @@ import {
 } from "#/hooks/query/use-conversation-history";
 import { isTaskConversationId } from "#/utils/conversation-local-storage";
 import { seedModelSwitchesFromHistory } from "#/hooks/chat/record-model-switch-message";
-import type { OpenHandsEvent } from "#/types/agent-server/core";
+import type { BezotCorpEvent } from "#/types/agent-server/core";
 
-const getEventTimestamp = (event: OpenHandsEvent): string | undefined =>
+const getEventTimestamp = (event: BezotCorpEvent): string | undefined =>
   "timestamp" in event ? event.timestamp : undefined;
 
 interface UseLoadOlderEventsResult {
@@ -32,7 +32,7 @@ interface UseLoadOlderEventsResult {
  * chat scroll handler to lazily backfill history when the user scrolls up.
  *
  * Server dependency: cloud pagination requires the timestamp comparison
- * fix from OpenHands/OpenHands#14399. The `EventService.searchEvents`
+ * fix from BezotCorp/BezotCorp#14399. The `EventService.searchEvents`
  * cloud path includes a fallback that returns an empty page to stop
  * pagination if the full request fails, so older-event pages will
  * gracefully degrade to a no-op on unpatched backends rather than

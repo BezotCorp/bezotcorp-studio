@@ -6,7 +6,7 @@ import { redactCustomSecrets } from "#/utils/redact-custom-secrets";
 export interface SystemMessageForModal {
   content: string;
   tools: ChatCompletionToolParam[] | Record<string, unknown>[] | null;
-  openhands_version: string | null;
+  bezotcorp_version: string | null;
   agent_class: string | null;
 }
 
@@ -29,7 +29,7 @@ export function adaptSystemMessage(
   return {
     content,
     tools: systemPromptEvent.tools ?? null,
-    openhands_version: null,
+    bezotcorp_version: null,
     agent_class: null,
   };
 }

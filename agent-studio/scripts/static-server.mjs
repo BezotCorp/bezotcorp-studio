@@ -209,7 +209,7 @@ ROUTING:
  *        `getBakedSessionApiKey()` in `agent-server-config.ts` as a fallback
  *        when the env var is empty. This is symmetric with how
  *        `__AGENT_CANVAS_AUTH_REQUIRED__` works for the auth-required flag.
- *     2. Written to `openhands-agent-server-config.sessionApiKey` in
+ *     2. Written to `bezotcorp-agent-server-config.sessionApiKey` in
  *        localStorage for compatibility with the legacy storage key. Useful
  *        for any code path that still reads it (e.g. e2e test fixtures).
  *        Always overwrites when the stored value differs so a rotated key
@@ -243,7 +243,7 @@ function makeConfigInjectionScript(
     // value (from --session-api-key) is the server's truth.
     parts.push(
       `try{` +
-        `var _k='openhands-agent-server-config',` +
+        `var _k='bezotcorp-agent-server-config',` +
         `_c=JSON.parse(localStorage.getItem(_k)||'{}');` +
         `if(_c.sessionApiKey!==${keyLiteral}){` +
         `_c.sessionApiKey=${keyLiteral};` +

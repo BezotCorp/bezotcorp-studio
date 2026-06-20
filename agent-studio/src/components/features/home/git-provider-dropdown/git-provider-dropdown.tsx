@@ -39,7 +39,7 @@ export function GitProviderDropdown({
   toggleButtonClassName,
   itemClassName,
 }: GitProviderDropdownProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [inputValue, setInputValue] = useState("");
   const [localSelectedItem, setLocalSelectedItem] = useState<Provider | null>(
     value || null,

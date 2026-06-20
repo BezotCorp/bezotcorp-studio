@@ -14,7 +14,7 @@ vi.mock("#/utils/send-message-with-attachments", () => ({
 
 vi.mock("#/i18n", () => ({
   default: { getFixedT: () => (key: string) => key },
-  OPENHANDS_I18N_NAMESPACE: "openhands",
+  BEZOTCORP_I18N_NAMESPACE: "bezotcorp",
   waitForI18n: vi.fn().mockResolvedValue(undefined),
 }));
 

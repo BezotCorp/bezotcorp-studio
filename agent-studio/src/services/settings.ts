@@ -3,7 +3,7 @@ import { Settings } from "#/types/settings";
 export const LATEST_SETTINGS_VERSION = 5;
 
 export const DEFAULT_SETTINGS: Settings = {
-  llm_model: "openhands/minimax-m2.7",
+  llm_model: "bezotcorp/minimax-m2.7",
   llm_base_url: "",
   agent: "CodeActAgent",
   language: "en",
@@ -32,15 +32,15 @@ export const DEFAULT_SETTINGS: Settings = {
   max_budget_per_task: null,
   email: "",
   email_verified: true,
-  git_user_name: "openhands",
-  git_user_email: "openhands@all-hands.dev",
+  git_user_name: "bezotcorp",
+  git_user_email: "bezotcorp@all-hands.dev",
   agent_settings_schema: null,
   agent_settings: {
     schema_version: 1,
-    agent_kind: "openhands",
+    agent_kind: "bezotcorp",
     agent: "CodeActAgent",
     llm: {
-      model: "openhands/minimax-m2.7",
+      model: "bezotcorp/minimax-m2.7",
     },
     condenser: {
       enabled: true,

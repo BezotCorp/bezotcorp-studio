@@ -16,7 +16,7 @@ export function FileTreeView({
   selectedPath,
   onSelectFile,
 }: FileTreeViewProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const root = useMemo(() => buildFileTree(paths), [paths]);
 
   if (root.children.length === 0) {

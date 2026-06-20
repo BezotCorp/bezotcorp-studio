@@ -20,24 +20,24 @@
 #                          with --auth-required (no session key injected)
 #   OH_SECRET_KEY        – Secret key for settings encryption (auto-generated
 #                          and persisted if not provided)
-#   OPENHANDS_AUTOMATION_API_KEY – Override automation backend auth key
+#   BEZOTCORP_AUTOMATION_API_KEY – Override automation backend auth key
 #                          (defaults to session API key — both backends
 #                          use the same `X-Session-API-Key` header)
 #   AUTOMATION_AGENT_SERVER_URL  – URL the automation service uses to reach the
 #                          agent-server (default: http://127.0.0.1:AGENT_SERVER_PORT).
 #                          Setting this enables local-mode auth so the session
 #                          API key is validated internally instead of against the
-#                          OpenHands cloud API.
+#                          Bezotcorp cloud API.
 #   FILE_STORE             – Storage backend for automation tarballs (default: local).
 #                          Without this the automation backend may fall back to
 #                          S3/GCS which fails without cloud credentials.
-#   LOCAL_STORAGE_PATH     – Directory for local file storage (default: ~/.openhands/storage)
+#   LOCAL_STORAGE_PATH     – Directory for local file storage (default: ~/.bezotcorp/storage)
 #   AUTOMATION_BASE_URL    – Publicly-reachable base URL for the automation
 #                          service, used in callback URLs and injected into
 #                          sandboxes (default: http://127.0.0.1:$PORT).
 #                          Override in production when the external URL differs.
 #   AUTOMATION_WORKSPACE_BASE – Directory for automation run workspaces
-#                          (default: ~/.openhands/workspaces)
+#                          (default: ~/.bezotcorp/workspaces)
 #   Any agent-server or automation env vars are passed through.
 # ═══════════════════════════════════════════════════════════════════════════════
 set -uo pipefail
@@ -58,11 +58,11 @@ AUTOMATION_PORT="${AUTOMATION_PORT:-${CONFIG_AUTOMATION_PORT:-18001}}"
 
 # Persistence paths — keep settings, conversations, bash history under a
 # single well-known directory that the VOLUME directive exposes.
-OPENHANDS_DIR="${HOME}/.openhands"
-STATE_DIR="${OPENHANDS_DIR}/${CONFIG_STATE_SUBDIR:-agent-studio}"
-export OH_PERSISTENCE_DIR="${OH_PERSISTENCE_DIR:-${OPENHANDS_DIR}}"
-export OH_CONVERSATIONS_PATH="${OH_CONVERSATIONS_PATH:-${OPENHANDS_DIR}/${CONFIG_CONVERSATIONS:-agent-studio/conversations}}"
-export OH_BASH_EVENTS_DIR="${OH_BASH_EVENTS_DIR:-${OPENHANDS_DIR}/${CONFIG_BASH_EVENTS:-agent-studio/bash_events}}"
+BEZOTCORP_DIR="${HOME}/.bezotcorp"
+STATE_DIR="${BEZOTCORP_DIR}/${CONFIG_STATE_SUBDIR:-agent-studio}"
+export OH_PERSISTENCE_DIR="${OH_PERSISTENCE_DIR:-${BEZOTCORP_DIR}}"
+export OH_CONVERSATIONS_PATH="${OH_CONVERSATIONS_PATH:-${BEZOTCORP_DIR}/${CONFIG_CONVERSATIONS:-agent-studio/conversations}}"
+export OH_BASH_EVENTS_DIR="${OH_BASH_EVENTS_DIR:-${BEZOTCORP_DIR}/${CONFIG_BASH_EVENTS:-agent-studio/bash_events}}"
 
 # OH_SECRET_KEY is required for settings/secrets encryption. Without it the
 # agent-server refuses to return encrypted secrets → conversation creation
@@ -75,7 +75,7 @@ if [ -z "${OH_SECRET_KEY:-}" ]; then
   else
     OH_SECRET_KEY="$(head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n')"
     mkdir -p "$(dirname "$SECRET_KEY_FILE")"
-    printf '%s' "$OH_SECRET_KEY" > "$SECRET_KEY_FILE"
+    printf '%s' "$OH_SECRET_KEY" >"$SECRET_KEY_FILE"
     chmod 600 "$SECRET_KEY_FILE"
     log "Generated OH_SECRET_KEY (persisted to $SECRET_KEY_FILE)"
   fi
@@ -93,7 +93,7 @@ if [ -z "${LOCAL_BACKEND_API_KEY:-}" ] && [ -z "${OH_SESSION_API_KEYS_0:-}" ]; t
   else
     LOCAL_BACKEND_API_KEY="$(head -c 32 /dev/urandom | od -An -tx1 | tr -d ' \n')"
     mkdir -p "$(dirname "$API_KEY_FILE")"
-    printf '%s' "$LOCAL_BACKEND_API_KEY" > "$API_KEY_FILE"
+    printf '%s' "$LOCAL_BACKEND_API_KEY" >"$API_KEY_FILE"
     chmod 600 "$API_KEY_FILE"
     log "Generated API key (persisted to $API_KEY_FILE)"
   fi
@@ -101,14 +101,14 @@ if [ -z "${LOCAL_BACKEND_API_KEY:-}" ] && [ -z "${OH_SESSION_API_KEYS_0:-}" ]; t
 fi
 
 # Both backends share the same API key value and the same `X-Session-API-Key`
-# header for authentication.  Default OPENHANDS_AUTOMATION_API_KEY to the
+# header for authentication.  Default BEZOTCORP_AUTOMATION_API_KEY to the
 # API key so a single credential secures the whole stack.
 EFFECTIVE_SESSION_KEY="${OH_SESSION_API_KEYS_0:-${LOCAL_BACKEND_API_KEY:-}}"
 if [ -z "$EFFECTIVE_SESSION_KEY" ]; then
   log "ERROR: No session API key available — cannot configure automation auth"
   exit 1
 fi
-export OPENHANDS_AUTOMATION_API_KEY="${OPENHANDS_AUTOMATION_API_KEY:-${EFFECTIVE_SESSION_KEY}}"
+export BEZOTCORP_AUTOMATION_API_KEY="${BEZOTCORP_AUTOMATION_API_KEY:-${EFFECTIVE_SESSION_KEY}}"
 export AUTOMATION_LOCAL_API_KEY="${AUTOMATION_LOCAL_API_KEY:-${EFFECTIVE_SESSION_KEY}}"
 export AUTOMATION_AGENT_SERVER_API_KEY="${AUTOMATION_AGENT_SERVER_API_KEY:-${EFFECTIVE_SESSION_KEY}}"
 
@@ -119,7 +119,7 @@ export AGENT_SERVER_URL="${AGENT_SERVER_URL:-http://127.0.0.1:${AGENT_SERVER_POR
 # the agent-server REST API (tarball upload, bash dispatch, auth key minting).
 # When set, ServiceSettings.is_local_mode returns True, enabling local API key
 # authentication. Without this, the automation server falls back to validating
-# keys against the OpenHands cloud API (app.all-hands.dev), which returns 401
+# keys against the BezotCorp cloud API (app.all-hands.dev), which returns 401
 # for locally-generated session keys.
 export AUTOMATION_AGENT_SERVER_URL="${AUTOMATION_AGENT_SERVER_URL:-http://127.0.0.1:${AGENT_SERVER_PORT}}"
 
@@ -144,12 +144,12 @@ trap cleanup EXIT SIGINT SIGTERM
 # ── 1. Start Agent Server ────────────────────────────────────────────────────
 log "Starting agent-server on port $AGENT_SERVER_PORT..."
 
-if command -v openhands-agent-server >/dev/null 2>&1; then
+if command -v bezotcorp-agent-server >/dev/null 2>&1; then
   # Binary build (production image)
-  openhands-agent-server --port "$AGENT_SERVER_PORT" &
+  bezotcorp-agent-server --port "$AGENT_SERVER_PORT" &
 elif [ -x /agent-server/.venv/bin/python ]; then
   # Source build (development image)
-  /agent-server/.venv/bin/python -m openhands.agent_server --port "$AGENT_SERVER_PORT" &
+  /agent-server/.venv/bin/python -m bezotcorp.agent_server --port "$AGENT_SERVER_PORT" &
 else
   log_error "Cannot find agent-server binary or source venv."
   exit 1
@@ -167,7 +167,7 @@ export AUTOMATION_FRONTEND_DIR=""
 # to a cloud provider (S3/GCS) which will fail without credentials, causing
 # tarball-based presets (preset/prompt, preset/plugin) to silently error.
 export FILE_STORE="${FILE_STORE:-local}"
-export LOCAL_STORAGE_PATH="${LOCAL_STORAGE_PATH:-${OPENHANDS_DIR}/storage}"
+export LOCAL_STORAGE_PATH="${LOCAL_STORAGE_PATH:-${BEZOTCORP_DIR}/storage}"
 mkdir -p "$LOCAL_STORAGE_PATH"
 
 # AUTOMATION_BASE_URL — the publicly-reachable base URL for the automation
@@ -176,14 +176,14 @@ mkdir -p "$LOCAL_STORAGE_PATH"
 export AUTOMATION_BASE_URL="${AUTOMATION_BASE_URL:-http://127.0.0.1:${PORT}}"
 
 # AUTOMATION_WORKSPACE_BASE — where automation runs unpack tarballs.
-export AUTOMATION_WORKSPACE_BASE="${AUTOMATION_WORKSPACE_BASE:-${OPENHANDS_DIR}/workspaces}"
+export AUTOMATION_WORKSPACE_BASE="${AUTOMATION_WORKSPACE_BASE:-${BEZOTCORP_DIR}/workspaces}"
 mkdir -p "$AUTOMATION_WORKSPACE_BASE"
 
 # Default to SQLite so the automation server works out of the box without
 # an external PostgreSQL instance. Users can override AUTOMATION_DB_URL to
 # point at a real Postgres for production deployments.
 if [ -z "${AUTOMATION_DB_URL:-}" ]; then
-  AUTOMATION_DB_FILE="${OPENHANDS_DIR}/${CONFIG_AUTOMATION_DB:-automation/automations.db}"
+  AUTOMATION_DB_FILE="${BEZOTCORP_DIR}/${CONFIG_AUTOMATION_DB:-automation/automations.db}"
   mkdir -p "$(dirname "$AUTOMATION_DB_FILE")"
   export AUTOMATION_DB_URL="sqlite+aiosqlite:///${AUTOMATION_DB_FILE}"
   log "Using SQLite database: $AUTOMATION_DB_URL"
@@ -191,12 +191,12 @@ fi
 
 # The automation server uses uvicorn. Set AUTOMATION_PORT via its CLI.
 if command -v uvicorn >/dev/null 2>&1; then
-  uvicorn openhands.automation.app:app \
+  uvicorn bezotcorp.automation.app:app \
     --host 0.0.0.0 \
     --port "$AUTOMATION_PORT" &
   PIDS+=($!)
-elif python -c "import openhands.automation" 2>/dev/null; then
-  python -m uvicorn openhands.automation.app:app \
+elif python -c "import bezotcorp.automation" 2>/dev/null; then
+  python -m uvicorn bezotcorp.automation.app:app \
     --host 0.0.0.0 \
     --port "$AUTOMATION_PORT" &
   PIDS+=($!)
@@ -303,7 +303,8 @@ log "All services started. Unified entry point: http://0.0.0.0:${PORT}/"
 # trap returns.  The loop re-checks the static-server PID every 10 s so the
 # container exits promptly if the ingress process dies on its own.
 while kill -0 "$STATIC_PID" 2>/dev/null; do
-  sleep 10 & wait $!
+  sleep 10 &
+  wait $!
 done
 log_error "Static server (PID $STATIC_PID) exited"
 exit 1

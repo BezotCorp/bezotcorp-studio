@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import type { MarketplaceField } from "@openhands/extensions/integrations";
+import type { MarketplaceField } from "@bezotcorp/extensions/integrations";
 import { SecretsService } from "#/api/secrets-service";
 import { I18nKey } from "#/i18n/declaration";
 import {
@@ -26,7 +26,7 @@ function formatKeyList(keys: string[]): string {
  * same name are overwritten safely.
  */
 export function useSaveFieldsAsSecrets() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const queryClient = useQueryClient();
 
   return useCallback(

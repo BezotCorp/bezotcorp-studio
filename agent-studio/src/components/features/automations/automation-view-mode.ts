@@ -1,6 +1,6 @@
 export type AutomationViewMode = "grid" | "list";
 
-export const AUTOMATIONS_VIEW_MODE_STORAGE_KEY = "openhands-automations-view";
+export const AUTOMATIONS_VIEW_MODE_STORAGE_KEY = "bezotcorp-automations-view";
 
 export function readStoredAutomationViewMode(): AutomationViewMode {
   if (typeof window === "undefined") {

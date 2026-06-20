@@ -42,8 +42,8 @@ const createConfig = (
   updated_at: new Date().toISOString(),
 });
 
-const openHandsSettings = {
-  agent_settings: { agent_kind: "openhands" },
+const bezotCorpSettings = {
+  agent_settings: { agent_kind: "bezotcorp" },
 };
 
 const acpClaudeCodeSettings = {
@@ -53,7 +53,7 @@ const acpClaudeCodeSettings = {
 describe("useSettingsNavItems", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    useSettingsMock.mockReturnValue({ data: openHandsSettings });
+    useSettingsMock.mockReturnValue({ data: bezotCorpSettings });
     useActiveBackendMock.mockReturnValue({
       backend: { kind: "local" },
       orgId: null,
@@ -175,7 +175,7 @@ describe("useSettingsNavItems", () => {
     }
   });
 
-  it("leaves all items enabled when agent_kind is openhands", () => {
+  it("leaves all items enabled when agent_kind is bezotcorp", () => {
     useConfigMock.mockReturnValue({ data: createConfig() });
 
     const { result } = renderHook(() => useSettingsNavItems());

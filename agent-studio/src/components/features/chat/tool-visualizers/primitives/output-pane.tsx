@@ -21,7 +21,7 @@ interface OutputPaneProps {
  * full, untruncated output.
  */
 export function OutputPane({ output, exitCode, copy = true }: OutputPaneProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const display =
     output.length > MAX_CONTENT_LENGTH
       ? `${output.slice(0, MAX_CONTENT_LENGTH)}…`

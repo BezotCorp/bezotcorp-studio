@@ -4,7 +4,7 @@ import { ConversationTabEmptyState } from "#/components/features/conversation/co
 import { I18nKey } from "#/i18n/declaration";
 
 export function NoFileSelectedMessage() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <ConversationTabEmptyState

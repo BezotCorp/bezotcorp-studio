@@ -29,7 +29,7 @@ import {
   getConversationIdFromURL,
   waitForNonUserMessageText,
   deleteConversation,
-  resetToOpenHandsAgentViaUI,
+  resetToBezotCorpAgentViaUI,
   resetMockLLM,
   ensureMockLLMProfile,
   selectDropdownOption,
@@ -68,13 +68,13 @@ test.describe("mock-LLM ACP agent conversation", () => {
       }
     }
 
-    // Reset agent-server back to OpenHands via the Settings → Agent UI
+    // Reset agent-server back to BezotCorp via the Settings → Agent UI
     // + restore mock LLM profile so subsequent test suites (which expect
-    // agent_kind=openhands) are not affected by our ACP configuration.
+    // agent_kind=bezotcorp) are not affected by our ACP configuration.
     const page = await browser.newPage();
     try {
       await seedLocalStorage(page);
-      await resetToOpenHandsAgentViaUI(page);
+      await resetToBezotCorpAgentViaUI(page);
       await ensureMockLLMProfile(page);
     } catch {
       // best-effort
@@ -106,14 +106,10 @@ test.describe("mock-LLM ACP agent conversation", () => {
     // Wait for the agent settings form to load
     await waitForTestId(page, "agent-settings-screen");
 
-    // ── Switch agent type from OpenHands → ACP ──
+    // ── Switch agent type from BezotCorp → ACP ──
 
     await test.step("select ACP agent type", async () => {
-      await selectDropdownOption(
-        page,
-        /Agent/,
-        /ACP/,
-      );
+      await selectDropdownOption(page, /Agent/, /ACP/);
     });
 
     // ── After selecting ACP, the preset dropdown + command fields appear ──
@@ -123,11 +119,7 @@ test.describe("mock-LLM ACP agent conversation", () => {
       await waitForTestId(page, "agent-preset-selector");
 
       // Select "Custom" preset so we can enter our own command
-      await selectDropdownOption(
-        page,
-        /Preset/,
-        /Custom/,
-      );
+      await selectDropdownOption(page, /Preset/, /Custom/);
 
       // Fill in the ACP command pointing to our mock server
       const commandInput = page.getByTestId("agent-command-input");

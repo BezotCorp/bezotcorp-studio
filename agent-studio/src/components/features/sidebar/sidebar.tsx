@@ -37,7 +37,7 @@ const ManageBackendsModal = React.lazy(() =>
 const MOBILE_DRAWER_TRANSITION_MS = 250;
 
 export function Sidebar() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { currentPath } = useNavigation();
   const { data: config } = useConfig();
   const {

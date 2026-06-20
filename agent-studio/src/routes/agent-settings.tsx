@@ -36,7 +36,7 @@ import { parseCommand, formatCommand } from "#/utils/acp-command";
 
 export const handle = { hideTitle: true };
 
-type AgentType = "openhands" | "acp";
+type AgentType = "bezotcorp" | "acp";
 
 const ENABLE_SUB_AGENTS_FIELD_KEY = "enable_sub_agents";
 const COMMAND_PLACEHOLDER_FALLBACK = "npx -y <package-name>";
@@ -85,14 +85,14 @@ function isKnownAcpModel(
 }
 
 function AgentSettingsScreen() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { data: settings, isLoading } = useSettings();
   const { mutate: saveSettings, isPending: isSaving } = useSaveSettings();
   const { data: schema } = useAgentSettingsSchema(
     settings?.agent_settings_schema,
   );
 
-  // --- Sub-agents (OpenHands path) ---
+  // --- Sub-agents (BezotCorp path) ---
   const fields = React.useMemo(
     () => schema?.sections.flatMap((section) => section.fields),
     [schema],
@@ -111,7 +111,7 @@ function AgentSettingsScreen() {
   );
 
   // --- ACP path ---
-  const [agentType, setAgentType] = useState<AgentType>("openhands");
+  const [agentType, setAgentType] = useState<AgentType>("bezotcorp");
   const [commandText, setCommandText] = useState("");
   const [acpModel, setAcpModel] = useState("");
   const [isCustomAcpModel, setIsCustomAcpModel] = useState(false);
@@ -174,7 +174,7 @@ function AgentSettingsScreen() {
           (!provider || !isKnownAcpModel(provider, normalizedSavedModel)),
       );
     } else {
-      setAgentType("openhands");
+      setAgentType("bezotcorp");
       setCommandText("");
       setAcpModel("");
       loadedAcpServerRef.current = null;
@@ -210,10 +210,10 @@ function AgentSettingsScreen() {
     formatCommand(ACP_PROVIDERS[0]?.default_command ?? []) ||
     COMMAND_PLACEHOLDER_FALLBACK;
 
-  // Dirty tracking: for OpenHands path, also check sub-agents toggle
-  const isOpenHandsDirty =
+  // Dirty tracking: for BezotCorp path, also check sub-agents toggle
+  const isBezotCorpDirty =
     !isAcp && subAgentsEnabled !== initialSubAgentsEnabled;
-  const settingsDirty = isDirty || isOpenHandsDirty;
+  const settingsDirty = isDirty || isBezotCorpDirty;
   // The single Save covers both the agent spec and ACP credentials, so it is
   // active when either changed, and shows "Saving…" while either is in flight.
   // ``isDirty`` is already false off the ACP path (no credential fields), so no
@@ -278,11 +278,11 @@ function AgentSettingsScreen() {
         },
       );
     } else {
-      // OpenHands path: save agent_kind + sub-agents toggle
+      // BezotCorp path: save agent_kind + sub-agents toggle
       saveSettings(
         {
           agent_settings_diff: {
-            agent_kind: "openhands",
+            agent_kind: "bezotcorp",
             enable_sub_agents: subAgentsEnabled,
           },
         },
@@ -300,7 +300,7 @@ function AgentSettingsScreen() {
     }
   };
 
-  // Sub-agents field metadata for OpenHands section
+  // Sub-agents field metadata for BezotCorp section
   const subAgentsLabel = subAgentsField
     ? resolveSchemaFieldLabel(t, subAgentsField.key, subAgentsField.label)
     : t(I18nKey.SCHEMA$ENABLE_SUB_AGENTS$LABEL);
@@ -332,8 +332,8 @@ function AgentSettingsScreen() {
         label={t(I18nKey.SETTINGS$NAV_AGENT)}
         items={[
           {
-            key: "openhands",
-            label: t(I18nKey.SETTINGS$AGENT_TYPE_OPENHANDS),
+            key: "bezotcorp",
+            label: t(I18nKey.SETTINGS$AGENT_TYPE_BEZOTCORP),
           },
           { key: "acp", label: t(I18nKey.SETTINGS$AGENT_TYPE_ACP) },
         ]}
@@ -349,7 +349,7 @@ function AgentSettingsScreen() {
               setAcpModel(getAcpPreferredDefaultModel(preferred.key) ?? "");
               setIsCustomAcpModel(false);
             }
-          } else if (newType === "openhands") {
+          } else if (newType === "bezotcorp") {
             setIsCustomAcpModel(false);
           }
           setIsDirty(true);

@@ -8,7 +8,7 @@ import { I18nKey } from "#/i18n/declaration";
 import { CORS_OR_NETWORK_ERROR_MESSAGE } from "#/utils/user-facing-error";
 import { getBackendStatusLabel } from "./backend-status-label";
 
-const t = ((key: string) => key) as TFunction<"openhands">;
+const t = ((key: string) => key) as TFunction<"bezotcorp">;
 
 describe("getBackendStatusLabel", () => {
   it("prefers add API key for Cloud backends with a blank API key", () => {

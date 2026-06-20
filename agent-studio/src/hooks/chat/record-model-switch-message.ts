@@ -1,6 +1,6 @@
 import { getLastRenderableEventId } from "#/hooks/chat/model-command-event-anchor";
 import { useModelStore, SeededSwitch } from "#/stores/model-store";
-import { OpenHandsEvent } from "#/types/agent-server/core";
+import { BezotCorpEvent } from "#/types/agent-server/core";
 import { isSwitchLLMObservationEvent } from "#/types/agent-server/type-guards";
 import { shouldRenderEvent } from "#/components/conversation-events/chat/event-content-helpers/should-render-event";
 
@@ -38,7 +38,7 @@ export function recordModelSwitchMessage(
  */
 export function seedModelSwitchesFromHistory(
   conversationId: string,
-  uiEvents: OpenHandsEvent[],
+  uiEvents: BezotCorpEvent[],
 ) {
   const switches: SeededSwitch[] = [];
   let lastRenderableId: string | null = null;

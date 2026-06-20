@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { SecretsService } from "#/api/secrets-service";
 import { useSaveFieldsAsSecrets } from "#/hooks/mutation/use-save-fields-as-secrets";
-import type { MarketplaceField } from "@openhands/extensions/integrations";
+import type { MarketplaceField } from "@bezotcorp/extensions/integrations";
 import {
   displayErrorToast,
   displaySuccessToast,

@@ -1,6 +1,6 @@
 # Integrating DefenseClaw with BezotCorp Agent Studio
 
-[DefenseClaw](https://github.com/cisco-ai-defense/defenseclaw) is a security governance layer for agentic AI runtimes — it scans skills and MCP servers before they run, inspects LLM traffic at runtime, and produces durable audit evidence. This guide explains how to run DefenseClaw alongside the [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server) that powers BezotCorp Agent Studio, without making any code-level changes to either project.
+[DefenseClaw](https://github.com/cisco-ai-defense/defenseclaw) is a security governance layer for agentic AI runtimes — it scans skills and MCP servers before they run, inspects LLM traffic at runtime, and produces durable audit evidence. This guide explains how to run DefenseClaw alongside the [BezotCorp Agent Server](https://github.com/BezotCorp/software-agent-sdk/tree/main/openhands-agent-server) that powers BezotCorp Agent Studio, without making any code-level changes to either project.
 
 > **Status:** DefenseClaw is purpose-built around the OpenClaw runtime and its TypeScript plugin hooks. The integration described here targets the lowest-friction overlap points — skill injection, LLM proxying, CLI scanning, and audit export — that work without modifying BezotCorp Agent Studio or DefenseClaw source code. [Future work](#future-work-code-level-extensions) describes deeper hooks that would require code changes.
 
@@ -11,7 +11,7 @@
 ```mermaid
 flowchart TD
     UI["BezotCorp Agent Studio (browser)"]
-    AS["OpenHands Agent Server\nlocalhost:18000"]
+    AS["BezotCorp Agent Server\nlocalhost:18000"]
     GP["DefenseClaw Guardrail Proxy\nlocalhost:4000"]
     LLM["LLM Provider"]
     GW["DefenseClaw Gateway Sidecar\nlocalhost:18970"]
@@ -30,24 +30,24 @@ flowchart TD
 
 **Shared concepts:**
 
-| BezotCorp Agent Studio / Agent Server | DefenseClaw equivalent |
-|---|---|
-| Skills (`.agents/skills/`) | Skills (scanned by `cisco-ai-skill-scanner` + CodeGuard) |
-| MCP servers | MCP servers (scanned by `cisco-ai-mcp-scanner`) |
-| LLM settings (`base_url`) | Guardrail proxy upstream target |
-| Workspace files (generated code) | CodeGuard scan surface |
-| Agent Server hooks | Potential enforcement point (future work) |
+| BezotCorp Agent Studio / Agent Server | DefenseClaw equivalent                                   |
+| ------------------------------------- | -------------------------------------------------------- |
+| Skills (`.agents/skills/`)            | Skills (scanned by `cisco-ai-skill-scanner` + CodeGuard) |
+| MCP servers                           | MCP servers (scanned by `cisco-ai-mcp-scanner`)          |
+| LLM settings (`base_url`)             | Guardrail proxy upstream target                          |
+| Workspace files (generated code)      | CodeGuard scan surface                                   |
+| Agent Server hooks                    | Potential enforcement point (future work)                |
 
 ---
 
 ## Prerequisites
 
-| Component | Version |
-|---|---|
-| BezotCorp Agent Studio / Agent Server | Current `main` |
-| Python | 3.10+ |
-| Go | 1.26.2+ (for DefenseClaw gateway) |
-| DefenseClaw | Latest release |
+| Component                             | Version                           |
+| ------------------------------------- | --------------------------------- |
+| BezotCorp Agent Studio / Agent Server | Current `main`                    |
+| Python                                | 3.10+                             |
+| Go                                    | 1.26.2+ (for DefenseClaw gateway) |
+| DefenseClaw                           | Latest release                    |
 
 ---
 
@@ -85,7 +85,7 @@ Follow the standard [BezotCorp Agent Studio quickstart](../README.md). The integ
 
 ### A. Load the CodeGuard Skill
 
-DefenseClaw ships a ready-made OpenHands skill — `skills/codeguard/SKILL.md` — that teaches the agent the CodeGuard security rules. When the skill is active, the agent writes code that avoids the patterns DefenseClaw blocks at scan time (hardcoded secrets, `os.system()`, string-interpolated SQL, weak crypto, path traversal, etc.).
+DefenseClaw ships a ready-made BezotCorp skill — `skills/codeguard/SKILL.md` — that teaches the agent the CodeGuard security rules. When the skill is active, the agent writes code that avoids the patterns DefenseClaw blocks at scan time (hardcoded secrets, `os.system()`, string-interpolated SQL, weak crypto, path traversal, etc.).
 
 **Install the skill into a user or project skill directory:**
 
@@ -131,7 +131,7 @@ export OH_LLM__BASE_URL="http://localhost:4000"
 npm run dev
 ```
 
-> Consult the Agent Server [settings schema](https://github.com/OpenHands/software-agent-sdk/blob/main/openhands-agent-server/openhands/agent_server/settings_router.py) for the exact environment variable name used in your deployment.
+> Consult the Agent Server [settings schema](https://github.com/BezotCorp/software-agent-sdk/blob/main/openhands-agent-server/openhands/agent_server/settings_router.py) for the exact environment variable name used in your deployment.
 
 **Start the guardrail in observe mode (safe default) or action mode:**
 
@@ -215,6 +215,7 @@ defenseclaw tui
 ```
 
 The TUI panels cover:
+
 - **Alerts** — recent HIGH/CRITICAL findings and blocked events
 - **Scans** — historical scan results per skill/file
 - **Tools** — tool-call verdicts from the inspection engine
@@ -222,24 +223,24 @@ The TUI panels cover:
 
 **Export to external systems:**
 
-| Target | Setup |
-|---|---|
-| OTLP (Prometheus/Grafana/Honeycomb) | `defenseclaw setup observability --otlp-endpoint http://collector:4317` |
-| Splunk HEC | `defenseclaw setup splunk --hec-url http://splunk:8088 --hec-token $TOKEN` |
-| Slack / PagerDuty / Webex | `defenseclaw setup notifications --slack-webhook $SLACK_URL` |
-| Local Splunk bundle (Docker) | `defenseclaw setup splunk --logs --accept-splunk-license` |
+| Target                              | Setup                                                                      |
+| ----------------------------------- | -------------------------------------------------------------------------- |
+| OTLP (Prometheus/Grafana/Honeycomb) | `defenseclaw setup observability --otlp-endpoint http://collector:4317`    |
+| Splunk HEC                          | `defenseclaw setup splunk --hec-url http://splunk:8088 --hec-token $TOKEN` |
+| Slack / PagerDuty / Webex           | `defenseclaw setup notifications --slack-webhook $SLACK_URL`               |
+| Local Splunk bundle (Docker)        | `defenseclaw setup splunk --logs --accept-splunk-license`                  |
 
 ---
 
 ## Integration Summary
 
-| Goal | Mechanism | Config change? | Code change? |
-|---|---|---|---|
-| Agent writes secure code by default | CodeGuard skill in `.agents/skills/` | Drop-in file | No |
-| Inspect all LLM prompts and responses | Guardrail proxy at `localhost:4000` | Set `base_url` | No |
-| Vet skills before loading | `defenseclaw skill scan` in CI/workflow | None | No |
-| Scan agent-generated code | `defenseclaw codeguard scan <workspace>` | None | No |
-| Audit trail and alerting | DefenseClaw TUI, OTLP, Splunk, webhooks | DefenseClaw config | No |
+| Goal                                  | Mechanism                                | Config change?     | Code change? |
+| ------------------------------------- | ---------------------------------------- | ------------------ | ------------ |
+| Agent writes secure code by default   | CodeGuard skill in `.agents/skills/`     | Drop-in file       | No           |
+| Inspect all LLM prompts and responses | Guardrail proxy at `localhost:4000`      | Set `base_url`     | No           |
+| Vet skills before loading             | `defenseclaw skill scan` in CI/workflow  | None               | No           |
+| Scan agent-generated code             | `defenseclaw codeguard scan <workspace>` | None               | No           |
+| Audit trail and alerting              | DefenseClaw TUI, OTLP, Splunk, webhooks  | DefenseClaw config | No           |
 
 ---
 
@@ -249,7 +250,7 @@ The following integrations would require changes to BezotCorp Agent Studio, the 
 
 ### 1. Native `SecurityAnalyzer` hook
 
-The OpenHands SDK exposes a [`SecurityAnalyzer`](https://docs.openhands.dev/sdk/arch/security.md) interface. A custom implementation could call DefenseClaw's `/api/v1/inspect/tool` endpoint before every tool invocation — mirroring the inspection the OpenClaw TypeScript plugin performs. This would gate bash commands, file writes, and other tool calls through DefenseClaw's four-stage inspection pipeline (regex, Cisco AI Defense cloud rules, LLM judge, OPA policy) before they execute.
+The BezotCorp SDK exposes a [`SecurityAnalyzer`](https://docs.openhands.dev/sdk/arch/security.md) interface. A custom implementation could call DefenseClaw's `/api/v1/inspect/tool` endpoint before every tool invocation — mirroring the inspection the OpenClaw TypeScript plugin performs. This would gate bash commands, file writes, and other tool calls through DefenseClaw's four-stage inspection pipeline (regex, Cisco AI Defense cloud rules, LLM judge, OPA policy) before they execute.
 
 ```python
 # Sketch — not yet implemented
@@ -294,10 +295,10 @@ DefenseClaw's registry system (`defenseclaw registry add`) ingests external skil
 - [DefenseClaw API Reference](https://github.com/cisco-ai-defense/defenseclaw/blob/main/docs/API.md)
 - [DefenseClaw Guardrail Architecture](https://github.com/cisco-ai-defense/defenseclaw/blob/main/docs/GUARDRAIL.md)
 - [DefenseClaw CodeGuard Skill](https://github.com/cisco-ai-defense/defenseclaw/blob/main/skills/codeguard/SKILL.md)
-- [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server)
-- [OpenHands SDK Security Analyzer](https://docs.openhands.dev/sdk/arch/security.md)
+- [BezotCorp Agent Server](https://github.com/BezotCorp/software-agent-sdk/tree/main/openhands-agent-server)
+- [BezotCorp SDK Security Analyzer](https://docs.openhands.dev/sdk/arch/security.md)
 - [BezotCorp Agent Studio Self-Hosting](../SELF_HOSTING.md)
 
 ---
 
-_This document was created by an AI agent (OpenHands) on behalf of the user._
+_This document was created by an AI agent (BezotCorp) on behalf of the user._

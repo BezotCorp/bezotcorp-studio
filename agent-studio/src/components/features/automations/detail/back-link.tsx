@@ -3,7 +3,7 @@ import { I18nKey } from "#/i18n/declaration";
 import { BackNavButton } from "#/components/shared/buttons/back-nav-button";
 
 export function BackLink() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <BackNavButton to="/automations">

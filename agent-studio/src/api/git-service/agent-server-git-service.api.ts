@@ -1,4 +1,4 @@
-import { RemoteWorkspace } from "@openhands/typescript-client/workspace/remote-workspace";
+import { RemoteWorkspace } from "@bezotcorp/typescript-client/workspace/remote-workspace";
 import { mapAnyGitStatusToClientStatus } from "#/utils/git-status-mapper";
 import type { GitChange, GitChangeDiff } from "../open-hands.types";
 import { getActiveBackend } from "../backend-registry/active-store";

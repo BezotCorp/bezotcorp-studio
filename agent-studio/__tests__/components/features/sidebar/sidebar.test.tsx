@@ -72,8 +72,8 @@ vi.mock("#/components/shared/buttons/styled-tooltip", () => ({
   StyledTooltip: ({ children }: { children: unknown }) => children,
 }));
 
-vi.mock("#/components/shared/buttons/openhands-logo-button", () => ({
-  OpenHandsLogoButton: () => <div data-testid="logo-button" />,
+vi.mock("#/components/shared/buttons/bezotcorp-logo-button", () => ({
+  BezotCorpLogoButton: () => <div data-testid="logo-button" />,
 }));
 
 vi.mock("#/components/features/sidebar/user-actions", () => ({

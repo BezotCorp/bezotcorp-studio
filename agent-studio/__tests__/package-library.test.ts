@@ -53,17 +53,17 @@ describe("package library metadata", () => {
 
   // Git dependencies break `npm install -g` because npm clones the repo and
   // runs the prepare script without devDependencies. All packages should be
-  // referenced from a registry. @openhands/extensions is allowed until it is
-  // published to npm; @openhands/typescript-client is temporarily allowed while
+  // referenced from a registry. @bezotcorp/extensions is allowed until it is
+  // published to npm; @bezotcorp/typescript-client is temporarily allowed while
   // this stacked PR waits for the subscription client branch to merge/release.
-  // TODO(#917): remove @openhands/typescript-client exemption once
-  // OpenHands/typescript-client#178 merges and publishes to npm.
+  // TODO(#917): remove @bezotcorp/typescript-client exemption once
+  // BezotCorp/typescript-client#178 merges and publishes to npm.
   it("does not use git dependencies except approved stack pins", () => {
     const GIT_DEP_PATTERN =
       /^(git[+:]|github:|bitbucket:|gitlab:|[a-zA-Z0-9_-]+\/)/;
     const ALLOWED_GIT_DEPS = new Set([
-      "@openhands/extensions",
-      "@openhands/typescript-client",
+      "@bezotcorp/extensions",
+      "@bezotcorp/typescript-client",
     ]);
 
     const allDeps = {

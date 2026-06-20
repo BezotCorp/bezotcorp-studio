@@ -1,7 +1,7 @@
 import {
   ServerClient,
   SettingsClient,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, renderHook, waitFor } from "@testing-library/react";
@@ -25,7 +25,7 @@ const getSettingsMock = vi.fn();
 const getServerInfoMock = vi.fn();
 const getCurrentCloudApiKeyMock = vi.fn();
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   ServerClient: vi.fn(function ServerClientMock() {
     return { getServerInfo: getServerInfoMock };
   }),

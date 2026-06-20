@@ -605,7 +605,7 @@ describe("ConversationCard", () => {
   describe("Agent chip", () => {
     // The agent chip is gated by the conversation panel's "Agent / model"
     // toggle (``showLlmProfiles``), off by default — one control for both ACP and
-    // OpenHands cards. The renders below pass ``showLlmProfiles`` to exercise
+    // BezotCorp cards. The renders below pass ``showLlmProfiles`` to exercise
     // the chip; the gating itself is covered by the first two tests.
     it("hides the chip by default (LLM-model toggle off) for ACP", () => {
       renderWithProviders(
@@ -624,13 +624,13 @@ describe("ConversationCard", () => {
       ).not.toBeInTheDocument();
     });
 
-    it("hides the chip by default (LLM-model toggle off) for OpenHands", () => {
+    it("hides the chip by default (LLM-model toggle off) for BezotCorp", () => {
       renderWithProviders(
         <ConversationCard
           title="Conversation 1"
           selectedRepository={null}
           lastUpdatedAt="2021-10-01T12:00:00Z"
-          agentKind="openhands"
+          agentKind="bezotcorp"
           llmModel="claude-sonnet-4"
         />,
       );
@@ -752,10 +752,10 @@ describe("ConversationCard", () => {
       ).toBeInTheDocument();
     });
 
-    it("renders the OpenHands logo + model name for native conversations", () => {
-      // With the chip toggle on, OpenHands native conversations show the
-      // OpenHands logo + the raw ``agent.llm.model`` string. A stray
-      // ``acp_server`` value on an OpenHands card must not flip the icon to
+    it("renders the BezotCorp logo + model name for native conversations", () => {
+      // With the chip toggle on, BezotCorp native conversations show the
+      // BezotCorp logo + the raw ``agent.llm.model`` string. A stray
+      // ``acp_server`` value on an BezotCorp card must not flip the icon to
       // the Claude/Codex/Gemini brand mark.
       renderWithProviders(
         <ConversationCard
@@ -763,7 +763,7 @@ describe("ConversationCard", () => {
           selectedRepository={null}
           lastUpdatedAt="2021-10-01T12:00:00Z"
           showLlmProfiles
-          agentKind="openhands"
+          agentKind="bezotcorp"
           acpServer="claude-code"
           llmModel="claude-sonnet-4"
         />,
@@ -773,14 +773,14 @@ describe("ConversationCard", () => {
       expect(chip).toHaveTextContent("claude-sonnet-4");
       expect(chip).toHaveAttribute("title", "claude-sonnet-4");
       expect(
-        within(chip).getByTestId("agent-brand-icon-openhands"),
+        within(chip).getByTestId("agent-brand-icon-bezotcorp"),
       ).toBeInTheDocument();
       expect(
         within(chip).queryByTestId("agent-brand-icon-claude-code"),
       ).not.toBeInTheDocument();
     });
 
-    it("hides the chip for OpenHands conversations with no model", () => {
+    it("hides the chip for BezotCorp conversations with no model", () => {
       // Toggle on, but no model string and no ACP server — nothing to
       // display, so the chip collapses rather than showing a bare logo.
       renderWithProviders(
@@ -789,7 +789,7 @@ describe("ConversationCard", () => {
           selectedRepository={null}
           lastUpdatedAt="2021-10-01T12:00:00Z"
           showLlmProfiles
-          agentKind="openhands"
+          agentKind="bezotcorp"
           llmModel={null}
         />,
       );

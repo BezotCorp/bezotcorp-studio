@@ -105,7 +105,7 @@ export function ConversationNameContextMenu({
 }: ConversationNameContextMenuProps) {
   const isMobile = useBreakpoint();
 
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { backend } = useActiveBackend();
   const { data: conversation } = useActiveConversation();
   const isArchivedConversation = useIsArchivedConversation();

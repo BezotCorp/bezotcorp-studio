@@ -9,7 +9,7 @@ import { clearAgentServerHomeDirCache } from "#/api/agent-server-home";
 
 const mockGetHome = vi.fn();
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   FileClient: vi.fn(function FileClientMock() {
     return { getHome: mockGetHome };
   }),

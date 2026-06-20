@@ -1,5 +1,5 @@
 import React from "react";
-import { OpenHandsEvent } from "#/types/agent-server/core";
+import { BezotCorpEvent } from "#/types/agent-server/core";
 import { EventMessage } from "./event-message";
 import { usePlanPreviewEvents } from "./hooks/use-plan-preview-events";
 import { groupEvents } from "./group-events";
@@ -13,12 +13,12 @@ import { useOptionalConversationId } from "#/hooks/use-conversation-id";
 // import MemoryIcon from "#/icons/memory_icon.svg?react";
 
 interface MessagesProps {
-  messages: OpenHandsEvent[]; // UI events (actions replaced by observations)
-  allEvents: OpenHandsEvent[]; // Full event history (for action lookup)
+  messages: BezotCorpEvent[]; // UI events (actions replaced by observations)
+  allEvents: BezotCorpEvent[]; // Full event history (for action lookup)
 }
 
-const getLastEventId = (events: OpenHandsEvent[]) => events.at(-1)?.id;
-const getLastEvent = (events: OpenHandsEvent[]) => events.at(-1);
+const getLastEventId = (events: BezotCorpEvent[]) => events.at(-1)?.id;
+const getLastEvent = (events: BezotCorpEvent[]) => events.at(-1);
 
 export const Messages: React.FC<MessagesProps> = React.memo(
   ({ messages, allEvents }) => {
@@ -63,7 +63,7 @@ export const Messages: React.FC<MessagesProps> = React.memo(
     );
 
     const renderEventMessage = (
-      event: OpenHandsEvent,
+      event: BezotCorpEvent,
       index: number,
       suppressThought: boolean,
     ) => (

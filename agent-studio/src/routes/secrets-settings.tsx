@@ -26,7 +26,7 @@ export const handle = { hideTitle: true };
 
 export function SecretsSettingsScreen() {
   const queryClient = useQueryClient();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
   const {

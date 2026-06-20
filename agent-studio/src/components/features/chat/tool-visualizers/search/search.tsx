@@ -14,7 +14,7 @@ export const searchVisualizer = defineVisualizer({
   actionKinds: ["GrepAction", "GlobAction"],
   observationKinds: ["GrepObservation", "GlobObservation"],
   Body: function SearchBody({ action, observation }) {
-    const { t } = useTranslation("openhands");
+    const { t } = useTranslation("bezotcorp");
     const obs = observation?.observation;
     const act = action?.action;
 

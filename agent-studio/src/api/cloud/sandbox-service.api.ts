@@ -12,7 +12,7 @@ function getActiveCloudBackend(): Backend {
 }
 
 /**
- * Batch-fetch cloud sandboxes by id. Mirrors OpenHands'
+ * Batch-fetch cloud sandboxes by id. Mirrors BezotCorp'
  * `SandboxService.batchGetSandboxes` by calling
  * `GET /api/v1/sandboxes?id=...` on the cloud backend, returning each
  * `SandboxInfo` (or null if not found).

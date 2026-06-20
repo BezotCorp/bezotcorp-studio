@@ -12,7 +12,7 @@ import ApiKeyEntryScreen from "#/components/features/backends/api-key-entry-scre
 
 const getSettingsMock = vi.fn();
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   SettingsClient: vi.fn(function SettingsClientMock() {
     return { getSettings: getSettingsMock };
   }),

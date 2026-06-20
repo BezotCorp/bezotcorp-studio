@@ -24,7 +24,7 @@ export function ConversationPanelNewThreadPicker({
 }: {
   backendKind: BackendKind;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const ariaLabel = t(I18nKey.CONVERSATION_PANEL$NEW_THREAD_FOLDER_ARIA);
 
   const triggerIcon = (

@@ -142,7 +142,7 @@ When reviewing PRs that modify event types (e.g., `TextContent`, `Message`, `Eve
 ### Example Pattern (Required)
 
 ```python
-from openhands.sdk.utils.deprecation import handle_deprecated_model_fields
+from bezotcorp.sdk.utils.deprecation import handle_deprecated_model_fields
 
 class MyModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -173,16 +173,16 @@ pydantic_core.ValidationError: Extra inputs are not permitted
 These two rules are enforced by the CI test `src/api/no-direct-agent-server-calls.test.ts`.
 **Flag any PR that introduces a violation** -- these are correctness bugs, not style nits.
 
-### Rule 1 -- All agent-server calls must use `@openhands/typescript-client`
+### Rule 1 -- All agent-server calls must use `@bezotcorp/typescript-client`
 
-**DO NOT APPROVE** a PR that introduces raw `axios`, `fetch`, or the shared `openHands`
+**DO NOT APPROVE** a PR that introduces raw `axios`, `fetch`, or the shared `bezotcorp`
 axios instance to call an agent-server endpoint (`/api/*`, `/server_info`). All such
-calls must go through typed client classes from `@openhands/typescript-client`,
+calls must go through typed client classes from `@bezotcorp/typescript-client`,
 instantiated with options from `getAgentServerClientOptions()` or
 `getAgentServerHttpClientOptions()` in `src/api/agent-server-client-options.ts`.
 
 Forbidden patterns (caught by the CI guard):
-- `openHands.<method>(...)` -- shared axios instance
+- `bezotcorp.<method>(...)` -- shared axios instance
 - `createHttpClient(...)` -- creates a raw HTTP client
 - `axios(...)` / `axios.get/post/etc.(...)` (except in the two allowed files)
 - `fetch('/api/...')` or `fetch(\`${host}/api/...\`)`

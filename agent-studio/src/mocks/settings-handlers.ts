@@ -45,7 +45,7 @@ const llmDefaults = (DEFAULT_AGENT_SETTINGS as Record<string, unknown>).llm as
 const DEFAULT_MODEL =
   typeof llmDefaults?.model === "string"
     ? llmDefaults.model
-    : "openhands/claude-opus-4-5-20251101";
+    : "bezotcorp/claude-opus-4-5-20251101";
 
 export const createMockWebClientConfig = (
   overrides: Partial<WebClientConfig> = {},
@@ -212,13 +212,13 @@ const MOCK_AGENT_SETTINGS_SCHEMA: NonNullable<
           required: false,
         },
         // Rendered as a full-width row (see FIELD_FULL_WIDTH_KEYS) below the
-        // two critical-prominence toggles so the input + OpenHands Cloud help
+        // two critical-prominence toggles so the input + BezotCorp Cloud help
         // link have room to breathe.
         {
           key: "verification.critic_api_key",
           label: "Critic API Key",
           description:
-            "If OpenHands is selected as your active LLM provider, leave this empty; the critic reuses the OpenHands Provider LLM Key.",
+            "If BezotCorp is selected as your active LLM provider, leave this empty; the critic reuses the BezotCorp Provider LLM Key.",
           section: "verification",
           section_label: "Verification",
           value_type: "string",
@@ -385,7 +385,7 @@ const MOCK_CONVERSATION_SETTINGS_SCHEMA: NonNullable<
           key: "security_analyzer",
           label: "Security analyzer",
           description:
-            "Choose how OpenHands should analyze actions before asking for confirmation.",
+            "Choose how BezotCorp should analyze actions before asking for confirmation.",
 
           section: "verification",
           section_label: "Verification",
@@ -551,11 +551,11 @@ const MOCK_MODELS = [
   "openai/gpt-5.5",
   "openai/gpt-4o",
   "openai/gpt-4o-mini",
-  "openhands/claude-sonnet-4-20250514",
-  "openhands/claude-sonnet-4-5-20250929",
-  "openhands/claude-haiku-4-5-20251001",
-  "openhands/claude-opus-4-5-20251101",
-  "openhands/minimax-m2.7",
+  "bezotcorp/claude-sonnet-4-20250514",
+  "bezotcorp/claude-sonnet-4-5-20250929",
+  "bezotcorp/claude-haiku-4-5-20251001",
+  "bezotcorp/claude-opus-4-5-20251101",
+  "bezotcorp/minimax-m2.7",
   "sambanova/Meta-Llama-3.1-8B-Instruct",
 ];
 
@@ -566,13 +566,13 @@ const MOCK_VERIFIED_MODELS = new Set([
   "anthropic/claude-opus-4-8",
   "anthropic/claude-sonnet-4-5-20250929",
   "openai/gpt-5.5",
-  "openhands/claude-opus-4-5-20251101",
-  "openhands/claude-sonnet-4-5-20250929",
-  "openhands/minimax-m2.7",
+  "bezotcorp/claude-opus-4-5-20251101",
+  "bezotcorp/claude-sonnet-4-5-20250929",
+  "bezotcorp/minimax-m2.7",
 ]);
 
 const MOCK_VERIFIED_PROVIDERS = [
-  "openhands",
+  "bezotcorp",
   "anthropic",
   "openai",
   "mistral",
@@ -693,7 +693,7 @@ export const SETTINGS_HANDLERS = [
         "claude-sonnet-4-5-20250929",
       ],
       verified_providers: MOCK_VERIFIED_PROVIDERS,
-      default_model: "openhands/minimax-m2.7",
+      default_model: "bezotcorp/minimax-m2.7",
     }),
   ),
 

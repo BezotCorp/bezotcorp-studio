@@ -1,7 +1,7 @@
 import {
   ConversationClient,
   SettingsClient,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -25,10 +25,10 @@ const {
   mockUseLlmProfiles: vi.fn(),
 }));
 
-vi.mock("@openhands/typescript-client/clients", async () => {
+vi.mock("@bezotcorp/typescript-client/clients", async () => {
   const actual = await vi.importActual<
-    typeof import("@openhands/typescript-client/clients")
-  >("@openhands/typescript-client/clients");
+    typeof import("@bezotcorp/typescript-client/clients")
+  >("@bezotcorp/typescript-client/clients");
   return {
     ...actual,
     ConversationClient: vi.fn(function ConversationClientMock() {

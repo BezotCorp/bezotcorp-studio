@@ -150,8 +150,8 @@ describe("getAcpProviderSecrets — containerized credentials", () => {
     }
   });
 
-  it("returns [] for OpenHands / custom / unknown / empty", () => {
-    expect(getAcpProviderSecrets("openhands")).toEqual([]);
+  it("returns [] for BezotCorp / custom / unknown / empty", () => {
+    expect(getAcpProviderSecrets("bezotcorp")).toEqual([]);
     expect(getAcpProviderSecrets(ACP_CUSTOM_PRESET_KEY)).toEqual([]);
     expect(getAcpProviderSecrets("future-acp-server")).toEqual([]);
     expect(getAcpProviderSecrets(null)).toEqual([]);
@@ -186,8 +186,8 @@ describe("getAcpPreferredDefaultModel", () => {
     );
   });
 
-  it("returns null for OpenHands / custom / unknown", () => {
-    expect(getAcpPreferredDefaultModel("openhands")).toBeNull();
+  it("returns null for BezotCorp / custom / unknown", () => {
+    expect(getAcpPreferredDefaultModel("bezotcorp")).toBeNull();
     expect(getAcpPreferredDefaultModel(ACP_CUSTOM_PRESET_KEY)).toBeNull();
     expect(getAcpPreferredDefaultModel("future-acp-server")).toBeNull();
   });

@@ -21,7 +21,7 @@ export function AlertBanner({
   errorMessage,
   updatedAt,
 }: AlertBannerProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [dismissedAt, setDismissedAt] = useLocalStorage<string | null>(
     "alert_banner_dismissed_at",
     null,

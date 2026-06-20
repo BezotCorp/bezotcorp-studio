@@ -3,7 +3,7 @@
 // Historically each component duplicated this interface. Centralizing
 // it here keeps the marketplace utilities, hooks, and form in sync.
 
-import type { MCPTestFailureKind } from "@openhands/typescript-client";
+import type { MCPTestFailureKind } from "@bezotcorp/typescript-client";
 
 export type MCPServerType = "sse" | "stdio" | "shttp";
 
@@ -19,7 +19,7 @@ export interface MCPServerConfig {
   env?: Record<string, string>;
 }
 
-// Extensions of the published `@openhands/typescript-client` MCP test
+// Extensions of the published `@bezotcorp/typescript-client` MCP test
 // types (frozen at the released version). The agent server's
 // /api/mcp/test additionally accepts a `tool_call` (a read-only tool to
 // invoke so credentials get exercised) and reports its outcome in

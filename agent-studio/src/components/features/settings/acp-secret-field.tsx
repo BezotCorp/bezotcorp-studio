@@ -30,7 +30,7 @@ export function AcpSecretField({
   testId,
   showOptionalTag,
 }: AcpSecretFieldProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const placeholder = alreadySet
     ? t(I18nKey.ONBOARDING$ACP_SECRET_ALREADY_SET)
     : "";

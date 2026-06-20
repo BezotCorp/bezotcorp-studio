@@ -85,7 +85,7 @@ export function CloudNewConversationMenu({
   popoverTestId = "new-conversation-popover",
   useFixedPlacement = false,
 }: CloudNewConversationMenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { navigate } = useNavigation();
 
   const { providers } = useUserProviders();

@@ -75,7 +75,7 @@ export function ConversationPanelFilterMenu({
   totalConversationsCount,
   onRequestDeleteAll,
 }: ConversationPanelFilterMenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const groupedLabel =
     backendKind === "local"

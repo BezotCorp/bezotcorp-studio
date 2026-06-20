@@ -16,7 +16,7 @@ describe("getSkillScope", () => {
     expect(
       getSkillScope(
         buildSkill({
-          source: "/Users/test/.openhands/cache/skills/public-skills/skills/deno/SKILL.md",
+          source: "/Users/test/.bezotcorp/cache/skills/public-skills/skills/deno/SKILL.md",
         }),
       ),
     ).toBe("public");

@@ -38,12 +38,12 @@ vi.mock("react-router", async () => {
 i18n.use(initReactI18next).init({
   lng: "en",
   fallbackLng: "en",
-  ns: ["translation", "openhands"],
+  ns: ["translation", "bezotcorp"],
   defaultNS: "translation",
   resources: {
     en: {
       translation: {},
-      openhands: {},
+      bezotcorp: {},
     },
   },
   interpolation: {

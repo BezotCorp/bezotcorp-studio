@@ -15,7 +15,7 @@ import {
 } from "#/constants/acp-providers";
 import { I18nKey } from "#/i18n/declaration";
 
-function renderStep(initial: OnboardingAgentId = "openhands") {
+function renderStep(initial: OnboardingAgentId = "bezotcorp") {
   const onSelect = vi.fn();
   const onNext = vi.fn();
   render(
@@ -40,17 +40,17 @@ describe("ChooseAgentStep", () => {
     vi.spyOn(SettingsService, "saveSettings").mockResolvedValue(true);
   });
 
-  it("renders all four agent options with OpenHands marked selected by default", () => {
+  it("renders all four agent options with BezotCorp marked selected by default", () => {
     renderStep();
 
-    const openhands = screen.getByTestId("onboarding-agent-option-openhands");
+    const bezotcorp = screen.getByTestId("onboarding-agent-option-bezotcorp");
     const claude = screen.getByTestId("onboarding-agent-option-claude-code");
     const codex = screen.getByTestId("onboarding-agent-option-codex");
     const gemini = screen.getByTestId("onboarding-agent-option-gemini-cli");
 
-    expect(openhands).toHaveAttribute("aria-checked", "true");
+    expect(bezotcorp).toHaveAttribute("aria-checked", "true");
     // All four options are clickable — ACP is no longer "coming soon".
-    expect(openhands).not.toBeDisabled();
+    expect(bezotcorp).not.toBeDisabled();
     expect(claude).not.toBeDisabled();
     expect(codex).not.toBeDisabled();
     expect(gemini).not.toBeDisabled();
@@ -126,13 +126,13 @@ describe("ChooseAgentStep", () => {
     await user.click(screen.getByTestId("onboarding-agent-option-gemini-cli"));
     expect(onSelect).toHaveBeenLastCalledWith("gemini-cli");
 
-    await user.click(screen.getByTestId("onboarding-agent-option-openhands"));
-    expect(onSelect).toHaveBeenLastCalledWith("openhands");
+    await user.click(screen.getByTestId("onboarding-agent-option-bezotcorp"));
+    expect(onSelect).toHaveBeenLastCalledWith("bezotcorp");
   });
 
-  it("persists agent_kind:'openhands' and advances on Next when OpenHands is selected", async () => {
+  it("persists agent_kind:'bezotcorp' and advances on Next when BezotCorp is selected", async () => {
     const save = vi.spyOn(SettingsService, "saveSettings");
-    const { onNext } = renderStep("openhands");
+    const { onNext } = renderStep("bezotcorp");
     const user = userEvent.setup();
 
     await user.click(screen.getByTestId("onboarding-agent-next"));
@@ -144,7 +144,7 @@ describe("ChooseAgentStep", () => {
     const call = save.mock.calls[0]?.[0] as {
       agent_settings_diff?: Record<string, unknown>;
     };
-    expect(call.agent_settings_diff).toEqual({ agent_kind: "openhands" });
+    expect(call.agent_settings_diff).toEqual({ agent_kind: "bezotcorp" });
   });
 
   it("persists an ACP diff matching the registry when Claude Code is selected", async () => {

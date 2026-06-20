@@ -5,7 +5,7 @@ import React from "react";
  * been completed (or skipped). Once present, the modal won't auto-show
  * again on subsequent visits.
  */
-export const ONBOARDING_COMPLETED_STORAGE_KEY = "openhands-onboarded";
+export const ONBOARDING_COMPLETED_STORAGE_KEY = "bezotcorp-onboarded";
 
 function readCompletedFromStorage(): boolean {
   if (typeof window === "undefined") return true;

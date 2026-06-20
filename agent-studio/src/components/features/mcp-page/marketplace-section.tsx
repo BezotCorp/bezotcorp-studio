@@ -3,7 +3,7 @@ import { I18nKey } from "#/i18n/declaration";
 import {
   INTEGRATION_CATALOG as MCP_MARKETPLACE,
   type IntegrationCatalogEntry as MarketplaceEntry,
-} from "@openhands/extensions/integrations";
+} from "@bezotcorp/extensions/integrations";
 import {
   getMarketplaceEntriesByPopularity,
   getMcpMarketplaceCatalog,
@@ -30,7 +30,7 @@ export function MarketplaceSection({
   onAdd,
   query = "",
 }: MarketplaceSectionProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const visibleEntries = getMarketplaceEntriesByPopularity(
     getMcpMarketplaceCatalog(MCP_MARKETPLACE),

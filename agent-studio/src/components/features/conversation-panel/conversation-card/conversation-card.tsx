@@ -33,7 +33,7 @@ interface ConversationCardProps {
   showRepositoryMetadata?: boolean;
   llmModel?: string | null;
   showLlmProfiles?: boolean;
-  agentKind?: "openhands" | "acp" | null;
+  agentKind?: "bezotcorp" | "acp" | null;
   acpServer?: string | null;
 }
 

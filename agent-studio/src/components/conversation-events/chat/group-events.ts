@@ -1,4 +1,4 @@
-import { ActionEvent, OpenHandsEvent } from "#/types/agent-server/core";
+import { ActionEvent, BezotCorpEvent } from "#/types/agent-server/core";
 import {
   isActionEvent,
   isObservationEvent,
@@ -19,7 +19,7 @@ export const EVENT_GROUP_MIN_SIZE = 2;
  * HookExecution, AgentError, MessageEvent, PlanPreview, TaskTracker) are
  * treated as group breakers.
  */
-export const isGroupableEvent = (event: OpenHandsEvent): boolean => {
+export const isGroupableEvent = (event: BezotCorpEvent): boolean => {
   if (isActionEvent(event)) {
     const { kind } = event.action;
     if (kind === "FinishAction" || kind === "ThinkAction") {
@@ -42,9 +42,9 @@ export const isGroupableEvent = (event: OpenHandsEvent): boolean => {
 };
 
 export type RenderedItem =
-  | { kind: "single"; event: OpenHandsEvent; index: number }
+  | { kind: "single"; event: BezotCorpEvent; index: number }
   | { kind: "thought"; action: ActionEvent; index: number }
-  | { kind: "group"; events: OpenHandsEvent[]; startIndex: number };
+  | { kind: "group"; events: BezotCorpEvent[]; startIndex: number };
 
 /**
  * Walk a list of UI events and bucket consecutive groupable events into
@@ -63,9 +63,9 @@ export type RenderedItem =
  * their matching action; if omitted, it defaults to `events`.
  */
 export const groupEvents = (
-  events: OpenHandsEvent[],
+  events: BezotCorpEvent[],
   minSize: number = EVENT_GROUP_MIN_SIZE,
-  allEvents: OpenHandsEvent[] = events,
+  allEvents: BezotCorpEvent[] = events,
 ): RenderedItem[] => {
   if (minSize < 1) {
     throw new Error("minSize must be at least 1");
@@ -73,7 +73,7 @@ export const groupEvents = (
 
   const items: RenderedItem[] = [];
   const emittedThoughtActionIds = new Set<string>();
-  let run: { events: OpenHandsEvent[]; startIndex: number } | null = null;
+  let run: { events: BezotCorpEvent[]; startIndex: number } | null = null;
 
   const flushRun = () => {
     if (!run) return;

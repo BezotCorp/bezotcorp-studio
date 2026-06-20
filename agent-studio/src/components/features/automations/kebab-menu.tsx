@@ -20,7 +20,7 @@ interface KebabMenuProps {
 }
 
 export function KebabMenu({ items }: KebabMenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [open, setOpen] = useState(false);
   const [portalStyle, setPortalStyle] = useState<React.CSSProperties>();
   const triggerRef = useRef<HTMLButtonElement>(null);

@@ -34,7 +34,7 @@ export function BackendRow({
   onRemove,
   onLogin,
 }: BackendRowProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const isInvalidApiKey = isInvalidBackendApiKeyHealthError(health?.lastError);
   const isCloudLoggedOut =
     backend.kind === "cloud" &&

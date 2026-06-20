@@ -1,10 +1,10 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { SharedClient } from "@openhands/typescript-client/clients";
-import type { OpenHandsEvent } from "#/types/agent-server/core";
+import { SharedClient } from "@bezotcorp/typescript-client/clients";
+import type { BezotCorpEvent } from "#/types/agent-server/core";
 import { getAgentServerClientOptions } from "#/api/agent-server-client-options";
 
 interface SharedEventPage {
-  items: OpenHandsEvent[];
+  items: BezotCorpEvent[];
   next_page_id: string | null;
 }
 

@@ -35,7 +35,7 @@ test.describe("onboarding recent regressions", () => {
       .poll(
         () =>
           page.evaluate(() =>
-            window.localStorage.getItem("openhands-onboarded"),
+            window.localStorage.getItem("bezotcorp-onboarded"),
           ),
         {
           message:
@@ -53,7 +53,7 @@ test.describe("onboarding recent regressions", () => {
       .poll(
         () =>
           page.evaluate(() =>
-            window.localStorage.getItem("openhands-onboarded"),
+            window.localStorage.getItem("bezotcorp-onboarded"),
           ),
         { message: "skip should persist onboarding completion" },
       )
@@ -61,11 +61,9 @@ test.describe("onboarding recent regressions", () => {
   });
 
   // Regression coverage for #1077 / PR #1089: first-run LLM setup
-  // should not default users to the OpenHands provider.
+  // should not default users to the BezotCorp provider.
 
-  test("defaults the LLM setup step to OpenAI GPT-5.5", async ({
-    page,
-  }) => {
+  test("defaults the LLM setup step to OpenAI GPT-5.5", async ({ page }) => {
     await showOnboarding(page, {
       apiKey: SESSION_API_KEY,
       beforeGoto: async () => {
@@ -105,8 +103,8 @@ test.describe("onboarding recent regressions", () => {
       timeout: 10_000,
     });
     await expect(
-      page.getByTestId("openhands-account-help"),
-      "OpenHands account helper should stay hidden for OpenAI defaults",
+      page.getByTestId("bezotcorp-account-help"),
+      "BezotCorp account helper should stay hidden for OpenAI defaults",
     ).toHaveCount(0);
   });
 });

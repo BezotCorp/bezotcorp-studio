@@ -1,4 +1,4 @@
-"""Mock OpenAI-compatible LLM server powered by openhands-sdk TestLLM.
+"""Mock OpenAI-compatible LLM server powered by bezotcorp-sdk TestLLM.
 
 Serves scripted trajectories as OpenAI /v1/chat/completions responses.
 The agent-server's litellm layer talks to this instead of a real LLM provider.
@@ -17,10 +17,10 @@ import threading
 import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-os.environ["OPENHANDS_SUPPRESS_BANNER"] = "1"
+os.environ["BEZOTCORP_SUPPRESS_BANNER"] = "1"
 
-from openhands.sdk.llm import Message, MessageToolCall, TextContent
-from openhands.sdk.llm.exceptions import (
+from bezotcorp.sdk.llm import Message, MessageToolCall, TextContent
+from bezotcorp.sdk.llm.exceptions import (
     LLMAuthenticationError,
     LLMBadRequestError,
     LLMContextWindowExceedError,
@@ -28,7 +28,7 @@ from openhands.sdk.llm.exceptions import (
     LLMServiceUnavailableError,
     LLMTimeoutError,
 )
-from openhands.sdk.testing import TestLLM, TestLLMExhaustedError
+from bezotcorp.sdk.testing import TestLLM, TestLLMExhaustedError
 
 BASH_TOKEN = "MOCK_LLM_E2E_BASH_OK"
 REPLY_TOKEN = "MOCK_LLM_E2E_REPLY_OK"

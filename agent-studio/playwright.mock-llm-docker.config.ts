@@ -6,7 +6,7 @@
  * bin/agent-studio.mjs + uvx.
  *
  * Starts two processes:
- *   1. Mock LLM server (Python on the host, using openhands-sdk TestLLM)
+ *   1. Mock LLM server (Python on the host, using bezotcorp-sdk TestLLM)
  *   2. Docker container running the agent-studio all-in-one image
  *      (agent-server + automation backend + static frontend + proxy)
  *      The container also starts a second static-server instance on
@@ -98,9 +98,9 @@ mkdirSync(SKILL_REPOS_HOST_DIR, { recursive: true });
 process.env.MOCK_LLM_SKILL_REPOS_CONTAINER_DIR = SKILL_REPOS_CONTAINER_DIR;
 
 // User skills: host creates skill files here, container mounts them at
-// the agent-server's expected ~/.openhands/skills/ path.
+// the agent-server's expected ~/.bezotcorp/skills/ path.
 const USER_SKILLS_HOST_DIR = resolve(".tmp/mock-llm-user-skills");
-const USER_SKILLS_CONTAINER_DIR = "/home/openhands/.openhands/skills";
+const USER_SKILLS_CONTAINER_DIR = "/home/bezotcorp/.bezotcorp/skills";
 mkdirSync(USER_SKILLS_HOST_DIR, { recursive: true });
 process.env.MOCK_LLM_USER_SKILLS_HOST_DIR = USER_SKILLS_HOST_DIR;
 
@@ -124,7 +124,7 @@ const MOCK_ACP_HOST_PATH = resolve(
 );
 const MOCK_ACP_CONTAINER_PATH = "/opt/mock-acp-server.py";
 
-// The agent-server image ships Python 3 via the openhands-sdk base.
+// The agent-server image ships Python 3 via the bezotcorp-sdk base.
 process.env.MOCK_ACP_CONTAINER_PYTHON = "python3";
 process.env.MOCK_ACP_CONTAINER_SCRIPT = MOCK_ACP_CONTAINER_PATH;
 

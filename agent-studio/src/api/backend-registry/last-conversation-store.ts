@@ -8,7 +8,7 @@
 // it just falls back to the conversations list.
 
 export const LAST_CONVERSATION_STORAGE_KEY =
-  "openhands-last-conversation-by-backend";
+  "bezotcorp-last-conversation-by-backend";
 
 type StoredMap = Record<string, string>;
 

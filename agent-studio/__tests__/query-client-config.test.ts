@@ -51,21 +51,21 @@ describe("createAgentServerQueryClient", () => {
     const toastSpy = vi.spyOn(ToastHandlers, "displayErrorToast");
     const backend = {
       id: "cloud-expired",
-      name: "OpenHands Cloud",
+      name: "BezotCorp Cloud",
       host: "https://app.all-hands.dev",
       apiKey: "expired-token",
       kind: "cloud",
     };
     window.localStorage.setItem(
-      "openhands-backends",
+      "bezotcorp-backends",
       JSON.stringify([backend]),
     );
     window.localStorage.setItem(
-      "openhands-active-backend",
+      "bezotcorp-active-backend",
       JSON.stringify({ backendId: backend.id, orgId: null }),
     );
     window.sessionStorage.setItem(
-      "openhands-active-backend",
+      "bezotcorp-active-backend",
       JSON.stringify({ backendId: backend.id, orgId: null }),
     );
     __resetActiveStoreForTests();

@@ -1,5 +1,5 @@
-import { FileClient } from "@openhands/typescript-client/clients";
-import { RemoteWorkspace } from "@openhands/typescript-client/workspace/remote-workspace";
+import { FileClient } from "@bezotcorp/typescript-client/clients";
+import { RemoteWorkspace } from "@bezotcorp/typescript-client/workspace/remote-workspace";
 import { getAgentServerClientOptions } from "#/api/agent-server-client-options";
 import { getActiveBackend } from "#/api/backend-registry/active-store";
 import { callCloudProxy } from "#/api/cloud/proxy";

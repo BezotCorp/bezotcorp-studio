@@ -1,4 +1,4 @@
-import { getAcpProvider as getClientAcpProvider } from "@openhands/typescript-client";
+import { getAcpProvider as getClientAcpProvider } from "@bezotcorp/typescript-client";
 import { I18nKey } from "#/i18n/declaration";
 
 /** Upstream registry fields not yet on the pinned client's exported type. */
@@ -75,9 +75,9 @@ export function resolveEffectiveAcpModel(inputs: {
 /**
  * Shape of a built-in ACP (Agent Client Protocol) provider as Canvas consumes
  * it. The data fields (display name, launch command, model picker + default)
- * are sourced at module load from ``@openhands/typescript-client``'s ACP
+ * are sourced at module load from ``@bezotcorp/typescript-client``'s ACP
  * registry — the generated mirror of the Python source of truth
- * ``openhands.sdk.settings.acp_providers``. This config only adds the
+ * ``bezotcorp.sdk.settings.acp_providers``. This config only adds the
  * Canvas-specific UI fields ({@link ACPProviderConfig.icon} +
  * {@link ACPProviderConfig.description_key}); see {@link ACP_PROVIDER_UI}.
  */
@@ -153,7 +153,7 @@ const ACP_PROVIDER_UI: Record<
 };
 
 // Built-in ACP providers Canvas surfaces, built by enriching each upstream
-// registry record (``@openhands/typescript-client`` → Python SDK) with the
+// registry record (``@bezotcorp/typescript-client`` → Python SDK) with the
 // Canvas UI metadata above. Model lists + defaults are no longer hand-kept
 // here (closes agent-studio#740) — they track the SDK via the pinned client.
 export const ACP_PROVIDERS: ACPProviderConfig[] = Object.entries(
@@ -220,7 +220,7 @@ export interface ACPProviderSecretField {
  *
  * The blob *names* (``CODEX_AUTH_JSON`` / ``GOOGLE_APPLICATION_CREDENTIALS_JSON``)
  * duplicate the SDK registry's ``file_secrets`` specs; derive them from the
- * client registry once the pinned ``@openhands/typescript-client`` mirrors that
+ * client registry once the pinned ``@bezotcorp/typescript-client`` mirrors that
  * field (same bump that unblocks ``acp_isolate_data_dir``, see #1019).
  */
 const ACP_RESERVED_CREDENTIALS: Record<string, ACPProviderSecretField[]> = {
@@ -340,7 +340,7 @@ export function getAcpPreferredDefaultModel(
  * List the credentials Canvas should prompt for when onboarding the given ACP
  * provider. The API-key and base-URL field *names* track the SDK registry's
  * ``api_key_env_var`` / ``base_url_env_var`` (mirrored via
- * ``@openhands/typescript-client``) so they can't drift as providers are added
+ * ``@bezotcorp/typescript-client``) so they can't drift as providers are added
  * or renamed; the per-provider container credentials (subscription / Vertex
  * blobs) come from {@link ACP_RESERVED_CREDENTIALS}, since those are a
  * containerized-deployment concern with no model-registry entry. Each field
@@ -360,7 +360,7 @@ export function getAcpPreferredDefaultModel(
  * a ``CLAUDE_CODE_OAUTH_TOKEN`` breaks the token's bearer auth, which the forms
  * surface via {@link getAcpCredentialConflicts}.
  *
- * Returns ``[]`` for OpenHands, the ``"custom"`` preset, any unknown key, and a
+ * Returns ``[]`` for BezotCorp, the ``"custom"`` preset, any unknown key, and a
  * future OAuth-only provider whose registry entry has no ``api_key_env_var`` —
  * callers treat an empty list as "no credentials step for this provider".
  */
@@ -497,12 +497,12 @@ export function buildAcpAgentSettingsDiff(
     allowUnknownServer?: boolean;
   } = {},
 ): Record<string, unknown> | null {
-  if (providerKey === "openhands") {
-    // Switching back to OpenHands. The agent-server's ``Settings.update``
+  if (providerKey === "bezotcorp") {
+    // Switching back to BezotCorp. The agent-server's ``Settings.update``
     // applies a fresh ``{'agent_kind': ...}`` base whenever the kind
     // flips, so any ``acp_*`` fields would be discarded before
     // validation. Send the kind alone.
-    return { agent_kind: "openhands" };
+    return { agent_kind: "bezotcorp" };
   }
 
   const isCustom = providerKey === ACP_CUSTOM_PRESET_KEY;

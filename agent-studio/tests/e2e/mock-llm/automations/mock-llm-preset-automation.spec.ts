@@ -1,9 +1,9 @@
 /**
  * Mock-LLM E2E test: preset automation card → slash command → skill activation.
  *
- * The `slack-standup-digest` skill ships in the public OpenHands extensions
+ * The `slack-standup-digest` skill ships in the public BezotCorp extensions
  * repo with `triggers: ["/standup-digest:setup"]`. The frontend bundles
- * public skills from the `@openhands/extensions` npm package and passes
+ * public skills from the `@bezotcorp/extensions` npm package and passes
  * them directly in `agent_context.skills` at conversation-start, so the
  * SDK's trigger matching activates them without the agent-server needing
  * to clone the extensions repo (`load_public_skills: false`).
@@ -88,9 +88,7 @@ async function assertActivatedSkills(
           return Array.isArray(skills) && skills.length > 0;
         });
 
-        return found
-          ? "FOUND"
-          : `${items.length} events: [${diag.join(", ")}]`;
+        return found ? "FOUND" : `${items.length} events: [${diag.join(", ")}]`;
       },
       {
         message: "activated_skills not found in conversation events",
@@ -227,9 +225,9 @@ test.describe("preset automation → slash command conversation", () => {
       }
 
       // Now verify the slash command appears as a sent user message
-      await expect(
-        userMessages.filter({ hasText: SLASH_COMMAND }),
-      ).toBeVisible({ timeout: 15_000 });
+      await expect(userMessages.filter({ hasText: SLASH_COMMAND })).toBeVisible(
+        { timeout: 15_000 },
+      );
     });
   });
 
@@ -285,9 +283,9 @@ test.describe("preset automation → slash command conversation", () => {
 
     await test.step("verify user message", async () => {
       const userMessages = page.locator('[data-testid="user-message"]');
-      await expect(
-        userMessages.filter({ hasText: SLASH_COMMAND }),
-      ).toBeVisible({ timeout: 15_000 });
+      await expect(userMessages.filter({ hasText: SLASH_COMMAND })).toBeVisible(
+        { timeout: 15_000 },
+      );
     });
 
     await test.step("verify agent reply", async () => {

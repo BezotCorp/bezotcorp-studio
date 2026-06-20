@@ -216,7 +216,7 @@ test.describe("mock-LLM automation lifecycle", () => {
 
     // Build the terminal commands the mock LLM will return.
     // The curl commands hit the REAL automation backend through the ingress.
-    // Auth uses $OPENHANDS_AUTOMATION_API_KEY which the agent-server
+    // Auth uses $BEZOTCORP_AUTOMATION_API_KEY which the agent-server
     // exposes as an env var in the terminal sandbox.
     //
     // Turn 1: Create the automation via curl preset/prompt endpoint.
@@ -225,7 +225,7 @@ test.describe("mock-LLM automation lifecycle", () => {
 
     // Auth: hardcode the session API key directly in the curl commands.
     // The agent-server terminal may not inherit all parent env vars (the SDK
-    // sandboxes the execution environment), so $OPENHANDS_AUTOMATION_API_KEY
+    // sandboxes the execution environment), so $BEZOTCORP_AUTOMATION_API_KEY
     // may not be available. Using the key directly is safe in a test context.
     const authHeader = `-H 'X-Session-API-Key: ${SESSION_API_KEY}'`;
 
@@ -254,11 +254,11 @@ test.describe("mock-LLM automation lifecycle", () => {
     ].join(" ");
 
     // ⚠️  Padding response (index 0):
-    // Public skills are bundled from @openhands/extensions at build time.
+    // Public skills are bundled from @bezotcorp/extensions at build time.
     // The agent-server's skill-activation pipeline makes one internal LLM
     // call to decide which skills to inject before the agent loop starts.
     // Our user message mentions "automation", which matches the
-    // openhands-automation skill, triggering this internal call.
+    // bezotcorp-automation skill, triggering this internal call.
     // The conversation test does NOT need padding because its prompt
     // ("run this bash command") does not match any skill trigger.
     //

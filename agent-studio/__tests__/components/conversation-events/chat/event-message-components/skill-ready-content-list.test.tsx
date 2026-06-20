@@ -116,7 +116,7 @@ describe("SkillReadyContentList", () => {
     const content = [
       "The following information has been included based on a keyword match for \"docker\".",
       "It may or may not be relevant to the user's request.",
-      "Skill location: /home/openhands/.openhands/skills/docker/SKILL.md",
+      "Skill location: /home/bezotcorp/.bezotcorp/skills/docker/SKILL.md",
       "(Use this path to resolve relative file references)",
       "",
       "Docker Usage Guide",
@@ -130,7 +130,7 @@ describe("SkillReadyContentList", () => {
     // File path rendered in code element
     expect(
       screen.getByText(
-        "/home/openhands/.openhands/skills/docker/SKILL.md",
+        "/home/bezotcorp/.bezotcorp/skills/docker/SKILL.md",
       ),
     ).toBeInTheDocument();
     // Actual skill body rendered

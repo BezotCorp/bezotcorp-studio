@@ -2,11 +2,11 @@
 name: release
 description: Guide the release process for @bezotcorp/agent-studio — version bump on the release branch, QA, then tag to publish to npm and Docker.
 triggers:
-- release
-- new release
-- cut a release
-- publish release
-- bump version
+  - release
+  - new release
+  - cut a release
+  - publish release
+  - bump version
 ---
 
 # Release Process for @bezotcorp/agent-studio
@@ -27,21 +27,21 @@ The workflow checks npm at publish time to see whether any full stable release (
 
 **Before the first stable release** — all versions use `--tag latest`:
 
-| Version | Example | npm dist-tag | `npm install` resolves? |
-|---|---|---|---|
-| Alpha | `1.0.0-alpha.1` | `latest` | ✅ default |
-| Beta | `1.0.0-beta.1` | `latest` | ✅ default |
-| RC | `1.0.0-rc.1` | `latest` | ✅ default |
-| Stable | `1.0.0` | `latest` | ✅ default |
+| Version | Example         | npm dist-tag | `npm install` resolves? |
+| ------- | --------------- | ------------ | ----------------------- |
+| Alpha   | `1.0.0-alpha.1` | `latest`     | ✅ default              |
+| Beta    | `1.0.0-beta.1`  | `latest`     | ✅ default              |
+| RC      | `1.0.0-rc.1`    | `latest`     | ✅ default              |
+| Stable  | `1.0.0`         | `latest`     | ✅ default              |
 
 **After the first stable release** — pre-release versions revert to their own dist-tags:
 
-| Version | Example | npm dist-tag | `npm install` resolves? |
-|---|---|---|---|
-| Alpha | `1.0.0-alpha.1` | `alpha` | `@alpha` only |
-| Beta | `1.0.0-beta.1` | `beta` | `@beta` only |
-| RC | `1.0.0-rc.1` | `rc` | `@rc` only |
-| Stable | `1.0.0` | `latest` | ✅ default |
+| Version | Example         | npm dist-tag | `npm install` resolves? |
+| ------- | --------------- | ------------ | ----------------------- |
+| Alpha   | `1.0.0-alpha.1` | `alpha`      | `@alpha` only           |
+| Beta    | `1.0.0-beta.1`  | `beta`       | `@beta` only            |
+| RC      | `1.0.0-rc.1`    | `rc`         | `@rc` only              |
+| Stable  | `1.0.0`         | `latest`     | ✅ default              |
 
 This transition is automatic — no workflow changes are needed when the first stable version ships.
 
@@ -101,7 +101,7 @@ const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
 config.versions.agentCanvas = version;
 fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + "\n");
 const image = `${config.images.agentCanvas}:${version}`;
-const imageRefPattern = /ghcr\.io\/openhands\/agent-studio:[^\s`"]+/g;
+const imageRefPattern = /ghcr\.io\/bezotcorp\/agent-studio:[^\s`"]+/g;
 for (const file of ["README.md", "README.windows.md"]) {
   fs.writeFileSync(file, fs.readFileSync(file, "utf8").replace(imageRefPattern, image));
 }
@@ -111,7 +111,7 @@ git commit -m "docs: update Docker install version to $VERSION"
 git push
 ```
 
-External install docs on docs.openhands.dev are maintained separately; update them there when closing #1073. Pre-release Docker images are tagged by exact version only (`latest` is published for stable releases).
+External install docs on docs.bezotcorp.dev are maintained separately; update them there when closing #1073. Pre-release Docker images are tagged by exact version only (`latest` is published for stable releases).
 
 ---
 
@@ -127,17 +127,18 @@ git push origin v<version>
 ```
 
 Examples:
+
 - First release candidate: `git tag v1.0.0-rc.1 && git push origin v1.0.0-rc.1`
 - Subsequent RC: `git tag v1.0.0-rc.2 && git push origin v1.0.0-rc.2`
 - Full release: `git tag v1.0.0 && git push origin v1.0.0`
 
 **The tag push is the release trigger.** Three workflows fire in parallel:
 
-| Workflow | What it does |
-|---|---|
+| Workflow             | What it does                                                |
+| -------------------- | ----------------------------------------------------------- |
 | `create-release.yml` | Creates the GitHub Release object with auto-generated notes |
-| `npm-publish.yml` | Builds and publishes to npm with the correct dist-tag |
-| `docker.yml` | Builds and pushes multi-arch Docker images to GHCR |
+| `npm-publish.yml`    | Builds and publishes to npm with the correct dist-tag       |
+| `docker.yml`         | Builds and pushes multi-arch Docker images to GHCR          |
 
 ---
 
@@ -167,7 +168,9 @@ gh run list --workflow=docker.yml --limit=3
 ## Troubleshooting
 
 ### package.json version doesn't match the tag
+
 `npm-publish.yml` validates that `package.json` version equals the tag version and fails if they differ. Fix the version on the branch, push, then delete and re-push the tag:
+
 ```bash
 git push origin :refs/tags/v<version>   # delete remote tag
 git tag -d v<version>                    # delete local tag
@@ -176,11 +179,15 @@ git tag v<version> && git push origin v<version>
 ```
 
 ### GitHub release already exists
+
 `create-release.yml` skips silently if the release already exists. To recreate it:
+
 ```bash
 gh release delete v<version> --yes
 ```
+
 Then the workflow will re-create it on the next tag push (or run it manually from the Actions tab).
 
 ### npm publish failed mid-way
+
 Check the `npm-publish.yml` run logs. The dist-tag is resolved dynamically: if no stable release (no `-` in the version) has ever been published to npm, all versions use `latest`; once a stable version exists, pre-release versions use their own tag (`alpha` / `beta` / `rc`) and only stable versions use `latest`.

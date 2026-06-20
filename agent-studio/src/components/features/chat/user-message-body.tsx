@@ -24,7 +24,7 @@ export function UserMessageBody({
   isExpanded: boolean;
   onTruncatableChange: (truncatable: boolean) => void;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const contentRef = React.useRef<HTMLDivElement>(null);
   const [isTruncatable, setIsTruncatable] = React.useState(false);
 

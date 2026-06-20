@@ -18,8 +18,8 @@ describe("SettingsForm", () => {
   const onCloseMock = vi.fn();
   const saveSettingsSpy = vi.spyOn(SettingsService, "saveSettings");
 
-  // The persisted llm.model is "openhands/<m>"; ModelSelector splits it into
-  // provider ("openhands" → "OpenHands") and model name ("<m>") and feeds
+  // The persisted llm.model is "bezotcorp/<m>"; ModelSelector splits it into
+  // provider ("bezotcorp" → "BezotCorp") and model name ("<m>") and feeds
   // them into two autocompletes. extractSettings reconstructs llm.model
   // from those two FormData entries on submit, so we wait for the model
   // autocomplete to be populated before triggering submission — otherwise

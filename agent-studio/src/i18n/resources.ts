@@ -3,7 +3,7 @@
 // This module is intentionally separate from `src/i18n/index.ts` so that the
 // 1 MB `translation.json` does not enter the app's eager dev/prod graph. The
 // app initialises i18next with `i18next-http-backend`, which fetches
-// `/locales/<lng>/openhands.json` at runtime; it never needs the embedded
+// `/locales/<lng>/bezotcorp.json` at runtime; it never needs the embedded
 // resources object.
 //
 // Library consumers (`@bezotcorp/agent-studio/i18n`) can still import

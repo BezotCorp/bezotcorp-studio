@@ -3,7 +3,7 @@ import { Typography } from "#/ui/typography";
 import { I18nKey } from "#/i18n/declaration";
 
 export function HomeHeaderTitle() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div className="flex min-h-[80px] w-full items-center justify-center py-2">

@@ -10,7 +10,7 @@ interface BudgetDisplayProps {
 }
 
 export function BudgetDisplay({ cost, maxBudgetPerTask }: BudgetDisplayProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   // Don't render anything if cost is not available
   if (cost === null) {

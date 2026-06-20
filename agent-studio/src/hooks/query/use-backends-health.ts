@@ -4,7 +4,7 @@ import { useQueries } from "@tanstack/react-query";
 import {
   ServerClient,
   SettingsClient,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 import { getCurrentCloudApiKey } from "#/api/cloud/organization-service.api";
 import {
   assertAgentServerVersionIsSupported,

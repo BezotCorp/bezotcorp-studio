@@ -6,11 +6,11 @@ import {
   fetchVerifiedModelsByProvider,
 } from "./use-verified-models";
 
-export const useOpenhandsVerifiedModels = () =>
+export const useBezotCorpVerifiedModels = () =>
   useQuery({
     queryKey: VERIFIED_MODELS_QUERY_KEY,
     queryFn: fetchVerifiedModelsByProvider,
-    select: (data) => data?.openhands ?? [],
+    select: (data) => data?.bezotcorp ?? [],
     staleTime: VERIFIED_MODELS_STALE_TIME,
     gcTime: VERIFIED_MODELS_GC_TIME,
   });

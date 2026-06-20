@@ -32,7 +32,7 @@ import { OpenRepositoryDialog } from "./open-repository-dialog";
 import { HomeGitControlBarPreview } from "./home-git-control-bar-preview";
 
 export function HomeChatLauncher() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { backend } = useActiveBackend();
   const { navigate } = useNavigation();
   const isLocal = backend.kind === "local";

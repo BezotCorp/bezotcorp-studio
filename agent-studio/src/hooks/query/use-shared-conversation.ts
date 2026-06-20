@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { SharedClient } from "@openhands/typescript-client/clients";
+import { SharedClient } from "@bezotcorp/typescript-client/clients";
 import { getAgentServerClientOptions } from "#/api/agent-server-client-options";
 
 export const useSharedConversation = (conversationId?: string) =>

@@ -14,7 +14,7 @@ export function LanguageInput({
   onChange,
   name,
 }: LanguageInputProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <SettingsDropdownInput

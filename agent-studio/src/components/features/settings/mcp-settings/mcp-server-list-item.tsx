@@ -23,7 +23,7 @@ export function MCPServerListItem({
   onEdit: () => void;
   onDelete: () => void;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const getServerTypeLabel = (type: string) => {
     switch (type) {

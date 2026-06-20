@@ -10,7 +10,7 @@ interface ChatSuggestionsProps {
 }
 
 export function ChatSuggestions({ onSuggestionsClick }: ChatSuggestionsProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { shouldHideSuggestions } = useConversationStore();
 
   return (

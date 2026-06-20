@@ -23,7 +23,7 @@ interface RightPanelToggleProps {
  * see the comment in `useConversationStore` for the rationale.
  */
 export function RightPanelToggle({ className }: RightPanelToggleProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const isMobile = useBreakpoint();
   const isArchivedConversation = useIsArchivedConversation();
   const navigate = useNavigate();

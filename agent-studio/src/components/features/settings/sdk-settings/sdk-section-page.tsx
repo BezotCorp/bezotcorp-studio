@@ -101,7 +101,7 @@ const getSchemaUnavailableMessage = (
   }
 
   if (error.response?.status === 404) {
-    return `${fallbackMessage} This backend does not expose /api/settings/* schema endpoints. Upgrade to a recent openhands-agent-server release.`;
+    return `${fallbackMessage} This backend does not expose /api/settings/* schema endpoints. Upgrade to a recent bezotcorp-agent-server release.`;
   }
 
   return fallbackMessage;
@@ -217,7 +217,7 @@ export function SdkSectionPage({
    * marked dirty on hydration so the user can save the form without
    * having to touch the prefilled fields. Useful when the page is
    * embedded in a flow that wants to nudge brand-new users toward a
-   * particular default (e.g. onboarding pre-filling OpenHands/Opus).
+   * particular default (e.g. onboarding pre-filling BezotCorp/Opus).
    */
   initialValueOverrides?: SettingsFormValues;
   embedded?: boolean;
@@ -233,7 +233,7 @@ export function SdkSectionPage({
   onSaveControlChange?: (control: SdkSectionSaveControl) => void;
   testId?: string;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { mutate: saveSettings, isPending } = useSaveSettings(scope);
   const { data: settings, isLoading, isFetching } = useSettings(scope);
   const agentSchemaQuery = useAgentSettingsSchema(

@@ -23,7 +23,7 @@ export function HooksModalHeader({
   onRefresh,
   onClose,
 }: HooksModalHeaderProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const refreshLabel = t(I18nKey.BUTTON$REFRESH);
 
   return (

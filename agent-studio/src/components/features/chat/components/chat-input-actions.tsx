@@ -51,7 +51,7 @@ export function ChatInputActions({
   buttonClassName = "",
   handleSubmit = () => {},
 }: ChatInputActionsProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const unifiedPauseMutation = useUnifiedPauseConversation();
   const pauseConversationMutation = usePauseConversation();
   const resumeConversationMutation = useResumeConversation();
@@ -59,7 +59,7 @@ export function ChatInputActions({
   const { backend } = useActiveBackend();
   const isCloud = backend.kind === "cloud";
   const modelState = useChatInputModelState();
-  // Code/Plan mode switching is a cloud OpenHands feature — it doesn't apply
+  // Code/Plan mode switching is a cloud BezotCorp feature — it doesn't apply
   // to ACP conversations (which have no "plan" mode), so hide it when ACP.
   const showChangeAgentButton = isCloud && !modelState.isAcpContext;
   const webSocketStatus = useUnifiedWebSocketStatus();

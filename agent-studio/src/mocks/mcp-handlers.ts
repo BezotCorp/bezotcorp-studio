@@ -1,4 +1,4 @@
-import type { MCPTestResponse } from "@openhands/typescript-client";
+import type { MCPTestResponse } from "@bezotcorp/typescript-client";
 import { http, HttpResponse } from "msw";
 
 /**

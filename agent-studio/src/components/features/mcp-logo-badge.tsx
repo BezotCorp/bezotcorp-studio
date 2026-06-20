@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
-import type { IntegrationCatalogEntry } from "@openhands/extensions/integrations";
+import type { IntegrationCatalogEntry } from "@bezotcorp/extensions/integrations";
 import {
   INTEGRATION_FALLBACK_LOGO,
   INTEGRATION_LOGOS,
-} from "@openhands/extensions/integrations/logos";
+} from "@bezotcorp/extensions/integrations/logos";
 import { cn } from "#/utils/utils";
 
 type McpLogoEntry = Pick<

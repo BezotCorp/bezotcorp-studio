@@ -11,7 +11,7 @@ Usage:
     python mock-acp-server.py [--reply-token TOKEN]
 
 Requires:
-    pip install agent-client-protocol  (installed as dep of openhands-sdk)
+    pip install agent-client-protocol  (installed as dep of bezotcorp-sdk)
 """
 
 import argparse

@@ -98,7 +98,7 @@ export function EditAutomationModal({
   isOpen,
   onClose,
 }: EditAutomationModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const updateMutation = useUpdateAutomation();
 
   const initial = useMemo(() => buildInitialState(automation), [automation]);

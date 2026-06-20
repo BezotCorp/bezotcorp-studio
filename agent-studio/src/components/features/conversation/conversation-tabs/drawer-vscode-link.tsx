@@ -8,7 +8,7 @@ import { RUNTIME_STARTING_STATES } from "#/types/agent-state";
 import { cn } from "#/utils/utils";
 
 export function DrawerVSCodeLink() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { curAgentState } = useAgentState();
   const { data, refetch, isLoading } = useUnifiedVSCodeUrl();
   const isRuntimeStarting = RUNTIME_STARTING_STATES.includes(curAgentState);

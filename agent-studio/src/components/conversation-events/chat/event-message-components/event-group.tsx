@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { LoaderCircle } from "lucide-react";
 import ArrowDown from "#/icons/angle-down-solid.svg?react";
 import ArrowUp from "#/icons/angle-up-solid.svg?react";
-import { OpenHandsEvent, ActionEvent } from "#/types/agent-server/core";
+import { BezotCorpEvent, ActionEvent } from "#/types/agent-server/core";
 import {
   isActionEvent,
   isObservationEvent,
@@ -14,14 +14,14 @@ import { IsInEventGroupContext } from "../../../features/chat/is-in-event-group-
 
 interface EventGroupProps {
   /** The events represented by this group. Used to compute the summary. */
-  events: OpenHandsEvent[];
+  events: BezotCorpEvent[];
   /**
    * Full event history. Used to resolve the action that produced the latest
    * observation in the group so the summary title matches what the individual
    * card would show (e.g. "Editing path/to/file"). Falls back to `events` when
    * omitted.
    */
-  allEvents?: OpenHandsEvent[];
+  allEvents?: BezotCorpEvent[];
   /**
    * `true` once an event outside this group has been emitted after it, so the
    * group is no longer the "live" tail of the chat. While `false` (the
@@ -61,7 +61,7 @@ export function EventGroup({
   isFinalized = false,
   children,
 }: EventGroupProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [expanded, setExpanded] = React.useState(false);
   const contentId = React.useId();
   const buttonId = `${contentId}-toggle`;

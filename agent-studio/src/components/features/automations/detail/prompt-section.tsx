@@ -14,7 +14,7 @@ interface PromptSectionProps {
 }
 
 export function PromptSection({ prompt }: PromptSectionProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [isOverflowing, setIsOverflowing] = React.useState(false);
   const contentRef = React.useRef<HTMLParagraphElement>(null);

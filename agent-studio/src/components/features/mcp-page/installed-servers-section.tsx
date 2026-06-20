@@ -31,7 +31,7 @@ export function InstalledServersSection({
   onEdit,
   onDelete,
 }: InstalledServersSectionProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const isEmpty = servers.length === 0;
 

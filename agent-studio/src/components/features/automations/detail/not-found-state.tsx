@@ -4,7 +4,7 @@ import ExclamationCircleIcon from "#/icons/exclamation-circle.svg?react";
 import { BackLink } from "./back-link";
 
 export function NotFoundState() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div className="flex flex-col items-center justify-center py-20">

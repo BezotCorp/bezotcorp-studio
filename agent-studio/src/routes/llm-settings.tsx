@@ -85,20 +85,20 @@ const isProviderDefaultBaseUrl = (model: string, baseUrl: string) => {
   );
 };
 
-interface OpenHandsApiKeyHelpProps {
+interface BezotCorpApiKeyHelpProps {
   testId: string;
 }
 
-function OpenHandsApiKeyHelp({ testId }: OpenHandsApiKeyHelpProps) {
-  const { t } = useTranslation("openhands");
+function BezotCorpApiKeyHelp({ testId }: BezotCorpApiKeyHelpProps) {
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <HelpLink
       testId={testId}
-      text={t(I18nKey.SETTINGS$OPENHANDS_API_KEY_HELP_TEXT)}
+      text={t(I18nKey.SETTINGS$BEZOTCORP_API_KEY_HELP_TEXT)}
       linkText={t(I18nKey.SETTINGS$NAV_API_KEYS)}
       href="https://app.all-hands.dev/settings/api-keys"
-      suffix={` ${t(I18nKey.SETTINGS$OPENHANDS_API_KEY_HELP_SUFFIX)}`}
+      suffix={` ${t(I18nKey.SETTINGS$BEZOTCORP_API_KEY_HELP_SUFFIX)}`}
     />
   );
 }
@@ -126,7 +126,7 @@ export function LlmSettingsScreen({
   /** Forwarded to {@link SdkSectionPage}. */
   onSaveControlChange?: (control: SdkSectionSaveControl) => void;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const { data: settings } = useSettings(scope);
   const { data: schema } = useAgentSettingsSchema(
@@ -193,7 +193,7 @@ export function LlmSettingsScreen({
         typeof values["llm.base_url"] === "string"
           ? values["llm.base_url"]
           : "";
-      const showOpenHandsApiKeyHelp = modelValue.startsWith("openhands/");
+      const showBezotCorpApiKeyHelp = modelValue.startsWith("bezotcorp/");
       const authType = resolveLlmAuthType(values[LLM_AUTH_TYPE_KEY]);
       const isSubscriptionAuth = authType === LLM_AUTH_TYPE_SUBSCRIPTION;
       const shouldDisableSubscriptionControls =
@@ -232,7 +232,7 @@ export function LlmSettingsScreen({
             testId={helpTestId}
             text={t(I18nKey.SETTINGS$DONT_KNOW_API_KEY)}
             linkText={t(I18nKey.SETTINGS$CLICK_FOR_INSTRUCTIONS)}
-            href="https://docs.openhands.dev/usage/local-setup#getting-an-api-key"
+            href="https://docs.bezotcorp.dev/usage/local-setup#getting-an-api-key"
           />
         </>
       );
@@ -351,8 +351,8 @@ export function LlmSettingsScreen({
                     isDisabled={isDisabled}
                   />
 
-                  {showOpenHandsApiKeyHelp ? (
-                    <OpenHandsApiKeyHelp testId="openhands-api-key-help" />
+                  {showBezotCorpApiKeyHelp ? (
+                    <BezotCorpApiKeyHelp testId="bezotcorp-api-key-help" />
                   ) : null}
 
                   {renderApiKeyInput(
@@ -384,8 +384,8 @@ export function LlmSettingsScreen({
                     isDisabled={isDisabled}
                   />
 
-                  {showOpenHandsApiKeyHelp ? (
-                    <OpenHandsApiKeyHelp testId="openhands-api-key-help-2" />
+                  {showBezotCorpApiKeyHelp ? (
+                    <BezotCorpApiKeyHelp testId="bezotcorp-api-key-help-2" />
                   ) : null}
 
                   <SettingsInput

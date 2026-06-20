@@ -67,7 +67,7 @@ export function RepositorySelectionForm({
 
   const isCreatingConversationElsewhere = useIsCreatingConversation();
 
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   // Auto-select provider logic
   React.useEffect(() => {

@@ -49,7 +49,7 @@ export function ChatInputModelMenuContent({
   settingsLinkClassName,
   settingsIconClassName,
 }: ChatInputModelMenuContentProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const switchAcpModel = useSwitchAcpModel();
   const hasModelRows = model.showAcpPicker || Boolean(model.displayModel);
 

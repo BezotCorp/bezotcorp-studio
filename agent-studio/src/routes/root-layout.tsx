@@ -42,7 +42,7 @@ const AlertBanner = React.lazy(() =>
 
 export function ErrorBoundary() {
   const error = useRouteError();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   if (isRouteErrorResponse(error)) {
     return (

@@ -23,9 +23,9 @@ describe("websocket-url utilities", () => {
 
     it("should build HTTP URL with path prefix for proxy deployment", () => {
       const result = buildHttpBaseUrl(
-        "https://openhands.example.com/runtime/55313/api/conversations/abc123",
+        "https://bezotcorp.example.com/runtime/55313/api/conversations/abc123",
       );
-      expect(result).toBe("https://openhands.example.com/runtime/55313");
+      expect(result).toBe("https://bezotcorp.example.com/runtime/55313");
     });
 
     it("should use http protocol when window.location.protocol is http:", () => {
@@ -70,10 +70,10 @@ describe("websocket-url utilities", () => {
     it("should build WebSocket URL with path prefix for proxy deployment", () => {
       const result = buildWebSocketUrl(
         "abc123",
-        "https://openhands.example.com/runtime/55313/api/conversations/abc123",
+        "https://bezotcorp.example.com/runtime/55313/api/conversations/abc123",
       );
       expect(result).toBe(
-        "wss://openhands.example.com/runtime/55313/sockets/events/abc123",
+        "wss://bezotcorp.example.com/runtime/55313/sockets/events/abc123",
       );
     });
 

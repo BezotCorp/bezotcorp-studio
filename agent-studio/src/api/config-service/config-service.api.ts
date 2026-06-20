@@ -1,4 +1,4 @@
-import { LLMMetadataClient } from "@openhands/typescript-client/clients";
+import { LLMMetadataClient } from "@bezotcorp/typescript-client/clients";
 import { getAgentServerClientOptions } from "../agent-server-client-options";
 import { getActiveBackend } from "../backend-registry/active-store";
 import { callCloudProxy } from "../cloud/proxy";

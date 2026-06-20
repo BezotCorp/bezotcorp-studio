@@ -13,7 +13,7 @@ import { chatInputPillButtonClassName } from "#/utils/form-control-classes";
 import { SwitchProfileContextMenu } from "./switch-profile-context-menu";
 
 export function SwitchProfileButton() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [contextMenuOpen, setContextMenuOpen] = React.useState(false);
   // Null on the home page; `useSwitchLlmProfileAndLog` is fine with that
   // because /api/profiles/<name>/activate is a global endpoint.

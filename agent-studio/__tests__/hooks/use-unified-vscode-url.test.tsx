@@ -31,9 +31,9 @@ if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     lng: "en",
     fallbackLng: "en",
-    ns: ["openhands"],
-    defaultNS: "openhands",
-    resources: { en: { openhands: {} } },
+    ns: ["bezotcorp"],
+    defaultNS: "bezotcorp",
+    resources: { en: { bezotcorp: {} } },
     interpolation: { escapeValue: false },
     returnEmptyString: false,
   });

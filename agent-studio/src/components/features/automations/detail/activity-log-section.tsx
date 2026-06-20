@@ -12,7 +12,7 @@ interface ActivityLogSectionProps {
 const PAGE_SIZE = 20;
 
 export function ActivityLogSection({ automationId }: ActivityLogSectionProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [limit, setLimit] = useState(PAGE_SIZE);
   const { data, isLoading } = useAutomationRuns({
     id: automationId,

@@ -14,7 +14,7 @@ import {
 } from "./conversation-mutation-utils";
 
 export const useUnifiedPauseConversation = () => {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const queryClient = useQueryClient();
   const { conversationId: currentConversationId, navigate } = useNavigation();
 

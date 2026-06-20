@@ -74,11 +74,11 @@ export async function seedLocalStorage(page: Page) {
   await page.addInitScript(
     ({ apiKey }) => {
       window.localStorage.setItem("analytics-consent", "false");
-      window.localStorage.setItem("openhands-telemetry-consent", "denied");
-      window.localStorage.setItem("openhands-telemetry-first-use", "true");
-      window.localStorage.setItem("openhands-onboarded", "1");
+      window.localStorage.setItem("bezotcorp-telemetry-consent", "denied");
+      window.localStorage.setItem("bezotcorp-telemetry-first-use", "true");
+      window.localStorage.setItem("bezotcorp-onboarded", "1");
       window.localStorage.setItem(
-        "openhands-backends",
+        "bezotcorp-backends",
         JSON.stringify([
           {
             id: "default-local",
@@ -337,11 +337,17 @@ async function retryOnTransient(
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const resp =
-        method === "GET" ? await request.get(url, options) :
-        method === "PATCH" ? await request.patch(url, options) :
-        method === "POST" ? await request.post(url, options) :
-        await request.delete(url, options);
-      if ((resp.status() === 502 || resp.status() === 503) && attempt < retries) {
+        method === "GET"
+          ? await request.get(url, options)
+          : method === "PATCH"
+            ? await request.patch(url, options)
+            : method === "POST"
+              ? await request.post(url, options)
+              : await request.delete(url, options);
+      if (
+        (resp.status() === 502 || resp.status() === 503) &&
+        attempt < retries
+      ) {
         await new Promise((r) => setTimeout(r, delayMs));
         continue;
       }
@@ -357,7 +363,12 @@ async function retryOnTransient(
       throw err;
     }
   }
-  throw (lastError ?? new Error(`retryOnTransient: exhausted ${retries} attempts for ${method} ${url}`));
+  throw (
+    lastError ??
+    new Error(
+      `retryOnTransient: exhausted ${retries} attempts for ${method} ${url}`,
+    )
+  );
 }
 
 /**
@@ -371,12 +382,17 @@ export async function ensureMockLLMProfileViaAPI(
   request: APIRequestContext,
   model = "openai/mock-test-model",
 ) {
-  const settingsResp = await retryOnTransient(request, "GET", `${BACKEND_URL}/api/settings`, {
-    headers: {
-      "X-Session-API-Key": SESSION_API_KEY,
-      "X-Expose-Secrets": "encrypted",
+  const settingsResp = await retryOnTransient(
+    request,
+    "GET",
+    `${BACKEND_URL}/api/settings`,
+    {
+      headers: {
+        "X-Session-API-Key": SESSION_API_KEY,
+        "X-Expose-Secrets": "encrypted",
+      },
     },
-  });
+  );
 
   if (settingsResp.ok()) {
     const settings = await settingsResp.json();
@@ -386,21 +402,26 @@ export async function ensureMockLLMProfileViaAPI(
     }
   }
 
-  const patchResp = await retryOnTransient(request, "PATCH", `${BACKEND_URL}/api/settings`, {
-    headers: {
-      "X-Session-API-Key": SESSION_API_KEY,
-      "Content-Type": "application/json",
-    },
-    data: {
-      agent_settings_diff: {
-        llm: {
-          model,
-          api_key: "mock-api-key-for-testing",
-          base_url: MOCK_LLM_AGENT_URL,
+  const patchResp = await retryOnTransient(
+    request,
+    "PATCH",
+    `${BACKEND_URL}/api/settings`,
+    {
+      headers: {
+        "X-Session-API-Key": SESSION_API_KEY,
+        "Content-Type": "application/json",
+      },
+      data: {
+        agent_settings_diff: {
+          llm: {
+            model,
+            api_key: "mock-api-key-for-testing",
+            base_url: MOCK_LLM_AGENT_URL,
+          },
         },
       },
     },
-  });
+  );
   expect(
     patchResp.ok(),
     `PATCH /api/settings failed: ${patchResp.status()}`,
@@ -591,16 +612,16 @@ export async function selectDropdownOption(
 }
 
 /**
- * Reset agent type back to OpenHands through the Settings → Agent UI.
+ * Reset agent type back to BezotCorp through the Settings → Agent UI.
  * Used in afterAll cleanup to restore the default agent for subsequent tests.
  */
-export async function resetToOpenHandsAgentViaUI(page: Page) {
+export async function resetToBezotCorpAgentViaUI(page: Page) {
   await routeSessionApiKey(page);
   await page.goto("/settings/agent", { waitUntil: "domcontentloaded" });
   await dismissAnalyticsModal(page);
   await waitForTestId(page, "agent-settings-screen");
 
-  await selectDropdownOption(page, /Agent/, /OpenHands/);
+  await selectDropdownOption(page, /Agent/, /BezotCorp/);
 
   const saveBtn = page.getByTestId("agent-save-button");
   await expect(saveBtn).toBeEnabled({ timeout: 5_000 });
@@ -616,7 +637,12 @@ export async function registerTrajectory(
   request: APIRequestContext,
   name: string,
   turns: Array<
-    | { tool_call: { name: string; arguments: Record<string, unknown> | string } }
+    | {
+        tool_call: {
+          name: string;
+          arguments: Record<string, unknown> | string;
+        };
+      }
     | { text: string }
   >,
 ) {
@@ -627,7 +653,9 @@ export async function registerTrajectory(
       headers: { "Content-Type": "application/json" },
     },
   );
-  expect(resp.ok(), `Register trajectory "${name}": ${resp.status()}`).toBe(true);
+  expect(resp.ok(), `Register trajectory "${name}": ${resp.status()}`).toBe(
+    true,
+  );
 }
 
 /**
@@ -644,7 +672,9 @@ export async function activateTrajectory(
       headers: { "Content-Type": "application/json" },
     },
   );
-  expect(resp.ok(), `Activate trajectory "${name}": ${resp.status()}`).toBe(true);
+  expect(resp.ok(), `Activate trajectory "${name}": ${resp.status()}`).toBe(
+    true,
+  );
 }
 
 /**
@@ -764,12 +794,10 @@ export const MOCK_ACP_COMMAND_SCRIPT =
   process.env.MOCK_ACP_CONTAINER_SCRIPT || MOCK_ACP_SERVER_PATH;
 
 /**
- * @deprecated Use `resetToOpenHandsAgentViaUI(page)` to exercise the UI path.
+ * @deprecated Use `resetToBezotCorpAgentViaUI(page)` to exercise the UI path.
  * Kept only for callers that cannot open a page (should not exist in new tests).
  */
-export async function resetToOpenHandsAgent(
-  request: APIRequestContext,
-) {
+export async function resetToBezotCorpAgent(request: APIRequestContext) {
   const resp = await request.patch(`${BACKEND_URL}/api/settings`, {
     headers: {
       "X-Session-API-Key": SESSION_API_KEY,
@@ -777,11 +805,11 @@ export async function resetToOpenHandsAgent(
     },
     data: {
       agent_settings_diff: {
-        agent_kind: "openhands",
+        agent_kind: "bezotcorp",
       },
     },
   });
   if (!resp.ok()) {
-    console.warn(`[cleanup] Reset to OpenHands failed: ${resp.status()}`);
+    console.warn(`[cleanup] Reset to BezotCorp failed: ${resp.status()}`);
   }
 }

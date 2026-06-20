@@ -14,7 +14,7 @@ export async function routeOnboardingLlmCatalog(page: Page) {
         models: {
           anthropic: ["claude-opus-4-8"],
           openai: ["gpt-5.5"],
-          openhands: ["claude-opus-4-5-20251101"],
+          bezotcorp: ["claude-opus-4-5-20251101"],
         },
       }),
     });
@@ -28,7 +28,7 @@ export async function routeOnboardingLlmCatalog(page: Page) {
         models: [
           "anthropic/claude-opus-4-8",
           "openai/gpt-5.5",
-          "openhands/claude-opus-4-5-20251101",
+          "bezotcorp/claude-opus-4-5-20251101",
         ],
       }),
     });
@@ -39,7 +39,7 @@ export async function routeOnboardingLlmCatalog(page: Page) {
       status: 200,
       contentType: "application/json",
       body: JSON.stringify({
-        providers: ["anthropic", "openai", "openhands"],
+        providers: ["anthropic", "openai", "bezotcorp"],
       }),
     });
   });
@@ -56,12 +56,12 @@ export async function showOnboarding(
 ) {
   await page.addInitScript(
     ({ apiKey: initApiKey }) => {
-      window.localStorage.removeItem("openhands-onboarded");
+      window.localStorage.removeItem("bezotcorp-onboarded");
       window.localStorage.setItem("analytics-consent", "false");
-      window.localStorage.setItem("openhands-telemetry-consent", "denied");
-      window.localStorage.setItem("openhands-telemetry-first-use", "true");
+      window.localStorage.setItem("bezotcorp-telemetry-consent", "denied");
+      window.localStorage.setItem("bezotcorp-telemetry-first-use", "true");
       window.localStorage.setItem(
-        "openhands-backends",
+        "bezotcorp-backends",
         JSON.stringify([
           {
             id: "default-local",
@@ -73,7 +73,7 @@ export async function showOnboarding(
         ]),
       );
       window.localStorage.setItem(
-        "openhands-active-backend",
+        "bezotcorp-active-backend",
         JSON.stringify({ backendId: "default-local", orgId: null }),
       );
     },

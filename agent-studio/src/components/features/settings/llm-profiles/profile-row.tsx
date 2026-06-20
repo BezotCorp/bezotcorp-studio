@@ -32,7 +32,7 @@ export function ProfileRow({
   onDelete,
   isActivating,
 }: ProfileRowProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [menuOpen, setMenuOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
 

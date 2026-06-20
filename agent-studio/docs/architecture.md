@@ -1,6 +1,6 @@
 # BezotCorp Agent Studio architecture
 
-BezotCorp Agent Studio is a React and TypeScript frontend for running and monitoring OpenHands agents across local, remote, and hosted environments. It is adapted from the OpenHands frontend to talk directly to the OpenHands Agent Server and related automation services.
+BezotCorp Agent Studio is a React and TypeScript frontend for running and monitoring BezotCorp agents across local, remote, and hosted environments. It is adapted from the BezotCorp frontend to talk directly to the BezotCorp Agent Server and related automation services.
 
 ## System boundaries
 
@@ -8,7 +8,7 @@ BezotCorp Agent Studio is responsible for:
 
 - Rendering the agent conversation, terminal, browser, files, settings, and automation UI.
 - Managing frontend state for conversations, backend selection, settings, profiles, and local metadata.
-- Translating UI actions into OpenHands Agent Server API calls.
+- Translating UI actions into BezotCorp Agent Server API calls.
 - Packaging the UI both as a standalone app and as library entrypoints for host applications.
 
 BezotCorp Agent Studio is not responsible for:
@@ -20,13 +20,13 @@ BezotCorp Agent Studio is not responsible for:
 
 ## Runtime services
 
-The primary backend is the [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server/openhands/agent_server). BezotCorp Agent Studio can connect to one or more Agent Server instances and switch between them from the UI.
+The primary backend is the [BezotCorp Agent Server](https://github.com/BezotCorp/software-agent-sdk/tree/main/bezotcorp-agent-server/bezotcorp/agent_server). BezotCorp Agent Studio can connect to one or more Agent Server instances and switch between them from the UI.
 
 Optional runtime services include:
 
 - An ingress service that routes frontend, Agent Server, and automation traffic behind one local origin.
 - An Automation Server for scheduled or event-triggered agent runs.
-- OpenHands Cloud APIs for hosted sandbox and organization workflows.
+- BezotCorp Cloud APIs for hosted sandbox and organization workflows.
 
 The development launchers expose runtime service information through `VITE_RUNTIME_SERVICES_INFO`. The frontend forwards that information into new conversations as an agent context suffix so agents can use the correct URLs instead of guessing ports.
 
@@ -46,14 +46,14 @@ The most important source areas are:
 
 BezotCorp Agent Studio supports several modes:
 
-| Mode | Purpose |
-|---|---|
-| `npm run dev:docker` | Starts the UI with an Agent Server in a Docker sandbox. This is the default safer local workflow. |
+| Mode                                 | Purpose                                                                                                                                             |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev:docker`                 | Starts the UI with an Agent Server in a Docker sandbox. This is the default safer local workflow.                                                   |
 | `npm run dev:dangerously-dockerless` | Starts the UI and Agent Server directly on the host. This is useful for servers and trusted environments, but the agent has host filesystem access. |
-| `npm run dev:automation` | Starts the local stack with an automation backend. |
-| `npm run dev:mock` | Runs the frontend against MSW mocks for UI development and tests. |
-| `npm run build` | Builds the standalone application. |
-| `npm run build:lib` | Builds library entrypoints for embedding BezotCorp Agent Studio components. |
+| `npm run dev:automation`             | Starts the local stack with an automation backend.                                                                                                  |
+| `npm run dev:mock`                   | Runs the frontend against MSW mocks for UI development and tests.                                                                                   |
+| `npm run build`                      | Builds the standalone application.                                                                                                                  |
+| `npm run build:lib`                  | Builds library entrypoints for embedding BezotCorp Agent Studio components.                                                                         |
 
 ## Packaging and distribution
 

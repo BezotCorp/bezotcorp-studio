@@ -49,7 +49,7 @@ export function ConversationCardContextMenu({
   floatingStyle,
   ignoreOutsideClickRef,
 }: ConversationCardContextMenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { backend } = useActiveBackend();
   const ref = useClickOutsideElement<HTMLUListElement>(
     onClose,

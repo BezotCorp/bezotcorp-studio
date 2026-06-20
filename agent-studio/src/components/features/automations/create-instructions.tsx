@@ -8,7 +8,7 @@ import { BrandButton } from "#/components/features/settings/brand-button";
 import { useLaunchSkillInChat } from "#/hooks/use-launch-skill-in-chat";
 
 const DOCS_URL =
-  "https://docs.openhands.dev/openhands/usage/automations/overview";
+  "https://docs.bezotcorp.dev/bezotcorp/usage/automations/overview";
 
 function InlineExampleWrap({ children }: { children?: ReactNode }) {
   return <span className="whitespace-nowrap">{children}</span>;
@@ -50,7 +50,7 @@ interface CreateInstructionsContentProps {
 export function CreateInstructionsContent({
   onLaunch,
 }: CreateInstructionsContentProps = {}) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const launchInChat = useLaunchSkillInChat();
 
   const handleCreateAutomation = () => {
@@ -61,7 +61,7 @@ export function CreateInstructionsContent({
     <div className="flex flex-col gap-5">
       <p className="text-sm leading-relaxed text-tertiary-light">
         <Trans
-          ns="openhands"
+          ns="bezotcorp"
           i18nKey={I18nKey.AUTOMATIONS$EMPTY_OPTION_CONVERSATION_DESC}
           components={CREATE_INSTRUCTIONS_INLINE_COMPONENTS}
         />{" "}
@@ -96,7 +96,7 @@ export function CreateInstructionsContent({
 export function CreateInstructions({
   collapsible = false,
 }: CreateInstructionsProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [isExpanded, setIsExpanded] = useState(!collapsible);
 
   if (collapsible) {

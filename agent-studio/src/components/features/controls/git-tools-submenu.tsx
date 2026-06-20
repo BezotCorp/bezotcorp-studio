@@ -25,7 +25,7 @@ interface GitToolsSubmenuProps {
 }
 
 export function GitToolsSubmenu({ onClose }: GitToolsSubmenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { setMessageToSend } = useConversationStore();
   const { data: conversation } = useActiveConversation();
 

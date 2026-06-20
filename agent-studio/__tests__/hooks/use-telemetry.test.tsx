@@ -38,7 +38,7 @@ describe("useTelemetry", () => {
   });
 
   it("returns granted consent when already granted in localStorage", () => {
-    localStorage.setItem("openhands-telemetry-consent", "granted");
+    localStorage.setItem("bezotcorp-telemetry-consent", "granted");
 
     const { result } = renderHook(() => useTelemetry());
 
@@ -48,7 +48,7 @@ describe("useTelemetry", () => {
   });
 
   it("returns denied consent when already denied in localStorage", () => {
-    localStorage.setItem("openhands-telemetry-consent", "denied");
+    localStorage.setItem("bezotcorp-telemetry-consent", "denied");
 
     const { result } = renderHook(() => useTelemetry());
 
@@ -96,7 +96,7 @@ describe("useTelemetry", () => {
     expect(result.current.consent).toBe("granted");
     expect(result.current.isEnabled).toBe(true);
     expect(result.current.showConsentPrompt).toBe(false);
-    expect(localStorage.getItem("openhands-telemetry-consent")).toBe("granted");
+    expect(localStorage.getItem("bezotcorp-telemetry-consent")).toBe("granted");
   });
 
   it("denies consent and disables telemetry", async () => {
@@ -109,11 +109,11 @@ describe("useTelemetry", () => {
     expect(result.current.consent).toBe("denied");
     expect(result.current.isEnabled).toBe(false);
     expect(result.current.showConsentPrompt).toBe(false);
-    expect(localStorage.getItem("openhands-telemetry-consent")).toBe("denied");
+    expect(localStorage.getItem("bezotcorp-telemetry-consent")).toBe("denied");
   });
 
   it("track function does nothing when consent is not granted", () => {
-    localStorage.setItem("openhands-telemetry-first-use", "true"); // Skip install tracking
+    localStorage.setItem("bezotcorp-telemetry-first-use", "true"); // Skip install tracking
     vi.clearAllMocks();
 
     const { result } = renderHook(() => useTelemetry());
@@ -129,8 +129,8 @@ describe("useTelemetry", () => {
   });
 
   it("track function calls trackEvent when consent is granted", () => {
-    localStorage.setItem("openhands-telemetry-consent", "granted");
-    localStorage.setItem("openhands-telemetry-first-use", "true"); // Skip install tracking
+    localStorage.setItem("bezotcorp-telemetry-consent", "granted");
+    localStorage.setItem("bezotcorp-telemetry-first-use", "true"); // Skip install tracking
 
     const { result } = renderHook(() => useTelemetry());
 

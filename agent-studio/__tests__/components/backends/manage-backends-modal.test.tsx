@@ -29,7 +29,7 @@ const deviceFlowMocks = vi.hoisted(() => ({
 const getServerInfoMock = vi.fn().mockResolvedValue({ version: "1.28.0" });
 const getSettingsMock = vi.fn().mockResolvedValue({});
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   ServerClient: vi.fn(function ServerClientMock() {
     return { getServerInfo: getServerInfoMock };
   }),
@@ -299,7 +299,7 @@ describe("ManageBackendsModal", () => {
     });
 
     const stored = JSON.parse(
-      window.localStorage.getItem("openhands-backends") ?? "[]",
+      window.localStorage.getItem("bezotcorp-backends") ?? "[]",
     );
     const updated = stored.find((b: { id: string }) => b.id === backendId);
     expect(updated).toMatchObject({

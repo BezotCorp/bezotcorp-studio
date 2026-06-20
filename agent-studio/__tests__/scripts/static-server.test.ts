@@ -181,7 +181,7 @@ describe("static-server.mjs", () => {
 
       expect(response.status).toBe(200);
       const body = await response.text();
-      expect(body).toContain("openhands-agent-server-config");
+      expect(body).toContain("bezotcorp-agent-server-config");
       expect(body).toContain("test-session-key");
       expect(body).toContain("sessionApiKey");
     });
@@ -210,7 +210,7 @@ describe("static-server.mjs", () => {
       // The window assignment must precede the localStorage write so the
       // global is set even if storage access throws (private mode, etc.).
       const windowIdx = body.indexOf("__AGENT_CANVAS_SESSION_API_KEY__");
-      const localStorageIdx = body.indexOf("openhands-agent-server-config");
+      const localStorageIdx = body.indexOf("bezotcorp-agent-server-config");
       expect(windowIdx).toBeGreaterThan(-1);
       expect(localStorageIdx).toBeGreaterThan(-1);
       expect(windowIdx).toBeLessThan(localStorageIdx);
@@ -289,7 +289,7 @@ describe("static-server.mjs", () => {
 
       const response = await fetch(`${origin}/`);
       const body = await response.text();
-      expect(body).not.toContain("openhands-agent-server-config");
+      expect(body).not.toContain("bezotcorp-agent-server-config");
       expect(body).not.toContain("__AGENT_CANVAS_SESSION_API_KEY__");
     });
 
@@ -307,7 +307,7 @@ describe("static-server.mjs", () => {
       expect(response.status).toBe(200);
       const body = await response.text();
       expect(body).toContain("no-head-key");
-      expect(body).toContain("openhands-agent-server-config");
+      expect(body).toContain("bezotcorp-agent-server-config");
       // Script should appear before </body>, not at the very front of the document
       expect(body.indexOf("no-head-key")).toBeLessThan(body.indexOf("</body>"));
       expect(body.indexOf("no-head-key")).toBeGreaterThan(0);

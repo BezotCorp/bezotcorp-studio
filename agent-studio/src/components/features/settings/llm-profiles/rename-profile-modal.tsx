@@ -22,7 +22,7 @@ export function RenameProfileModal({
   profile,
   onClose,
 }: RenameProfileModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [newName, setNewName] = useState("");
   const renameProfile = useRenameLlmProfile();
   const inputRef = useRef<HTMLInputElement>(null);

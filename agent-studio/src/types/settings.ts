@@ -114,7 +114,7 @@ export type SettingsScope = "personal";
 /**
  * Agent kind stored on ``Settings.agent_settings.agent_kind``.
  *
- * - ``"openhands"`` (default): the conversation runs through OpenHands' built-in
+ * - ``"bezotcorp"`` (default): the conversation runs through BezotCorp' built-in
  *   LLM-driven Agent. The other agent_settings fields (``llm``, ``condenser``,
  *   ``mcp_config``, ``tools``) apply.
  * - ``"acp"``: the conversation is driven by an external ACP subprocess
@@ -123,7 +123,7 @@ export type SettingsScope = "personal";
  *   ``acp_server`` apply instead. Provider credentials are supplied through the
  *   Secrets panel (``request.secrets``), never through a per-agent env channel.
  */
-export type AgentKind = "openhands" | "acp";
+export type AgentKind = "bezotcorp" | "acp";
 
 export type Settings = {
   llm_model: string;

@@ -34,7 +34,7 @@ describe("ModelMessages", () => {
       MODEL$SWITCHED_TO_PROFILE: "ℹ️ Switched to profile <cmd>{{name}}</cmd>",
     };
     i18n.addResourceBundle("en", "translation", resources, true, true);
-    i18n.addResourceBundle("en", "openhands", resources, true, true);
+    i18n.addResourceBundle("en", "bezotcorp", resources, true, true);
     useModelStore.setState({ entriesByConversation: {} });
   });
 

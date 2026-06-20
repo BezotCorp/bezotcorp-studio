@@ -2,7 +2,7 @@
 
 ## Overview
 
-Services are the abstraction layer between frontend components and backend APIs. Local agent-server API access should use `@openhands/typescript-client` classes directly, with shared connection options from `src/api/agent-server-client-options.ts` for the active local backend host, session API key, and workspace defaults.
+Services are the abstraction layer between frontend components and backend APIs. Local agent-server API access should use `@bezotcorp/typescript-client` classes directly, with shared connection options from `src/api/agent-server-client-options.ts` for the active local backend host, session API key, and workspace defaults.
 
 Cloud-specific APIs should use the cloud service modules/proxy helpers instead of local agent-server clients.
 
@@ -12,7 +12,7 @@ Each service is a plain object with async methods.
 
 Each service lives in its own directory:
 
-```
+```plain_text
 src/api/
 └── feature-service/
     ├── feature-service.api.ts    # Service methods
@@ -21,11 +21,11 @@ src/api/
 
 ## Creating a Service
 
-Use an object literal with named export. Use object destructuring for parameters to make calls self-documenting. Prefer typed `@openhands/typescript-client` classes over generic HTTP calls. If a needed endpoint is missing, add it to `@openhands/typescript-client` first.
+Use an object literal with named export. Use object destructuring for parameters to make calls self-documenting. Prefer typed `@bezotcorp/typescript-client` classes over generic HTTP calls. If a needed endpoint is missing, add it to `@bezotcorp/typescript-client` first.
 
 ```typescript
 // feature-service/feature-service.api.ts
-import { FeatureClient } from "@openhands/typescript-client/clients";
+import { FeatureClient } from "@bezotcorp/typescript-client/clients";
 import { getAgentServerClientOptions } from "../agent-server-client-options";
 import { Feature, CreateFeatureParams } from "./feature.types";
 
@@ -35,7 +35,9 @@ export const featureService = {
   },
 
   createFeature: async (params: CreateFeatureParams): Promise<Feature> => {
-    return new FeatureClient(getAgentServerClientOptions()).createFeature(params);
+    return new FeatureClient(getAgentServerClientOptions()).createFeature(
+      params,
+    );
   },
 };
 ```

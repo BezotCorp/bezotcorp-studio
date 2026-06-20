@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import EventService from "#/api/event-service/event-service.api";
 import { useUserConversation } from "#/hooks/query/use-user-conversation";
-import type { OpenHandsEvent } from "#/types/agent-server/core";
+import type { BezotCorpEvent } from "#/types/agent-server/core";
 
 /**
  * Number of events to load on the initial REST history fetch and on each
@@ -11,7 +11,7 @@ export const INITIAL_HISTORY_PAGE_SIZE = 50;
 
 export interface ConversationHistoryPage {
   /** Events in chronological (oldest → newest) order. */
-  events: OpenHandsEvent[];
+  events: BezotCorpEvent[];
   /** True when the server has more events older than this page. */
   hasMore: boolean;
   /** Optional `next_page_id` from the server for keyset pagination. */

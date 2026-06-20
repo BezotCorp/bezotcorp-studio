@@ -2,7 +2,7 @@
  * Playwright config for mock-LLM E2E tests.
  *
  * Starts three processes:
- *   1. Mock LLM server (Python, using openhands-sdk TestLLM)
+ *   1. Mock LLM server (Python, using bezotcorp-sdk TestLLM)
  *   2. Full agent-studio stack via bin/agent-studio.mjs (agent-server +
  *      automation backend + static frontend + ingress proxy), matching the
  *      production npm-published binary.
@@ -48,7 +48,7 @@ process.env.MOCK_LLM_SESSION_API_KEY = sessionApiKey;
 const STATE_DIR = resolve(".tmp/mock-llm-state");
 
 // Automation DB lives at $parent_of_STATE_DIR/automation/automations.db,
-// mirroring docker/entrypoint.sh which uses $HOME/.openhands/automation/automations.db.
+// mirroring docker/entrypoint.sh which uses $HOME/.bezotcorp/automation/automations.db.
 // Both STATE_DIR and AUTOMATION_DB_DIR must be cleaned between runs to avoid stale data.
 const AUTOMATION_DB_DIR = join(dirname(STATE_DIR), "automation");
 

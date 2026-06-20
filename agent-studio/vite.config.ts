@@ -31,7 +31,7 @@ const APP_CHUNK_MAX_BYTES = 450 * 1024;
 // resolve bundled skill resources like scripts/ and references/).
 const _require = createRequire(import.meta.url);
 const EXTENSIONS_SKILLS_DIR = resolve(
-  dirname(_require.resolve("@openhands/extensions/package.json")),
+  dirname(_require.resolve("@bezotcorp/extensions/package.json")),
   "skills",
 );
 const PUBLIC_LOCALES_DIR = resolve(process.cwd(), "public", "locales");
@@ -257,12 +257,12 @@ export default defineConfig(({ mode }) => {
         "@xterm/addon-fit",
         "@xterm/xterm",
         "@xterm/xterm/css/xterm.css",
-        // OpenHands typescript client
-        "@openhands/typescript-client",
-        "@openhands/typescript-client/client/http-client",
-        "@openhands/typescript-client/clients",
-        "@openhands/typescript-client/events/remote-events-list",
-        "@openhands/typescript-client/workspace/remote-workspace",
+        // BezotCorp typescript client
+        "@bezotcorp/typescript-client",
+        "@bezotcorp/typescript-client/client/http-client",
+        "@bezotcorp/typescript-client/clients",
+        "@bezotcorp/typescript-client/events/remote-events-list",
+        "@bezotcorp/typescript-client/workspace/remote-workspace",
         // Additional dependencies discovered at runtime
         "class-variance-authority",
         "downshift",
@@ -417,7 +417,7 @@ export default defineConfig(({ mode }) => {
       hookTimeout: 30000,
       server: {
         deps: {
-          inline: ["@openhands/typescript-client"],
+          inline: ["@bezotcorp/typescript-client"],
         },
       },
       coverage: {

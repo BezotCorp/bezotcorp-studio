@@ -3,7 +3,7 @@ import { useQueries } from "@tanstack/react-query";
 import {
   FileClient,
   isAgentServerVersionError,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 
 import { getAgentServerClientOptions } from "#/api/agent-server-client-options";
 import { useLocalWorkspaces } from "#/hooks/query/use-local-workspaces";

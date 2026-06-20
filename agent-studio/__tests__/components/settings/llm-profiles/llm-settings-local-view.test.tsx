@@ -615,7 +615,7 @@ describe("LlmSettingsLocalView", () => {
   });
 
   describe("Basic tab save", () => {
-    it("preserves hidden base_url for OpenHands models without a model change", async () => {
+    it("preserves hidden base_url for BezotCorp models without a model change", async () => {
       // Arrange — a profile has an actual advanced base_url value. Switching to
       // Basic hides it, but saving without changing the model must not wipe it.
       const user = userEvent.setup();
@@ -623,7 +623,7 @@ describe("LlmSettingsLocalView", () => {
         name: "gpt-4-profile",
         api_key_set: true,
         config: {
-          model: "openhands/claude-opus-4-5-20251101",
+          model: "bezotcorp/claude-opus-4-5-20251101",
           api_key: "gAAAA_encrypted_key",
           base_url: "https://stale.example.com/v1",
         },
@@ -649,7 +649,7 @@ describe("LlmSettingsLocalView", () => {
       // Assert — the hidden base_url survives because the model did not change.
       await waitFor(() => expect(mockSaveMutateAsync).toHaveBeenCalled());
       const savedLlm = mockSaveMutateAsync.mock.calls[0][0].request.llm;
-      expect(savedLlm.model).toBe("openhands/claude-opus-4-5-20251101");
+      expect(savedLlm.model).toBe("bezotcorp/claude-opus-4-5-20251101");
       expect(savedLlm.base_url).toBe("https://stale.example.com/v1");
     });
 
@@ -699,7 +699,7 @@ describe("LlmSettingsLocalView", () => {
         name: "gpt-4-profile",
         api_key_set: true,
         config: {
-          model: "openhands/claude-opus-4-5-20251101",
+          model: "bezotcorp/claude-opus-4-5-20251101",
           api_key: "gAAAA_encrypted_key",
           base_url: "https://stale.example.com/v1",
         },
@@ -718,7 +718,7 @@ describe("LlmSettingsLocalView", () => {
       await user.click(await screen.findByTestId("sdk-section-basic-toggle"));
       const modelInput = await screen.findByTestId("mock-basic-model-input");
       await user.clear(modelInput);
-      await user.type(modelInput, "openhands/claude-sonnet-4-20250514");
+      await user.type(modelInput, "bezotcorp/claude-sonnet-4-20250514");
       await waitFor(() => {
         expect(screen.getByTestId("save-profile-btn")).not.toBeDisabled();
       });
@@ -727,7 +727,7 @@ describe("LlmSettingsLocalView", () => {
       // Assert — changing the Basic model clears the old hidden base_url.
       await waitFor(() => expect(mockSaveMutateAsync).toHaveBeenCalled());
       const savedLlm = mockSaveMutateAsync.mock.calls[0][0].request.llm;
-      expect(savedLlm.model).toBe("openhands/claude-sonnet-4-20250514");
+      expect(savedLlm.model).toBe("bezotcorp/claude-sonnet-4-20250514");
       expect(savedLlm).not.toHaveProperty("base_url");
     });
   });

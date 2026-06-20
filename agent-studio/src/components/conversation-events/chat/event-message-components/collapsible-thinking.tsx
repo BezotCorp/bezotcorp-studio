@@ -17,7 +17,7 @@ interface CollapsibleThinkingProps {
  * useful when the thinking language differs from the conversation language.
  */
 export function CollapsibleThinking({ content }: CollapsibleThinkingProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [expanded, setExpanded] = React.useState(false);
 
   if (!content.trim()) {

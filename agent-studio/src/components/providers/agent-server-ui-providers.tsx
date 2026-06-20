@@ -8,7 +8,7 @@ import {
   setQueryClient,
 } from "#/query-client-config";
 import {
-  OPENHANDS_I18N_NAMESPACE,
+  BEZOTCORP_I18N_NAMESPACE,
   getDefaultI18n,
   getI18n,
   setI18n,
@@ -106,7 +106,7 @@ export function AgentServerUIProviders({
   );
 
   return (
-    <I18nextProvider i18n={resolvedI18n} defaultNS={OPENHANDS_I18N_NAMESPACE}>
+    <I18nextProvider i18n={resolvedI18n} defaultNS={BEZOTCORP_I18N_NAMESPACE}>
       <QueryClientProvider client={resolvedQueryClient}>
         <ActiveBackendProvider>{wrappedContent}</ActiveBackendProvider>
       </QueryClientProvider>

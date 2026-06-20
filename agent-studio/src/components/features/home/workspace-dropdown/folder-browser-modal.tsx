@@ -113,7 +113,7 @@ function trimTrailingSeparators(path: string): string {
 function shouldDefaultToProjectsPath(
   homeData: HomeDirectoryResponse | undefined,
 ): boolean {
-  return homeData?.home === "/home/openhands";
+  return homeData?.home === "/home/bezotcorp";
 }
 
 export function FolderBrowserModal({
@@ -122,7 +122,7 @@ export function FolderBrowserModal({
   onAdd,
   onAddParent,
 }: FolderBrowserModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [currentPath, setCurrentPath] = useState<string | null>(null);
   const active = useActiveBackend();
 
@@ -181,12 +181,12 @@ export function FolderBrowserModal({
   const parent = currentPath ? getParentPath(currentPath) : null;
 
   // Signal that we're inside a container environment without the host
-  // home mounted: the agent server reports `/home/openhands` as home and
+  // home mounted: the agent server reports `/home/bezotcorp` as home and
   // returns no favorites (the only contents are hidden credential dirs).
   // In that case there's nothing useful for the user to browse, so we
   // surface a hint instead of the generic empty state.
   const showHostHomeHint =
-    homeData?.home === "/home/openhands" &&
+    homeData?.home === "/home/bezotcorp" &&
     (homeData?.favorites?.length ?? 0) === 0 &&
     currentPath === homeData?.home &&
     !isLoading &&

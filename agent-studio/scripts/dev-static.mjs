@@ -335,7 +335,7 @@ function buildAutomationBackendEnv(config) {
     AUTOMATION_CORS_ORIGINS: `http://localhost:${config.ingressPort},http://127.0.0.1:${config.ingressPort},http://localhost:3001,http://127.0.0.1:3001`,
     FILE_STORE: "local",
     LOCAL_STORAGE_PATH: join(config.stateDir, "storage"),
-    OPENHANDS_SUPPRESS_BANNER: "1",
+    BEZOTCORP_SUPPRESS_BANNER: "1",
   };
 }
 

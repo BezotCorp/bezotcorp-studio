@@ -10,7 +10,7 @@ interface SearchInputProps {
 }
 
 export function SearchInput({ value, onChange, className }: SearchInputProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div

@@ -15,11 +15,11 @@ For the main install options and overall context, see [README.md](./README.md).
 docker pull ghcr.io/bezotcorp/agent-studio:1.0.0-rc.11
 
 $env:PROJECTS_PATH = Join-Path $HOME "projects"  # directory containing your project folders
-New-Item -ItemType Directory -Force -Path $env:PROJECTS_PATH, (Join-Path $env:USERPROFILE ".openhands") | Out-Null
+New-Item -ItemType Directory -Force -Path $env:PROJECTS_PATH, (Join-Path $env:USERPROFILE ".bezotcorp") | Out-Null
 
 docker run -it --rm `
   -p 8000:8000 `
-  -v "$($env:USERPROFILE)\.openhands:/home/openhands/.openhands" `
+  -v "$($env:USERPROFILE)\.bezotcorp:/home/bezotcorp/.bezotcorp" `
   -v "$($env:PROJECTS_PATH):/projects" `
   ghcr.io/bezotcorp/agent-studio:1.0.0-rc.11
 ```

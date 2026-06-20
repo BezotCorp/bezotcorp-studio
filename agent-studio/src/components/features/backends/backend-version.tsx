@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 
-import { ServerClient } from "@openhands/typescript-client/clients";
+import { ServerClient } from "@bezotcorp/typescript-client/clients";
 import { type Backend } from "#/api/backend-registry/types";
 import { getAgentServerClientOptions } from "#/api/agent-server-client-options";
 import { getDisplayAgentServerVersion } from "#/api/agent-server-compatibility";
 import { I18nKey } from "#/i18n/declaration";
 
 export function BackendVersion({ backend }: { backend: Backend }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { data: version } = useQuery({
     queryKey: ["backend-version", backend.host, backend.apiKey],
     queryFn: async () => {

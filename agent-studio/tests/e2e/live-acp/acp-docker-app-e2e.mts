@@ -28,7 +28,7 @@
 import { SecretsService } from "#/api/secrets-service";
 import { buildStartConversationRequestWithEncryptedSettings } from "#/api/agent-server-adapter";
 import { buildAcpAgentSettingsDiff } from "#/constants/acp-providers";
-import { SettingsClient } from "@openhands/typescript-client/clients";
+import { SettingsClient } from "@bezotcorp/typescript-client/clients";
 import { getAgentServerClientOptions } from "#/api/agent-server-client-options";
 import {
   BASE,

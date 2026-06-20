@@ -20,7 +20,7 @@ export function DeleteProfileModal({
   profile,
   onClose,
 }: DeleteProfileModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const deleteProfile = useDeleteLlmProfile();
   const cancelButtonRef = useRef<HTMLButtonElement>(null);
 

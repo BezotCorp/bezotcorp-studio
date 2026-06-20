@@ -1,21 +1,21 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { useModelStore } from "#/stores/model-store";
-import { OpenHandsEvent } from "#/types/agent-server/core";
+import { BezotCorpEvent } from "#/types/agent-server/core";
 import { seedModelSwitchesFromHistory } from "./record-model-switch-message";
 
-const userMessage = (id: string): OpenHandsEvent =>
+const userMessage = (id: string): BezotCorpEvent =>
   ({
     id,
     timestamp: "2024-01-01T00:00:00Z",
     source: "user",
     llm_message: { role: "user", content: [{ type: "text", text: "hi" }] },
-  }) as unknown as OpenHandsEvent;
+  }) as unknown as BezotCorpEvent;
 
 const switchObservation = (
   id: string,
   profileName: string,
   isError = false,
-): OpenHandsEvent =>
+): BezotCorpEvent =>
   ({
     id,
     timestamp: "2024-01-01T00:00:00Z",
@@ -29,11 +29,11 @@ const switchObservation = (
       reason: null,
       active_model: null,
     },
-  }) as unknown as OpenHandsEvent;
+  }) as unknown as BezotCorpEvent;
 
 // An agent action event. `ThinkAction` is renderable (shown as a thinking
 // block); `PlanningFileEditorAction` is hidden by `shouldRenderEvent`.
-const agentAction = (id: string, kind: string): OpenHandsEvent =>
+const agentAction = (id: string, kind: string): BezotCorpEvent =>
   ({
     id,
     timestamp: "2024-01-01T00:00:00Z",
@@ -41,7 +41,7 @@ const agentAction = (id: string, kind: string): OpenHandsEvent =>
     action: { kind, thought: "t" },
     tool_name: "tool",
     tool_call_id: `call-${id}`,
-  }) as unknown as OpenHandsEvent;
+  }) as unknown as BezotCorpEvent;
 
 const entriesFor = (conversationId: string) =>
   useModelStore.getState().entriesByConversation[conversationId] ?? [];

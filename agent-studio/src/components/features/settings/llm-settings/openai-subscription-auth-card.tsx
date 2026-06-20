@@ -32,7 +32,7 @@ function openVerificationUrl(challenge: LLMSubscriptionDeviceChallenge) {
 export function OpenAISubscriptionAuthCard({
   isDisabled = false,
 }: OpenAISubscriptionAuthCardProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const status = useOpenAISubscriptionStatus();
   const startLogin = useStartOpenAISubscriptionLogin();
   const pollLogin = usePollOpenAISubscriptionLogin();

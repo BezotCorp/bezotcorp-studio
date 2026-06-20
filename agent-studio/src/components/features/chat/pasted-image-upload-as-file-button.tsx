@@ -13,7 +13,7 @@ export function PastedImageUploadAsFileButton({
   active,
   onToggle,
 }: PastedImageUploadAsFileButtonProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const uploadLabel = t(I18nKey.CHAT_INTERFACE$UPLOAD_IMAGES_AS_FILES);
   const doNotUploadLabel = t(I18nKey.CHAT_INTERFACE$DO_NOT_UPLOAD_AS_FILE);
   const label = active ? doNotUploadLabel : uploadLabel;

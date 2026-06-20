@@ -15,7 +15,7 @@ export function RuntimeWaitingState({
   messageKey = I18nKey.DIFF_VIEWER$WAITING_FOR_RUNTIME,
   className,
 }: RuntimeWaitingStateProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div

@@ -65,7 +65,7 @@ test.describe("auth mode: fresh install with runtime-injected key", () => {
     // onboarding modal in CI screenshots/timeouts.
     await page.addInitScript(() => {
       window.localStorage.setItem("analytics-consent", "false");
-      window.localStorage.setItem("openhands-telemetry-consent", "denied");
+      window.localStorage.setItem("bezotcorp-telemetry-consent", "denied");
     });
 
     await routeSessionApiKey(page);
@@ -118,7 +118,7 @@ test.describe("auth mode: non-public key rotation", () => {
       ({ staleKey }) => {
         // 1. Seed the legacy agent-server-config with the stale key
         window.localStorage.setItem(
-          "openhands-agent-server-config",
+          "bezotcorp-agent-server-config",
           JSON.stringify({
             baseUrl: window.location.origin,
             sessionApiKey: staleKey,
@@ -127,7 +127,7 @@ test.describe("auth mode: non-public key rotation", () => {
 
         // 2. Seed the backend registry with the stale key
         window.localStorage.setItem(
-          "openhands-backends",
+          "bezotcorp-backends",
           JSON.stringify([
             {
               id: "default-local",
@@ -140,10 +140,10 @@ test.describe("auth mode: non-public key rotation", () => {
         );
 
         // 3. Mark onboarding as done, opt out of analytics
-        window.localStorage.setItem("openhands-onboarded", "1");
+        window.localStorage.setItem("bezotcorp-onboarded", "1");
         window.localStorage.setItem("analytics-consent", "false");
-        window.localStorage.setItem("openhands-telemetry-consent", "denied");
-        window.localStorage.setItem("openhands-telemetry-first-use", "true");
+        window.localStorage.setItem("bezotcorp-telemetry-consent", "denied");
+        window.localStorage.setItem("bezotcorp-telemetry-first-use", "true");
       },
       { staleKey: STALE_KEY },
     );
@@ -175,7 +175,7 @@ test.describe("auth mode: non-public key rotation", () => {
     // Verify localStorage was updated: the stale key should have been
     // replaced by the baked key.
     const storedConfig = await page.evaluate(() => {
-      const raw = window.localStorage.getItem("openhands-agent-server-config");
+      const raw = window.localStorage.getItem("bezotcorp-agent-server-config");
       return raw ? JSON.parse(raw) : null;
     });
     expect(storedConfig?.sessionApiKey).not.toBe(STALE_KEY);
@@ -192,7 +192,7 @@ test.describe("auth mode: public gate", () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
       window.localStorage.setItem("analytics-consent", "false");
-      window.localStorage.setItem("openhands-telemetry-consent", "denied");
+      window.localStorage.setItem("bezotcorp-telemetry-consent", "denied");
     });
   });
 
@@ -282,7 +282,7 @@ test.describe("auth mode: public gate", () => {
     await page.addInitScript(
       ({ apiKey, host }) => {
         window.localStorage.setItem(
-          "openhands-backends",
+          "bezotcorp-backends",
           JSON.stringify([
             {
               id: "default-local",
@@ -293,7 +293,7 @@ test.describe("auth mode: public gate", () => {
             },
           ]),
         );
-        window.localStorage.setItem("openhands-onboarded", "1");
+        window.localStorage.setItem("bezotcorp-onboarded", "1");
       },
       { apiKey: SESSION_API_KEY, host: PUBLIC_MODE_URL },
     );
@@ -328,11 +328,11 @@ test.describe("auth mode: public gate", () => {
     await page.addInitScript(
       ({ staleKey, host }) => {
         window.localStorage.setItem(
-          "openhands-agent-server-config",
+          "bezotcorp-agent-server-config",
           JSON.stringify({ baseUrl: host, sessionApiKey: staleKey }),
         );
         window.localStorage.setItem(
-          "openhands-backends",
+          "bezotcorp-backends",
           JSON.stringify([
             {
               id: "default-local",

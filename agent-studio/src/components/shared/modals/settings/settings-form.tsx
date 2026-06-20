@@ -24,7 +24,7 @@ export function SettingsForm({ settings, onClose }: SettingsFormProps) {
   const { trackSettingsSaved } = useTracking();
   const { mutate: saveUserSettings } = useSaveSettings();
   const { currentPath } = useNavigation();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const formRef = React.useRef<HTMLFormElement>(null);
 
@@ -102,7 +102,7 @@ export function SettingsForm({ settings, onClose }: SettingsFormProps) {
             testId="llm-api-key-help-anchor"
             text={t(I18nKey.SETTINGS$DONT_KNOW_API_KEY)}
             linkText={t(I18nKey.SETTINGS$CLICK_FOR_INSTRUCTIONS)}
-            href="https://docs.openhands.dev/usage/local-setup#getting-an-api-key"
+            href="https://docs.bezotcorp.dev/usage/local-setup#getting-an-api-key"
             size="settings"
             linkColor="white"
           />

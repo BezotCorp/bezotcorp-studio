@@ -1,4 +1,4 @@
-import { BashClient } from "@openhands/typescript-client/clients";
+import { BashClient } from "@bezotcorp/typescript-client/clients";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   __resetActiveStoreForTests,
@@ -13,7 +13,7 @@ const { searchEventsMock } = vi.hoisted(() => ({
   searchEventsMock: vi.fn(),
 }));
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   BashClient: vi.fn(function BashClientMock() {
     return { searchEvents: searchEventsMock };
   }),

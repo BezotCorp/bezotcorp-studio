@@ -40,7 +40,7 @@ function buildSkill(overrides: Partial<SkillInfo> = {}): SkillInfo {
   return {
     name: "deno",
     type: "knowledge",
-    source: "/Users/test/.openhands/cache/skills/public-skills/skills/deno/SKILL.md",
+    source: "/Users/test/.bezotcorp/cache/skills/public-skills/skills/deno/SKILL.md",
     description:
       "If the project uses deno, use this skill to initialize Deno projects.",
     triggers: ["deno", "deno.json", "deno.lock"],
@@ -370,7 +370,7 @@ Full skill body.`,
     const modal = await screen.findByTestId("add-skill-modal");
     expect(modal).toBeInTheDocument();
     expect(screen.getByTestId("add-skill-modal-example")).toHaveTextContent(
-      "/add-skill https://github.com/OpenHands/extensions/tree/main/skills/codereview",
+      "/add-skill https://github.com/BezotCorp/extensions/tree/main/skills/codereview",
     );
     expect(screen.getByTestId("add-skill-modal-docs-link")).toHaveAttribute(
       "href",

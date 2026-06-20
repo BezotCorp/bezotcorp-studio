@@ -75,7 +75,7 @@ export interface FileDiffViewerProps {
 }
 
 export function FileDiffViewer({ path, type }: FileDiffViewerProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [editorHeight, setEditorHeight] = React.useState(400);
   const [viewMode, setViewMode] = React.useState<ViewMode>("diff");

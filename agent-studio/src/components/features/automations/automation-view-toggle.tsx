@@ -40,7 +40,7 @@ export function AutomationViewToggle({
   onChange,
   disabled = false,
 }: AutomationViewToggleProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [open, setOpen] = useState(false);
   const [portalStyle, setPortalStyle] = useState<React.CSSProperties>();
   const triggerRef = useRef<HTMLButtonElement>(null);

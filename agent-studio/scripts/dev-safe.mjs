@@ -40,12 +40,12 @@ const DEFAULT_BACKEND_PORT = SHARED_DEFAULTS.ports.agentServer;
 const DEFAULT_VITE_PORT = 3001;
 const DEFAULT_WAIT_TIMEOUT_MS = 30_000;
 const DEFAULT_AGENT_SERVER_PACKAGE = SHARED_DEFAULTS.packages.agentServer;
-const AGENT_SERVER_GIT_REPO = "https://github.com/OpenHands/software-agent-sdk";
+const AGENT_SERVER_GIT_REPO = "https://github.com/BezotCorp/software-agent-sdk";
 const LOCAL_AGENT_SERVER_SUBDIRS = [
-  "openhands-agent-server",
-  "openhands-sdk",
-  "openhands-tools",
-  "openhands-workspace",
+  "bezotcorp-agent-server",
+  "bezotcorp-sdk",
+  "bezotcorp-tools",
+  "bezotcorp-workspace",
 ];
 const DEFAULT_AGENT_SERVER_VERSION = SHARED_DEFAULTS.versions.agentServer;
 const FRONTEND_REQUIRED_BINS = ["cross-env", "react-router"];
@@ -61,14 +61,14 @@ export function generateRandomApiKey() {
 // Where the auto-generated API key is persisted so it stays stable across
 // `npm run dev` restarts. Keeping the key stable means the value baked into
 // the frontend (VITE_SESSION_API_KEY) and the persisted backend-registry entry
-// (`openhands-backends` localStorage) stay in sync without users needing to
+// (`bezotcorp-backends` localStorage) stay in sync without users needing to
 // set anything in `.env`.
 //
 // To rotate the key, delete this file. To pin a key explicitly, export
 // LOCAL_BACKEND_API_KEY — it takes precedence over the persisted file.
 export const DEFAULT_API_KEY_PATH = path.join(
   homedir(),
-  ".openhands",
+  ".bezotcorp",
   "agent-studio",
   "api-key.txt",
 );
@@ -77,7 +77,7 @@ export const DEFAULT_API_KEY_PATH = path.join(
 export const DEFAULT_SESSION_API_KEY_PATH = DEFAULT_API_KEY_PATH;
 
 // Where the OH_SECRET_KEY is persisted so dev mode and Docker mode share the
-// same encryption key when both use ~/.openhands as their state directory.
+// same encryption key when both use ~/.bezotcorp as their state directory.
 // docker/entrypoint.sh reads and writes this same file, so whichever mode runs
 // first generates the key and the other picks it up automatically.
 //
@@ -85,7 +85,7 @@ export const DEFAULT_SESSION_API_KEY_PATH = DEFAULT_API_KEY_PATH;
 // explicitly, export OH_SECRET_KEY — that takes precedence over the file.
 export const DEFAULT_SECRET_KEY_PATH = path.join(
   homedir(),
-  ".openhands",
+  ".bezotcorp",
   "agent-studio",
   "secret-key.txt",
 );
@@ -259,7 +259,9 @@ export async function assertPortsFree(portConfigs, host = "127.0.0.1") {
   const busy = results.filter(({ free }) => !free);
   if (busy.length === 0) return;
 
-  const lines = busy.map(({ name, port }) => `   • ${name}: port ${port}`).join("\n");
+  const lines = busy
+    .map(({ name, port }) => `   • ${name}: port ${port}`)
+    .join("\n");
   throw new Error(
     `Cannot start: the following ports are already in use:\n\n${lines}\n\n` +
       `Another agent-studio instance may already be running.\n` +
@@ -390,7 +392,7 @@ export function validateFrontendDependencies(
  * Environment variables (highest precedence first):
  * - OH_AGENT_SERVER_LOCAL_PATH: Absolute path to a software-agent-sdk checkout.
  *   Runs the local checkout via uvx with editable installs of the workspace
- *   packages (openhands-sdk, openhands-tools, openhands-workspace) so source
+ *   packages (bezotcorp-sdk, bezotcorp-tools, bezotcorp-workspace) so source
  *   edits are picked up without a manual reinstall. The agent-server itself
  *   is rebuilt from local source on each invocation (--reinstall).
  * - OH_AGENT_SERVER_GIT_REF: Git commit SHA or branch name
@@ -420,20 +422,20 @@ export function buildAgentServerCommand(env = process.env) {
     uvxArgs.push(
       "--reinstall",
       "--from",
-      path.join(localPath, "openhands-agent-server"),
+      path.join(localPath, "bezotcorp-agent-server"),
       "--with-editable",
-      path.join(localPath, "openhands-sdk"),
+      path.join(localPath, "bezotcorp-sdk"),
       "--with-editable",
-      path.join(localPath, "openhands-tools"),
+      path.join(localPath, "bezotcorp-tools"),
       "--with-editable",
-      path.join(localPath, "openhands-workspace"),
+      path.join(localPath, "bezotcorp-workspace"),
       "agent-server",
     );
     source = `local (${localPath})`;
   } else if (gitRef) {
     // Use git ref with subdirectory syntax for uv workspace monorepo.
     // The software-agent-sdk repo has packages in subdirectories:
-    // openhands-agent-server/, openhands-sdk/, openhands-tools/, openhands-workspace/
+    // bezotcorp-agent-server/, bezotcorp-sdk/, bezotcorp-tools/, bezotcorp-workspace/
     // All four must come from the same ref so inter-package APIs stay in sync.
     //
     // --reinstall is required because the git branch may carry the same version
@@ -444,29 +446,29 @@ export function buildAgentServerCommand(env = process.env) {
     uvxArgs.push(
       "--reinstall",
       "--from",
-      `${baseGitUrl}#subdirectory=openhands-agent-server`,
+      `${baseGitUrl}#subdirectory=bezotcorp-agent-server`,
       "--with",
-      `${baseGitUrl}#subdirectory=openhands-sdk`,
+      `${baseGitUrl}#subdirectory=bezotcorp-sdk`,
       "--with",
-      `${baseGitUrl}#subdirectory=openhands-tools`,
+      `${baseGitUrl}#subdirectory=bezotcorp-tools`,
       "--with",
-      `${baseGitUrl}#subdirectory=openhands-workspace`,
+      `${baseGitUrl}#subdirectory=bezotcorp-workspace`,
       "agent-server",
     );
     source = `git (${gitRef})`;
   } else if (version) {
-    // Use specific PyPI version: uvx --from openhands-agent-server==version agent-server
+    // Use specific PyPI version: uvx --from bezotcorp-agent-server==version agent-server
     // The package name differs from the executable name, so we need --from syntax
     // Pin all SDK packages to the same version for consistency
     uvxArgs.push(
       "--from",
       `${DEFAULT_AGENT_SERVER_PACKAGE}==${version}`,
       "--with",
-      `openhands-sdk==${version}`,
+      `bezotcorp-sdk==${version}`,
       "--with",
-      `openhands-tools==${version}`,
+      `bezotcorp-tools==${version}`,
       "--with",
-      `openhands-workspace==${version}`,
+      `bezotcorp-workspace==${version}`,
       "agent-server",
     );
     source = `PyPI (${version})`;
@@ -477,11 +479,11 @@ export function buildAgentServerCommand(env = process.env) {
       "--from",
       `${DEFAULT_AGENT_SERVER_PACKAGE}==${DEFAULT_AGENT_SERVER_VERSION}`,
       "--with",
-      `openhands-sdk==${DEFAULT_AGENT_SERVER_VERSION}`,
+      `bezotcorp-sdk==${DEFAULT_AGENT_SERVER_VERSION}`,
       "--with",
-      `openhands-tools==${DEFAULT_AGENT_SERVER_VERSION}`,
+      `bezotcorp-tools==${DEFAULT_AGENT_SERVER_VERSION}`,
       "--with",
-      `openhands-workspace==${DEFAULT_AGENT_SERVER_VERSION}`,
+      `bezotcorp-workspace==${DEFAULT_AGENT_SERVER_VERSION}`,
       "agent-server",
     );
     source = `PyPI (${DEFAULT_AGENT_SERVER_VERSION}, default)`;
@@ -600,22 +602,21 @@ function buildConfigFromPorts(ports, cwd, env) {
   const stateDir = path.resolve(
     cwd,
     env.OH_CANVAS_SAFE_STATE_DIR ||
-      path.join(homedir(), ".openhands", "agent-studio"),
+      path.join(homedir(), ".bezotcorp", "agent-studio"),
   );
   const conversationsPath = path.join(stateDir, "dev_conversations");
   const workspacesPath = path.join(stateDir, "workspaces");
   // Use provided secret key, or read/generate one persisted to
-  // ~/.openhands/agent-studio/secret-key.txt. Persisting ensures dev mode
+  // ~/.bezotcorp/agent-studio/secret-key.txt. Persisting ensures dev mode
   // and Docker mode share the same encryption key when they mount the same
-  // ~/.openhands directory (docker/entrypoint.sh reads/writes the same file).
-  const secretKeyPath =
-    env.OH_SECRET_KEY_PATH || DEFAULT_SECRET_KEY_PATH;
+  // ~/.bezotcorp directory (docker/entrypoint.sh reads/writes the same file).
+  const secretKeyPath = env.OH_SECRET_KEY_PATH || DEFAULT_SECRET_KEY_PATH;
   const secretKey =
     env.OH_SECRET_KEY || getOrCreatePersistedApiKey(secretKeyPath, "secret");
   // Use the user-provided LOCAL_BACKEND_API_KEY or fall back to a key
-  // persisted to ~/.openhands/agent-studio/api-key.txt. Persisting on disk
+  // persisted to ~/.bezotcorp/agent-studio/api-key.txt. Persisting on disk
   // keeps the agent-server, the Vite-baked VITE_SESSION_API_KEY, and any
-  // `openhands-backends` localStorage entries the frontend has cached all
+  // `bezotcorp-backends` localStorage entries the frontend has cached all
   // pointing at the same value across dev restarts.
   //
   // LOCAL_BACKEND_API_KEY is the single user-facing env var for the API key.
@@ -637,7 +638,7 @@ function buildConfigFromPorts(ports, cwd, env) {
     vscodePort,
     stateDir,
     // tmux socket directory. Defaults to <stateDir>/tmux (under
-    // ~/.openhands/agent-studio), matching where the rest of dev state lives
+    // ~/.bezotcorp/agent-studio), matching where the rest of dev state lives
     // and persisting across restarts.
     //
     // Do NOT use os.tmpdir() here: on macOS it resolves to the per-user
@@ -645,7 +646,7 @@ function buildConfigFromPorts(ports, cwd, env) {
     // (com.apple.bsd.dirhelper deletes entries untouched for a few days).
     // Reaping deletes the live tmux socket while the server process keeps
     // running, orphaning it — every later new-window then fails with
-    // "error connecting to .../openhands (No such file or directory)".
+    // "error connecting to .../bezotcorp (No such file or directory)".
     //
     // The only hosts where <stateDir>/tmux can't hold the socket are those
     // whose $HOME is a network/overlay mount without Unix-domain-socket
@@ -688,7 +689,7 @@ export function buildAgentServerEnv(config) {
     // This is a no-op on Linux/macOS where the locale is already UTF-8.
     PYTHONUTF8: "1",
     TMUX_TMPDIR: config.tmuxTmpDir,
-    // Parent of stateDir (= ~/.openhands) so settings/secrets match Docker.
+    // Parent of stateDir (= ~/.bezotcorp) so settings/secrets match Docker.
     OH_PERSISTENCE_DIR: path.dirname(config.stateDir),
     OH_CONVERSATIONS_PATH: config.conversationsPath,
     OH_BASH_EVENTS_DIR: config.bashEventsDir,
@@ -698,7 +699,7 @@ export function buildAgentServerEnv(config) {
     OH_SESSION_API_KEYS_0: config.sessionApiKey,
     // Alias for the agent-server's own URL. The agent-server itself sets
     // OH_INTERNAL_SERVER_URL at startup, but downstream consumers (the
-    // OpenHands SDK boilerplate emitted by automation prompt/plugin
+    // BezotCorp SDK boilerplate emitted by automation prompt/plugin
     // presets) read AGENT_SERVER_URL — the canonical SDK name. Mirror it
     // here so automation runs work without each tarball having to know
     // about the OH_-prefixed variant.

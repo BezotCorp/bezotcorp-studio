@@ -19,7 +19,7 @@ import { SayHelloStep } from "./steps/say-hello-step";
 
 const TOTAL_STEPS = 4;
 
-// Index of the per-provider setup slide (LLM form for OpenHands, ACP
+// Index of the per-provider setup slide (LLM form for BezotCorp, ACP
 // credentials for Claude Code / Codex). Named so the slide and the
 // ``isActive`` gate that drives the ACP login probe move together — inserting
 // a slide before it can't silently fire the probe on the wrong step.
@@ -96,18 +96,18 @@ export function OnboardingModal({
   initialStep = 0,
   isPreview = false,
 }: OnboardingModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [currentStep, setCurrentStep] = React.useState(() =>
     Math.min(Math.max(initialStep, 0), TOTAL_STEPS - 1),
   );
   const [selectedAgentId, setSelectedAgentId] =
-    React.useState<OnboardingAgentId>("openhands");
+    React.useState<OnboardingAgentId>("bezotcorp");
 
   // Slide index 2 is the "provider credentials" slot:
-  //   * OpenHands → the LLM-setup form (its own LLM config).
+  //   * BezotCorp → the LLM-setup form (its own LLM config).
   //   * Any ACP provider (Claude Code / Codex / Gemini) → the ACP credentials
   //     form: API key + optional base URL, with a login-detection banner.
-  const isOpenHands = selectedAgentId === "openhands";
+  const isBezotCorp = selectedAgentId === "bezotcorp";
   const goNext = React.useCallback(
     () => setCurrentStep((step) => Math.min(step + 1, TOTAL_STEPS - 1)),
     [],
@@ -162,7 +162,7 @@ export function OnboardingModal({
                 />
               </Slide>
               <Slide index={SETUP_SLIDE_INDEX} currentStep={currentStep}>
-                {isOpenHands ? (
+                {isBezotCorp ? (
                   <SetupLlmStep onBack={goBack} onNext={goNext} />
                 ) : (
                   <SetupAcpSecretsStep

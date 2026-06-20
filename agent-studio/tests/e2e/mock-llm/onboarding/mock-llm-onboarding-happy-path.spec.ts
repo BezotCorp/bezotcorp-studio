@@ -3,7 +3,7 @@
  *
  * Exercises the complete first-run onboarding flow end-to-end:
  *
- *   Step 0 — Choose Agent: selects OpenHands and advances.
+ *   Step 0 — Choose Agent: selects BezotCorp and advances.
  *   Step 1 — Check Backend: waits for the connected banner, advances.
  *   Step 2 — Setup LLM: fills in the mock LLM model, base URL, and API
  *            key (via "All" mode), and advances. The step persists settings
@@ -14,7 +14,7 @@
  *
  * The test also validates:
  *   - The onboarding modal closes after launching.
- *   - `openhands-onboarded` is set in localStorage.
+ *   - `bezotcorp-onboarded` is set in localStorage.
  *   - The settings-saved toast does NOT appear during onboarding.
  *   - No error banners are visible after the conversation loads.
  */
@@ -88,7 +88,7 @@ test.describe("onboarding happy path", () => {
     ]);
     await activateTrajectory(request, "onboarding-hello");
 
-    // Show the onboarding modal (clears openhands-onboarded, seeds backend)
+    // Show the onboarding modal (clears bezotcorp-onboarded, seeds backend)
     await showOnboarding(page, {
       apiKey: SESSION_API_KEY,
       beforeGoto: () => routeSessionApiKey(page),
@@ -144,9 +144,9 @@ test.describe("onboarding happy path", () => {
       await allToggle.dispatchEvent("click");
 
       // Wait for the advanced form
-      await expect(
-        page.getByTestId("llm-settings-form-advanced"),
-      ).toBeVisible({ timeout: 10_000 });
+      await expect(page.getByTestId("llm-settings-form-advanced")).toBeVisible({
+        timeout: 10_000,
+      });
 
       // Fill in model
       const modelInput = page.getByTestId("llm-custom-model-input");
@@ -215,14 +215,17 @@ test.describe("onboarding happy path", () => {
 
     // ── Verify: onboarding completion flag is persisted ──────────────
 
-    await test.step("verify openhands-onboarded is set in localStorage", async () => {
+    await test.step("verify bezotcorp-onboarded is set in localStorage", async () => {
       await expect
         .poll(
           () =>
             page.evaluate(() =>
-              window.localStorage.getItem("openhands-onboarded"),
+              window.localStorage.getItem("bezotcorp-onboarded"),
             ),
-          { message: "openhands-onboarded should be '1' after completing the flow" },
+          {
+            message:
+              "bezotcorp-onboarded should be '1' after completing the flow",
+          },
         )
         .toBe("1");
     });

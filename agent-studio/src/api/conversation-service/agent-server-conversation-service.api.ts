@@ -1,13 +1,13 @@
 import {
   ConversationSortOrder,
   type LLMConfig,
-} from "@openhands/typescript-client";
+} from "@bezotcorp/typescript-client";
 import {
   ConversationClient,
   FileClient,
   ProfilesClient,
   VSCodeClient,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 import { v4 as uuidv4 } from "uuid";
 import { Provider } from "#/types/settings";
 import type { ConversationRuntimeContext } from "#/api/conversation-file-upload.api";
@@ -353,7 +353,7 @@ class AgentServerConversationService {
     sandboxId?: string,
   ): Promise<AppConversationStartTask> {
     if (getActiveBackend().backend.kind === "cloud") {
-      // Cloud path mirrors OpenHands' frontend: build a flat
+      // Cloud path mirrors BezotCorp' frontend: build a flat
       // AppConversationStartRequest, POST /api/v1/app-conversations
       // (returns a WORKING task), and let the conversation route's
       // useTaskPolling drive it to READY. NO encrypted-settings
@@ -549,7 +549,7 @@ class AgentServerConversationService {
     if (getActiveBackend().backend.kind === "cloud") {
       // Cloud exposes a per-conversation file endpoint; the sandbox
       // working dir is fixed (`/workspace/project`), so PLAN.md lives at
-      // a known absolute path. Mirrors OpenHands' readConversationFile.
+      // a known absolute path. Mirrors BezotCorp' readConversationFile.
       const path = requirePathInsideDirectory(
         filePath ?? "/workspace/project/.agents_tmp/PLAN.md",
         "/workspace/project",

@@ -40,7 +40,7 @@ interface NewConversationButtonProps {
 export function NewConversationButton({
   compact = false,
 }: NewConversationButtonProps = {}) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const newConversationLabel = t(I18nKey.SIDEBAR$NEW_CONVERSATION);
   const isCloud = useActiveBackend().backend.kind === "cloud";
 

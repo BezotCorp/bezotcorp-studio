@@ -41,7 +41,7 @@ interface SkillCardPillRowProps {
 }
 
 export function SkillCardPillRow({ pills, testId }: SkillCardPillRowProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const containerRef = React.useRef<HTMLDivElement>(null);
   const measureRef = React.useRef<HTMLDivElement>(null);
   const [visibleCount, setVisibleCount] = React.useState(pills.length);

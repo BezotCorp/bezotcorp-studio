@@ -27,7 +27,7 @@ export function SettingsSwitch({
   isDisabled,
   togglePosition = "left",
 }: React.PropsWithChildren<SettingsSwitchProps>) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [isToggled, setIsToggled] = React.useState(defaultIsToggled ?? false);
 
   const handleToggle = (value: boolean) => {

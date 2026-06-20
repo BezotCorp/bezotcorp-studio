@@ -40,7 +40,7 @@ const ONBOARDING_LLM_OVERRIDES = {
  * configured settings aren't blocked.
  */
 export function SetupLlmStep({ onBack, onNext }: SetupLlmStepProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { backend } = useActiveBackend();
   const isLocalBackend = backend.kind === "local";
   const saveProfile = useSaveLlmProfile();

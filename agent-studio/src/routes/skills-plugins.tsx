@@ -4,7 +4,7 @@ import { I18nKey } from "#/i18n/declaration";
 import { settingsLikeMainScrollClassName } from "#/utils/settings-like-page-layout-classes";
 
 export default function SkillsPluginsScreen() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div

@@ -8,12 +8,12 @@ import { Messages } from "#/components/conversation-events/chat/messages";
 import { shouldRenderEvent } from "#/components/conversation-events/chat/event-content-helpers/should-render-event";
 import { LoadingSpinner } from "#/components/shared/loading-spinner";
 import { handleEventForUI } from "#/utils/handle-event-for-ui";
-import { OpenHandsEvent } from "#/types/agent-server/core";
-import OpenHandsLogo from "#/assets/branding/openhands-logo.svg?react";
+import { BezotCorpEvent } from "#/types/agent-server/core";
+import BezotCorpLogo from "#/assets/branding/bezotcorp-logo.svg?react";
 import { useInfiniteScroll } from "#/hooks/use-infinite-scroll";
 
 export default function SharedConversation() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { conversationId } = useParams<{ conversationId: string }>();
 
   const {
@@ -45,7 +45,7 @@ export default function SharedConversation() {
     () =>
       conversationEvents
         .reduce<
-          OpenHandsEvent[]
+          BezotCorpEvent[]
         >((uiEvents, event) => handleEventForUI(event, uiEvents), [])
         .filter(shouldRenderEvent),
     [conversationEvents],
@@ -82,9 +82,9 @@ export default function SharedConversation() {
           <Link
             to="/conversations"
             className="flex-shrink-0"
-            aria-label={t(I18nKey.BRANDING$OPENHANDS_LOGO)}
+            aria-label={t(I18nKey.BRANDING$BEZOTCORP_LOGO)}
           >
-            <OpenHandsLogo width={46} height={30} />
+            <BezotCorpLogo width={46} height={30} />
           </Link>
           <div className="flex-1 min-w-0">
             <h1 className="text-xl font-medium mb-2">

@@ -30,7 +30,7 @@ export function HookEventItem({
   isExpanded,
   onToggle,
 }: HookEventItemProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const i18nKey = EVENT_TYPE_I18N_KEYS[hookEvent.event_type];
   const eventTypeLabel = i18nKey ? t(i18nKey) : hookEvent.event_type;
 

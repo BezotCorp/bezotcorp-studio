@@ -8,7 +8,7 @@ dist/
 # Development files
 .git/
 .github/
-.openhands/
+.bezotcorp-agent-studio/
 .agents/
 .pr/
 

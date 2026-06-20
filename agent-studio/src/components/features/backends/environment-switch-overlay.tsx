@@ -140,7 +140,7 @@ function EnvironmentSwitchIcon({ className }: { className?: string }) {
 }
 
 export function EnvironmentSwitchOverlay() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { visible, target } = React.useSyncExternalStore(
     subscribeEnvironmentSwitch,
     getEnvironmentSwitchSnapshot,

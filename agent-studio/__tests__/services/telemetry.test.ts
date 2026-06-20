@@ -52,12 +52,12 @@ describe("Telemetry Service", () => {
     });
 
     it("returns 'granted' when consent is granted", () => {
-      localStorage.setItem("openhands-telemetry-consent", "granted");
+      localStorage.setItem("bezotcorp-telemetry-consent", "granted");
       expect(getTelemetryConsent()).toBe("granted");
     });
 
     it("returns 'denied' when consent is denied", () => {
-      localStorage.setItem("openhands-telemetry-consent", "denied");
+      localStorage.setItem("bezotcorp-telemetry-consent", "denied");
       expect(getTelemetryConsent()).toBe("denied");
     });
   });
@@ -65,14 +65,14 @@ describe("Telemetry Service", () => {
   describe("setTelemetryConsent", () => {
     it("stores granted consent in localStorage", async () => {
       await setTelemetryConsent("granted");
-      expect(localStorage.getItem("openhands-telemetry-consent")).toBe(
+      expect(localStorage.getItem("bezotcorp-telemetry-consent")).toBe(
         "granted",
       );
     });
 
     it("stores denied consent in localStorage", async () => {
       await setTelemetryConsent("denied");
-      expect(localStorage.getItem("openhands-telemetry-consent")).toBe(
+      expect(localStorage.getItem("bezotcorp-telemetry-consent")).toBe(
         "denied",
       );
     });
@@ -172,12 +172,12 @@ describe("Telemetry Service", () => {
   describe("clearTelemetryData", () => {
     it("clears all telemetry data from localStorage", async () => {
       await setTelemetryConsent("granted");
-      localStorage.setItem("openhands-telemetry-first-use", "true");
+      localStorage.setItem("bezotcorp-telemetry-first-use", "true");
 
       await clearTelemetryData();
 
-      expect(localStorage.getItem("openhands-telemetry-consent")).toBeNull();
-      expect(localStorage.getItem("openhands-telemetry-first-use")).toBeNull();
+      expect(localStorage.getItem("bezotcorp-telemetry-consent")).toBeNull();
+      expect(localStorage.getItem("bezotcorp-telemetry-first-use")).toBeNull();
     });
   });
 

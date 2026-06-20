@@ -3,7 +3,7 @@ import CheckCircle from "#/icons/check-circle-solid.svg?react";
 import { I18nKey } from "#/i18n/declaration";
 
 export function GotItButton({ onClick }: { onClick: () => void }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   return (
     <button
       type="button"

@@ -12,8 +12,8 @@ interface SidebarActions {
 
 type SidebarStore = SidebarState & SidebarActions;
 
-const STORAGE_KEY = "openhands-sidebar";
-const LEGACY_STORAGE_KEY = "openhands-sidebar-collapsed";
+const STORAGE_KEY = "bezotcorp-sidebar";
+const LEGACY_STORAGE_KEY = "bezotcorp-sidebar-collapsed";
 
 export const useSidebarStore = create<SidebarStore>()(
   persist(
@@ -34,7 +34,7 @@ export const useSidebarStore = create<SidebarStore>()(
 );
 
 // One-shot migration from the previous raw-string format
-// (`openhands-sidebar-collapsed` = `"true"`/`"false"`). Runs once at import
+// (`bezotcorp-sidebar-collapsed` = `"true"`/`"false"`). Runs once at import
 // time; only seeds the store when the new key is absent so it never clobbers
 // a user choice made after the upgrade.
 if (typeof window !== "undefined") {

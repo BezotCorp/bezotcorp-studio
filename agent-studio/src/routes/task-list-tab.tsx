@@ -7,7 +7,7 @@ import { cn } from "#/utils/utils";
 import { ConversationTabEmptyState } from "#/components/features/conversation/conversation-tab-empty-state";
 
 function TaskListTab() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { taskList } = useTaskList();
 
   if (taskList.length === 0) {

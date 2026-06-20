@@ -196,21 +196,21 @@ describe("App root agent-server availability guard", () => {
   it("shows the manage-backends recovery modal when the active cloud backend is logged out", async () => {
     const cloudBackend = {
       id: "cloud-expired",
-      name: "OpenHands Cloud",
+      name: "BezotCorp Cloud",
       host: "https://app.all-hands.dev",
       apiKey: "expired-token",
       kind: "cloud",
     };
     window.localStorage.setItem(
-      "openhands-backends",
+      "bezotcorp-backends",
       JSON.stringify([cloudBackend]),
     );
     window.localStorage.setItem(
-      "openhands-active-backend",
+      "bezotcorp-active-backend",
       JSON.stringify({ backendId: cloudBackend.id, orgId: null }),
     );
     window.sessionStorage.setItem(
-      "openhands-active-backend",
+      "bezotcorp-active-backend",
       JSON.stringify({ backendId: cloudBackend.id, orgId: null }),
     );
     __resetActiveStoreForTests();

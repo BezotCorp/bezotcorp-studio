@@ -4,7 +4,7 @@ import { SuggestedTask } from "#/utils/types";
 import { ExecutionStatus } from "#/types/agent-server/core";
 
 /**
- * Lifecycle state of a cloud sandbox. Mirrors OpenHands' V1SandboxStatus.
+ * Lifecycle state of a cloud sandbox. Mirrors BezotCorp' V1SandboxStatus.
  * Local agent-server conversations do not carry this field (null).
  */
 export type SandboxStatus =
@@ -63,7 +63,7 @@ export interface AppConversationStartRequest {
   // Re-provision an EXISTING conversation (waking a recycled sandbox) instead
   // of minting a new one. The backend keys the rebuilt conversation on this id
   // and, for ACP, resumes it from the durable event store with a bootstrap
-  // prompt (OpenHands#14640). Omit/null to create a fresh conversation.
+  // prompt (BezotCorp#14640). Omit/null to create a fresh conversation.
   conversation_id?: string | null;
   initial_message?: SendMessageRequest | null;
   processors?: unknown[]; // EventCallbackProcessor - keeping as unknown for now
@@ -128,21 +128,21 @@ export interface AppConversation {
   trigger: ConversationTrigger | null;
   pr_number: number[];
   /**
-   * High-level kind of the conversation's agent — ``"openhands"`` for an LLM-
+   * High-level kind of the conversation's agent — ``"bezotcorp"`` for an LLM-
    * driven Agent, ``"acp"`` for an ACPAgent that delegates to an external
    * ACP CLI subprocess. Consumers can use this to gate UI affordances that
    * only make sense for one kind (e.g. the LLM-profile switcher in the chat
    * header is a no-op for ACP conversations even though ``llm_model`` may
    * carry the ACP subprocess model for display).
    */
-  agent_kind?: "openhands" | "acp" | null;
+  agent_kind?: "bezotcorp" | "acp" | null;
   /**
    * For ACP conversations, the registry key of the ACP CLI server the
    * conversation was launched against (e.g. ``"claude-code"``, ``"codex"``,
    * ``"gemini-cli"``). Populated from ``info.tags.acpserver`` — see
    * ``ACP_SERVER_TAG_KEY`` in ``agent-server-adapter.ts`` for the wire
    * format and the rationale behind the snake_case-incompatible
-   * ``acpserver`` form. ``null`` for OpenHands conversations and for ACP
+   * ``acpserver`` form. ``null`` for BezotCorp conversations and for ACP
    * conversations whose tag wasn't stamped (e.g. created via an older
    * client or via the raw API). Consumers resolve the display name via
    * ``getAcpProviderDisplayName(acp_server)`` and fall back to a generic
@@ -155,7 +155,7 @@ export interface AppConversation {
   updated_at: string;
   execution_status: ExecutionStatus | null;
   /**
-   * Cloud-only sandbox lifecycle status. Mirrors OpenHands' V1SandboxStatus.
+   * Cloud-only sandbox lifecycle status. Mirrors BezotCorp' V1SandboxStatus.
    * Absent / null for local agent-server conversations.
    */
   sandbox_status?: SandboxStatus | null;

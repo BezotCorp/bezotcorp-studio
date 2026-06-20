@@ -15,7 +15,7 @@ const useActiveConversationMock = vi.fn<
     data:
       | {
           conversation_id: string;
-          agent_kind?: "openhands" | "acp";
+          agent_kind?: "bezotcorp" | "acp";
           llm_model: string | null;
         }
       | undefined;

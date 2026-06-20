@@ -41,11 +41,11 @@ export const SKILL_REPOS_AGENT_DIR =
 /**
  * User-level skills directory — HOST-side (for file creation/removal).
  * In Docker mode, we use a local temp dir that is volume-mounted into the
- * container at the agent-server's expected `~/.openhands/skills/` path.
+ * container at the agent-server's expected `~/.bezotcorp/skills/` path.
  */
 export const USER_SKILLS_DIR = process.env.MOCK_LLM_USER_SKILLS_HOST_DIR
   ? resolve(process.env.MOCK_LLM_USER_SKILLS_HOST_DIR)
-  : join(homedir(), ".openhands", "skills");
+  : join(homedir(), ".bezotcorp", "skills");
 
 // ── Skill content builders ───────────────────────────────────────────
 

@@ -8,7 +8,7 @@
  *
  * For full integration testing, use browser-level tests with MSW.
  */
-import { ProfilesClient } from "@openhands/typescript-client/clients";
+import { ProfilesClient } from "@bezotcorp/typescript-client/clients";
 import { afterEach, describe, expect, it, vi, beforeEach } from "vitest";
 import ProfilesService from "#/api/profiles-service/profiles-service.api";
 
@@ -29,7 +29,7 @@ const {
   mockActivateProfile: vi.fn(),
 }));
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   ProfilesClient: vi.fn(function ProfilesClientMock() {
     return {
       listProfiles: mockListProfiles,

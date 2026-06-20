@@ -8,18 +8,18 @@
 
 Each cell = smoke test: install → onboard → start conversation → agent replies.
 
-| | **macOS** | **Linux** | **Windows** |
-|---|:---:|:---:|:---:|
-| **npm — OpenHands** | ☐ | ☐ | ☐ |
-| **npm — Claude Code** | ☐ | ☐ | ☐ |
-| **npm — Codex** | ☐ | ☐ | ☐ |
-| **npm — Gemini CLI** | ☐ | ☐ | ☐ |
-| **npm — Custom ACP** | ☐ | ☐ | ☐ |
-| **Docker — OpenHands** | ☐ | ☐ | ☐ |
-| **Docker — Claude Code** | ☐ | ☐ | ☐ |
-| **Docker — Codex** | ☐ | ☐ | ☐ |
-| **Docker — Gemini CLI** | ☐ | ☐ | ☐ |
-| **Docker — Custom ACP** | ☐ | ☐ | ☐ |
+|                          | **macOS** | **Linux** | **Windows** |
+| ------------------------ | :-------: | :-------: | :---------: |
+| **npm — BezotCorp**      |     ☐     |     ☐     |      ☐      |
+| **npm — Claude Code**    |     ☐     |     ☐     |      ☐      |
+| **npm — Codex**          |     ☐     |     ☐     |      ☐      |
+| **npm — Gemini CLI**     |     ☐     |     ☐     |      ☐      |
+| **npm — Custom ACP**     |     ☐     |     ☐     |      ☐      |
+| **Docker — BezotCorp**   |     ☐     |     ☐     |      ☐      |
+| **Docker — Claude Code** |     ☐     |     ☐     |      ☐      |
+| **Docker — Codex**       |     ☐     |     ☐     |      ☐      |
+| **Docker — Gemini CLI**  |     ☐     |     ☐     |      ☐      |
+| **Docker — Custom ACP**  |     ☐     |     ☐     |      ☐      |
 
 ---
 
@@ -27,12 +27,12 @@ Each cell = smoke test: install → onboard → start conversation → agent rep
 
 Requires full stack (automation backend running).
 
-| | **npm** | **Docker** |
-|---|:---:|:---:|
-| **OpenHands** | ✅ P0 | ✅ P0 |
-| **Claude Code** | ✅ P1 | ✅ P1 |
-| **Codex** | ✅ P1 | ✅ P1 |
-| **Gemini CLI** | ✅ P2 | ✅ P2 |
+|                 | **npm** | **Docker** |
+| --------------- | :-----: | :--------: |
+| **BezotCorp**   |  ✅ P0  |   ✅ P0    |
+| **Claude Code** |  ✅ P1  |   ✅ P1    |
+| **Codex**       |  ✅ P1  |   ✅ P1    |
+| **Gemini CLI**  |  ✅ P2  |   ✅ P2    |
 
 Each cell = create automation → dispatch run → run reaches COMPLETED → conversation link works.
 
@@ -40,10 +40,10 @@ Each cell = create automation → dispatch run → run reaches COMPLETED → con
 
 ## Auth Modes
 
-| | **npm** | **Docker** |
-|---|:---:|:---:|
-| **Local (auto-generated key)** | ✅ P0 | ✅ P0 |
-| **Public (`--public` + user key)** | ✅ P1 | ✅ P1 |
+|                                    | **npm** | **Docker** |
+| ---------------------------------- | :-----: | :--------: |
+| **Local (auto-generated key)**     |  ✅ P0  |   ✅ P0    |
+| **Public (`--public` + user key)** |  ✅ P1  |   ✅ P1    |
 
 ---
 
@@ -51,47 +51,47 @@ Each cell = create automation → dispatch run → run reaches COMPLETED → con
 
 ### npm
 
-| Feature | OpenHands | Claude Code | Codex | Gemini CLI |
-|---|:---:|:---:|:---:|:---:|
-| Onboarding | ☐ | ☐ | ☐ | ☐ |
-| Conversation — start, resume, history | ☐ | ☐ | ☐ | ☐ |
-| Terminal tool | ☐ | ☐ | ☐ | ☐ |
-| File editor tool | ☐ | ☐ | ☐ | ☐ |
-| Browser tool | ☐ | ☐ | ☐ | ☐ |
-| LLM profiles — create / switch | ☐ | — | — | — |
-| Secrets — add / delete / forwarded | ☐ | ☐ | ☐ | ☐ |
-| Automations — create, dispatch, COMPLETED | ☐ | ☐ | ☐ | ☐ |
-| Files tab + Changes/diff tab | ☐ | ☐ | ☐ | ☐ |
-| MCP server install | ☐ | ☐ | ☐ | ☐ |
-| Image upload in chat | ☐ | ☐ | ☐ | ☐ |
-| Key rotation | ☐ | ☐ | ☐ | ☐ |
+| Feature                                   | BezotCorp | Claude Code | Codex | Gemini CLI |
+| ----------------------------------------- | :-------: | :---------: | :---: | :--------: |
+| Onboarding                                |     ☐     |      ☐      |   ☐   |     ☐      |
+| Conversation — start, resume, history     |     ☐     |      ☐      |   ☐   |     ☐      |
+| Terminal tool                             |     ☐     |      ☐      |   ☐   |     ☐      |
+| File editor tool                          |     ☐     |      ☐      |   ☐   |     ☐      |
+| Browser tool                              |     ☐     |      ☐      |   ☐   |     ☐      |
+| LLM profiles — create / switch            |     ☐     |      —      |   —   |     —      |
+| Secrets — add / delete / forwarded        |     ☐     |      ☐      |   ☐   |     ☐      |
+| Automations — create, dispatch, COMPLETED |     ☐     |      ☐      |   ☐   |     ☐      |
+| Files tab + Changes/diff tab              |     ☐     |      ☐      |   ☐   |     ☐      |
+| MCP server install                        |     ☐     |      ☐      |   ☐   |     ☐      |
+| Image upload in chat                      |     ☐     |      ☐      |   ☐   |     ☐      |
+| Key rotation                              |     ☐     |      ☐      |   ☐   |     ☐      |
 
 ### Docker
 
-| Feature | OpenHands | Claude Code | Codex | Gemini CLI |
-|---|:---:|:---:|:---:|:---:|
-| Onboarding | ☐ | ☐ | ☐ | ☐ |
-| Conversation — start, resume, history | ☐ | ☐ | ☐ | ☐ |
-| Terminal tool | ☐ | ☐ | ☐ | ☐ |
-| File editor tool | ☐ | ☐ | ☐ | ☐ |
-| Browser tool | ☐ | ☐ | ☐ | ☐ |
-| LLM profiles — create / switch | ☐ | — | — | — |
-| Secrets — add / delete / forwarded | ☐ | ☐ | ☐ | ☐ |
-| Automations — create, dispatch, COMPLETED | ☐ | ☐ | ☐ | ☐ |
-| Files tab + Changes/diff tab | ☐ | ☐ | ☐ | ☐ |
-| MCP server install | ☐ | ☐ | ☐ | ☐ |
-| Image upload in chat | ☐ | ☐ | ☐ | ☐ |
-| Key rotation | ☐ | ☐ | ☐ | ☐ |
+| Feature                                   | BezotCorp | Claude Code | Codex | Gemini CLI |
+| ----------------------------------------- | :-------: | :---------: | :---: | :--------: |
+| Onboarding                                |     ☐     |      ☐      |   ☐   |     ☐      |
+| Conversation — start, resume, history     |     ☐     |      ☐      |   ☐   |     ☐      |
+| Terminal tool                             |     ☐     |      ☐      |   ☐   |     ☐      |
+| File editor tool                          |     ☐     |      ☐      |   ☐   |     ☐      |
+| Browser tool                              |     ☐     |      ☐      |   ☐   |     ☐      |
+| LLM profiles — create / switch            |     ☐     |      —      |   —   |     —      |
+| Secrets — add / delete / forwarded        |     ☐     |      ☐      |   ☐   |     ☐      |
+| Automations — create, dispatch, COMPLETED |     ☐     |      ☐      |   ☐   |     ☐      |
+| Files tab + Changes/diff tab              |     ☐     |      ☐      |   ☐   |     ☐      |
+| MCP server install                        |     ☐     |      ☐      |   ☐   |     ☐      |
+| Image upload in chat                      |     ☐     |      ☐      |   ☐   |     ☐      |
+| Key rotation                              |     ☐     |      ☐      |   ☐   |     ☐      |
 
 ---
 
 ## Automated Coverage
 
-| Suite | Install | OS | Agents | Automations |
-|---|---|---|---|---|
-| `vitest` (unit) | — | Linux | — | partial |
-| `test:e2e:mock-llm` | npm | Linux | OpenHands, ACP (mock) | ✅ full |
-| `test:e2e:mock-llm:docker` | Docker | Linux | OpenHands, ACP (mock) | ✅ full |
-| `test:e2e:live` | npm | Linux | OpenHands | ❌ |
+| Suite                      | Install | OS    | Agents                | Automations |
+| -------------------------- | ------- | ----- | --------------------- | ----------- |
+| `vitest` (unit)            | —       | Linux | —                     | partial     |
+| `test:e2e:mock-llm`        | npm     | Linux | BezotCorp, ACP (mock) | ✅ full     |
+| `test:e2e:mock-llm:docker` | Docker  | Linux | BezotCorp, ACP (mock) | ✅ full     |
+| `test:e2e:live`            | npm     | Linux | BezotCorp             | ❌          |
 
 **Not yet covered by CI:** real ACP credentials (Claude Code / Codex / Gemini), macOS, public auth mode, subscription login paths, Windows.

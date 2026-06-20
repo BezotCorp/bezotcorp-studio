@@ -6,23 +6,23 @@ import { I18nKey } from "#/i18n/declaration";
 
 interface SystemMessageHeaderProps {
   agentClass: string | null;
-  openhandsVersion: string | null;
+  bezotcorpVersion: string | null;
   onClose: () => void;
 }
 
 export function SystemMessageHeader({
   agentClass,
-  openhandsVersion,
+  bezotcorpVersion,
   onClose,
 }: SystemMessageHeaderProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <>
       <ModalCloseButton onClose={onClose} testId="close-system-message-modal" />
       <div className="flex w-full min-w-0 flex-col gap-2 pr-6">
         <BaseModalTitle title={t(I18nKey.SYSTEM_MESSAGE_MODAL$TITLE)} />
-        {(agentClass || openhandsVersion) && (
+        {(agentClass || bezotcorpVersion) && (
           <div className="flex flex-col gap-2">
             {agentClass && (
               <div className="text-sm">
@@ -34,13 +34,13 @@ export function SystemMessageHeader({
                 </Typography.Text>
               </div>
             )}
-            {openhandsVersion && (
+            {bezotcorpVersion && (
               <div className="text-sm">
                 <Typography.Text className="font-semibold text-[var(--oh-text-tertiary)]">
-                  {t(I18nKey.SYSTEM_MESSAGE_MODAL$OPENHANDS_VERSION)}
+                  {t(I18nKey.SYSTEM_MESSAGE_MODAL$BEZOTCORP_VERSION)}
                 </Typography.Text>{" "}
                 <Typography.Text className="text-content-2">
-                  {openhandsVersion}
+                  {bezotcorpVersion}
                 </Typography.Text>
               </div>
             )}

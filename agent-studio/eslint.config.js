@@ -148,9 +148,9 @@ export default [
         {
           paths: [
             {
-              name: "@openhands/typescript-client/client/http-client",
+              name: "@bezotcorp/typescript-client/client/http-client",
               message:
-                "Use typed @openhands/typescript-client clients instead of constructing HttpClient directly.",
+                "Use typed @bezotcorp/typescript-client clients instead of constructing HttpClient directly.",
             },
           ],
         },

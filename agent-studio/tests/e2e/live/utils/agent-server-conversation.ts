@@ -12,7 +12,7 @@ export const EXPECTED_BASH_OUTPUT_TOKEN = "LIVE_AGENT_CANVAS_E2E_BASH_OK";
 export const EXPECTED_BASH_COMMAND = `printf '${EXPECTED_BASH_OUTPUT_TOKEN}\\n'`;
 export const EXPECTED_REPLY_TOKEN = "LIVE_AGENT_CANVAS_E2E_OK";
 const POSTHOG_URL_PATTERN =
-  /^https?:\/\/(?:(?:[^/]+\.)*posthog\.com|z\.openhands\.dev)(?:\/|$)/;
+  /^https?:\/\/(?:(?:[^/]+\.)*posthog\.com|z\.bezotcorp\.dev)(?:\/|$)/;
 
 function firstNonEmpty(...values: Array<string | undefined>) {
   return values.find((value) => value?.trim()) ?? "";
@@ -38,7 +38,7 @@ const llmBaseUrl =
 const llmModel =
   process.env.LIVE_E2E_LLM_MODEL ??
   (llmBaseUrl
-    ? "openhands/claude-haiku-4-5-20251001"
+    ? "bezotcorp/claude-haiku-4-5-20251001"
     : openAIKey?.trim()
       ? "openai/gpt-5.4-mini"
       : "anthropic/claude-haiku-4-5-20251001");
@@ -241,7 +241,7 @@ export async function createLiveConversation(
         kind: "NeverConfirm",
       },
       agent_settings: {
-        agent_kind: "openhands",
+        agent_kind: "bezotcorp",
         llm: buildLiveLlmSettings(),
         condenser: {
           enabled: false,
@@ -271,9 +271,9 @@ export async function createLiveConversation(
 export async function enableLiveE2EFlags(page: Page) {
   await page.addInitScript(() => {
     window.localStorage.setItem("analytics-consent", "false");
-    window.localStorage.setItem("openhands-telemetry-consent", "denied");
-    window.localStorage.setItem("openhands-telemetry-first-use", "true");
-    window.localStorage.setItem("openhands-onboarded", "1");
+    window.localStorage.setItem("bezotcorp-telemetry-consent", "denied");
+    window.localStorage.setItem("bezotcorp-telemetry-first-use", "true");
+    window.localStorage.setItem("bezotcorp-onboarded", "1");
     window.localStorage.setItem("FEATURE_AUTOMATIONS", "true");
   });
 }
@@ -355,7 +355,7 @@ export async function dismissAnalyticsModal(page: Page) {
             const hasAnalyticsDialog = Array.from(
               document.querySelectorAll('[role="dialog"]'),
             ).some((dialog) =>
-              dialog.textContent?.includes("Help improve OpenHands"),
+              dialog.textContent?.includes("Help improve BezotCorp"),
             );
             if (!hasAnalyticsDialog) {
               return true;

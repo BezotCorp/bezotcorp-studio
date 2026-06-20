@@ -20,7 +20,7 @@ export function SkillReadyContentList({
   items,
   titleKey = I18nKey.SKILLS$TRIGGERED_SKILL_KNOWLEDGE,
 }: SkillReadyContentListProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [expandedSkills, setExpandedSkills] = React.useState<
     Record<string, boolean>
   >({});

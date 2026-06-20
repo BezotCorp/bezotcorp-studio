@@ -40,7 +40,7 @@ export function ChatMessage({
   onRetry,
   onStop,
 }: React.PropsWithChildren<ChatMessageProps>) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [isHovering, setIsHovering] = React.useState(false);
   const [isCopy, setIsCopy] = React.useState(false);
   const [isExpanded, setIsExpanded] = React.useState(false);

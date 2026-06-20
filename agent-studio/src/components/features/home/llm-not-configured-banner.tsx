@@ -17,7 +17,7 @@ import { Typography } from "#/ui/typography";
  * unmounts on its own.
  */
 export function LlmNotConfiguredBanner() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { navigate } = useNavigation();
   const { isConfigured, isLoading } = useLlmConfigured();
 

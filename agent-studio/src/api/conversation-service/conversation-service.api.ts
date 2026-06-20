@@ -1,5 +1,5 @@
-import { VSCodeClient } from "@openhands/typescript-client/clients";
-import { RemoteEventsList } from "@openhands/typescript-client/events/remote-events-list";
+import { VSCodeClient } from "@bezotcorp/typescript-client/clients";
+import { RemoteEventsList } from "@bezotcorp/typescript-client/events/remote-events-list";
 import { uploadFilesToConversation } from "#/api/conversation-file-upload.api";
 import {
   GetVSCodeUrlResponse,

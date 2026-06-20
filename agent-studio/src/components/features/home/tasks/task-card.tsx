@@ -27,7 +27,7 @@ export function TaskCard({ task }: TaskCardProps) {
   );
   const { mutate: createConversation } = useCreateConversation();
   const isCreatingConversation = useIsCreatingConversation();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { navigate } = useNavigation();
 
   const handleLaunchConversation = () =>

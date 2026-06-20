@@ -12,7 +12,7 @@ tests/
 # Development config
 .github/
 .husky/
-.openhands/
+.bezotcorp-agent-studio/
 .agents/
 .vscode/
 *.config.ts

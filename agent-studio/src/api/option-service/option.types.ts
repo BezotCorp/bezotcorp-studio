@@ -9,11 +9,11 @@ import { Provider } from "#/types/settings";
 export interface ModelsResponse {
   /** Flat list of ``provider/model`` strings (bare names already prefixed). */
   models: string[];
-  /** Model names (without provider) that OpenHands has verified to work well. */
+  /** Model names (without provider) that BezotCorp has verified to work well. */
   verified_models: string[];
   /** Provider names shown in the "Verified" section of the model selector. */
   verified_providers: string[];
-  /** Recommended default model id (e.g. ``openhands/claude-opus-4-5-20251101``). */
+  /** Recommended default model id (e.g. ``bezotcorp/claude-opus-4-5-20251101``). */
   default_model: string;
 }
 

@@ -8,30 +8,30 @@ import {
 } from "#/themes/color-themes";
 
 describe("color themes", () => {
-  it("includes OpenHands-Neo as a neutral-based theme with white button tokens", () => {
-    const neo = COLOR_THEMES["openhands-neo"];
+  it("includes BezotCorp-Neo as a neutral-based theme with white button tokens", () => {
+    const neo = COLOR_THEMES["bezotcorp-neo"];
 
-    expect(neo.label).toBe("OpenHands-Neo");
-    expect(neo.scale).toEqual(COLOR_THEMES["openhands-neutral"].scale);
-    expect(neo.heroui).toEqual(COLOR_THEMES["openhands-neutral"].heroui);
+    expect(neo.label).toBe("BezotCorp-Neo");
+    expect(neo.scale).toEqual(COLOR_THEMES["bezotcorp-neutral"].scale);
+    expect(neo.heroui).toEqual(COLOR_THEMES["bezotcorp-neutral"].heroui);
     expect(neo.tokens?.["--oh-color-primary"]).toBe("#ffffff");
     expect(neo.tokens?.["--oh-accent"]).toBe("#ffffff");
   });
 
   it("exposes Neo in the settings theme picker", () => {
     expect(AVAILABLE_COLOR_THEMES.map((theme) => theme.key)).toContain(
-      "openhands-neo",
+      "bezotcorp-neo",
     );
     expect(
-      AVAILABLE_COLOR_THEMES.find((theme) => theme.key === "openhands-neo")
+      AVAILABLE_COLOR_THEMES.find((theme) => theme.key === "bezotcorp-neo")
         ?.label,
-    ).toBe("OpenHands-Neo");
+    ).toBe("BezotCorp-Neo");
   });
 
-  it("injects white primary tokens when applying OpenHands-Neo", () => {
+  it("injects white primary tokens when applying BezotCorp-Neo", () => {
     document.body.setAttribute("data-agent-server-ui", "");
 
-    applyColorTheme("openhands-neo");
+    applyColorTheme("bezotcorp-neo");
 
     const styleEl = document.getElementById("oh-color-theme-override");
     expect(styleEl?.textContent).toContain("--oh-color-primary: #ffffff;");
@@ -53,7 +53,7 @@ describe("color themes", () => {
       </AgentServerUIRoot>,
     );
 
-    applyColorTheme("openhands-neo");
+    applyColorTheme("bezotcorp-neo");
 
     const scopeRoot = screen.getByTestId("primary-button").closest(
       "[data-agent-server-ui]",
@@ -63,7 +63,7 @@ describe("color themes", () => {
       "#ffffff",
     );
 
-    applyColorTheme("openhands-neutral");
+    applyColorTheme("bezotcorp-neutral");
 
     expect(scopeRoot.style.getPropertyValue("--oh-color-primary")).toBe("");
   });

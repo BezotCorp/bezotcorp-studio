@@ -89,7 +89,7 @@ const truncate = (content: string): string =>
 /**
  * Build the markdown-flavored body for an ACP tool call card. Mirrors the
  * shape of ``getTerminalObservationContent`` (``Command:`` + ``Output:``
- * fenced blocks) so the rendered card lines up with regular OpenHands
+ * fenced blocks) so the rendered card lines up with regular BezotCorp
  * observations.
  *
  * For ``tool_kind === "execute"`` we surface ``raw_input.command`` as the

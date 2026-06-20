@@ -33,7 +33,7 @@ export function DetailHeader({
   onRunNow,
   isRunningNow = false,
 }: DetailHeaderProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const canManage = useHasPermission("manage_automations");
 
   const kebabItems = [

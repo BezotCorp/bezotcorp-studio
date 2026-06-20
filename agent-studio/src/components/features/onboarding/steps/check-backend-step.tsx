@@ -34,7 +34,7 @@ function ConnectionBanner({
   isConnected: boolean | null;
   lastError: string | null;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   if (isConnected === true) {
     return (
@@ -101,7 +101,7 @@ function ConnectionBanner({
  * or edit/check the active backend with a contextual health banner.
  */
 export function CheckBackendStep({ onBack, onNext }: CheckBackendStepProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { active, addBackend, updateBackend } = useActiveBackendContext();
   const { backend } = active;
   const noBackendSelected = isNoBackend(backend);

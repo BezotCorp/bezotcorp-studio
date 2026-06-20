@@ -68,7 +68,7 @@ export function WorkspaceSelectionForm({
   isLoadingSettings = false,
   onConfirm,
 }: WorkspaceSelectionFormProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { navigate } = useNavigation();
 
   const { data: workspacesData, error: workspacesError } = useLocalWorkspaces();

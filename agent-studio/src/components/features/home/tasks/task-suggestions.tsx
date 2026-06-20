@@ -14,7 +14,7 @@ interface TaskSuggestionsProps {
 }
 
 export function TaskSuggestions({ filterFor }: TaskSuggestionsProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [isExpanded, setIsExpanded] = useState(false);
   const isCloud = useActiveBackend().backend.kind === "cloud";
 

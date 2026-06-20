@@ -18,7 +18,7 @@ export function SkillsToolbar({
   typeFilter,
   onTypeFilterChange,
 }: SkillsToolbarProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div data-testid="skills-toolbar" className="flex items-stretch gap-2">

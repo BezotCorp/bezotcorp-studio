@@ -8,8 +8,8 @@ export const FILE_VARIANTS_2 = [
 ];
 
 const MOCK_FILE_BROWSER_HOME = {
-  home: "/home/openhands",
-  favorites: [{ label: "Downloads", path: "/home/openhands/Downloads" }],
+  home: "/home/bezotcorp",
+  favorites: [{ label: "Downloads", path: "/home/bezotcorp/Downloads" }],
   locations: [],
 };
 

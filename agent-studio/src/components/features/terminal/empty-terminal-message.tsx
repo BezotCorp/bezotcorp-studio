@@ -4,7 +4,7 @@ import { I18nKey } from "#/i18n/declaration";
 import { SquareChevronRight } from "lucide-react";
 
 export function EmptyTerminalMessage() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <ConversationTabEmptyState

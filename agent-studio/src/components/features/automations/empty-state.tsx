@@ -4,7 +4,7 @@ import { extensionModuleEmptyStateClassName } from "#/utils/extension-module-car
 import { CreateInstructions } from "./create-instructions";
 
 export function EmptyState() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div

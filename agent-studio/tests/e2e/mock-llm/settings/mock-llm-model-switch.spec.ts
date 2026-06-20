@@ -123,7 +123,7 @@ test.describe("mock-LLM /model slash command", () => {
     //           that internal call, this padding entry will cause an
     //           off-by-one; delete it at that point.
     //           Ref: same pattern in mock-llm-automation.spec.ts;
-    //           upstream SDK code: openhands-sdk CondensationMixin.
+    //           upstream SDK code: bezotcorp-sdk CondensationMixin.
     //   Turn 1: actual reply to the initial user message
     //   Turn 2: reply to the post-switch follow-up message
     await registerTrajectory(request, "model-switch", [

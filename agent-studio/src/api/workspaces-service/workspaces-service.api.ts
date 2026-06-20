@@ -1,7 +1,7 @@
 /**
  * WorkspacesService talks to the agent-server's /api/workspaces endpoints,
  * which persist the user's saved workspaces and workspace parents on the
- * server (workspace/.openhands/workspaces.json). All clients pointed at
+ * server (workspace/.bezotcorp/workspaces.json). All clients pointed at
  * the same agent-server see the same list.
  *
  * The SDK WorkspacesClient owns compatibility preflight behavior, so old
@@ -11,7 +11,7 @@
 import {
   WorkspacesClient,
   type WorkspacesListResponse as SdkWorkspacesListResponse,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 
 import { LocalWorkspace, LocalWorkspaceParent } from "#/types/workspace";
 

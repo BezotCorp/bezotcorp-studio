@@ -15,7 +15,7 @@ interface SetupAcpSecretsStepProps {
   /** ACP provider whose credentials we're collecting (e.g. ``"claude-code"``).
    * Typed as {@link OnboardingAgentId} — the same type the onboarding modal
    * tracks — so a mistyped key is a compile error rather than a silently empty
-   * form. Providers without a credentials entry (``"openhands"``) simply yield
+   * form. Providers without a credentials entry (``"bezotcorp"``) simply yield
    * no fields. */
   providerKey: OnboardingAgentId;
   /**
@@ -57,7 +57,7 @@ export function SetupAcpSecretsStep({
   onBack,
   onNext,
 }: SetupAcpSecretsStepProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const activeBackend = useActiveBackend();
   // Login detection via AcpService (provider status commands run through the
   // agent-server bash endpoint) — see issue #964.

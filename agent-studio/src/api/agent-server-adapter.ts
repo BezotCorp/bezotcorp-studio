@@ -1,5 +1,5 @@
-import { ACP_SETTINGS_KEYS } from "@openhands/typescript-client";
-import { SKILLS_CATALOG } from "@openhands/extensions/skills";
+import { ACP_SETTINGS_KEYS } from "@bezotcorp/typescript-client";
+import { SKILLS_CATALOG } from "@bezotcorp/extensions/skills";
 import { DEFAULT_SETTINGS } from "#/services/settings";
 import { ExecutionStatus } from "#/types/agent-server/core";
 import { Settings, SettingsValue } from "#/types/settings";
@@ -231,7 +231,7 @@ export function buildRuntimeServicesSystemSuffix(): string | undefined {
   if (automation?.url_from_agent) {
     lines.push(
       `* Automation backend: ${automation.url_from_agent}`,
-      `    ${automation.description ?? "OpenHands Automations service."}`,
+      `    ${automation.description ?? "BezotCorp Automations service."}`,
     );
     if (automation.docs_url) {
       lines.push(`    Docs:    ${automation.docs_url}`);
@@ -241,7 +241,7 @@ export function buildRuntimeServicesSystemSuffix(): string | undefined {
     }
     if (automation.auth_env_var) {
       // X-Session-API-Key is the local convention shared by the agent-server
-      // and automation backend (see openhands-automation auth.py).
+      // and automation backend (see bezotcorp-automation auth.py).
       lines.push(
         `    Auth:    header 'X-Session-API-Key: $${automation.auth_env_var}'`,
       );
@@ -298,7 +298,7 @@ export function toAppConversation(
   // switching, so surfacing this string is display-only.
   const isAcp = info.agent?.kind === "ACPAgent";
   // Only surface ``acp_server`` for ACP conversations even if the wire
-  // payload accidentally carries an ``acpserver`` tag on an OpenHands
+  // payload accidentally carries an ``acpserver`` tag on an BezotCorp
   // conversation — the chip is identity info for the ACP CLI subprocess,
   // and showing it on a non-ACP conversation would be a lie.
   const acpServer = isAcp ? (info.tags?.[ACP_SERVER_TAG_KEY] ?? null) : null;
@@ -315,7 +315,7 @@ export function toAppConversation(
       : getDefaultConversationTitle(info.id),
     trigger: null,
     pr_number: [],
-    agent_kind: isAcp ? "acp" : "openhands",
+    agent_kind: isAcp ? "acp" : "bezotcorp",
     acp_server: acpServer,
     // Chip path: omit ``providerDefault`` so that when no concrete model
     // resolves, the chip falls back to the provider display name in
@@ -608,7 +608,7 @@ function buildAgentContext(agentSettings: SettingsRecord): SettingsRecord {
 
   return {
     ...existingContext,
-    // Public skills are bundled at build time from the @openhands/extensions
+    // Public skills are bundled at build time from the @bezotcorp/extensions
     // npm package and passed directly in agent_context.skills. Setting
     // load_public_skills to false tells the agent-server SDK to skip its own
     // extensions-repo clone — the frontend is the sole source of public
@@ -666,7 +666,7 @@ function buildConfiguredAcpAgentSettings(
   // TODO(#1019): set ``acp_isolate_data_dir: true`` here for a containerized
   // backend so concurrent same-provider conversations don't race on a shared
   // HOME. The SDK supports it (software-agent-sdk#3492), but the released
-  // ``@openhands/typescript-client`` (1.24.3) doesn't surface it on
+  // ``@bezotcorp/typescript-client`` (1.24.3) doesn't surface it on
   // ``ACPAgentSettings`` yet, so sending it risks a validation error on older
   // servers. Cloud grouping isolation is separate (agent-studio#1016).
 
@@ -715,7 +715,7 @@ function buildConfiguredAcpAgentSettings(
   return payload;
 }
 
-function buildConfiguredOpenHandsAgentSettings(
+function buildConfiguredBezotCorpAgentSettings(
   settings: Settings,
 ): AgentSettingsPayload {
   const agentSettings = toRecord(settings.agent_settings);
@@ -761,7 +761,7 @@ function buildConfiguredOpenHandsAgentSettings(
   }
   // ``acp_env`` is no longer a forwarded ACP setting (provider creds ride the
   // Secrets panel), but a legacy value may linger on persisted settings —
-  // scrub it so it never leaks onto the OpenHands payload.
+  // scrub it so it never leaks onto the BezotCorp payload.
   delete agentSettings.acp_env;
 
   return {
@@ -777,7 +777,7 @@ function buildConfiguredAgentSettings(
 ): AgentSettingsPayload {
   return isAcpAgent(settings)
     ? buildConfiguredAcpAgentSettings(settings)
-    : buildConfiguredOpenHandsAgentSettings(settings);
+    : buildConfiguredBezotCorpAgentSettings(settings);
 }
 
 function buildConfiguredConversationSettings(options: {

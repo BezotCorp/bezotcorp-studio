@@ -4,7 +4,7 @@ import type {
   BashError,
   BashEvent,
   BashOutput,
-} from "@openhands/typescript-client";
+} from "@bezotcorp/typescript-client";
 import type { CommandResult } from "#/api/runtime-service/agent-server-runtime-service";
 import { buildBashWebSocketUrl } from "#/utils/websocket-url";
 

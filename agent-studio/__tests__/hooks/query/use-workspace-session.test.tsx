@@ -1,5 +1,5 @@
 import React from "react";
-import { RemoteWorkspace } from "@openhands/typescript-client/workspace/remote-workspace";
+import { RemoteWorkspace } from "@bezotcorp/typescript-client/workspace/remote-workspace";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ import {
 // conversation id and trust it to do the right POST + return a base URL).
 const startWorkspaceSessionMock = vi.fn();
 
-vi.mock("@openhands/typescript-client/workspace/remote-workspace", () => ({
+vi.mock("@bezotcorp/typescript-client/workspace/remote-workspace", () => ({
   RemoteWorkspace: vi.fn(function RemoteWorkspaceMock() {
     return {
       startWorkspaceSession: startWorkspaceSessionMock,

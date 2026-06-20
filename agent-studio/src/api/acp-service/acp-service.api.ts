@@ -1,5 +1,5 @@
-import { BashClient } from "@openhands/typescript-client/clients";
-import type { BashOutput } from "@openhands/typescript-client";
+import { BashClient } from "@bezotcorp/typescript-client/clients";
+import type { BashOutput } from "@bezotcorp/typescript-client";
 import { getAgentServerClientOptions } from "../agent-server-client-options";
 
 export type AcpAuthStatus = "authenticated" | "unauthenticated" | "unknown";
@@ -66,7 +66,7 @@ function classifyGemini(out: BashOutput): AcpAuthStatus {
 }
 
 // Per-provider login detection, keyed by ``acp_server`` / OnboardingAgentId.
-// Providers absent here (OpenHands, custom, unknown) report ``unknown``.
+// Providers absent here (BezotCorp, custom, unknown) report ``unknown``.
 const ACP_AUTH_PROBES: Record<string, AcpAuthProbe> = {
   "claude-code": {
     command: "claude auth status --json",

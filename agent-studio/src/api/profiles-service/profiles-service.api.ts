@@ -2,7 +2,7 @@
  * ProfilesService provides a thin wrapper around the SDK's ProfilesClient,
  * creating a client per-call to pick up current backend configuration.
  *
- * Uses ProfilesClient from @openhands/typescript-client v0.2.0+.
+ * Uses ProfilesClient from @bezotcorp/typescript-client v0.2.0+.
  * All types are re-exported from the SDK for consumer convenience.
  *
  * Note: Unlike some SDK clients, we don't call client.close() here for
@@ -13,7 +13,7 @@
 import {
   ProfilesClient,
   type GetProfileOptions,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 import type {
   ProfileInfo,
   ProfileListResponse,
@@ -22,7 +22,7 @@ import type {
   ActivateProfileResponse,
   SaveProfileRequest,
   ExposeSecretsMode,
-} from "@openhands/typescript-client";
+} from "@bezotcorp/typescript-client";
 import { getAgentServerClientOptions } from "../agent-server-client-options";
 
 // Re-export SDK types for consumers

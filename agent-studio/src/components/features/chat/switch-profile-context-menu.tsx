@@ -42,7 +42,7 @@ export function SwitchProfileContextMenu({
   onSelect,
   onClose,
 }: SwitchProfileContextMenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const ref = useClickOutsideElement<HTMLUListElement>(onClose);
 
   React.useEffect(() => {

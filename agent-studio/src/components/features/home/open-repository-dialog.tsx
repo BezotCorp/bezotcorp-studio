@@ -24,7 +24,7 @@ export function OpenRepositoryDialog({
   onClose,
   onConfirm,
 }: OpenRepositoryDialogProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { isLoadingSettings } = useUserProviders();
 
   if (!isOpen) return null;

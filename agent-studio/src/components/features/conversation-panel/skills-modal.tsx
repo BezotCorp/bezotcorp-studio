@@ -27,7 +27,7 @@ const SECTION_TITLE_KEY: Record<SkillScope, I18nKey> = {
 };
 
 export function SkillsModal({ onClose }: SkillsModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const projectDir = getAgentServerWorkingDir();
   const [expandedAgents, setExpandedAgents] = useState<Record<string, boolean>>(
     {},

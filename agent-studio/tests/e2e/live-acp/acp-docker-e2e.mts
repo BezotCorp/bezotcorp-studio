@@ -20,7 +20,7 @@
  *
  *   docker run -d --name oh-acp -p 8010:8000 -v oh-acp-data:/workspace \
  *     -v "$(pwd)/tools:/canvas-tools:ro" -e OH_EXTRA_PYTHON_PATH=/canvas-tools \
- *     ghcr.io/openhands/agent-server:1.25.0-python
+ *     ghcr.io/bezotcorp/agent-server:1.25.0-python
  *   npx vite-node -c tests/e2e/live-acp/vite-node.config.mts \
  *     tests/e2e/live-acp/acp-docker-e2e.mts -- codex claude gemini
  *

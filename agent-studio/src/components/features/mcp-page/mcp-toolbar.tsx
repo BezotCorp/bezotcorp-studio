@@ -22,7 +22,7 @@ export function McpToolbar({
   sectionFilter,
   onSectionFilterChange,
 }: McpToolbarProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div data-testid="mcp-toolbar" className="flex items-stretch gap-2">

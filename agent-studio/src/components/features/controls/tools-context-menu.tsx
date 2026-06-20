@@ -46,7 +46,7 @@ export function ToolsContextMenu({
   shouldShowHooks = false,
   footerAction,
 }: ToolsContextMenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { data: conversation } = useActiveConversation();
   const { providers } = useUserProviders();
   const isArchivedConversation = useIsArchivedConversation();

@@ -24,7 +24,7 @@ export function ConfirmDeleteModal({
   title,
   description,
 }: ConfirmDeleteModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   let confirmationMessage: React.ReactNode;
   if (description != null) {
@@ -32,7 +32,7 @@ export function ConfirmDeleteModal({
   } else if (conversationTitle) {
     confirmationMessage = (
       <Trans
-        ns="openhands"
+        ns="bezotcorp"
         i18nKey={I18nKey.CONVERSATION$DELETE_WARNING_WITH_TITLE}
         values={{ title: conversationTitle }}
         components={{ title: <span className="text-white" /> }}

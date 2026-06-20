@@ -18,7 +18,7 @@ import {
  * @returns An object containing handlePlanClick function and isCreatingConversation boolean
  */
 export const useHandlePlanClick = () => {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const {
     setConversationMode,
     setSubConversationTaskId,

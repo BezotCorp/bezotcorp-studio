@@ -14,7 +14,7 @@ export function SaveAsSecretToggle({
   checked,
   onToggle,
 }: SaveAsSecretToggleProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <label

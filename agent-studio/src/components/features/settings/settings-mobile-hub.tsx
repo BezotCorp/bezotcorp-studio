@@ -10,7 +10,7 @@ interface SettingsMobileHubProps {
 }
 
 export function SettingsMobileHub({ navigationItems }: SettingsMobileHubProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const navItems = navigationItems.filter(
     (item): item is Extract<SettingsNavRenderedItem, { type: "item" }> =>

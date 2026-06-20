@@ -14,7 +14,7 @@ interface TaskListSectionProps {
 }
 
 export function TaskListSection({ taskList }: TaskListSectionProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div className="flex flex-col overflow-clip bg-[var(--oh-surface)] border border-[var(--oh-border)] rounded-[12px] w-full">

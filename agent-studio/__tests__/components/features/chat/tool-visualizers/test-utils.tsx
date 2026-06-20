@@ -81,7 +81,7 @@ export const bashObservation = (
     metadata: {
       exit_code: exitCode ?? 0,
       pid: 1,
-      username: "openhands",
+      username: "bezotcorp",
       hostname: "runtime",
       prefix: "",
       suffix: "",
@@ -107,7 +107,7 @@ export const terminalObservation = (
     metadata: {
       exit_code: exitCode ?? 0,
       pid: 1,
-      username: "openhands",
+      username: "bezotcorp",
       hostname: "runtime",
       prefix: "",
       suffix: "",

@@ -47,13 +47,13 @@ const profiles = [
 const sameModelProfiles = [
   {
     name: "broken",
-    model: "openhands/claude-sonnet-4-6",
+    model: "bezotcorp/claude-sonnet-4-6",
     base_url: null,
     api_key_set: true,
   },
   {
     name: "claude-sonnet-4.6",
-    model: "openhands/claude-sonnet-4-6",
+    model: "bezotcorp/claude-sonnet-4-6",
     base_url: null,
     api_key_set: true,
   },
@@ -190,8 +190,8 @@ describe("SwitchProfileButton", () => {
     useActiveConversationMock.mockReturnValue({
       data: {
         id: "conv-1",
-        agent_kind: "openhands",
-        llm_model: "openhands/claude-sonnet-4-6",
+        agent_kind: "bezotcorp",
+        llm_model: "bezotcorp/claude-sonnet-4-6",
         active_profile: "claude-sonnet-4.6",
       },
     });
@@ -210,8 +210,8 @@ describe("SwitchProfileButton", () => {
     useActiveConversationMock.mockReturnValue({
       data: {
         id: "conv-1",
-        agent_kind: "openhands",
-        llm_model: "openhands/claude-sonnet-4-6",
+        agent_kind: "bezotcorp",
+        llm_model: "bezotcorp/claude-sonnet-4-6",
       },
     });
 
@@ -231,8 +231,8 @@ describe("SwitchProfileButton", () => {
     useActiveConversationMock.mockReturnValue({
       data: {
         id: "conv-1",
-        agent_kind: "openhands",
-        llm_model: "openhands/claude-sonnet-4-6",
+        agent_kind: "bezotcorp",
+        llm_model: "bezotcorp/claude-sonnet-4-6",
         active_profile: "deleted-profile",
       },
     });

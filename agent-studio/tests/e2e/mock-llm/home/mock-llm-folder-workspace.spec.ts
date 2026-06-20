@@ -53,7 +53,7 @@ const {
   testDir: TEST_DIR,
 } = resolveFolderWorkspacePaths();
 
-const METADATA_STORAGE_KEY = "openhands-agent-server-conversation-metadata";
+const METADATA_STORAGE_KEY = "bezotcorp-agent-server-conversation-metadata";
 
 test.describe.configure({ mode: "serial" });
 

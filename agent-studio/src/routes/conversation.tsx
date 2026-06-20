@@ -30,7 +30,7 @@ import { I18nKey } from "#/i18n/declaration";
 import { resumeCloudSandbox } from "#/api/cloud/conversation-service.api";
 
 function AppContent() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { conversationId } = useConversationId();
   const panelViewMatch = useMatch("/conversations/:conversationId/panel");
 
@@ -139,7 +139,7 @@ function AppContent() {
     setLastConversationId(active.backend.id, active.orgId, conversationId);
   }, [conversationId, backendChanged, active.backend.id, active.orgId]);
 
-  // Cloud conversation resume: mirrors OpenHands' useSandboxRecovery.
+  // Cloud conversation resume: mirrors BezotCorp' useSandboxRecovery.
   //
   // When the cloud API reports sandbox_status === "PAUSED" the sandbox is
   // sleeping. The correct wake-up call is POST /api/v1/sandboxes/{id}/resume

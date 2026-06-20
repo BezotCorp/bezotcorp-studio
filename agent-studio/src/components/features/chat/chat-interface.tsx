@@ -85,7 +85,7 @@ export function ChatInterface() {
   const pendingMessages = useOptimisticUserMessageStore(
     (state) => state.pendingMessages,
   );
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const {
     scrollDomToBottom,

@@ -103,7 +103,7 @@ describe("ChatInputModel", () => {
     expect(screen.getByRole("link")).toHaveAttribute("href", "/settings/agent");
   });
 
-  it("does not fall back to the OpenHands settings model for active ACP conversations", () => {
+  it("does not fall back to the BezotCorp settings model for active ACP conversations", () => {
     useActiveConversationMock.mockReturnValue({
       data: {
         conversation_id: "test-conversation-id",
@@ -175,7 +175,7 @@ describe("ChatInputModel", () => {
     // The ACP subprocess owns its model (via ``acp_model``); ``llm_model``
     // is null on the conversation by design. The previous fallback to
     // ``settings.llm_model`` would have resurrected the user's *default*
-    // OpenHands model on, say, a Claude-Code conversation — visibly
+    // BezotCorp model on, say, a Claude-Code conversation — visibly
     // wrong (the link goes to /settings, which is itself disabled for
     // ACP) and silently lies about what model is actually running.
     useActiveConversationMock.mockReturnValue({
@@ -207,7 +207,7 @@ describe("ChatInputModel", () => {
     useSettingsMock.mockReturnValue({
       data: {
         agent_settings: { agent_kind: "acp", acp_server: "claude-code" },
-        // settings.llm_model is set (user has an OpenHands default
+        // settings.llm_model is set (user has an BezotCorp default
         // configured), but agent_kind=acp suppresses it.
         llm_model: "anthropic/claude-sonnet-4-20250514",
       },

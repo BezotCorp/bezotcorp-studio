@@ -29,7 +29,7 @@ import {
 import {
   AUTOMATION_CATALOG,
   type RecommendedAutomation,
-} from "@openhands/extensions/automations";
+} from "@bezotcorp/extensions/automations";
 
 const { mockCreateConversationMutate, mockUseSettings } = vi.hoisted(() => ({
   mockCreateConversationMutate: vi.fn(),

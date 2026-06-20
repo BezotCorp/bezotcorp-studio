@@ -13,7 +13,7 @@ import { AddBackendModal } from "#/components/features/backends/add-backend-moda
 
 const getServerInfoMock = vi.hoisted(() => vi.fn());
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   ServerClient: vi.fn(function ServerClientMock() {
     return {
       getServerInfo: getServerInfoMock,
@@ -112,7 +112,7 @@ describe("AddBackendModal – two-column layout", () => {
     await waitFor(() => expect(onClose).toHaveBeenCalled());
 
     const stored = JSON.parse(
-      window.localStorage.getItem("openhands-backends") ?? "[]",
+      window.localStorage.getItem("bezotcorp-backends") ?? "[]",
     );
     const added = stored.find(
       (b: { name: string }) => b.name === "Local Extra",
@@ -136,7 +136,7 @@ describe("AddBackendModal – two-column layout", () => {
     await user.type(screen.getByTestId("add-backend-name"), "Cloud");
     await user.type(
       screen.getByTestId("add-backend-host"),
-      "https://app.openhands.dev",
+      "https://app.bezotcorp.dev",
     );
     // Cloud host without API key → submit should be disabled
     expect(submit).toBeDisabled();
@@ -162,7 +162,7 @@ describe("AddBackendModal – two-column layout", () => {
     await waitFor(() => expect(onClose).toHaveBeenCalled());
 
     const stored = JSON.parse(
-      window.localStorage.getItem("openhands-backends") ?? "[]",
+      window.localStorage.getItem("bezotcorp-backends") ?? "[]",
     );
     expect(stored).toHaveLength(2);
     const added = stored.find((b: { name: string }) => b.name === "Local 1");
@@ -175,7 +175,7 @@ describe("AddBackendModal – two-column layout", () => {
 
     // Active selection must point at the newly added backend.
     const active = JSON.parse(
-      window.localStorage.getItem("openhands-active-backend") ?? "null",
+      window.localStorage.getItem("bezotcorp-active-backend") ?? "null",
     );
     expect(active).toEqual({ backendId: added.id, orgId: null });
   });
@@ -279,7 +279,7 @@ describe("AddBackendModal – redirect after adding a backend", () => {
     await user.click(screen.getByTestId("add-backend-submit"));
     await waitFor(() => {
       const stored = JSON.parse(
-        window.localStorage.getItem("openhands-backends") ?? "[]",
+        window.localStorage.getItem("bezotcorp-backends") ?? "[]",
       );
       expect(
         stored.some((b: { name: string }) => b.name === "Local Extra"),

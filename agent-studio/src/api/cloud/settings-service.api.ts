@@ -169,7 +169,7 @@ export async function saveCloudSettings(diff: {
       ...diff.agent_settings_diff,
     };
     // The cloud validates agent settings against the SDK's
-    // OpenHandsAgentSettings, whose `agent_context` is a required
+    // BezotCorpAgentSettings, whose `agent_context` is a required
     // AgentContext (not Optional). A literal `agent_context: null` fails
     // backend validation, so drop it and let the backend keep/default it.
     // See BezotCorp/bezot-agent-studio#981.

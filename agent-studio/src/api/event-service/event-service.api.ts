@@ -1,6 +1,6 @@
-import { ConversationClient } from "@openhands/typescript-client/clients";
-import { RemoteEventsList } from "@openhands/typescript-client/events/remote-events-list";
-import { OpenHandsEvent } from "#/types/agent-server/core";
+import { ConversationClient } from "@bezotcorp/typescript-client/clients";
+import { RemoteEventsList } from "@bezotcorp/typescript-client/events/remote-events-list";
+import { BezotCorpEvent } from "#/types/agent-server/core";
 import { buildHttpBaseUrl } from "#/utils/websocket-url";
 import { getActiveBackend } from "../backend-registry/active-store";
 import { callCloudProxy } from "../cloud/proxy";
@@ -17,7 +17,7 @@ import type {
 
 /**
  * Cloud-mode REST calls are split between two upstream hosts (matching
- * OpenHands' cloud frontend):
+ * BezotCorp' cloud frontend):
  *
  *   - **App API** (`backend.host`, default in `callCloudProxy`):
  *     event *history* (`/api/v1/conversation/{id}/events/search`).
@@ -104,7 +104,7 @@ class EventService {
     conversationUrl?: string | null,
     sessionApiKey?: string | null,
     options: EventSearchOptions = {},
-  ): Promise<EventSearchPage<OpenHandsEvent>> {
+  ): Promise<EventSearchPage<BezotCorpEvent>> {
     const active = getActiveBackend().backend;
     const limit = options.limit ?? 100;
 
@@ -113,7 +113,7 @@ class EventService {
       // sandbox. Path is singular `conversation` and v1-prefixed.
       //
       // Full pagination params (sort_order, page_id, timestamp filters)
-      // require the server-side fix from OpenHands/OpenHands#14399. If
+      // require the server-side fix from BezotCorp/BezotCorp#14399. If
       // the cloud backend hasn't been updated yet, the timestamp filters
       // trigger a 500 (str-vs-datetime comparison). We attempt the full
       // request first and fall back to a limit-only request on failure.
@@ -134,7 +134,7 @@ class EventService {
       if (options.timestampLt) params.set("timestamp__lt", options.timestampLt);
 
       const doCloudSearch = (searchParams: URLSearchParams) =>
-        callCloudProxy<EventSearchPage<OpenHandsEvent>>({
+        callCloudProxy<EventSearchPage<BezotCorpEvent>>({
           backend: active,
           method: "GET",
           path: `/api/v1/conversation/${conversationId}/events/search?${searchParams.toString()}`,
@@ -156,7 +156,7 @@ class EventService {
         console.warn(
           "[EventService] Cloud backend doesn't support pagination filters. " +
             "Falling back to initial load only. " +
-            "Server needs OpenHands/OpenHands#14399.",
+            "Server needs BezotCorp/BezotCorp#14399.",
         );
         return { items: [], next_page_id: null };
       }
@@ -174,7 +174,7 @@ class EventService {
     });
 
     return {
-      items: (page?.items ?? []) as OpenHandsEvent[],
+      items: (page?.items ?? []) as BezotCorpEvent[],
       next_page_id: page?.next_page_id ?? null,
     };
   }

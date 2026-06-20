@@ -11,7 +11,7 @@ import {
 } from "#/themes/color-themes";
 
 export function ThemeInput() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const handleSelectionChange = React.useCallback((key: React.Key | null) => {
     if (!key) return;

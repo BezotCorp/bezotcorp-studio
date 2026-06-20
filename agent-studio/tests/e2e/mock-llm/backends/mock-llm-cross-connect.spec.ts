@@ -146,8 +146,8 @@ async function dismissAnalyticsModal(page: Page) {
 async function suppressAnalytics(page: Page) {
   await page.addInitScript(() => {
     window.localStorage.setItem("analytics-consent", "false");
-    window.localStorage.setItem("openhands-telemetry-consent", "denied");
-    window.localStorage.setItem("openhands-telemetry-first-use", "true");
+    window.localStorage.setItem("bezotcorp-telemetry-consent", "denied");
+    window.localStorage.setItem("bezotcorp-telemetry-first-use", "true");
   });
 }
 
@@ -427,7 +427,7 @@ test.describe("cross-connect: frontend-only → multiple backends", () => {
     // test: useConfig caches the AgentServerUnavailableError).
     // Also mark onboarding as done so we land on the home page.
     await page.evaluate(() => {
-      window.localStorage.setItem("openhands-onboarded", "1");
+      window.localStorage.setItem("bezotcorp-onboarded", "1");
     });
     await page.reload({ waitUntil: "domcontentloaded" });
     await dismissAnalyticsModal(page);

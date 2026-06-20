@@ -28,7 +28,7 @@ export interface AcpModelContext {
  * home-page-ACP rule or on the destination path/label.
  */
 export function useAcpModelContext(): AcpModelContext {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { backend } = useActiveBackend();
   const { data: conversation } = useActiveConversation();
   const { data: settings } = useSettings();

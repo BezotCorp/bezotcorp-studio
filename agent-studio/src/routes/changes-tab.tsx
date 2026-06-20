@@ -21,7 +21,7 @@ const RUNTIME_STATUS_KEYS = new Set<I18nKey>([
 ]);
 
 function ChangesTabStatus({ messages }: { messages: string[] }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   if (
     messages.length === 1 &&

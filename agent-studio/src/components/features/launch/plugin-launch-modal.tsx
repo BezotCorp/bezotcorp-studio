@@ -32,7 +32,7 @@ export function PluginLaunchModal({
   onStartConversation,
   onClose,
 }: PluginLaunchModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [pluginConfigs, setPluginConfigs] =
     React.useState<PluginSpec[]>(plugins);
   const [expandedSections, setExpandedSections] = React.useState<ExpandedState>(

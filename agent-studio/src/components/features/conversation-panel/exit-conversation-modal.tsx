@@ -16,7 +16,7 @@ export function ExitConversationModal({
   onClose,
   onCancel,
 }: ExitConversationModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <ModalBackdrop onClose={onCancel}>

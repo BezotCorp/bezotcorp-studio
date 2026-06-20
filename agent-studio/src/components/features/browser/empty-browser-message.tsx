@@ -4,7 +4,7 @@ import { I18nKey } from "#/i18n/declaration";
 import { ConversationTabEmptyState } from "#/components/features/conversation/conversation-tab-empty-state";
 
 export function EmptyBrowserMessage() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <ConversationTabEmptyState icon={<IoIosGlobe />}>

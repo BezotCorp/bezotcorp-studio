@@ -8,7 +8,7 @@ import { I18nKey } from "#/i18n/declaration";
 
 export const useDownloadConversation = () => {
   const { trackDownloadTrajectoryButtonClicked } = useTracking();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return useMutation({
     mutationKey: ["conversations", "download"],

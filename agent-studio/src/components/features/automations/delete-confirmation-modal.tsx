@@ -16,7 +16,7 @@ export function DeleteConfirmationModal({
   onConfirm,
   onCancel,
 }: DeleteConfirmationModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   if (!isOpen) return null;
 

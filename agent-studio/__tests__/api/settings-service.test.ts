@@ -52,7 +52,7 @@ describe("SettingsService", () => {
 
     // Should have normalized settings with derived fields
     expect(settings.agent).toBe("CodeActAgent");
-    expect(settings.llm_model).toBe("openhands/minimax-m2.7");
+    expect(settings.llm_model).toBe("bezotcorp/minimax-m2.7");
     expect(settings.confirmation_mode).toBe(false);
     expect(settings.security_analyzer).toBe("llm");
   });
@@ -252,7 +252,7 @@ describe("SettingsService", () => {
     // the PAT layer, getSettings must not resurrect those stale tokens into
     // provider_tokens_set — that would re-enable the removed flow.
     window.localStorage.setItem(
-      "openhands-agent-server-git-provider-tokens",
+      "bezotcorp-agent-server-git-provider-tokens",
       JSON.stringify({
         github: { token: "ghp_stale_xyz", host: "github.com" },
         gitlab: { token: "glpat_stale_xyz", host: null },

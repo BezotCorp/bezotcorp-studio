@@ -45,7 +45,7 @@ export function ProfileActionsMenu({
   onClose,
   anchorRef,
 }: ProfileActionsMenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const menuRef = useRef<HTMLDivElement>(null);
   const menuItemsRef = useRef<(HTMLButtonElement | null)[]>([]);
 

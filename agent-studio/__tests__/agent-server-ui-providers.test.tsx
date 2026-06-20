@@ -15,7 +15,7 @@ import {
   AgentServerUIRoot,
   AgentServerUIProviders,
   DEFAULT_AGENT_SERVER_ANALYTICS,
-  OPENHANDS_I18N_NAMESPACE,
+  BEZOTCORP_I18N_NAMESPACE,
   getDefaultI18n,
   getDefaultQueryClient,
   getI18n,
@@ -52,7 +52,7 @@ const BaseProbe = ({ translation }: { translation?: string }) => {
 const DefaultProbe = () => <BaseProbe />;
 
 const CustomProbe = () => {
-  const { t } = useTranslation(OPENHANDS_I18N_NAMESPACE);
+  const { t } = useTranslation(BEZOTCORP_I18N_NAMESPACE);
 
   return <BaseProbe translation={t("PROVIDER$LABEL")} />;
 };
@@ -63,7 +63,7 @@ const createTestI18n = async (value: string) => {
   await instance.use(initReactI18next).init({
     lng: "en",
     fallbackLng: "en",
-    ns: ["host", OPENHANDS_I18N_NAMESPACE],
+    ns: ["host", BEZOTCORP_I18N_NAMESPACE],
     defaultNS: "host",
     interpolation: { escapeValue: false },
     resources: {
@@ -71,7 +71,7 @@ const createTestI18n = async (value: string) => {
         host: {
           PROVIDER$LABEL: "Host provider",
         },
-        [OPENHANDS_I18N_NAMESPACE]: {
+        [BEZOTCORP_I18N_NAMESPACE]: {
           PROVIDER$LABEL: value,
         },
       },
@@ -95,7 +95,7 @@ describe("AgentServerUIProviders", () => {
 
     defaultI18n.addResourceBundle(
       "en",
-      OPENHANDS_I18N_NAMESPACE,
+      BEZOTCORP_I18N_NAMESPACE,
       { PROVIDER$LABEL: "Default provider" },
       true,
       true,

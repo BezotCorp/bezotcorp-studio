@@ -18,7 +18,7 @@ interface MacrosSubmenuProps {
 }
 
 export function MacrosSubmenu({ onClose }: MacrosSubmenuProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { setMessageToSend } = useConversationStore();
 
   const onIncreaseTestCoverage = () => {

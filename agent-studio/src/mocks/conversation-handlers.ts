@@ -3,7 +3,7 @@ import type { DirectConversationInfo } from "#/api/agent-server-adapter";
 import type { AppConversation } from "#/api/conversation-service/agent-server-conversation-service.types";
 import {
   ExecutionStatus,
-  type OpenHandsEvent,
+  type BezotCorpEvent,
 } from "#/types/agent-server/core";
 import { GetMicroagentsResponse } from "#/api/open-hands.types";
 
@@ -89,7 +89,7 @@ const CONVERSATIONS = new Map<string, MockConversation>(
   conversations.map((conversation) => [conversation.id, conversation]),
 );
 
-const paginationEventsByConversation = new Map<string, OpenHandsEvent[]>([
+const paginationEventsByConversation = new Map<string, BezotCorpEvent[]>([
   [
     PAGINATION_LOCAL_CONVERSATION_ID,
     createPaginationEvents("Local pagination message"),
@@ -103,7 +103,7 @@ const paginationEventsByConversation = new Map<string, OpenHandsEvent[]>([
 function createPaginationEvent(
   index: number,
   messagePrefix: string,
-): OpenHandsEvent {
+): BezotCorpEvent {
   return {
     id: `${messagePrefix.toLowerCase().replaceAll(" ", "-")}-${index}`,
     timestamp: new Date(PAGINATION_BASE_TIME + index * 60_000).toISOString(),
@@ -117,14 +117,14 @@ function createPaginationEvent(
   };
 }
 
-function createPaginationEvents(messagePrefix: string): OpenHandsEvent[] {
+function createPaginationEvents(messagePrefix: string): BezotCorpEvent[] {
   return Array.from({ length: PAGINATION_EVENT_COUNT }, (_, index) =>
     createPaginationEvent(index + 1, messagePrefix),
   );
 }
 
 function searchPaginationEvents(
-  events: OpenHandsEvent[],
+  events: BezotCorpEvent[],
   searchParams: URLSearchParams,
 ) {
   const limit = Number(searchParams.get("limit") ?? "100");
@@ -170,7 +170,7 @@ function createCloudPaginationConversation(): AppConversation {
     title: "Cloud pagination fixture",
     trigger: null,
     pr_number: [],
-    llm_model: "openhands/claude-haiku-4-5-20251001",
+    llm_model: "bezotcorp/claude-haiku-4-5-20251001",
     metrics: null,
     created_at: createdAt,
     updated_at: updatedAt,
@@ -362,7 +362,7 @@ export const CONVERSATION_HANDLERS = [
 
     if (upstreamUrl.pathname === "/api/v1/settings") {
       return HttpResponse.json({
-        llm_model: "openhands/claude-haiku-4-5-20251001",
+        llm_model: "bezotcorp/claude-haiku-4-5-20251001",
         llm_base_url: "",
         llm_api_key: null,
         llm_api_key_set: false,

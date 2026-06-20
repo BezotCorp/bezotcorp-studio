@@ -1,6 +1,6 @@
 import { Provider } from "#/types/settings";
 
-const STORAGE_KEY = "openhands-agent-server-conversation-metadata";
+const STORAGE_KEY = "bezotcorp-agent-server-conversation-metadata";
 
 export type WorkspaceMode = "local_repo" | "new_worktree";
 

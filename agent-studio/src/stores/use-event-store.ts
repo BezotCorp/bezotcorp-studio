@@ -1,12 +1,12 @@
 import { create } from "zustand";
-import { OpenHandsEvent } from "#/types/agent-server/core";
+import { BezotCorpEvent } from "#/types/agent-server/core";
 import {
   handleEventForUI,
   mergeStreamingDeltaEvent,
 } from "#/utils/handle-event-for-ui";
 import { isStreamingDeltaEvent } from "#/types/agent-server/type-guards";
 
-export type OHEvent = OpenHandsEvent & {
+export type OHEvent = BezotCorpEvent & {
   isFromPlanningAgent?: boolean;
 };
 

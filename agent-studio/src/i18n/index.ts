@@ -9,7 +9,7 @@ import { initReactI18next } from "react-i18next";
 // which is the case for the app entry that uses i18next-http-backend.
 export { translationResources, type TranslationResources } from "./resources";
 
-export const OPENHANDS_I18N_NAMESPACE = "openhands";
+export const BEZOTCORP_I18N_NAMESPACE = "bezotcorp";
 
 export const AvailableLanguages = [
   { label: "English", value: "en" },
@@ -42,9 +42,9 @@ const initializeI18n = (instance: I18nInstance) => {
         debug: import.meta.env.NODE_ENV === "development",
         supportedLngs: AvailableLanguages.map((lang) => lang.value),
         nonExplicitSupportedLngs: false,
-        ns: [OPENHANDS_I18N_NAMESPACE],
-        defaultNS: OPENHANDS_I18N_NAMESPACE,
-        fallbackNS: OPENHANDS_I18N_NAMESPACE,
+        ns: [BEZOTCORP_I18N_NAMESPACE],
+        defaultNS: BEZOTCORP_I18N_NAMESPACE,
+        fallbackNS: BEZOTCORP_I18N_NAMESPACE,
         backend: {
           loadPath: "/locales/{{lng}}/{{ns}}.json",
         },
@@ -92,12 +92,12 @@ export const waitForI18n = async (instance = getDefaultI18n()) => {
 
 const withNamespace = (options?: unknown) => {
   if (!options) {
-    return { ns: OPENHANDS_I18N_NAMESPACE };
+    return { ns: BEZOTCORP_I18N_NAMESPACE };
   }
 
   if (typeof options === "object" && !Array.isArray(options)) {
     return {
-      ns: OPENHANDS_I18N_NAMESPACE,
+      ns: BEZOTCORP_I18N_NAMESPACE,
       ...(options as Record<string, unknown>),
     };
   }

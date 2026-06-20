@@ -24,7 +24,7 @@ interface TelemetryConsentBannerProps {
  * - Allows users to accept or decline tracking via checkbox
  * - Respects DO_NOT_TRACK environment variable
  * - Persists choice in localStorage
- * - Styled to match the OpenHands analytics consent modal
+ * - Styled to match the BezotCorp analytics consent modal
  *
  * @example
  * ```tsx
@@ -41,7 +41,7 @@ interface TelemetryConsentBannerProps {
 export function TelemetryConsentBanner({
   onChoice,
 }: TelemetryConsentBannerProps) {
-  const { t, ready } = useTranslation("openhands");
+  const { t, ready } = useTranslation("bezotcorp");
   const { showConsentPrompt, grantConsent, denyConsent } = useTelemetry();
 
   // Delay showing the modal slightly to ensure smooth rendering

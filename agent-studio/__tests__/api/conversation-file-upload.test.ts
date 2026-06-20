@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { RemoteWorkspace } from "@openhands/typescript-client/workspace/remote-workspace";
+import { RemoteWorkspace } from "@bezotcorp/typescript-client/workspace/remote-workspace";
 import {
   __resetActiveStoreForTests,
   setActiveSelection,
@@ -12,13 +12,13 @@ import { clearAgentServerHomeDirCache } from "#/api/agent-server-home";
 const fileUploadMock = vi.fn();
 const getHomeMock = vi.fn();
 
-vi.mock("@openhands/typescript-client/workspace/remote-workspace", () => ({
+vi.mock("@bezotcorp/typescript-client/workspace/remote-workspace", () => ({
   RemoteWorkspace: vi.fn(function RemoteWorkspaceMock() {
     return { fileUpload: fileUploadMock };
   }),
 }));
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   FileClient: vi.fn(function FileClientMock() {
     return { getHome: getHomeMock };
   }),

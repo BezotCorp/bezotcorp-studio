@@ -16,17 +16,17 @@ export const FIELD_HELP_LINKS: Record<
     href: string;
     /** Skip rendering the schema description separately when the help text already includes it. */
     hideDescription?: boolean;
-    /** Optional trailing copy rendered after the link (e.g. " tab of OpenHands Cloud."). */
+    /** Optional trailing copy rendered after the link (e.g. " tab of BezotCorp Cloud."). */
     suffixKey?: string;
   }
 > = {
   "llm.api_key": {
     textKey: "SCHEMA$LLM$API_KEY$HELP_TEXT",
     linkTextKey: "SCHEMA$LLM$API_KEY$HELP_LINK_TEXT",
-    href: "https://docs.openhands.dev/usage/local-setup#getting-an-api-key",
+    href: "https://docs.bezotcorp.dev/usage/local-setup#getting-an-api-key",
   },
   // Mirror the hint shown under the LLM provider's API key field when
-  // OpenHands is selected as the active provider; the SDK reuses that active
+  // BezotCorp is selected as the active provider; the SDK reuses that active
   // LLM key when the critic key is empty.
   "verification.critic_api_key": {
     textKey: "SCHEMA$VERIFICATION$CRITIC_API_KEY$HELP_TEXT",
@@ -38,7 +38,7 @@ export const FIELD_HELP_LINKS: Record<
 };
 
 export function FieldHelp({ field }: { field: SettingsFieldSchema }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const helpLink = FIELD_HELP_LINKS[field.key];
   const description = resolveSchemaFieldDescription(
     t,

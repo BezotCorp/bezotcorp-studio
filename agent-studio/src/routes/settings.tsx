@@ -54,7 +54,7 @@ export const clientLoader = async ({ request }: Route.ClientLoaderArgs) => {
 };
 
 function SettingsScreen() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const location = useLocation();
   const matches = useMatches();
   const navItems = useSettingsNavItems();

@@ -178,7 +178,7 @@ export const getFileExtension = (fileName: string): string => {
  * (`/api/v1/git/installations/search` → `/api/v1/git/repositories/search?installation_id=…`)
  * for the given provider/backend combo.
  *
- * Mirrors OpenHands' cloud frontend (parameterized by `app_mode`):
+ * Mirrors BezotCorp' cloud frontend (parameterized by `app_mode`):
  *   - bitbucket / bitbucket_data_center → always installation-based
  *   - github → installation-based ONLY when the active backend is cloud
  *   - gitlab / azure_devops / forgejo → direct (search) flow
@@ -316,12 +316,12 @@ export const constructPullRequestUrl = (
  * @returns The URL to the microagent file in the Git provider
  *
  * @example
- * constructMicroagentUrl("github", "owner/repo", ".openhands/microagents/tell-me-a-joke.md")
- * // "https://github.com/owner/repo/blob/main/.openhands/microagents/tell-me-a-joke.md"
+ * constructMicroagentUrl("github", "owner/repo", ".bezotcorp/microagents/tell-me-a-joke.md")
+ * // "https://github.com/owner/repo/blob/main/.bezotcorp/microagents/tell-me-a-joke.md"
  * constructMicroagentUrl("gitlab", "owner/repo", "microagents/git-helper.md")
  * // "https://gitlab.com/owner/repo/-/blob/main/microagents/git-helper.md"
- * constructMicroagentUrl("bitbucket", "owner/repo", ".openhands/microagents/docker-helper.md")
- * // "https://bitbucket.org/owner/repo/src/main/.openhands/microagents/docker-helper.md"
+ * constructMicroagentUrl("bitbucket", "owner/repo", ".bezotcorp/microagents/docker-helper.md")
+ * // "https://bitbucket.org/owner/repo/src/main/.bezotcorp/microagents/docker-helper.md"
  */
 export const constructMicroagentUrl = (
   gitProvider: Provider,
@@ -569,7 +569,7 @@ export const getRepoMdCreatePrompt = (
   const pr = getPR(gitProvider === "gitlab");
   const prShort = getPRShort(gitProvider === "gitlab");
 
-  return `Please explore this repository. Create the file .openhands/microagents/repo.md with:
+  return `Please explore this repository. Create the file .bezotcorp/microagents/repo.md with:
             ${
               query
                 ? `- ${query}`
@@ -662,15 +662,15 @@ export const shouldIncludeRepository = (
 };
 
 /**
- * Get the OpenHands query string based on the provider
+ * Get the BezotCorp query string based on the provider
  * @param provider The git provider
- * @returns The query string for searching OpenHands repositories
+ * @returns The query string for searching BezotCorp repositories
  */
-export const getOpenHandsQuery = (provider: Provider | null): string => {
+export const getBezotCorpQuery = (provider: Provider | null): string => {
   const providerRepositorySuffix: Record<string, string> = {
-    gitlab: "openhands-config",
-    azure_devops: "openhands-config",
-    default: ".openhands",
+    gitlab: "bezotcorp-config",
+    azure_devops: "bezotcorp-config",
+    default: ".bezotcorp",
   } as const;
 
   return provider && provider in providerRepositorySuffix
@@ -679,15 +679,15 @@ export const getOpenHandsQuery = (provider: Provider | null): string => {
 };
 
 /**
- * Check if a repository has the OpenHands suffix based on the provider
+ * Check if a repository has the BezotCorp suffix based on the provider
  * @param repo The Git repository to check
  * @param provider The git provider
- * @returns True if the repository has the OpenHands suffix
+ * @returns True if the repository has the BezotCorp suffix
  */
-export const hasOpenHandsSuffix = (
+export const hasBezotCorpSuffix = (
   repo: GitRepository,
   provider: Provider | null,
-): boolean => repo.full_name.endsWith(`/${getOpenHandsQuery(provider)}`);
+): boolean => repo.full_name.endsWith(`/${getBezotCorpQuery(provider)}`);
 
 /**
  * Build headers for V1 API requests that require session authentication

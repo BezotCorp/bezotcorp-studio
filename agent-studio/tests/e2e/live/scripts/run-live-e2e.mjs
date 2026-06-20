@@ -13,7 +13,7 @@ const REQUIRED_LLM_API_KEY_ENV_VARS = [
   "LLM_API_KEY",
 ];
 const DEFAULT_PROXY_BASE_URL = "https://llm-proxy.app.all-hands.dev";
-const DEFAULT_PROXY_MODEL = "openhands/claude-haiku-4-5-20251001";
+const DEFAULT_PROXY_MODEL = "bezotcorp/claude-haiku-4-5-20251001";
 const DEFAULT_OPENAI_MODEL = "openai/gpt-5.4-mini";
 const DEFAULT_ANTHROPIC_MODEL = "anthropic/claude-haiku-4-5-20251001";
 const DEFAULT_BACKEND_URL = "http://127.0.0.1:18100";

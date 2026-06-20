@@ -13,6 +13,6 @@ export default defineConfig({
     alias: [{ find: /^#\//, replacement: `${srcDir}/` }],
   },
   ssr: {
-    noExternal: ["@openhands/typescript-client"],
+    noExternal: ["@bezotcorp/typescript-client"],
   },
 });

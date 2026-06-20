@@ -1,4 +1,4 @@
-import { ServerClient } from "@openhands/typescript-client/clients";
+import { ServerClient } from "@bezotcorp/typescript-client/clients";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   __resetActiveStoreForTests,
@@ -18,7 +18,7 @@ const { getServerInfoMock } = vi.hoisted(() => ({
   getServerInfoMock: vi.fn(),
 }));
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   ServerClient: vi.fn(function ServerClientMock() {
     return {
       getServerInfo: getServerInfoMock,

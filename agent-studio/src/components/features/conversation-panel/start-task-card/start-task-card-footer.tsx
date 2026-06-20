@@ -17,7 +17,7 @@ export function StartTaskCardFooter({
   createdAt,
   detail,
 }: StartTaskCardFooterProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div className={cn("flex flex-col gap-1 mt-1")}>

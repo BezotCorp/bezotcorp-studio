@@ -1,6 +1,6 @@
 # Containerized ACP agent-server for BezotCorp Agent Studio (agent-studio#1014).
 #
-# Brings up the OpenHands Agent Server image — which pre-installs the ACP CLI
+# Brings up the BezotCorp Agent Server image — which pre-installs the ACP CLI
 # wrappers (claude-agent-acp / codex-acp / gemini) — with a persistent volume so
 # conversations and materialised credential files survive restarts. Point Canvas
 # at it with VITE_BACKEND_BASE_URL=http://localhost:8010 (the image's CORS allows
@@ -27,9 +27,9 @@ services:
     # conversation ("Failed to start ACP server: timed out"). #3510 first ships
     # in v1.25.0, so 1.25.0-python is the minimum. Override with a newer release
     # or a post-#3510 main sha:
-    #   AGENT_SERVER_IMAGE=ghcr.io/openhands/agent-server:<sha>-python docker compose up
-    #   gh api repos/OpenHands/software-agent-sdk/commits/main --jq '.sha[0:7]'
-    image: ${AGENT_SERVER_IMAGE:-ghcr.io/openhands/agent-server:1.25.0-python}
+    #   AGENT_SERVER_IMAGE=ghcr.io/bezotcorp/agent-server:<sha>-python docker compose up
+    #   gh api repos/BezotCorp/software-agent-sdk/commits/main --jq '.sha[0:7]'
+    image: ${AGENT_SERVER_IMAGE:-ghcr.io/bezotcorp/agent-server:1.25.0-python}
     container_name: oh-acp
     ports:
       # host:container — Canvas points VITE_BACKEND_BASE_URL at http://localhost:8010.
@@ -45,7 +45,7 @@ services:
       # agent-server's own secret store, and does NOT flag the request
       # secrets_encrypted). Set it to (a) persist saved secrets across
       # container restarts and (b) enable the encrypted-settings path used by
-      # OpenHands-agent (non-ACP) conversations. Generate one with
+      # BezotCorp-agent (non-ACP) conversations. Generate one with
       # `python -c "import secrets;print(secrets.token_urlsafe(32))"`.
       # - OH_SECRET_KEY=${OH_SECRET_KEY}
       #

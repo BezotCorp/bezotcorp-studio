@@ -23,7 +23,7 @@ and needs a running container + real host credentials).
 docker run -d --name oh-acp -p 8010:8000 \
   -v oh-acp-data:/workspace \
   -v "$(pwd)/tools:/canvas-tools:ro" -e OH_EXTRA_PYTHON_PATH=/canvas-tools \
-  ghcr.io/openhands/agent-server:1.25.0-python
+  ghcr.io/bezotcorp/agent-server:1.25.0-python
 
 # 2. Run the e2e (all providers, or a subset).
 npx vite-node -c tests/e2e/live-acp/vite-node.config.mts \
@@ -44,7 +44,7 @@ credential knob there, not per script.
 
 ## Last validated result (agent-server `1.25.0-python`, unified LookupSecret path)
 
-Re-validated 2026-06-07 against `ghcr.io/openhands/agent-server:1.25.0-python`
+Re-validated 2026-06-07 against `ghcr.io/bezotcorp/agent-server:1.25.0-python`
 (the first release with software-agent-sdk#3510), on a **fresh volume** — every
 credential seeded from the secret store, no leftover state. Each credential
 rides as a loopback `LookupSecret`; the logs confirm the agent-server resolved
@@ -53,11 +53,11 @@ deadlock, no "Failed to start ACP server: timed out"**, which is exactly what
 #3510 fixes. Codex and Claude also passed the app-orchestrator script
 (`acp-docker-app-e2e.mts`).
 
-| Provider | Result | Evidence (agent-server logs) |
-|---|---|---|
-| **Codex** | ✅ real reply `ACPOK-CODEX` (both scripts) | `Materialised ACP file-secret 'CODEX_AUTH_JSON' -> …/acp/codex/auth.json`; codex-acp 0.15.0; `Authenticating with ACP method: chatgpt` |
-| **Claude Code** | ✅ real reply `ACPOK-CLAUDE` (both scripts) | claude-agent-acp 0.30.0; `CLAUDE_CODE_OAUTH_TOKEN` env path (no `ANTHROPIC_BASE_URL`) |
-| **Gemini CLI** | ✅ real reply `ACPOK-GEMINI`¹ | `Materialised ACP file-secret 'GOOGLE_APPLICATION_CREDENTIALS_JSON' -> …/acp/gemini-cli/gcloud-credentials.json`; gemini-cli 0.45.1; `Authenticating with ACP method: vertex-ai` → real Vertex inference on `gemini-2.5-pro` |
+| Provider        | Result                                      | Evidence (agent-server logs)                                                                                                                                                                                                 |
+| --------------- | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Codex**       | ✅ real reply `ACPOK-CODEX` (both scripts)  | `Materialised ACP file-secret 'CODEX_AUTH_JSON' -> …/acp/codex/auth.json`; codex-acp 0.15.0; `Authenticating with ACP method: chatgpt`                                                                                       |
+| **Claude Code** | ✅ real reply `ACPOK-CLAUDE` (both scripts) | claude-agent-acp 0.30.0; `CLAUDE_CODE_OAUTH_TOKEN` env path (no `ANTHROPIC_BASE_URL`)                                                                                                                                        |
+| **Gemini CLI**  | ✅ real reply `ACPOK-GEMINI`¹               | `Materialised ACP file-secret 'GOOGLE_APPLICATION_CREDENTIALS_JSON' -> …/acp/gemini-cli/gcloud-credentials.json`; gemini-cli 0.45.1; `Authenticating with ACP method: vertex-ai` → real Vertex inference on `gemini-2.5-pro` |
 
 ¹ **Gemini prerequisites.** The full turn passes with: a **fresh** host ADC
 (`gcloud auth application-default login` — a stale one fails as `invalid_rapt`,

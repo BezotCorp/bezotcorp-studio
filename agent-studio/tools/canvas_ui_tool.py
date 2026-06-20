@@ -14,8 +14,8 @@ from typing import Literal
 
 from pydantic import Field
 
-from openhands.sdk import Action, Observation, ToolDefinition
-from openhands.sdk.tool import (
+from bezotcorp.sdk import Action, Observation, ToolDefinition
+from bezotcorp.sdk.tool import (
     ToolAnnotations,
     ToolExecutor,
     register_tool,

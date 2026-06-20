@@ -177,7 +177,7 @@ describe("AutomationsList — view mode toggle", () => {
     expect(
       screen.getByTestId("automation-list-row-auto-1"),
     ).toBeInTheDocument();
-    expect(window.localStorage.getItem("openhands-automations-view")).toBe(
+    expect(window.localStorage.getItem("bezotcorp-automations-view")).toBe(
       "list",
     );
   });
@@ -272,7 +272,7 @@ describe("AutomationsList — Run now toasts", () => {
   it("does not dispatch when Run now is clicked on a disabled automation (list view)", async () => {
     // Arrange — pre-seed the stored view mode so the page mounts in list view,
     // then return a single disabled automation.
-    window.localStorage.setItem("openhands-automations-view", "list");
+    window.localStorage.setItem("bezotcorp-automations-view", "list");
     const disabledAutomation: Automation = { ...automation, enabled: false };
     vi.mocked(AutomationService.getAutomations).mockResolvedValue({
       automations: [disabledAutomation],

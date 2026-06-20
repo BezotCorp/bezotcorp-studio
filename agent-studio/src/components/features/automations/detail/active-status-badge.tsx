@@ -7,7 +7,7 @@ interface ActiveStatusBadgeProps {
 }
 
 export function ActiveStatusBadge({ active }: ActiveStatusBadgeProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <span

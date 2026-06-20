@@ -4,7 +4,7 @@ import { ConversationTabEmptyState } from "#/components/features/conversation/co
 import { DiffDrawerIcon } from "./diff-drawer-icon";
 
 export function EmptyChangesMessage() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <ConversationTabEmptyState icon={<DiffDrawerIcon />}>

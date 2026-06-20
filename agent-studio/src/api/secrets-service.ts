@@ -1,4 +1,4 @@
-import { SettingsClient } from "@openhands/typescript-client/clients";
+import { SettingsClient } from "@bezotcorp/typescript-client/clients";
 import { getActiveBackend } from "./backend-registry/active-store";
 import {
   createCloudSecret,

@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import {
   startDeviceFlow,
   pollForToken,
-  isOpenHandsCloudHost,
+  isBezotCorpCloudHost,
   DeviceFlowError,
 } from "../../src/api/device-flow-client";
 
@@ -18,45 +18,45 @@ describe("device-flow-client", () => {
     vi.restoreAllMocks();
   });
 
-  describe("isOpenHandsCloudHost", () => {
+  describe("isBezotCorpCloudHost", () => {
     it("returns true for all-hands.dev domains", () => {
-      expect(isOpenHandsCloudHost("https://app.all-hands.dev")).toBe(true);
-      expect(isOpenHandsCloudHost("https://staging.all-hands.dev")).toBe(true);
-      expect(isOpenHandsCloudHost("app.all-hands.dev")).toBe(true);
-      expect(isOpenHandsCloudHost("ALL-HANDS.DEV")).toBe(true);
-      expect(isOpenHandsCloudHost("all-hands.dev")).toBe(true);
+      expect(isBezotCorpCloudHost("https://app.all-hands.dev")).toBe(true);
+      expect(isBezotCorpCloudHost("https://staging.all-hands.dev")).toBe(true);
+      expect(isBezotCorpCloudHost("app.all-hands.dev")).toBe(true);
+      expect(isBezotCorpCloudHost("ALL-HANDS.DEV")).toBe(true);
+      expect(isBezotCorpCloudHost("all-hands.dev")).toBe(true);
     });
 
-    it("returns true for openhands.dev domains", () => {
-      expect(isOpenHandsCloudHost("https://app.openhands.dev")).toBe(true);
-      expect(isOpenHandsCloudHost("openhands.dev")).toBe(true);
+    it("returns true for bezotcorp.dev domains", () => {
+      expect(isBezotCorpCloudHost("https://app.bezotcorp.dev")).toBe(true);
+      expect(isBezotCorpCloudHost("bezotcorp.dev")).toBe(true);
     });
 
     it("returns false for other domains", () => {
-      expect(isOpenHandsCloudHost("https://localhost:8000")).toBe(false);
-      expect(isOpenHandsCloudHost("http://127.0.0.1")).toBe(false);
-      expect(isOpenHandsCloudHost("https://example.com")).toBe(false);
-      expect(isOpenHandsCloudHost("https://my-openhands-server.com")).toBe(
+      expect(isBezotCorpCloudHost("https://localhost:8000")).toBe(false);
+      expect(isBezotCorpCloudHost("http://127.0.0.1")).toBe(false);
+      expect(isBezotCorpCloudHost("https://example.com")).toBe(false);
+      expect(isBezotCorpCloudHost("https://my-bezotcorp-server.com")).toBe(
         false,
       );
     });
 
     it("prevents substring matching attacks", () => {
       // These should NOT be treated as trusted hosts
-      expect(isOpenHandsCloudHost("https://all-hands.dev.evil.com")).toBe(
+      expect(isBezotCorpCloudHost("https://all-hands.dev.evil.com")).toBe(
         false,
       );
-      expect(isOpenHandsCloudHost("https://malicious-all-hands.dev")).toBe(
+      expect(isBezotCorpCloudHost("https://malicious-all-hands.dev")).toBe(
         false,
       );
-      expect(isOpenHandsCloudHost("https://evil.com/all-hands.dev")).toBe(
+      expect(isBezotCorpCloudHost("https://evil.com/all-hands.dev")).toBe(
         false,
       );
     });
 
     it("returns false for invalid URLs", () => {
-      expect(isOpenHandsCloudHost("")).toBe(false);
-      expect(isOpenHandsCloudHost("not-a-url")).toBe(false);
+      expect(isBezotCorpCloudHost("")).toBe(false);
+      expect(isBezotCorpCloudHost("not-a-url")).toBe(false);
     });
   });
 

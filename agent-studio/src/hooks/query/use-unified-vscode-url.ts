@@ -17,7 +17,7 @@ interface VSCodeUrlResult {
 const VSCODE_EXPOSED_URL_NAME = "VSCODE";
 
 export const useUnifiedVSCodeUrl = () => {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { conversationId } = useConversationId();
   const runtimeIsReady = useRuntimeIsReady({ allowAgentError: true });
   const { data: conversation } = useActiveConversation();

@@ -109,7 +109,7 @@ export function DiffView({
   oldText: string;
   newText: string;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const rows = computeLineDiff(oldText, newText);
   const truncated = rows.length > MAX_ROWS;
   const shown = truncated ? rows.slice(0, MAX_ROWS) : rows;

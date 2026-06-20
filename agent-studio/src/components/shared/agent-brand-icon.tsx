@@ -1,4 +1,4 @@
-import OpenHandsLogo from "#/assets/branding/openhands-logo.svg?react";
+import BezotCorpLogo from "#/assets/branding/bezotcorp-logo.svg?react";
 import TerminalIcon from "#/icons/terminal.svg?react";
 import {
   CLAUDE_CODE_MARK_PATH,
@@ -15,14 +15,14 @@ import { cn } from "#/utils/utils";
  * Icons the conversation chip + onboarding tiles can render. Strictly broader
  * than {@link ACPProviderIcon} — that type covers ACP CLI subprocesses only
  * (Claude Code, Codex, Gemini, generic terminal fallback), whereas this type
- * additionally includes the native OpenHands harness.
+ * additionally includes the native BezotCorp harness.
  */
-export type AgentBrandIconKind = "openhands" | ACPProviderIcon;
+export type AgentBrandIconKind = "bezotcorp" | ACPProviderIcon;
 
-// The OpenHands wordmark renders at a 3:2 (width:height) ratio. Kept as a
+// The BezotCorp wordmark renders at a 3:2 (width:height) ratio. Kept as a
 // named constant so the conversation chip and the onboarding tile (24×16)
 // stay visually identical — see ``AgentOptionIcon`` in choose-agent-step.tsx.
-const OPENHANDS_LOGO_ASPECT_RATIO = 3 / 2;
+const BEZOTCORP_LOGO_ASPECT_RATIO = 3 / 2;
 
 interface AgentBrandIconProps {
   kind: AgentBrandIconKind;
@@ -37,21 +37,21 @@ export function AgentBrandIcon({
   className,
   "data-testid": testId,
 }: AgentBrandIconProps) {
-  if (kind === "openhands") {
+  if (kind === "bezotcorp") {
     // The shipped SVG draws the wordmark with ``fill="white"`` paths but
     // leaves the two hand shapes as ``fill="transparent"`` (negative space).
     // Recolor only the non-transparent paths to ``currentColor`` so the logo
     // inherits the chip's text color *without* filling in the hands — a
     // blanket ``[&_path]`` selector turns the whole mark into a solid blob.
     return (
-      <OpenHandsLogo
-        width={Math.round(size * OPENHANDS_LOGO_ASPECT_RATIO)}
+      <BezotCorpLogo
+        width={Math.round(size * BEZOTCORP_LOGO_ASPECT_RATIO)}
         height={size}
         className={cn(
           "shrink-0 [&_path:not([fill=transparent])]:fill-current",
           className,
         )}
-        data-testid={testId ?? "agent-brand-icon-openhands"}
+        data-testid={testId ?? "agent-brand-icon-bezotcorp"}
         aria-hidden
       />
     );

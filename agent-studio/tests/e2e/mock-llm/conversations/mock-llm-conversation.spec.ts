@@ -3,7 +3,7 @@
  *
  * This test exercises the complete stack — from clicking around in the browser
  * through the real agent-server to a mock LLM server — without any real LLM
- * credentials. The mock LLM server uses openhands-sdk's TestLLM to return
+ * credentials. The mock LLM server uses bezotcorp-sdk's TestLLM to return
  * scripted responses (tool calls and text).
  *
  * Flow:

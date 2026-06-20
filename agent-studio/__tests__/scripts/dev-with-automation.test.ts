@@ -45,7 +45,7 @@ describe("buildAutomationCommand", () => {
       `${DEFAULT_AUTOMATION_PACKAGE}==${DEFAULT_AUTOMATION_VERSION}`,
     );
     expect(cmd.args).toContain("uvicorn");
-    expect(cmd.args).toContain("openhands.automation.app:app");
+    expect(cmd.args).toContain("bezotcorp.automation.app:app");
     expect(cmd.source).toBe(`PyPI (${DEFAULT_AUTOMATION_VERSION}, default)`);
   });
 
@@ -121,11 +121,11 @@ describe("buildAutomationCommand", () => {
 });
 
 describe("buildAgentServerAutomationEnv", () => {
-  it("exposes the session API key as OPENHANDS_AUTOMATION_API_KEY for agent curl commands", () => {
+  it("exposes the session API key as BEZOTCORP_AUTOMATION_API_KEY for agent curl commands", () => {
     expect(
       buildAgentServerAutomationEnv({ sessionApiKey: "shared-session-key" }),
     ).toEqual({
-      OPENHANDS_AUTOMATION_API_KEY: "shared-session-key",
+      BEZOTCORP_AUTOMATION_API_KEY: "shared-session-key",
     });
   });
 });
@@ -148,7 +148,7 @@ describe("buildConfig", () => {
 
   /**
    * Build an env that points persisted dev API key files at a fresh temp dir,
-   * so tests don't write to the user's real ~/.openhands/agent-studio files.
+   * so tests don't write to the user's real ~/.bezotcorp/agent-studio files.
    *
    * Also redirects all service ports to high port numbers so that buildConfig's
    * assertPortsFree check passes even when a real dev stack is running on the
@@ -282,7 +282,7 @@ describe("buildConfig", () => {
     const config = await buildConfig({}, envWithIsolatedKeyPath());
 
     expect(config.stateDir).toBe(
-      path.join(homedir(), ".openhands", "agent-studio"),
+      path.join(homedir(), ".bezotcorp", "agent-studio"),
     );
   });
 
@@ -481,12 +481,12 @@ describe("stack mode routing", () => {
 describe("default constants", () => {
   it("has expected default automation repo", () => {
     expect(DEFAULT_AUTOMATION_REPO).toBe(
-      "https://github.com/OpenHands/automation",
+      "https://github.com/BezotCorp/automation",
     );
   });
 
   it("has expected default automation package", () => {
-    expect(DEFAULT_AUTOMATION_PACKAGE).toBe("openhands-automation");
+    expect(DEFAULT_AUTOMATION_PACKAGE).toBe("bezotcorp-automation");
   });
 
   it("has expected default backend port", () => {
@@ -517,7 +517,9 @@ describe("dev-with-automation CLI", () => {
     const [code] = await once(child, "exit");
 
     expect(code).toBe(0);
-    expect(output).toContain("BezotCorp Agent Studio + Automation Development Stack");
+    expect(output).toContain(
+      "BezotCorp Agent Studio + Automation Development Stack",
+    );
     expect(output).toContain("--port");
     expect(output).toContain("--automation-ref");
     expect(output).toContain("--automation-repo");
@@ -527,14 +529,14 @@ describe("dev-with-automation CLI", () => {
     expect(output).toContain("--backend-only");
     expect(output).toContain("OH_AUTOMATION_GIT_REF");
     expect(output).toContain("OH_AGENT_SERVER_LOCAL_PATH");
-    expect(output).toContain("OPENHANDS_AUTOMATION_API_KEY");
+    expect(output).toContain("BEZOTCORP_AUTOMATION_API_KEY");
     expect(output).toContain("SECRETS:");
   });
 
   it("fails fast with a clear error when OH_AGENT_SERVER_LOCAL_PATH is invalid", async () => {
     // Arrange: an absolute but empty directory — `validateLocalAgentServerPath`
-    // requires the four workspace subdirs (openhands-agent-server, openhands-sdk,
-    // openhands-tools, openhands-workspace) and must reject this.
+    // requires the four workspace subdirs (bezotcorp-agent-server, bezotcorp-sdk,
+    // bezotcorp-tools, bezotcorp-workspace) and must reject this.
     const emptyDir = mkdtempSync(path.join(tmpdir(), "bad-sdk-"));
 
     // Stub a no-op `uvx` on PATH so `checkPrerequisites` passes even on CI

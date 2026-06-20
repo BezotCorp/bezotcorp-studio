@@ -20,7 +20,7 @@ export function AnalyticsConsentFormModal({
   onClose,
 }: AnalyticsConsentFormModalProps) {
   const posthog = usePostHog();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { mutate: saveUserSettings } = useSaveSettings();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -30,7 +30,7 @@ export function ViewToggle({
   showAll,
   isDisabled = false,
 }: ViewToggleProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   if (!showAdvanced && !showAll) return null;
 

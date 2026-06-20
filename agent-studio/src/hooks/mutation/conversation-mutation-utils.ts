@@ -1,5 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
-import { ConversationClient } from "@openhands/typescript-client/clients";
+import { ConversationClient } from "@bezotcorp/typescript-client/clients";
 import { getActiveBackend } from "#/api/backend-registry/active-store";
 import { pauseCloudSandbox } from "#/api/cloud/conversation-service.api";
 import { getAgentServerClientOptions } from "#/api/agent-server-client-options";

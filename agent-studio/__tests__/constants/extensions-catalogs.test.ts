@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { AUTOMATION_CATALOG } from "@openhands/extensions/automations";
-import { INTEGRATION_LOGOS } from "@openhands/extensions/integrations/logos";
-import { INTEGRATION_CATALOG } from "@openhands/extensions/integrations";
+import { AUTOMATION_CATALOG } from "@bezotcorp/extensions/automations";
+import { INTEGRATION_LOGOS } from "@bezotcorp/extensions/integrations/logos";
+import { INTEGRATION_CATALOG } from "@bezotcorp/extensions/integrations";
 import {
   getDefaultMcpTransport,
   getMcpMarketplaceCatalog,
 } from "#/utils/mcp-marketplace-utils";
 
-describe("OpenHands extensions catalogs", () => {
-  it("hydrates the MCP marketplace from @openhands/extensions", () => {
+describe("BezotCorp extensions catalogs", () => {
+  it("hydrates the MCP marketplace from @bezotcorp/extensions", () => {
     expect(INTEGRATION_CATALOG.length).toBeGreaterThan(0);
 
     const github = INTEGRATION_CATALOG.find((entry) => entry.id === "github");
@@ -83,7 +83,7 @@ describe("OpenHands extensions catalogs", () => {
     expect(catalogIds.has("sqlite")).toBe(false);
   });
 
-  it("loads recommended automations from @openhands/extensions", () => {
+  it("loads recommended automations from @bezotcorp/extensions", () => {
     expect(AUTOMATION_CATALOG.length).toBeGreaterThan(0);
 
     const knownMcpIds = new Set(INTEGRATION_CATALOG.map((entry) => entry.id));

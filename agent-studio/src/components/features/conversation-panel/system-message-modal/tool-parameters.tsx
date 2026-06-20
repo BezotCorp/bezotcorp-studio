@@ -9,7 +9,7 @@ interface ToolParametersProps {
 }
 
 export function ToolParameters({ parameters }: ToolParametersProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div className="mt-2" data-testid="tool-parameters">

@@ -32,7 +32,7 @@ import { EditAutomationModal } from "#/components/features/automations/detail/ed
 import { useTracking } from "#/hooks/use-tracking";
 
 export default function AutomationDetail() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { automationId } = useParams();
   const { navigate } = useNavigation();
   const [showDeleteModal, setShowDeleteModal] = useState(false);

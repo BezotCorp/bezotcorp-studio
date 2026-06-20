@@ -11,7 +11,7 @@ import { useEventStore } from "#/stores/use-event-store";
 import { useModelStore } from "#/stores/model-store";
 import { INITIAL_HISTORY_PAGE_SIZE } from "#/hooks/query/use-conversation-history";
 import type { Conversation } from "#/api/open-hands.types";
-import type { OpenHandsEvent } from "#/types/agent-server/core";
+import type { BezotCorpEvent } from "#/types/agent-server/core";
 import type { EventSearchPage } from "#/api/event-service/event-service.types";
 
 vi.mock("#/api/event-service/event-service.api");
@@ -46,14 +46,14 @@ function makeConversation(): Conversation {
   } as unknown as Conversation;
 }
 
-function makeEvent(id: string, timestamp: string): OpenHandsEvent {
-  return { id, timestamp } as unknown as OpenHandsEvent;
+function makeEvent(id: string, timestamp: string): BezotCorpEvent {
+  return { id, timestamp } as unknown as BezotCorpEvent;
 }
 
 function makePage(
-  items: OpenHandsEvent[],
+  items: BezotCorpEvent[],
   nextPageId: string | null = null,
-): EventSearchPage<OpenHandsEvent> {
+): EventSearchPage<BezotCorpEvent> {
   return { items, next_page_id: nextPageId };
 }
 
@@ -182,7 +182,7 @@ describe("useLoadOlderEvents", () => {
       llm_message: { role: "user", content: [{ type: "text", text: "hi" }] },
       activated_microagents: [],
       extended_content: [],
-    } as unknown as OpenHandsEvent;
+    } as unknown as BezotCorpEvent;
     const switchObs = {
       id: "evt-switch-old",
       timestamp: "2024-05-02T00:00:00Z",
@@ -198,7 +198,7 @@ describe("useLoadOlderEvents", () => {
         reason: null,
         active_model: null,
       },
-    } as unknown as OpenHandsEvent;
+    } as unknown as BezotCorpEvent;
 
     vi.spyOn(EventService, "searchEvents").mockResolvedValue(
       // Descending order, as the server returns it.
@@ -232,7 +232,7 @@ describe("useLoadOlderEvents", () => {
         .addEvent(makeEvent("evt-recent", "2024-06-01T00:00:00Z"));
     });
 
-    const fullPage: OpenHandsEvent[] = Array.from(
+    const fullPage: BezotCorpEvent[] = Array.from(
       { length: INITIAL_HISTORY_PAGE_SIZE },
       (_, i) =>
         makeEvent(
@@ -265,8 +265,8 @@ describe("useLoadOlderEvents", () => {
         .addEvent(makeEvent("evt-recent", "2024-06-01T00:00:00Z"));
     });
 
-    let resolvePage!: (page: EventSearchPage<OpenHandsEvent>) => void;
-    const pendingPage = new Promise<EventSearchPage<OpenHandsEvent>>(
+    let resolvePage!: (page: EventSearchPage<BezotCorpEvent>) => void;
+    const pendingPage = new Promise<EventSearchPage<BezotCorpEvent>>(
       (resolve) => {
         resolvePage = resolve;
       },
@@ -338,7 +338,7 @@ describe("useLoadOlderEvents", () => {
     vi.spyOn(EventService, "searchEvents").mockResolvedValue({
       items: { bad: true },
       next_page_id: null,
-    } as unknown as EventSearchPage<OpenHandsEvent>);
+    } as unknown as EventSearchPage<BezotCorpEvent>);
 
     const { result } = renderHook(() => useLoadOlderEvents("conv-1"), {
       wrapper,
@@ -365,7 +365,7 @@ describe("useLoadOlderEvents", () => {
     act(() => {
       useEventStore
         .getState()
-        .addEvent({ id: "evt-missing-ts" } as OpenHandsEvent);
+        .addEvent({ id: "evt-missing-ts" } as BezotCorpEvent);
     });
 
     const spy = vi.spyOn(EventService, "searchEvents");

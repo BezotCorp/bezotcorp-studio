@@ -16,7 +16,7 @@ import { ConfirmStopModal } from "../conversation-panel/confirm-stop-modal";
 import { MetricsModal } from "./metrics-modal/metrics-modal";
 
 export function ConversationName() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { conversationId } = useConversationId();
   const { data: conversation } = useActiveConversation();
   const { mutate: updateConversation } = useUpdateConversation();

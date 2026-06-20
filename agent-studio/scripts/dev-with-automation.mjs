@@ -1,7 +1,7 @@
 /**
  * Development Stack with Automation Service
  *
- * Extends agent-studio's dev-safe.mjs to additionally run the OpenHands Automation
+ * Extends agent-studio's dev-safe.mjs to additionally run the BezotCorp Automation
  * backend via uvx. No cloning required - runs directly from git reference.
  *
  * Uses a standalone ingress proxy to route traffic to multiple backends.
@@ -31,13 +31,13 @@
  *   - OH_AUTOMATION_GIT_REF: Git ref for automation (default: main)
  *   - OH_AGENT_SERVER_LOCAL_PATH: Absolute path to a local software-agent-sdk
  *     checkout. Highest precedence for agent-server source selection: rebuilds
- *     the agent-server from local source and installs openhands-sdk,
- *     openhands-tools and openhands-workspace as editable so source edits are
+ *     the agent-server from local source and installs bezotcorp-sdk,
+ *     bezotcorp-tools and bezotcorp-workspace as editable so source edits are
  *     picked up without manual reinstall.
  *   - OH_AGENT_SERVER_GIT_REF: Git ref for agent-server
  * Secrets:
  *   The session API key is automatically seeded into agent-server secrets
- *   as OPENHANDS_AUTOMATION_API_KEY, making it available to agents in conversations.
+ *   as BEZOTCORP_AUTOMATION_API_KEY, making it available to agents in conversations.
  *   Both the agent-server and automation backend use the same key value
  *   and the same `X-Session-API-Key` header for authentication.
  *   AUTOMATION_KV_SECRET is derived from the session key if not set explicitly,
@@ -80,7 +80,7 @@ const SHARED_DEFAULTS = JSON.parse(
   readFileSync(join(projectRoot, "config", "defaults.json"), "utf-8"),
 );
 
-const DEFAULT_AUTOMATION_REPO = "https://github.com/OpenHands/automation";
+const DEFAULT_AUTOMATION_REPO = "https://github.com/BezotCorp/automation";
 const DEFAULT_AUTOMATION_PACKAGE = SHARED_DEFAULTS.packages.automation;
 const DEFAULT_AUTOMATION_VERSION = SHARED_DEFAULTS.versions.automation;
 const DEFAULT_AUTOMATION_SDK_VERSION = SHARED_DEFAULTS.versions.agentServer;
@@ -257,7 +257,7 @@ ENVIRONMENT VARIABLES:
 
 SECRETS:
   The session API key is automatically seeded into agent-server secrets
-  as OPENHANDS_AUTOMATION_API_KEY, making it available to agents in conversations.
+  as BEZOTCORP_AUTOMATION_API_KEY, making it available to agents in conversations.
   Both backends (agent-server and automation) share the same key value.
   AUTOMATION_KV_SECRET defaults to the session key so the KV store works
   out of the box; override with an explicit value for stronger isolation.
@@ -295,7 +295,7 @@ function buildAutomationCommand(env = process.env) {
       "--from",
       gitUrl,
       "uvicorn",
-      "openhands.automation.app:app",
+      "bezotcorp.automation.app:app",
     );
     source = `git (${gitRef})`;
   } else if (version) {
@@ -304,7 +304,7 @@ function buildAutomationCommand(env = process.env) {
       "--from",
       `${DEFAULT_AUTOMATION_PACKAGE}==${version}`,
       "uvicorn",
-      "openhands.automation.app:app",
+      "bezotcorp.automation.app:app",
     );
     source = `PyPI (${version})`;
   } else {
@@ -313,7 +313,7 @@ function buildAutomationCommand(env = process.env) {
       "--from",
       `${DEFAULT_AUTOMATION_PACKAGE}==${DEFAULT_AUTOMATION_VERSION}`,
       "uvicorn",
-      "openhands.automation.app:app",
+      "bezotcorp.automation.app:app",
     );
     source = `PyPI (${DEFAULT_AUTOMATION_VERSION}, default)`;
   }
@@ -395,7 +395,7 @@ async function buildConfig(args, env = process.env) {
   // used directly; otherwise one is auto-generated and persisted.
   const stateDir =
     env.OH_CANVAS_SAFE_STATE_DIR ||
-    join(homedir(), ".openhands", "agent-studio");
+    join(homedir(), ".bezotcorp", "agent-studio");
 
   const safeConfig = buildSafeDevConfig(projectRoot, {
     ...env,
@@ -718,12 +718,12 @@ function buildViteBackendEnv(config, env = process.env) {
 function buildAgentServerAutomationEnv(config) {
   return {
     // Make the session API key available to terminal commands spawned by the
-    // agent-server as OPENHANDS_AUTOMATION_API_KEY. The launcher also seeds
+    // agent-server as BEZOTCORP_AUTOMATION_API_KEY. The launcher also seeds
     // this into Settings > Secrets, but agents commonly create automations
-    // with a curl command that references `$OPENHANDS_AUTOMATION_API_KEY`;
+    // with a curl command that references `$BEZOTCORP_AUTOMATION_API_KEY`;
     // exposing it here keeps that path working even before/without
     // secret-registry env expansion.
-    OPENHANDS_AUTOMATION_API_KEY: config.sessionApiKey,
+    BEZOTCORP_AUTOMATION_API_KEY: config.sessionApiKey,
   };
 }
 
@@ -829,7 +829,7 @@ function startAutomationBackend(config) {
             }
           : {}),
         AUTOMATION_AGENT_SERVER_API_KEY: config.sessionApiKey,
-        // ~/.openhands/automation/automations.db — matches docker/entrypoint.sh.
+        // ~/.bezotcorp/automation/automations.db — matches docker/entrypoint.sh.
         AUTOMATION_DB_URL: `sqlite+aiosqlite:///${join(dirname(config.stateDir), SHARED_DEFAULTS.paths.automationDb)}`,
         // The automation backend uses this as its publicly-reachable base
         // URL: it's appended to callback URLs and injected into each
@@ -868,7 +868,7 @@ function startAutomationBackend(config) {
           `http://localhost:${config.ingressPort},http://127.0.0.1:${config.ingressPort},http://localhost:3001,http://127.0.0.1:3001`,
         FILE_STORE: "local",
         LOCAL_STORAGE_PATH: join(config.stateDir, "storage"),
-        OPENHANDS_SUPPRESS_BANNER: "1",
+        BEZOTCORP_SUPPRESS_BANNER: "1",
       },
       color: c.green,
     },
@@ -998,7 +998,7 @@ function startVite(config) {
 
 /**
  * Seed the session API key into agent-server's secrets store as
- * OPENHANDS_AUTOMATION_API_KEY so agents can authenticate with the
+ * BEZOTCORP_AUTOMATION_API_KEY so agents can authenticate with the
  * automation backend in curl commands during conversations.
  *
  * Includes retry logic to handle slow server startup or transient failures.
@@ -1013,7 +1013,7 @@ function startVite(config) {
 async function seedAutomationSecret(config, options = {}) {
   const { maxRetries = 5, retryDelayMs = 2000, timeoutMs = 10000 } = options;
 
-  const secretName = "OPENHANDS_AUTOMATION_API_KEY";
+  const secretName = "BEZOTCORP_AUTOMATION_API_KEY";
   const secretDescription =
     "API key for authenticating with the automation backend";
 

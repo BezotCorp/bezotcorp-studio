@@ -49,7 +49,7 @@ describe("runtime-services-info.mjs", () => {
         api_prefix: "/api/automation",
         docs_url: "http://127.0.0.1:8000/api/automation/docs",
         openapi_url: "http://127.0.0.1:8000/api/automation/openapi.json",
-        auth_env_var: "OPENHANDS_AUTOMATION_API_KEY",
+        auth_env_var: "BEZOTCORP_AUTOMATION_API_KEY",
       });
     });
 

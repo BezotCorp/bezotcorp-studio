@@ -22,7 +22,7 @@ interface UpdateRepositoryVariables {
 
 export const useUpdateConversationRepository = () => {
   const queryClient = useQueryClient();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return useMutation({
     mutationFn: (variables: UpdateRepositoryVariables) =>

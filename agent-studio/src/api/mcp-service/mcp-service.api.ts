@@ -1,8 +1,8 @@
-import { MCPClient } from "@openhands/typescript-client/clients";
+import { MCPClient } from "@bezotcorp/typescript-client/clients";
 import type {
   MCPServerSpec,
   MCPTestRequest,
-} from "@openhands/typescript-client";
+} from "@bezotcorp/typescript-client";
 import { getAgentServerClientOptions } from "../agent-server-client-options";
 import { getActiveBackend } from "../backend-registry/active-store";
 import SettingsService from "#/api/settings-service/settings-service.api";

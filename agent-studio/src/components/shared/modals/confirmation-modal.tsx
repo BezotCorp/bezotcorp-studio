@@ -21,7 +21,7 @@ export function ConfirmationModal({
   onCancel,
   isConfirming = false,
 }: ConfirmationModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   // Suppress the backdrop's click / Escape close handler while the
   // confirm mutation is in flight; otherwise the user could dismiss
   // the modal mid-request and never see the result (the buttons are

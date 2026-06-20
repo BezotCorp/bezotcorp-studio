@@ -42,7 +42,7 @@ export function MCPServerForm({
   isTestPending = false,
   testMessage = null,
 }: MCPServerFormProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [serverType, setServerType] = React.useState<MCPServerType>(
     server?.type || "sse",
   );

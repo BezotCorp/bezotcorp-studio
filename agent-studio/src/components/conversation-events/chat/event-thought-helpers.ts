@@ -1,4 +1,4 @@
-import { ActionEvent, OpenHandsEvent } from "#/types/agent-server/core";
+import { ActionEvent, BezotCorpEvent } from "#/types/agent-server/core";
 import { ThinkingBlock } from "#/types/agent-server/core/base/event";
 import {
   isActionEvent,
@@ -52,8 +52,8 @@ export const hasNonEmptyThought = (action: ActionEvent): boolean =>
  * action body and is rendered through a separate codepath.
  */
 export const getThoughtSourceAction = (
-  event: OpenHandsEvent,
-  allEvents: OpenHandsEvent[],
+  event: BezotCorpEvent,
+  allEvents: BezotCorpEvent[],
 ): ActionEvent | null => {
   if (isActionEvent(event)) {
     if (event.action.kind === "ThinkAction") return null;

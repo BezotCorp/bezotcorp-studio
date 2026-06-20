@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { INTEGRATION_CATALOG } from "@openhands/extensions/integrations";
+import { INTEGRATION_CATALOG } from "@bezotcorp/extensions/integrations";
 import { McpLogoStackBadge } from "#/components/features/mcp-page/mcp-logo-stack-badge";
 
 function entry(id: string) {

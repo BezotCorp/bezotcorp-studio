@@ -36,7 +36,7 @@ export function AutomationCard({
   onEdit,
 }: AutomationCardProps) {
   const { navigate } = useNavigation();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const canManage = useHasPermission("manage_automations");
 
   const scheduleLabel =

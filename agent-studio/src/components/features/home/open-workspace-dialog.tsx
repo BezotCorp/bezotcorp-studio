@@ -19,7 +19,7 @@ export function OpenWorkspaceDialog({
   onClose,
   onConfirm,
 }: OpenWorkspaceDialogProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { isLoadingSettings } = useUserProviders();
 
   if (!isOpen) return null;

@@ -25,7 +25,7 @@ export function GitControlBarRepoButton({
   onClick,
   disabled,
 }: GitControlBarRepoButtonProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { data: settings } = useSettings();
 
   // Render as an external link only when we know both the repo and the

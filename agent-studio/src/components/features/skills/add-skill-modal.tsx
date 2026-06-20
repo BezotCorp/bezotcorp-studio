@@ -45,7 +45,7 @@ function InlineCodeChip({ children }: { children?: React.ReactNode }) {
 }
 
 function AddSkillExampleBlock() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [copied, setCopied] = React.useState(false);
 
   const handleCopy = async () => {
@@ -103,7 +103,7 @@ function AddSkillTransParagraph({
   return (
     <p className="text-xs leading-relaxed text-tertiary-light">
       <Trans
-        ns="openhands"
+        ns="bezotcorp"
         i18nKey={i18nKey}
         components={ADD_SKILL_INLINE_CODE_COMPONENTS}
       />
@@ -112,7 +112,7 @@ function AddSkillTransParagraph({
 }
 
 export function AddSkillModal({ onClose }: AddSkillModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <ModalBackdrop
@@ -150,7 +150,7 @@ export function AddSkillModal({ onClose }: AddSkillModalProps) {
                 <li key={key}>
                   {key === I18nKey.SETTINGS$SKILLS_ADD_MODAL_STEP_3 ? (
                     <Trans
-                      ns="openhands"
+                      ns="bezotcorp"
                       i18nKey={key}
                       components={ADD_SKILL_INLINE_CODE_COMPONENTS}
                     />

@@ -94,7 +94,7 @@ export const useCreateConversation = () => {
         });
       }
 
-      // OpenHands cloud pattern: when the start task isn't immediately
+      // BezotCorp cloud pattern: when the start task isn't immediately
       // READY (cloud sandbox is still provisioning),
       // app_conversation_id is null. We return a `task-{id}` URL so the
       // conversation route's useTaskPolling can drive it to READY and

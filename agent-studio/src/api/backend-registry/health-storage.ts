@@ -1,6 +1,6 @@
 import { getUserFacingConnectionErrorMessage } from "#/utils/user-facing-error";
 
-export const BACKEND_HEALTH_STORAGE_KEY = "openhands-backend-health";
+export const BACKEND_HEALTH_STORAGE_KEY = "bezotcorp-backend-health";
 
 /**
  * Once a backend has failed this many probes in a row, polling stops

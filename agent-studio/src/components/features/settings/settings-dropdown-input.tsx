@@ -52,7 +52,7 @@ export function SettingsDropdownInput({
   inputWrapperClassName,
   inputClassName,
 }: SettingsDropdownInputProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <label

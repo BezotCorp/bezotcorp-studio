@@ -9,7 +9,7 @@ type BrowserChromeBarProps = {
 };
 
 export function BrowserChromeBar({ url, hasPage }: BrowserChromeBarProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const disabledButtonClassName = cn(
     "shrink-0 inline-flex items-center justify-center w-6 h-6 rounded-md",

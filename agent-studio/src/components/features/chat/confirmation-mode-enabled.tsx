@@ -5,7 +5,7 @@ import { useSettings } from "#/hooks/query/use-settings";
 import { StyledTooltip } from "#/components/shared/buttons/styled-tooltip";
 
 function ConfirmationModeEnabled() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const { data: settings } = useSettings();
 

@@ -17,7 +17,7 @@
  *      stamps the active profile name on client-side conversation
  *      metadata at creation and on per-conversation switches.
  *
- *   3. OpenHands provider hidden base_url preservation:
+ *   3. BezotCorp provider hidden base_url preservation:
  *      A base_url typed in Advanced view is still real profile data after
  *      switching to Basic. Re-saving from Basic without changing the model
  *      must preserve that hidden value.
@@ -359,18 +359,18 @@ test.describe("same-model profile identity", () => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════
-// Test 3 — OpenHands provider hidden base_url preservation
+// Test 3 — BezotCorp provider hidden base_url preservation
 // ═══════════════════════════════════════════════════════════════════════
 
-test.describe("OpenHands provider hidden base_url preservation", () => {
-  // The public OpenHands provider model remains the profile identity, but a
+test.describe("BezotCorp provider hidden base_url preservation", () => {
+  // The public BezotCorp provider model remains the profile identity, but a
   // custom Advanced base_url is still user data. A same-model Basic save must
   // not wipe it just because the field is invisible in that view.
-  const OPENHANDS_PROFILE = "openhands-basic-save-test";
-  const OPENHANDS_MODEL = "openhands/claude-opus-4-5-20251101";
+  const BEZOTCORP_PROFILE = "bezotcorp-basic-save-test";
+  const BEZOTCORP_MODEL = "bezotcorp/claude-opus-4-5-20251101";
   const LEGACY_TRANSPORT_MODEL = "litellm_proxy/claude-opus-4-5-20251101";
-  const EXPECTED_OPENHANDS_MODELS = [OPENHANDS_MODEL, LEGACY_TRANSPORT_MODEL];
-  const CUSTOM_BASE_URL = "https://custom-openhands-proxy.example/v1";
+  const EXPECTED_BEZOTCORP_MODELS = [BEZOTCORP_MODEL, LEGACY_TRANSPORT_MODEL];
+  const CUSTOM_BASE_URL = "https://custom-bezotcorp-proxy.example/v1";
 
   test.beforeEach(async ({ page }) => {
     await seedLocalStorage(page);
@@ -384,7 +384,7 @@ test.describe("OpenHands provider hidden base_url preservation", () => {
       await page.goto("/settings/llm", { waitUntil: "domcontentloaded" });
       await dismissAnalyticsModal(page);
       await waitForTestId(page, "add-llm-profile");
-      await deleteProfileIfExists(page, OPENHANDS_PROFILE);
+      await deleteProfileIfExists(page, BEZOTCORP_PROFILE);
     } catch {
       // best-effort
     } finally {
@@ -392,11 +392,11 @@ test.describe("OpenHands provider hidden base_url preservation", () => {
     }
   });
 
-  test("re-saving an OpenHands profile from Basic view preserves hidden base_url", async ({
+  test("re-saving an BezotCorp profile from Basic view preserves hidden base_url", async ({
     page,
     request,
   }) => {
-    // ── Setup: create a public OpenHands profile with a custom base_url through
+    // ── Setup: create a public BezotCorp profile with a custom base_url through
     // Advanced view. The value becomes hidden after switching to Basic, but it
     // is still part of the profile unless the model changes. ──
     await routeSessionApiKey(page);
@@ -404,10 +404,10 @@ test.describe("OpenHands provider hidden base_url preservation", () => {
     await dismissAnalyticsModal(page);
     await waitForTestId(page, "add-llm-profile");
 
-    await deleteProfileIfExists(page, OPENHANDS_PROFILE);
+    await deleteProfileIfExists(page, BEZOTCORP_PROFILE);
     await createProfileViaUI(page, {
-      profileName: OPENHANDS_PROFILE,
-      model: OPENHANDS_MODEL,
+      profileName: BEZOTCORP_PROFILE,
+      model: BEZOTCORP_MODEL,
       baseUrl: CUSTOM_BASE_URL,
     });
 
@@ -419,14 +419,14 @@ test.describe("OpenHands provider hidden base_url preservation", () => {
       for (let i = 0; i < rowCount; i++) {
         const row = profileRows.nth(i);
         const text = await row.textContent();
-        if (text?.includes(OPENHANDS_PROFILE)) {
+        if (text?.includes(BEZOTCORP_PROFILE)) {
           targetRow = row;
           break;
         }
       }
       expect(
         targetRow,
-        `Could not find profile row for "${OPENHANDS_PROFILE}"`,
+        `Could not find profile row for "${BEZOTCORP_PROFILE}"`,
       ).not.toBeNull();
 
       await targetRow!.getByTestId("profile-menu-trigger").click();
@@ -434,7 +434,7 @@ test.describe("OpenHands provider hidden base_url preservation", () => {
       await page.getByTestId("profile-edit").click();
 
       await expect(page.getByTestId("profile-name-input")).toHaveValue(
-        OPENHANDS_PROFILE,
+        BEZOTCORP_PROFILE,
         { timeout: 10_000 },
       );
     });
@@ -456,12 +456,12 @@ test.describe("OpenHands provider hidden base_url preservation", () => {
 
     // ── Verify: Basic-tab save preserved the hidden custom base_url ──
     await test.step("verify base_url is preserved after save", async () => {
-      const config = await getProfileConfig(request, OPENHANDS_PROFILE);
+      const config = await getProfileConfig(request, BEZOTCORP_PROFILE);
       expect(
         config.base_url,
         "Basic-tab re-save without a model change must not clear hidden base_url",
       ).toBe(CUSTOM_BASE_URL);
-      expect(EXPECTED_OPENHANDS_MODELS).toContain(config.model);
+      expect(EXPECTED_BEZOTCORP_MODELS).toContain(config.model);
     });
 
     await test.step("profile survives page reload", async () => {
@@ -469,9 +469,9 @@ test.describe("OpenHands provider hidden base_url preservation", () => {
       await waitForTestId(page, "add-llm-profile");
 
       // Re-read via API to confirm persistence is durable
-      const config = await getProfileConfig(request, OPENHANDS_PROFILE);
+      const config = await getProfileConfig(request, BEZOTCORP_PROFILE);
       expect(config.base_url).toBe(CUSTOM_BASE_URL);
-      expect(EXPECTED_OPENHANDS_MODELS).toContain(config.model);
+      expect(EXPECTED_BEZOTCORP_MODELS).toContain(config.model);
     });
   });
 });

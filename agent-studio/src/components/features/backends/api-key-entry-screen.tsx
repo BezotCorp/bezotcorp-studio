@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { SettingsClient } from "@openhands/typescript-client/clients";
+import { SettingsClient } from "@bezotcorp/typescript-client/clients";
 import { I18nKey } from "#/i18n/declaration";
 import { isSdkHttpStatusError } from "#/api/agent-server-compatibility";
 import { getAgentServerClientOptions } from "#/api/agent-server-client-options";
@@ -28,7 +28,7 @@ import {
  * and a connection status indicator.
  */
 export default function ApiKeyEntryScreen() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { active, addBackend, updateBackend } = useActiveBackendContext();
 
   const host = window.location.origin;

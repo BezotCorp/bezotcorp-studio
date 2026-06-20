@@ -29,7 +29,7 @@ export function WorkspaceModeSelector({
   disabled = false,
   testId = "workspace-mode-selector",
 }: WorkspaceModeSelectorProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const label = t(getWorkspaceModeI18nKey(value, backendKind));

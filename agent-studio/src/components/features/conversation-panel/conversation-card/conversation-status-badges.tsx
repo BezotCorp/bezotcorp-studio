@@ -4,7 +4,7 @@ import CircleErrorIcon from "#/icons/circle-error.svg?react";
 
 /** Error sandbox pill beside the conversation title (archived uses the status column icon only). */
 export function ConversationStatusBadges() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <span

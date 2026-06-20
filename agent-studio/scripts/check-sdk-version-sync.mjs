@@ -3,14 +3,14 @@
 /**
  * Check SDK Version Sync
  *
- * Verifies that the released automation package (openhands-automation on PyPI)
+ * Verifies that the released automation package (bezotcorp-automation on PyPI)
  * uses the SDK version expected for that automation release for all agent SDK libraries:
- *   - openhands-sdk
- *   - openhands-tools
- *   - openhands-workspace
- *   - openhands-agent-server
+ *   - bezotcorp-sdk
+ *   - bezotcorp-tools
+ *   - bezotcorp-workspace
+ *   - bezotcorp-agent-server
  *
- * This script checks the RELEASED PyPI version of openhands-automation (as specified
+ * This script checks the RELEASED PyPI version of bezotcorp-automation (as specified
  * by versions.automation in config/defaults.json), not the main branch.
  * The expected SDK dependency version is versions.agentServer — the two must
  * always match, so this script catches any drift.
@@ -24,7 +24,7 @@
  *
  * Environment variables:
  *   EXPECTED_SDK_VERSION      - Override the expected version (instead of reading from config/defaults.json)
- *   AUTOMATION_PACKAGE_NAME   - Override the automation package name (default: openhands-automation)
+ *   AUTOMATION_PACKAGE_NAME   - Override the automation package name (default: bezotcorp-automation)
  *   AUTOMATION_PACKAGE_VERSION - Override the automation package version (instead of reading from config/defaults.json)
  *
  * Options:
@@ -53,7 +53,7 @@ if (showHelp) {
   console.log(`
 SDK Version Sync Check
 
-Verifies that the released openhands-automation package on PyPI uses the
+Verifies that the released bezotcorp-automation package on PyPI uses the
 SDK version expected for that automation release.
 
 The automation version is read from config/defaults.json (versions.automation).
@@ -68,7 +68,7 @@ Options:
 
 Environment variables:
   EXPECTED_SDK_VERSION        Override the expected SDK version (instead of reading from config/defaults.json)
-  AUTOMATION_PACKAGE_NAME     Override the automation package name (default: openhands-automation)
+  AUTOMATION_PACKAGE_NAME     Override the automation package name (default: bezotcorp-automation)
   AUTOMATION_PACKAGE_VERSION  Override the automation package version (instead of reading from config/defaults.json)
 
 Triggering from other repos:
@@ -95,14 +95,14 @@ const colors = {
 
 // SDK packages that must have matching versions
 const SDK_PACKAGES = [
-  "openhands-sdk",
-  "openhands-tools",
-  "openhands-workspace",
-  "openhands-agent-server",
+  "bezotcorp-sdk",
+  "bezotcorp-tools",
+  "bezotcorp-workspace",
+  "bezotcorp-agent-server",
 ];
 
 // Configurable automation package (can be overridden via env)
-const AUTOMATION_PACKAGE_NAME = process.env.AUTOMATION_PACKAGE_NAME || "openhands-automation";
+const AUTOMATION_PACKAGE_NAME = process.env.AUTOMATION_PACKAGE_NAME || "bezotcorp-automation";
 
 // Default retry configuration
 const RETRY_COUNT = 3;
@@ -114,16 +114,16 @@ const RETRY_DELAY_MS = 1000;
  */
 function normalizeVersion(version) {
   if (!version) return null;
-  
+
   // Remove any pre-release or build metadata for base comparison
   const baseVersion = version.split(/[-+]/)[0];
-  
+
   // Split into parts and pad to 3 parts (major.minor.patch)
   const parts = baseVersion.split(".").map((p) => parseInt(p, 10) || 0);
   while (parts.length < 3) {
     parts.push(0);
   }
-  
+
   return parts.slice(0, 3).join(".");
 }
 
@@ -218,30 +218,30 @@ async function fetchPyPIDependencies(packageName, version) {
   for (let attempt = 0; attempt < RETRY_COUNT; attempt++) {
     try {
       const response = await fetch(url);
-      
+
       // 404 is a config issue, don't retry
       if (response.status === 404) {
         throw new Error(
           `Package ${packageName}==${version} not found on PyPI (404). Check the package name and version.`,
         );
       }
-      
+
       if (!response.ok) {
         throw new Error(
           `Failed to fetch ${packageName}==${version} from PyPI: ${response.status} ${response.statusText}`,
         );
       }
-      
+
       const data = await response.json();
       return data.info?.requires_dist || [];
     } catch (err) {
       lastError = err;
-      
+
       // Don't retry on 404 (config issue)
       if (err.message.includes("not found on PyPI (404)")) {
         throw err;
       }
-      
+
       // Retry on other errors (network issues, 5xx, etc.)
       if (attempt < RETRY_COUNT - 1) {
         const delay = RETRY_DELAY_MS * (attempt + 1);
@@ -252,7 +252,7 @@ async function fetchPyPIDependencies(packageName, version) {
       }
     }
   }
-  
+
   throw lastError;
 }
 
@@ -260,9 +260,9 @@ async function fetchPyPIDependencies(packageName, version) {
  * Parse PyPI requires_dist array and extract SDK package versions
  *
  * PyPI returns dependencies in PEP 508 format like:
- *   "openhands-sdk>=1.28.1,<2.0.0"
- *   "openhands-tools==1.28.1"
- *   "openhands-workspace (>=1.28.1)"
+ *   "bezotcorp-sdk>=1.28.1,<2.0.0"
+ *   "bezotcorp-tools==1.28.1"
+ *   "bezotcorp-workspace (>=1.28.1)"
  */
 function parseSdkVersionsFromRequiresDist(requiresDist) {
   const versions = {};

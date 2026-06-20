@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  OpenHandsEvent,
+  BezotCorpEvent,
   MessageEvent,
   ActionEvent,
 } from "#/types/agent-server/core";
@@ -36,8 +36,8 @@ import { shouldShowPlanPreview } from "./hooks/use-plan-preview-events";
 import { getReasoningContent } from "./event-thought-helpers";
 
 interface EventMessageProps {
-  event: OpenHandsEvent & { isFromPlanningAgent?: boolean };
-  messages: OpenHandsEvent[];
+  event: BezotCorpEvent & { isFromPlanningAgent?: boolean };
+  messages: BezotCorpEvent[];
   isLastMessage: boolean;
   isInLast10Actions: boolean;
   /** Set of event IDs that should render PlanPreview (one per user message phase) */

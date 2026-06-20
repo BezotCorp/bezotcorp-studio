@@ -16,11 +16,11 @@ import { createLogger, format } from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
 
 // Mirror the state-directory logic from dev-safe.mjs so log files live
-// alongside all other agent-studio runtime state (e.g. ~/.openhands/agent-studio).
+// alongside all other agent-studio runtime state (e.g. ~/.bezotcorp/agent-studio).
 // The same env var (OH_CANVAS_SAFE_STATE_DIR) overrides both.
 const stateDir =
   process.env.OH_CANVAS_SAFE_STATE_DIR ||
-  join(homedir(), ".openhands", "agent-studio");
+  join(homedir(), ".bezotcorp", "agent-studio");
 const logDir = join(stateDir, "logs");
 
 // Ensure the logs directory exists before the transport tries to open a file.

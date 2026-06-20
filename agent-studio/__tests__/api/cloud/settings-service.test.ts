@@ -154,7 +154,7 @@ describe("cloud settings", () => {
 
 describe("saveCloudSettings drops agent_context: null (agent-studio#981)", () => {
   it("strips a null agent_context while preserving sibling agent settings", async () => {
-    // Arrange: the cloud rejects agent_context: null against OpenHandsAgentSettings.
+    // Arrange: the cloud rejects agent_context: null against BezotCorpAgentSettings.
     vi.mocked(axios.request).mockResolvedValue({ data: {} });
 
     // Act

@@ -35,7 +35,7 @@ export function ProfilesBody({
   onDelete,
   isActivating,
 }: ProfilesBodyProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   if (isLoading) {
     return (

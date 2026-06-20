@@ -126,9 +126,9 @@ describe("buildStartConversationRequest", () => {
     });
     // Bundled public skills are injected into agent_context.skills so the
     // SDK can perform trigger matching without cloning the extensions repo.
-    expect(
-      Array.isArray(payload.agent_settings.agent_context.skills),
-    ).toBe(true);
+    expect(Array.isArray(payload.agent_settings.agent_context.skills)).toBe(
+      true,
+    );
     const skills = payload.agent_settings.agent_context.skills as Record<
       string,
       unknown
@@ -301,7 +301,7 @@ describe("buildStartConversationRequest", () => {
     expect(toolNames).not.toContain("task_tool_set");
   });
 
-  it("derives confirmation and security settings the same way as OpenHands", () => {
+  it("derives confirmation and security settings the same way as BezotCorp", () => {
     const payload = buildStartConversationRequest({
       settings: {
         ...DEFAULT_SETTINGS,
@@ -517,7 +517,7 @@ describe("buildStartConversationRequest", () => {
   });
 
   it("does not mirror conversation secrets onto agent_context for non-ACP conversations", () => {
-    // The OpenHands ``Agent`` reads secrets from ``secret_registry``
+    // The BezotCorp ``Agent`` reads secrets from ``secret_registry``
     // directly (no spawn-env bridging needed), so the LLM-driven path
     // must not get an extra ``agent_context.secrets`` map — that would
     // be both redundant and a surprise for any code that inspects
@@ -615,9 +615,9 @@ describe("buildStartConversationRequest", () => {
         tool_module_qualnames?: Record<string, string>;
       };
 
-      expect(payload.agent_settings.tools.map((tool) => tool.name)).not.toContain(
-        "canvas_ui",
-      );
+      expect(
+        payload.agent_settings.tools.map((tool) => tool.name),
+      ).not.toContain("canvas_ui");
       expect(payload.tool_module_qualnames).toBeUndefined();
     });
 
@@ -708,7 +708,7 @@ describe("buildStartConversationRequest", () => {
       // No llm key at all — SettingsValue accepts plain scalars.
       [
         "absent (no llm block)",
-        { schema_version: 1, agent_kind: "openhands", agent: "CodeActAgent" },
+        { schema_version: 1, agent_kind: "bezotcorp", agent: "CodeActAgent" },
       ],
       // Mirrors a fresh user who skipped onboarding: server returns {}.
       ["entirely empty", {}],
@@ -821,7 +821,7 @@ describe("toAppConversation", () => {
         ...baseInfo,
         agent: {
           kind: "Agent",
-          llm: { model: "openhands/claude-sonnet-4-6" },
+          llm: { model: "bezotcorp/claude-sonnet-4-6" },
         },
       });
       expect(result.active_profile).toBe("claude-sonnet-4.6");
@@ -830,12 +830,12 @@ describe("toAppConversation", () => {
     }
   });
 
-  it("marks openhands conversations and surfaces the agent.llm.model", () => {
+  it("marks bezotcorp conversations and surfaces the agent.llm.model", () => {
     const result = toAppConversation({
       ...baseInfo,
       agent: { kind: "Agent", llm: { model: "claude-sonnet-4-6" } },
     });
-    expect(result.agent_kind).toBe("openhands");
+    expect(result.agent_kind).toBe("bezotcorp");
     expect(result.llm_model).toBe("claude-sonnet-4-6");
   });
 
@@ -953,18 +953,18 @@ describe("toAppConversation", () => {
     expect(result.acp_server).toBeNull();
   });
 
-  it("ignores tags.acpserver on OpenHands conversations to prevent stray-tag bleed", () => {
+  it("ignores tags.acpserver on BezotCorp conversations to prevent stray-tag bleed", () => {
     // The agent-server's pydantic model doesn't enforce that ``acpserver``
     // is only stamped on ACP conversations. Defensively gating on
     // ``agent.kind === "ACPAgent"`` keeps a misconfigured tag from
-    // turning the sidebar of an OpenHands conversation into "Claude
+    // turning the sidebar of an BezotCorp conversation into "Claude
     // Code". Pairs with the ``llm_model`` null-out for ACP.
     const result = toAppConversation({
       ...baseInfo,
       agent: { kind: "Agent", llm: { model: "claude-sonnet-4-6" } },
       tags: { [ACP_SERVER_TAG_KEY]: "claude-code" },
     });
-    expect(result.agent_kind).toBe("openhands");
+    expect(result.agent_kind).toBe("bezotcorp");
     expect(result.acp_server).toBeNull();
   });
 });
@@ -1007,7 +1007,7 @@ describe("buildRuntimeServicesSystemSuffix", () => {
             api_prefix: "/api/automation",
             docs_url: "http://localhost:18001/api/automation/docs",
             openapi_url: "http://localhost:18001/api/automation/openapi.json",
-            auth_env_var: "OPENHANDS_AUTOMATION_API_KEY",
+            auth_env_var: "BEZOTCORP_AUTOMATION_API_KEY",
           },
         },
       }),
@@ -1020,9 +1020,9 @@ describe("buildRuntimeServicesSystemSuffix", () => {
     expect(suffix).toContain("http://localhost:18001");
     expect(suffix).toContain("http://localhost:18001/api/automation/docs");
     expect(suffix).toContain(
-      "X-Session-API-Key: $OPENHANDS_AUTOMATION_API_KEY",
+      "X-Session-API-Key: $BEZOTCORP_AUTOMATION_API_KEY",
     );
-    expect(suffix).not.toContain("X-API-Key: $OPENHANDS_AUTOMATION_API_KEY");
+    expect(suffix).not.toContain("X-API-Key: $BEZOTCORP_AUTOMATION_API_KEY");
     expect(suffix).toContain("</RUNTIME_SERVICES>");
     // The "don't guess" line should reference the actual agent-server URL
     // for this stack, not a hardcoded port. The assertion anchors on the URL
@@ -1104,7 +1104,7 @@ describe("buildRuntimeServicesSystemSuffix", () => {
         automation: {
           url_from_agent: "http://127.0.0.1:8000",
           api_prefix: "/api/automation",
-          auth_env_var: "OPENHANDS_AUTOMATION_API_KEY",
+          auth_env_var: "BEZOTCORP_AUTOMATION_API_KEY",
         },
       },
     });
@@ -1115,7 +1115,7 @@ describe("buildRuntimeServicesSystemSuffix", () => {
     expect(suffix).toContain("http://127.0.0.1:18000");
     expect(suffix).toContain("http://127.0.0.1:8000");
     expect(suffix).toContain(
-      "X-Session-API-Key: $OPENHANDS_AUTOMATION_API_KEY",
+      "X-Session-API-Key: $BEZOTCORP_AUTOMATION_API_KEY",
     );
   });
 
@@ -1161,9 +1161,9 @@ describe("agent_settings runtime services suffix", () => {
       load_user_skills: true,
       load_project_skills: true,
     });
-    expect(
-      Array.isArray(payload.agent_settings.agent_context.skills),
-    ).toBe(true);
+    expect(Array.isArray(payload.agent_settings.agent_context.skills)).toBe(
+      true,
+    );
   });
 
   it("sets system_message_suffix when runtime info is provided", () => {
@@ -1293,13 +1293,13 @@ describe("buildStartConversationRequest — ACP discriminator", () => {
     expect(payload.agent_settings.mcp_config).toBeUndefined();
   });
 
-  it("does not include ACP-only fields in OpenHands agent settings", () => {
+  it("does not include ACP-only fields in BezotCorp agent settings", () => {
     const payload = buildStartConversationRequest({
       settings: {
         ...DEFAULT_SETTINGS,
         agent_settings: {
           ...DEFAULT_SETTINGS.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
           llm: { model: "gpt-4" },
           acp_command: ["npx", "leftover"],
           acp_server: "claude-code",
@@ -1314,7 +1314,7 @@ describe("buildStartConversationRequest — ACP discriminator", () => {
     };
 
     expect(payload.agent).toBeUndefined();
-    expect(payload.agent_settings.agent_kind).toBe("openhands");
+    expect(payload.agent_settings.agent_kind).toBe("bezotcorp");
     expect(payload.agent_settings.acp_command).toBeUndefined();
     expect(payload.agent_settings.acp_server).toBeUndefined();
     expect(payload.agent_settings.llm.model).toBe("gpt-4");
@@ -1491,7 +1491,7 @@ describe("buildStartConversationRequest — ACP discriminator", () => {
     expect(payload.agent_settings.acp_model).toBeUndefined();
   });
 
-  it("ACP → OpenHands → ACP round trip leaves no field leakage", () => {
+  it("ACP → BezotCorp → ACP round trip leaves no field leakage", () => {
     const baseAcpSettings = {
       ...DEFAULT_SETTINGS,
       agent_settings: {
@@ -1515,7 +1515,7 @@ describe("buildStartConversationRequest — ACP discriminator", () => {
         ...baseAcpSettings,
         agent_settings: {
           ...baseAcpSettings.agent_settings,
-          agent_kind: "openhands",
+          agent_kind: "bezotcorp",
         },
       },
     }) as {
@@ -1524,7 +1524,7 @@ describe("buildStartConversationRequest — ACP discriminator", () => {
       };
     };
 
-    expect(ohPayload.agent_settings.agent_kind).toBe("openhands");
+    expect(ohPayload.agent_settings.agent_kind).toBe("bezotcorp");
     expect(ohPayload.agent_settings.acp_command).toBeUndefined();
     expect(ohPayload.agent_settings.acp_env).toBeUndefined();
     expect(ohPayload.agent_settings.acp_model).toBeUndefined();

@@ -12,7 +12,7 @@ export function AcpConflictWarnings({
 }: {
   conflicts: Array<[string, string]>;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <>

@@ -11,7 +11,7 @@ import { planComponents } from "#/components/features/markdown/plan-components";
 import { useHandlePlanClick } from "#/hooks/use-handle-plan-click";
 
 function PlannerTab() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const {
     scrollRef: scrollContainerRef,

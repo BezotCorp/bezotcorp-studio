@@ -4,7 +4,7 @@ import { useEventStore } from "#/stores/use-event-store";
 import { useErrorMessageStore } from "#/stores/error-message-store";
 import { useOptimisticUserMessageStore } from "#/stores/optimistic-user-message-store";
 import { isAgentServerEvent } from "#/types/agent-server/type-guards";
-import { OpenHandsEvent } from "#/types/agent-server/core";
+import { BezotCorpEvent } from "#/types/agent-server/core";
 
 /**
  * Test component to access and display WebSocket connection state
@@ -32,7 +32,7 @@ export function EventStoreComponent() {
       <div data-testid="ui-events-count">{uiEvents.length}</div>
       <div data-testid="latest-event-id">
         {isAgentServerEvent(events[events.length - 1])
-          ? (events[events.length - 1] as OpenHandsEvent).id
+          ? (events[events.length - 1] as BezotCorpEvent).id
           : "none"}
       </div>
     </div>

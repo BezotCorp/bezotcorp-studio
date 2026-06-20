@@ -10,7 +10,7 @@ import { getMobileTopBarState } from "#/utils/mobile-section-nav";
 import { SidebarMobileMenuToggle } from "./sidebar-mobile-menu-toggle";
 
 export function SidebarMobileMenuBar() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { currentPath, navigate } = useNavigation();
   const topBar = getMobileTopBarState(currentPath);
 

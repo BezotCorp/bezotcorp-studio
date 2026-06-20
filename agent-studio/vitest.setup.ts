@@ -139,7 +139,7 @@ beforeEach(() => {
 
 afterEach(async () => {
   server.resetHandlers();
-  window.sessionStorage?.removeItem("openhands-active-backend");
+  window.sessionStorage?.removeItem("bezotcorp-active-backend");
   // Cleanup the document body after each test
   cleanup();
   // Drain any queued microtasks before jsdom is torn down between test files.

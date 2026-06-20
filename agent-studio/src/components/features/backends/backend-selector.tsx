@@ -147,7 +147,7 @@ export function BackendSelector({
   onOpenManageBackends,
   sidebarCollapsed = false,
 }: BackendSelectorProps = {}) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { backends, active, setActive } = useActiveBackendContext();
   const cloudOrgs = useAllCloudOrganizations();
   const currentUserIds = useCloudCurrentUserId();

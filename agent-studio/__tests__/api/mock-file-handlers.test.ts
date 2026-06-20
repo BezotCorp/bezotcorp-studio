@@ -9,9 +9,9 @@ describe("mock file handlers", () => {
     };
 
     expect(response.status).toBe(200);
-    expect(body.home).toBe("/home/openhands");
+    expect(body.home).toBe("/home/bezotcorp");
     expect(body.favorites).toEqual([
-      { label: "Downloads", path: "/home/openhands/Downloads" },
+      { label: "Downloads", path: "/home/bezotcorp/Downloads" },
     ]);
   });
 

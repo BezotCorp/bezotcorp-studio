@@ -47,7 +47,7 @@ export function ActivitySection({
   createdAt,
   lastRunAt,
 }: ActivitySectionProps) {
-  const { t, i18n } = useTranslation("openhands");
+  const { t, i18n } = useTranslation("bezotcorp");
   const locale = i18n.language;
 
   return (

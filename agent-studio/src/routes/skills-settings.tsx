@@ -40,7 +40,7 @@ function matchesSearch(skill: SkillInfo, query: string): boolean {
 }
 
 function SkillsSettingsScreen() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const { mutate: saveSettings } = useSaveSettings();
   const { data: settings, isLoading: settingsLoading } = useSettings();

@@ -1,7 +1,7 @@
 import { Trans } from "react-i18next";
 import React from "react";
 import {
-  OpenHandsEvent,
+  BezotCorpEvent,
   ObservationEvent,
   ActionEvent,
 } from "#/types/agent-server/core";
@@ -42,7 +42,7 @@ const createTitleFromKey = (
 
   return (
     <Trans
-      ns="openhands"
+      ns="bezotcorp"
       i18nKey={key}
       values={values}
       components={{
@@ -56,7 +56,7 @@ const createTitleFromKey = (
 /**
  * Detects the agent-server's default summary fallback, which has the shape
  * `{tool_name}: {json-args}` (see `_extract_summary` in
- * `openhands/sdk/agent/agent.py`). When the LLM omits a summary the server
+ * `bezotcorp/sdk/agent/agent.py`). When the LLM omits a summary the server
  * dumps the raw arguments JSON, which renders as a huge unreadable blob in
  * the chat. Treat that case as "no summary" so the action-kind specific
  * title (e.g. "Editing <path>", "Running <cmd>") is used instead.
@@ -75,7 +75,7 @@ const getSummaryTitleForActionEvent = (
 };
 
 // Action Event Processing
-const getActionEventTitle = (event: OpenHandsEvent): React.ReactNode => {
+const getActionEventTitle = (event: BezotCorpEvent): React.ReactNode => {
   // Early return if not an action event
   if (!isActionEvent(event)) {
     return "";
@@ -182,7 +182,7 @@ const getActionEventTitle = (event: OpenHandsEvent): React.ReactNode => {
 
 // Observation Event Processing
 const getObservationEventTitle = (
-  event: OpenHandsEvent,
+  event: BezotCorpEvent,
   correspondingAction?: ActionEvent,
 ): React.ReactNode => {
   // Early return if not an observation event
@@ -296,7 +296,7 @@ const getObservationEventTitle = (
 };
 
 export const getEventContent = (
-  event: OpenHandsEvent | SkillReadyEvent,
+  event: BezotCorpEvent | SkillReadyEvent,
   correspondingAction?: ActionEvent,
 ) => {
   let title: React.ReactNode = "";

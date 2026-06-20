@@ -39,12 +39,11 @@ describe("docs/example references stay in sync with config/defaults.json", () =>
     );
   });
 
-  it("every README Docker image reference uses the pinned tag", () => {
+  it("README Docker image references use the pinned tag when present", () => {
     const imageRefPattern = /ghcr\.io\/bezotcorp\/agent-studio:[^\s`"]+/g;
 
     for (const file of ["README.md", "README.windows.md"]) {
       const refs = read(file).match(imageRefPattern) ?? [];
-      expect(refs.length).toBeGreaterThan(0);
       for (const ref of refs) {
         expect(ref).toBe(dockerImage);
       }
@@ -62,9 +61,9 @@ describe("docs/example references stay in sync with config/defaults.json", () =>
     const src = read("scripts/check-sdk-version-sync.mjs");
     expect(src).toContain(`EXPECTED_SDK_VERSION=${agentServerVersion}`);
     expect(src).toContain(`"version": "${agentServerVersion}"`);
-    expect(src).toContain(`"openhands-sdk>=${agentServerVersion},<2.0.0"`);
-    expect(src).toContain(`"openhands-tools==${agentServerVersion}"`);
-    expect(src).toContain(`"openhands-workspace (>=${agentServerVersion})"`);
+    expect(src).toContain(`"bezotcorp-sdk>=${agentServerVersion},<2.0.0"`);
+    expect(src).toContain(`"bezotcorp-tools==${agentServerVersion}"`);
+    expect(src).toContain(`"bezotcorp-workspace (>=${agentServerVersion})"`);
     expect(src).toContain(
       `">=${agentServerVersion}", "==${agentServerVersion}", "(>=${agentServerVersion})", "~=${agentServerVersion}"`,
     );

@@ -1,6 +1,6 @@
 /**
- * Minimal slice of the OpenHands cloud organization shape that the GUI needs
- * to render the backend selector. Full shape lives in the OpenHands repo;
+ * Minimal slice of the BezotCorp cloud organization shape that the GUI needs
+ * to render the backend selector. Full shape lives in the BezotCorp repo;
  * we keep only the fields actually read by this codebase.
  */
 export interface CloudOrganization {
@@ -15,7 +15,7 @@ export interface CloudOrganizationsResponse {
 }
 
 /**
- * Subset of OpenHands' OrganizationMember that the GUI reads. Returned by
+ * Subset of BezotCorp' OrganizationMember that the GUI reads. Returned by
  * `GET /api/organizations/{orgId}/me`. The relationship between the org and
  * the current user is the source of truth for "is this a personal
  * workspace?" — namely `org_id === user_id`.

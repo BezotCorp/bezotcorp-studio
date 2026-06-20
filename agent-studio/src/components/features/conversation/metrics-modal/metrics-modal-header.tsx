@@ -8,7 +8,7 @@ interface MetricsModalHeaderProps {
 }
 
 export function MetricsModalHeader({ onClose }: MetricsModalHeaderProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <>

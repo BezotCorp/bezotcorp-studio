@@ -5,7 +5,7 @@
  * The flow allows users to authenticate in their browser while the
  * application polls for the resulting API key.
  *
- * Device flow requests go directly to the configured OpenHands Cloud host.
+ * Device flow requests go directly to the configured BezotCorp Cloud host.
  */
 
 export class DeviceFlowError extends Error {
@@ -43,10 +43,10 @@ const DEFAULT_TIMEOUT_MS = 600_000; // 10 minutes
 const MAX_INTERVAL_MS = 30_000; // 30 seconds max polling interval
 
 /**
- * Check if a host is a known OpenHands Cloud domain.
+ * Check if a host is a known BezotCorp Cloud domain.
  * Uses hostname extraction to prevent substring matching attacks.
  */
-export function isOpenHandsCloudHost(host: string): boolean {
+export function isBezotCorpCloudHost(host: string): boolean {
   try {
     // Extract hostname from URL or treat as hostname if no protocol
     const trimmed = host.trim().toLowerCase();
@@ -60,8 +60,8 @@ export function isOpenHandsCloudHost(host: string): boolean {
     return (
       hostname.endsWith(".all-hands.dev") ||
       hostname === "all-hands.dev" ||
-      hostname.endsWith(".openhands.dev") ||
-      hostname === "openhands.dev"
+      hostname.endsWith(".bezotcorp.dev") ||
+      hostname === "bezotcorp.dev"
     );
   } catch {
     return false;
@@ -69,7 +69,7 @@ export function isOpenHandsCloudHost(host: string): boolean {
 }
 
 /**
- * Make a direct request to the OpenHands Cloud device-flow endpoint.
+ * Make a direct request to the BezotCorp Cloud device-flow endpoint.
  */
 async function makeCloudRequest(
   upstreamHost: string,

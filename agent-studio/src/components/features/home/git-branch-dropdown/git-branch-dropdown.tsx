@@ -42,7 +42,7 @@ export function GitBranchDropdown({
   disabled = false,
   className,
 }: GitBranchDropdownProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [inputValue, setInputValue] = useState("");
   const [userManuallyCleared, setUserManuallyCleared] = useState(false);
   const debouncedInputValue = useDebounce(inputValue, 300);

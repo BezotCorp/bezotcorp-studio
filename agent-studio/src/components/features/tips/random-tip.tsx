@@ -5,7 +5,7 @@ import { getRandomTip } from "#/utils/tips";
 import LightbulbIcon from "#/icons/lightbulb.svg?react";
 
 export function RandomTip() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [randomTip, setRandomTip] = React.useState(getRandomTip());
 
   React.useEffect(() => {

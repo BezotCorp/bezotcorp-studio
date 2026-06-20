@@ -43,7 +43,7 @@ export function SystemMessageModal({
         >
           <SystemMessageHeader
             agentClass={systemMessage.agent_class}
-            openhandsVersion={systemMessage.openhands_version}
+            bezotcorpVersion={systemMessage.bezotcorp_version}
             onClose={onClose}
           />
 

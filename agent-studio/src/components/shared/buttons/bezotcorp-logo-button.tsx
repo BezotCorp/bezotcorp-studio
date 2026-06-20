@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import OpenHandsLogo from "#/assets/branding/openhands-logo.svg?react";
+import BezotCorpLogo from "#/assets/branding/bezotcorp-logo.svg?react";
 import { NavigationLink } from "#/components/shared/navigation-link";
 import { I18nKey } from "#/i18n/declaration";
 import { cn } from "#/utils/utils";
@@ -7,7 +7,7 @@ import { cn } from "#/utils/utils";
 const DEFAULT_LOGO_WIDTH = 46;
 const DEFAULT_LOGO_HEIGHT = 30;
 
-export type OpenHandsLogoButtonProps = {
+export type BezotCorpLogoButtonProps = {
   className?: string;
   /** Applied to the root `<svg>` (e.g. `max-w-none` so Tailwind preflight doesn’t clamp wide marks inside a narrow flex slot). */
   logoClassName?: string;
@@ -15,15 +15,15 @@ export type OpenHandsLogoButtonProps = {
   logoHeight?: number;
 };
 
-export function OpenHandsLogoButton({
+export function BezotCorpLogoButton({
   className,
   logoClassName,
   logoWidth = DEFAULT_LOGO_WIDTH,
   logoHeight = DEFAULT_LOGO_HEIGHT,
-}: OpenHandsLogoButtonProps = {}) {
-  const { t } = useTranslation("openhands");
+}: BezotCorpLogoButtonProps = {}) {
+  const { t } = useTranslation("bezotcorp");
 
-  const ariaLabel = t(I18nKey.BRANDING$OPENHANDS_LOGO);
+  const ariaLabel = t(I18nKey.BRANDING$BEZOTCORP_LOGO);
 
   return (
     <NavigationLink
@@ -31,7 +31,7 @@ export function OpenHandsLogoButton({
       aria-label={ariaLabel}
       className={cn(className)}
     >
-      <OpenHandsLogo
+      <BezotCorpLogo
         width={logoWidth}
         height={logoHeight}
         className={cn("shrink-0", logoClassName)}

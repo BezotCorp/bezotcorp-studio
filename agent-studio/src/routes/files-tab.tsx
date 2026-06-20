@@ -28,7 +28,7 @@ import LinkExternalIcon from "#/icons/link-external.svg?react";
 import GitChanges from "./changes-tab";
 
 function FilesTab() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   // Keep the list / content / diff caches fresh as the agent writes files.
   useAutoRefreshFilesOnEdit();

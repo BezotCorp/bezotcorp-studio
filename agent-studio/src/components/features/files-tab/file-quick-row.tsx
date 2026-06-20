@@ -29,7 +29,7 @@ export function FileQuickRow({
   isTreeVisible,
   onToggleTree,
 }: FileQuickRowProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const sortedByPriority = useMemo(() => sortFilesByPriority(paths), [paths]);
 

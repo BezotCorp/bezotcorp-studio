@@ -32,7 +32,7 @@ interface GitControlBarProps {
 }
 
 export function GitControlBar({ onSuggestionsClick }: GitControlBarProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { conversationId } = useConversationId();
   const [isOpenRepoModalOpen, setIsOpenRepoModalOpen] = useState(false);
   const [isWorkspaceMenuOpen, setIsWorkspaceMenuOpen] = useState(false);

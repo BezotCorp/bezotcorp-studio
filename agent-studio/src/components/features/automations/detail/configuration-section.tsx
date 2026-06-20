@@ -23,7 +23,7 @@ interface ConfigurationSectionProps {
 const FILTER_TRUNCATE_LENGTH = 60;
 
 function FilterExpression({ filter }: { filter: string }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [expanded, setExpanded] = useState(false);
   const isLong = filter.length > FILTER_TRUNCATE_LENGTH;
 
@@ -53,7 +53,7 @@ function FilterExpression({ filter }: { filter: string }) {
 export function ConfigurationSection({
   automation,
 }: ConfigurationSectionProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const isEvent = automation.trigger.type === "event";
 
   let scheduleDisplay = automation.trigger.schedule ?? "";

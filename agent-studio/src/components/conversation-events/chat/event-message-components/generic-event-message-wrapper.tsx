@@ -1,5 +1,5 @@
 import {
-  OpenHandsEvent,
+  BezotCorpEvent,
   ActionEvent,
   ObservationEvent,
 } from "#/types/agent-server/core";
@@ -27,7 +27,7 @@ import { SkillReadyContentList } from "./skill-ready-content-list";
 import SkillsIcon from "#/icons/skills.svg?react";
 
 interface GenericEventMessageWrapperProps {
-  event: OpenHandsEvent | SkillReadyEvent;
+  event: BezotCorpEvent | SkillReadyEvent;
   isLastMessage: boolean;
   correspondingAction?: ActionEvent;
 }
@@ -40,7 +40,7 @@ interface GenericEventMessageWrapperProps {
  * more branch here.
  */
 function getSkillKnowledge(
-  event: OpenHandsEvent | SkillReadyEvent,
+  event: BezotCorpEvent | SkillReadyEvent,
 ): { items: SkillReadyItem[]; titleKey: I18nKey } | null {
   if (isSkillReadyEvent(event)) {
     return event._skillReadyItems.length > 0

@@ -1,4 +1,4 @@
-import i18n, { OPENHANDS_I18N_NAMESPACE, waitForI18n } from "#/i18n";
+import i18n, { BEZOTCORP_I18N_NAMESPACE, waitForI18n } from "#/i18n";
 import { consumePendingTaskAttachments } from "#/stores/pending-task-attachments-store";
 import { displayErrorToast } from "#/utils/custom-toast-handlers";
 import { sendMessageWithAttachments } from "#/utils/send-message-with-attachments";
@@ -24,7 +24,7 @@ export async function flushPendingTaskAttachments(
       images: pending.images,
       files: pending.files,
       imagesMarkedUploadAsFile: pending.imagesMarkedUploadAsFile,
-      t: i18n.getFixedT(null, OPENHANDS_I18N_NAMESPACE),
+      t: i18n.getFixedT(null, BEZOTCORP_I18N_NAMESPACE),
     });
   } catch (error) {
     displayErrorToast(error instanceof Error ? error.message : null);

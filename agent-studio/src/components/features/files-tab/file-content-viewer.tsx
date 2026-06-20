@@ -41,7 +41,7 @@ function getExtension(path: string): string {
  * binary keeps the generic "binary file" string so the pane is never blank.
  */
 function UnpreviewableFallback({ path }: { path: string }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const documentLabel = OFFICE_DOCUMENT_LABELS[getExtension(path)];
   return (
     <div
@@ -67,7 +67,7 @@ function UnpreviewableFallback({ path }: { path: string }) {
  * a fallback message for binaries).
  */
 export function FileContentViewer({ path, viewMode }: FileContentViewerProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const query = useWorkspaceFileContent(path);
   // Subscribe to the workspace mutation counter so the iframe / <img> src
   // changes after every agent-side edit, forcing a fresh fetch even when

@@ -18,7 +18,7 @@ interface SayHelloStepProps {
 }
 
 /**
- * Step 3: a simple text input pre-filled with "hello OpenHands!" that
+ * Step 3: a simple text input pre-filled with "hello BezotCorp!" that
  * launches a brand-new conversation with no workspace and navigates
  * to it. Completing this step finishes the onboarding flow.
  */
@@ -27,7 +27,7 @@ export function SayHelloStep({
   onClose,
   onLaunched,
 }: SayHelloStepProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { navigate } = useNavigation();
   const defaultMessage = t(I18nKey.ONBOARDING$HELLO_DEFAULT_MESSAGE);
   const [message, setMessage] = React.useState(defaultMessage);

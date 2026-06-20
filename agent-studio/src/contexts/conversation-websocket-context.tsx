@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { ConversationClient } from "@openhands/typescript-client/clients";
+import { ConversationClient } from "@bezotcorp/typescript-client/clients";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { usePostHog } from "posthog-js/react";

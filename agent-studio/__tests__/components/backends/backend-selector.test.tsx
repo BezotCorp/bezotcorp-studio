@@ -25,7 +25,7 @@ import { ENVIRONMENT_SWITCH_SETACTIVE_DELAY_MS } from "#/components/features/bac
 import {
   ServerClient,
   SettingsClient,
-} from "@openhands/typescript-client/clients";
+} from "@bezotcorp/typescript-client/clients";
 import {
   getCloudOrganizations,
   getCloudOrganizationMe,
@@ -38,7 +38,7 @@ vi.mock("#/api/cloud/organization-service.api", () => ({
   getCurrentCloudApiKey: vi.fn(),
 }));
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   ServerClient: vi.fn(),
   SettingsClient: vi.fn(),
 }));
@@ -230,7 +230,7 @@ describe("BackendSelector", () => {
     // leak the local-UI choice into the cloud UI's `current_org_id`.
     await waitFor(() => {
       const stored = JSON.parse(
-        window.localStorage.getItem("openhands-active-backend") ?? "null",
+        window.localStorage.getItem("bezotcorp-active-backend") ?? "null",
       );
       expect(stored).toEqual({ backendId: cloudId, orgId: "org-2" });
     });
@@ -373,7 +373,7 @@ describe("BackendSelector", () => {
     // user.current_org_id as a side effect).
     await waitFor(() => {
       const stored = JSON.parse(
-        window.localStorage.getItem("openhands-active-backend") ?? "null",
+        window.localStorage.getItem("bezotcorp-active-backend") ?? "null",
       );
       expect(stored).toEqual({ backendId: cloudId, orgId: personalOrgId });
     });
@@ -617,7 +617,7 @@ describe("BackendSelector", () => {
     });
     // The seeded default ("Local") survives removing only "Local 1".
     const remaining = JSON.parse(
-      window.localStorage.getItem("openhands-backends") ?? "[]",
+      window.localStorage.getItem("bezotcorp-backends") ?? "[]",
     );
     expect(remaining.map((b: { name: string }) => b.name)).toEqual(["Local"]);
   });
@@ -632,7 +632,7 @@ describe("BackendSelector", () => {
     // and intermittently drops the open-click state update.
     const local1Id = "local-1-test-id";
     window.localStorage.setItem(
-      "openhands-backends",
+      "bezotcorp-backends",
       JSON.stringify([
         {
           id: local1Id,
@@ -644,7 +644,7 @@ describe("BackendSelector", () => {
       ]),
     );
     window.localStorage.setItem(
-      "openhands-active-backend",
+      "bezotcorp-active-backend",
       JSON.stringify({ backendId: local1Id, orgId: null }),
     );
     __resetActiveStoreForTests();
@@ -672,7 +672,7 @@ describe("BackendSelector", () => {
     // no registered backend remains, so the selector shows the explicit
     // unavailable state instead of synthesizing a backend.
     const stored = JSON.parse(
-      window.localStorage.getItem("openhands-active-backend") ?? "null",
+      window.localStorage.getItem("bezotcorp-active-backend") ?? "null",
     );
     expect(stored).toBeNull();
 

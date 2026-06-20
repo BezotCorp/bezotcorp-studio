@@ -8,7 +8,7 @@ import {
 import { useSidebarMobileNav } from "./sidebar-mobile-nav-context";
 
 export function SidebarMobileMenuToggle() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { isOpen, toggle } = useSidebarMobileNav();
 
   return (

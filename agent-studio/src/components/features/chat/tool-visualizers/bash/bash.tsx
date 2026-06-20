@@ -18,7 +18,7 @@ export const bashVisualizer = defineVisualizer({
   actionKinds: ["ExecuteBashAction", "TerminalAction"],
   observationKinds: ["ExecuteBashObservation", "TerminalObservation"],
   Body: function BashBody({ action, observation }) {
-    const { t } = useTranslation("openhands");
+    const { t } = useTranslation("bezotcorp");
     const command =
       observation?.observation.command ?? action?.action.command ?? "";
     const risk = action?.security_risk;

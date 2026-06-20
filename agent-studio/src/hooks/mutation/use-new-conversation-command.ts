@@ -14,7 +14,7 @@ import { useActiveConversation } from "#/hooks/query/use-active-conversation";
 export const useNewConversationCommand = () => {
   const queryClient = useQueryClient();
   const { navigate } = useNavigation();
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { data: conversation } = useActiveConversation();
 
   const mutation = useMutation({
@@ -23,7 +23,7 @@ export const useNewConversationCommand = () => {
         throw new Error("No active conversation");
       }
 
-      // /new reuses the parent conversation's sandbox (matches OpenHands
+      // /new reuses the parent conversation's sandbox (matches BezotCorp
       // cloud behavior); it is NOT a sub-conversation, so parent_conversation_id
       // and agent_type stay undefined.
       const startTask = await AgentServerConversationService.createConversation(

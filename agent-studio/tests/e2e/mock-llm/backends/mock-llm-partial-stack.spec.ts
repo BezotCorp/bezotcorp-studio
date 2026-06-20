@@ -129,7 +129,7 @@ function createIsolatedEnv(
       OH_CANVAS_SAFE_BACKEND_PORT: String(parseInt(ingressPort) + 1),
       OH_CANVAS_SAFE_AUTOMATION_PORT: String(parseInt(ingressPort) + 2),
       OH_CANVAS_SAFE_VITE_PORT: String(parseInt(ingressPort) + 3),
-      // Isolated key file so we don't touch ~/.openhands
+      // Isolated key file so we don't touch ~/.bezotcorp
       OH_SESSION_API_KEY_PATH: join(stateDir, "session-key.txt"),
       ...extra,
     },

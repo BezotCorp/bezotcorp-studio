@@ -11,7 +11,7 @@ import { I18nKey } from "#/i18n/declaration";
 import type {
   IntegrationCatalogEntry as MarketplaceEntry,
   MarketplaceField,
-} from "@openhands/extensions/integrations";
+} from "@bezotcorp/extensions/integrations";
 import { McpLogoBadge } from "#/components/features/mcp-logo-badge";
 import { ExtendedMCPTestFailure, MCPServerConfig } from "#/types/mcp-server";
 import { useAddMcpServer } from "#/hooks/mutation/use-add-mcp-server";
@@ -121,7 +121,7 @@ export function InstallServerModal({
   onClose,
   onSuccess,
 }: InstallServerModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { mutate: addMcpServer, isPending: isAdding } = useAddMcpServer();
   const { mutate: testMcpServer, isPending: isTesting } = useTestMcpServer();
   const saveFieldsAsSecrets = useSaveFieldsAsSecrets();

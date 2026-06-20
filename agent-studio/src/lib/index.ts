@@ -21,7 +21,7 @@ export {
 } from "../query-client-config";
 export {
   AvailableLanguages,
-  OPENHANDS_I18N_NAMESPACE,
+  BEZOTCORP_I18N_NAMESPACE,
   createAgentServerI18n,
   getDefaultI18n,
   getI18n,

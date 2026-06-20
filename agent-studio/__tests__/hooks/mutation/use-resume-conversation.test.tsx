@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConversationClient } from "@openhands/typescript-client/clients";
+import { ConversationClient } from "@bezotcorp/typescript-client/clients";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import React from "react";
 import AgentServerConversationService from "#/api/conversation-service/agent-server-conversation-service.api";
@@ -10,7 +10,7 @@ const { runConversationMock } = vi.hoisted(() => ({
   runConversationMock: vi.fn(),
 }));
 
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   ConversationClient: vi.fn(function ConversationClientMock() {
     return { runConversation: runConversationMock };
   }),

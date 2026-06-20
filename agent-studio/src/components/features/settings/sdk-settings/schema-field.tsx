@@ -69,7 +69,7 @@ export function SchemaField({
   isDisabled: boolean;
   onChange: (value: string | boolean) => void;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const label = resolveSchemaFieldLabel(t, field.key, field.label);
   const constraints = getSettingsFieldConstraints(field.key);
 

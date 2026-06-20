@@ -29,7 +29,7 @@ export function CirclePlusBadge({
   testId?: string;
   tooltipKey?: I18nKey;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <StyledTooltip content={t(tooltipKey)} placement="top">
@@ -59,7 +59,7 @@ export function CirclePlusCheckToggle({
   disableTooltipKey,
   removeTooltipKey = I18nKey.COMMON$REMOVE,
 }: CirclePlusCheckToggleProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [isPointerOver, setIsPointerOver] = React.useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

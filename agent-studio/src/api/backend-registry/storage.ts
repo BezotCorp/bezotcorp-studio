@@ -4,8 +4,8 @@ import {
 } from "./default-backend";
 import type { Backend, BackendKind, BackendSelection } from "./types";
 
-export const BACKENDS_STORAGE_KEY = "openhands-backends";
-export const ACTIVE_BACKEND_STORAGE_KEY = "openhands-active-backend";
+export const BACKENDS_STORAGE_KEY = "bezotcorp-backends";
+export const ACTIVE_BACKEND_STORAGE_KEY = "bezotcorp-active-backend";
 
 function isValidKind(value: unknown): value is BackendKind {
   return value === "local" || value === "cloud";

@@ -36,7 +36,7 @@ export const ProfileNameInput = forwardRef<
   },
   ref,
 ) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const isValid = isProfileNameValid(value, { isRequired });
   const label = isOptional
     ? `${t(I18nKey.SETTINGS$PROFILE_NAME_LABEL)} (${t(I18nKey.COMMON$OPTIONAL)})`

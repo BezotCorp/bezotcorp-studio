@@ -6,7 +6,7 @@ import { BackendSyncedSettingsBadge } from "#/components/features/settings/backe
 import { EXTENSIONS_NAV_ITEMS } from "./extensions-navigation";
 
 export function ExtensionsMobileHub() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div

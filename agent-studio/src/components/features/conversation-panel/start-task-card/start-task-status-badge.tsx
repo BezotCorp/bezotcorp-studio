@@ -10,7 +10,7 @@ interface StartTaskStatusBadgeProps {
 export function StartTaskStatusBadge({
   taskStatus,
 }: StartTaskStatusBadgeProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   // Don't show badge for WORKING status (most common, clutters UI)
   if (taskStatus === "WORKING") {

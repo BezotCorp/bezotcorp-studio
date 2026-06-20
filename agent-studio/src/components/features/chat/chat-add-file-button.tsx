@@ -21,7 +21,7 @@ export function ChatAddFileButton({
   handleFileIconClick,
   disabled = false,
 }: ChatAddFileButtonProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { conversationId } = useOptionalConversationId();
   const { data: conversation } = useActiveConversation();
   const [menuOpen, setMenuOpen] = React.useState(false);

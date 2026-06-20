@@ -5,10 +5,10 @@
 # `git+https://github.com/...` and the `github:owner/repo` shorthand) to
 # `git+ssh://git@github.com/...` when it writes package-lock.json. Vercel's
 # build environment has no SSH key for GitHub, so npm cannot clone the
-# `@openhands/typescript-client` git dependency and silently falls back to a
+# `@bezotcorp/typescript-client` git dependency and silently falls back to a
 # stale cached copy — producing the dreaded
 # `[MISSING_EXPORT] ConversationClient is not exported by
-# node_modules/@openhands/typescript-client/dist/clients.js` at bundle time.
+# node_modules/@bezotcorp/typescript-client/dist/clients.js` at bundle time.
 #
 # Two defensive measures here:
 #   1. Rewrite any `git+ssh://git@github.com/` URLs in package-lock.json

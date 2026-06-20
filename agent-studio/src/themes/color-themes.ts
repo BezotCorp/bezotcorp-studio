@@ -1,7 +1,7 @@
 export type ColorThemeKey =
-  | "openhands-deepsea"
-  | "openhands-neutral"
-  | "openhands-neo";
+  | "bezotcorp-deepsea"
+  | "bezotcorp-neutral"
+  | "bezotcorp-neo";
 
 export interface ColorThemeDefinition {
   label: string;
@@ -95,7 +95,7 @@ import { AGENT_SERVER_UI_THEMEABLE_BRAND_VARIABLES } from "#/styles/agent-server
 /** CSS custom properties overridden by color themes (see applyColorTheme). */
 export const COLOR_THEME_TOKEN_KEYS = AGENT_SERVER_UI_THEMEABLE_BRAND_VARIABLES;
 
-/** White primary/accent tokens — used by OpenHands-Neo for button surfaces. */
+/** White primary/accent tokens — used by BezotCorp-Neo for button surfaces. */
 const NEO_WHITE_BUTTON_TOKENS: Record<
   (typeof COLOR_THEME_TOKEN_KEYS)[number],
   string
@@ -106,8 +106,8 @@ const NEO_WHITE_BUTTON_TOKENS: Record<
 };
 
 export const COLOR_THEMES: Record<ColorThemeKey, ColorThemeDefinition> = {
-  "openhands-deepsea": {
-    label: "OpenHands-DeepSea",
+  "bezotcorp-deepsea": {
+    label: "BezotCorp-DeepSea",
     // Matches the values already set by index.css; included so switching back
     // from another theme restores the original palette explicitly.
     scale: {
@@ -164,8 +164,8 @@ export const COLOR_THEMES: Record<ColorThemeKey, ColorThemeDefinition> = {
     },
   },
 
-  "openhands-neutral": {
-    label: "OpenHands-Neutral",
+  "bezotcorp-neutral": {
+    label: "BezotCorp-Neutral",
     scale: NEUTRAL_SCALE,
     // Each stop follows the same positional mapping as hero.ts:
     //   heroui-default-100 ← cool-grey-950 position ← neutral-950 (#181818)
@@ -174,21 +174,21 @@ export const COLOR_THEMES: Record<ColorThemeKey, ColorThemeDefinition> = {
     heroui: NEUTRAL_HEROUI,
   },
 
-  "openhands-neo": {
-    label: "OpenHands-Neo",
+  "bezotcorp-neo": {
+    label: "BezotCorp-Neo",
     scale: NEUTRAL_SCALE,
     heroui: NEUTRAL_HEROUI,
     tokens: NEO_WHITE_BUTTON_TOKENS,
   },
 };
 
-export const DEFAULT_COLOR_THEME: ColorThemeKey = "openhands-neutral";
+export const DEFAULT_COLOR_THEME: ColorThemeKey = "bezotcorp-neutral";
 
 export const AVAILABLE_COLOR_THEMES = Object.entries(COLOR_THEMES).map(
   ([key, def]) => ({ key: key as ColorThemeKey, label: def.label }),
 );
 
-const STORAGE_KEY = "openhands-color-theme";
+const STORAGE_KEY = "bezotcorp-color-theme";
 
 /** Read the persisted theme key from localStorage, falling back to the default. */
 export function readPersistedColorTheme(): ColorThemeKey {

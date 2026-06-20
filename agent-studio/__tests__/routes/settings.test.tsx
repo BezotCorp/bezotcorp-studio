@@ -47,7 +47,7 @@ describe("settings route", () => {
   });
 
   it("prefers /settings/agent when LLM settings are visible", () => {
-    // /settings/agent wins unconditionally, so OpenHands users land
+    // /settings/agent wins unconditionally, so BezotCorp users land
     // there too and reach LLM via the left nav instead of bouncing
     // through /settings/llm (which is disabled for ACP users).
     expect(
@@ -168,7 +168,7 @@ describe("settings route", () => {
     expect(response.headers.get("Location")).toBe("/settings/agent");
   });
 
-  it("does not redirect when the active agent is OpenHands", async () => {
+  it("does not redirect when the active agent is BezotCorp", async () => {
     vi.spyOn(OptionService, "getConfig").mockResolvedValue({
       posthog_client_key: null,
       feature_flags: {
@@ -186,7 +186,7 @@ describe("settings route", () => {
       ...MOCK_DEFAULT_USER_SETTINGS,
       agent_settings: {
         ...MOCK_DEFAULT_USER_SETTINGS.agent_settings,
-        agent_kind: "openhands",
+        agent_kind: "bezotcorp",
       },
     });
 

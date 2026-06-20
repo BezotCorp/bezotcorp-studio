@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { BashOutput } from "@openhands/typescript-client";
+import type { BashOutput } from "@bezotcorp/typescript-client";
 import AcpService from "#/api/acp-service/acp-service.api";
 
 // Capture the command the service runs and control the BashOutput it sees.
 const executeCommand = vi.hoisted(() => vi.fn());
-vi.mock("@openhands/typescript-client/clients", () => ({
+vi.mock("@bezotcorp/typescript-client/clients", () => ({
   BashClient: class {
     executeCommand = executeCommand;
   },
@@ -122,7 +122,7 @@ describe("AcpService.getAuthStatus", () => {
   });
 
   it("→ unknown for an unprobeable provider, without running any command", async () => {
-    await expect(AcpService.getAuthStatus("openhands")).resolves.toBe(
+    await expect(AcpService.getAuthStatus("bezotcorp")).resolves.toBe(
       "unknown",
     );
     expect(executeCommand).not.toHaveBeenCalled();

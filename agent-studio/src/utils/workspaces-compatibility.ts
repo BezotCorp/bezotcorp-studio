@@ -1,11 +1,11 @@
 import type { TFunction } from "i18next";
-import { isAgentServerVersionError } from "@openhands/typescript-client/clients";
+import { isAgentServerVersionError } from "@bezotcorp/typescript-client/clients";
 
 import { I18nKey } from "#/i18n/declaration";
 
 export function getWorkspacesUnsupportedMessage(
   error: unknown,
-  t: TFunction<"openhands">,
+  t: TFunction<"bezotcorp">,
 ) {
   if (!isAgentServerVersionError(error)) {
     return null;

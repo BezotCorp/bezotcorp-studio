@@ -10,7 +10,7 @@ import {
 import EventService from "#/api/event-service/event-service.api";
 import { useUserConversation } from "#/hooks/query/use-user-conversation";
 import type { Conversation } from "#/api/open-hands.types";
-import type { OpenHandsEvent } from "#/types/agent-server/core";
+import type { BezotCorpEvent } from "#/types/agent-server/core";
 import type { EventSearchPage } from "#/api/event-service/event-service.types";
 
 function makeConversation(version: "V0" | "V1"): Conversation {
@@ -31,13 +31,13 @@ function makeConversation(version: "V0" | "V1"): Conversation {
 }
 
 function makeEvent(id = "evt-1", timestamp = "2024-01-01T00:00:00Z") {
-  return { id, timestamp } as unknown as OpenHandsEvent;
+  return { id, timestamp } as unknown as BezotCorpEvent;
 }
 
 function makePage(
-  items: OpenHandsEvent[] = [],
+  items: BezotCorpEvent[] = [],
   nextPageId: string | null = null,
-): EventSearchPage<OpenHandsEvent> {
+): EventSearchPage<BezotCorpEvent> {
   return { items, next_page_id: nextPageId };
 }
 
@@ -186,7 +186,7 @@ describe("useConversationHistory", () => {
     vi.spyOn(EventService, "searchEvents").mockResolvedValue({
       items: { bad: true },
       next_page_id: null,
-    } as unknown as EventSearchPage<OpenHandsEvent>);
+    } as unknown as EventSearchPage<BezotCorpEvent>);
 
     const { result } = renderHook(
       () => useConversationHistory("conv-malformed"),

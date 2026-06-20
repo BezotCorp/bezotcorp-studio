@@ -21,7 +21,7 @@ export function ConversationConfirmationButtons() {
     (state) => state.addSubmittedEventId,
   );
 
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { data: conversation } = useActiveConversation();
   const { curAgentState } = useAgentState();
   const { mutate: respondToConfirmation } = useRespondToConfirmation();

@@ -7,7 +7,7 @@ import { H1 } from "#/ui/typography";
 import { cn } from "#/utils/utils";
 
 export default function DeviceVerify() {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const [searchParams] = useSearchParams();
   const { data: isAuthed, isLoading: isAuthLoading } = useIsAuthed();
   const [verificationResult, setVerificationResult] = useState<{

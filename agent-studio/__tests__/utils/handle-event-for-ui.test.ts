@@ -4,7 +4,7 @@ import {
   ObservationEvent,
   MessageEvent,
   SecurityRisk,
-  OpenHandsEvent,
+  BezotCorpEvent,
 } from "#/types/agent-server/core";
 import { ACPToolCallEvent } from "#/types/agent-server/core/events/acp-tool-call-event";
 import { StreamingDeltaEvent } from "#/types/agent-server/core/events/streaming-delta-event";
@@ -152,7 +152,7 @@ describe("handleEventForUI", () => {
   });
 
   it("should handle empty uiEvents array", () => {
-    const initialUiEvents: OpenHandsEvent[] = [];
+    const initialUiEvents: BezotCorpEvent[] = [];
     const result = handleEventForUI(mockObservationEvent, initialUiEvents);
 
     expect(result).toEqual([mockObservationEvent]);

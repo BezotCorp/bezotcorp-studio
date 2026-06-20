@@ -137,7 +137,7 @@ describe("HookEventItem", () => {
         hooks: [
           {
             type: "command",
-            command: ".openhands/hooks/on_stop.sh",
+            command: ".bezotcorp/hooks/on_stop.sh",
             timeout: 30,
             async: true,
           },

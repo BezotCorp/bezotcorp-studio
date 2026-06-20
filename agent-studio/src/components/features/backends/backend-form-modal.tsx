@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { ServerClient } from "@openhands/typescript-client/clients";
-import OpenHandsLogoWhite from "#/assets/branding/openhands-logo-white.svg?react";
+import { ServerClient } from "@bezotcorp/typescript-client/clients";
+import BezotCorpLogoWhite from "#/assets/branding/bezotcorp-logo-white.svg?react";
 import { ModalBackdrop } from "#/components/shared/modals/modal-backdrop";
 import {
   MODAL_MAX_WIDTH_VIEWPORT,
@@ -43,7 +43,7 @@ interface BackendFormModalProps {
 
 function inferKindFromHost(host: string): BackendKind {
   const trimmed = host.trim().toLowerCase();
-  if (trimmed.includes("all-hands.dev") || trimmed.includes("openhands.dev")) {
+  if (trimmed.includes("all-hands.dev") || trimmed.includes("bezotcorp.dev")) {
     return "cloud";
   }
   return "local";
@@ -122,7 +122,7 @@ function isValidHostUrl(host: string): boolean {
   }
 }
 
-const DEFAULT_OPENHANDS_CLOUD_HOST = "https://app.all-hands.dev";
+const DEFAULT_BEZOTCORP_CLOUD_HOST = "https://app.all-hands.dev";
 
 function getConnectionTestFailedTitle(
   t: ReturnType<typeof useTranslation>["t"],
@@ -172,7 +172,7 @@ function BackendStatusBadge({
   backend: Backend;
   testIdRoot: string;
 }) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const healthByBackendId = useBackendsHealth([backend]);
   const health = healthByBackendId[backend.id];
   const isConnected = health?.isConnected ?? null;
@@ -299,7 +299,7 @@ function useBackendForm({
   requireApiKey = false,
   onSubmitOverride,
 }: UseBackendFormOptions) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const [name, setName] = React.useState(initialName);
   const [host, setHost] = React.useState(initialHost);
@@ -450,7 +450,7 @@ export function BackendForm({
   hideConfigurationFields = false,
   onSubmitOverride,
 }: BackendFormProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
   const { addBackend, updateBackend } = useActiveBackendContext();
 
   // In edit mode preserve the existing backend's kind so that renaming or
@@ -577,7 +577,7 @@ export function BackendForm({
                 }
           }
           onBlur={() => setHostTouched(true)}
-          placeholder={DEFAULT_OPENHANDS_CLOUD_HOST}
+          placeholder={DEFAULT_BEZOTCORP_CLOUD_HOST}
           className="w-full"
           showRequiredTag
           error={hostError}
@@ -673,7 +673,7 @@ interface BackendConnectionOptionsProps {
 }
 
 /**
- * Manual agent-server connection plus OpenHands Cloud OAuth login.
+ * Manual agent-server connection plus BezotCorp Cloud OAuth login.
  * Used by both the Add Backend modal and the onboarding backend step so
  * supported backend choices stay consistent across first-run and settings UI.
  */
@@ -686,7 +686,7 @@ export function BackendConnectionOptions({
   manualSubmittingLabel,
   manualSubmitTestId,
 }: BackendConnectionOptionsProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   return (
     <div
@@ -737,7 +737,7 @@ interface ManualConnectionColumnProps {
 
 /**
  * Manual connection via Host + API Key. Designed for self-hosted agent servers
- * and self-hosted OpenHands Cloud with API key auth.
+ * and self-hosted BezotCorp Cloud with API key auth.
  */
 function ManualConnectionColumn({
   onConnected,
@@ -748,7 +748,7 @@ function ManualConnectionColumn({
   submittingLabel,
   submitTestId,
 }: ManualConnectionColumnProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const {
     name,
@@ -869,21 +869,21 @@ interface CloudLoginColumnProps {
 }
 
 /**
- * One-click OAuth login with OpenHands Cloud. Includes an "Advanced"
- * disclosure for users who self-host OpenHands Cloud and need to override the
+ * One-click OAuth login with BezotCorp Cloud. Includes an "Advanced"
+ * disclosure for users who self-host BezotCorp Cloud and need to override the
  * host.
  */
 function CloudLoginColumn({ onConnected, testIdRoot }: CloudLoginColumnProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   const [advancedOpen, setAdvancedOpen] = React.useState(false);
   const [customHost, setCustomHost] = React.useState("");
 
-  const effectiveHost = customHost.trim() || DEFAULT_OPENHANDS_CLOUD_HOST;
+  const effectiveHost = customHost.trim() || DEFAULT_BEZOTCORP_CLOUD_HOST;
 
   const handleLoginSuccess = (apiKey: string) => {
     onConnected({
-      name: "OpenHands Cloud",
+      name: "BezotCorp Cloud",
       host: normalizeHost(effectiveHost),
       apiKey,
       kind: "cloud",
@@ -893,7 +893,7 @@ function CloudLoginColumn({ onConnected, testIdRoot }: CloudLoginColumnProps) {
   return (
     <div className="flex flex-1 min-w-0 flex-col items-center gap-3">
       <div className="flex flex-col items-center gap-1">
-        <OpenHandsLogoWhite width={56} height={56} aria-hidden />
+        <BezotCorpLogoWhite width={56} height={56} aria-hidden />
 
         <h4
           className={modalTitleLgMediumClassName}
@@ -944,7 +944,7 @@ function CloudLoginColumn({ onConnected, testIdRoot }: CloudLoginColumnProps) {
             label={t(I18nKey.BACKEND$HOST_LABEL)}
             value={customHost}
             onChange={setCustomHost}
-            placeholder={DEFAULT_OPENHANDS_CLOUD_HOST}
+            placeholder={DEFAULT_BEZOTCORP_CLOUD_HOST}
             className="w-full"
           />
           <p className="mt-1 text-xs text-[var(--oh-muted)]">
@@ -984,7 +984,7 @@ export function BackendFormModal({
   backend,
   onClose,
 }: BackendFormModalProps) {
-  const { t } = useTranslation("openhands");
+  const { t } = useTranslation("bezotcorp");
 
   if (mode === "add") {
     return (
