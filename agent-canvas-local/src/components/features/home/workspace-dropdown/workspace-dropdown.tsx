@@ -1,0 +1,291 @@
+import React, { useState, useMemo, useCallback, useRef } from "react";
+import { useCombobox } from "downshift";
+import { useTranslation } from "react-i18next";
+
+import { cn } from "#/utils/utils";
+import {
+  dropdownFooterActionClassName,
+  dropdownMenuListClassName,
+} from "#/utils/dropdown-classes";
+import { formControlFieldClassName } from "#/utils/form-control-classes";
+import { LocalWorkspace } from "#/types/workspace";
+import { I18nKey } from "#/i18n/declaration";
+import RepoIcon from "#/icons/repo.svg?react";
+import { StyledTooltip } from "#/components/shared/buttons/styled-tooltip";
+
+import { ClearButton } from "../shared/clear-button";
+import { ToggleButton } from "../shared/toggle-button";
+import { DropdownItem } from "../shared/dropdown-item";
+import { EmptyState } from "../shared/empty-state";
+import { GenericDropdownMenu } from "../shared/generic-dropdown-menu";
+
+export interface WorkspaceDropdownProps {
+  workspaces: LocalWorkspace[];
+  value: LocalWorkspace | null;
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
+  disabledTooltip?: string | null;
+  /**
+   * Whether to surface the "Manage Workspaces" entry in the sticky footer.
+   * Defaults to `workspaces.length > 0` when omitted; pass an explicit value
+   * if there are workspace parents (whose children may not have loaded yet)
+   * that should also count as "manageable".
+   */
+  showManage?: boolean;
+  onChange: (workspace: LocalWorkspace | null) => void;
+  onAddClick: () => void;
+  onManageClick: () => void;
+}
+
+export function WorkspaceDropdown({
+  workspaces,
+  value,
+  placeholder,
+  className,
+  disabled = false,
+  disabledTooltip,
+  showManage,
+  onChange,
+  onAddClick,
+  onManageClick,
+}: WorkspaceDropdownProps) {
+  const { t } = useTranslation("openhands");
+  const [inputValue, setInputValue] = useState(value?.name ?? "");
+  const menuRef = useRef<HTMLUListElement>(null);
+
+  const filteredWorkspaces = useMemo(() => {
+    const trimmed = inputValue.trim().toLowerCase();
+    if (!trimmed) return workspaces;
+    return workspaces.filter(
+      (w) =>
+        w.name.toLowerCase().includes(trimmed) ||
+        w.path.toLowerCase().includes(trimmed),
+    );
+  }, [workspaces, inputValue]);
+
+  const handleSelectionChange = useCallback(
+    (selectedItem: LocalWorkspace | null) => {
+      onChange(selectedItem);
+      if (selectedItem) {
+        setInputValue(selectedItem.name);
+      }
+    },
+    [onChange],
+  );
+
+  const handleClear = useCallback(() => {
+    handleSelectionChange(null);
+    setInputValue("");
+  }, [handleSelectionChange]);
+
+  const {
+    isOpen,
+    getToggleButtonProps,
+    getMenuProps,
+    getInputProps,
+    highlightedIndex,
+    getItemProps,
+    selectedItem,
+    closeMenu,
+  } = useCombobox<LocalWorkspace>({
+    items: filteredWorkspaces,
+    itemToString: (item) => item?.name ?? "",
+    selectedItem: value,
+    onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
+      handleSelectionChange(newSelectedItem ?? null);
+    },
+    inputValue,
+    onIsOpenChange: ({
+      isOpen: newIsOpen,
+      selectedItem: currentSelectedItem,
+    }) => {
+      if (newIsOpen) {
+        setInputValue("");
+      } else {
+        setInputValue(currentSelectedItem?.name ?? "");
+      }
+    },
+    stateReducer: (state, actionAndChanges) =>
+      actionAndChanges.type === useCombobox.stateChangeTypes.InputClick &&
+      state.isOpen
+        ? { ...actionAndChanges.changes, isOpen: true }
+        : actionAndChanges.changes,
+  });
+
+  const renderItem = (
+    item: LocalWorkspace,
+    index: number,
+    itemHighlightedIndex: number,
+    itemSelectedItem: LocalWorkspace | null,
+    itemGetItemProps: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+  ) => (
+    <DropdownItem
+      key={item.id}
+      item={item}
+      index={index}
+      isSelected={itemSelectedItem?.id === item.id}
+      getItemProps={itemGetItemProps}
+      getDisplayText={(workspace) => workspace.name}
+      getItemKey={(workspace) => workspace.id}
+    />
+  );
+
+  const renderEmptyState = (emptyInputValue: string) => (
+    <EmptyState
+      inputValue={emptyInputValue}
+      searchMessage={t(I18nKey.HOME$NO_WORKSPACES)}
+      emptyMessage={t(I18nKey.HOME$NO_WORKSPACES)}
+      testId="workspace-dropdown-empty"
+    />
+  );
+
+  const preventDropdownMenuClose = useCallback(
+    (event: React.SyntheticEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
+    },
+    [],
+  );
+
+  const handleAddClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      preventDropdownMenuClose(event);
+      closeMenu();
+      onAddClick();
+    },
+    [closeMenu, onAddClick, preventDropdownMenuClose],
+  );
+
+  const handleAddTouchEnd = useCallback(
+    (event: React.TouchEvent<HTMLButtonElement>) => {
+      preventDropdownMenuClose(event);
+      closeMenu();
+      onAddClick();
+    },
+    [closeMenu, onAddClick, preventDropdownMenuClose],
+  );
+
+  const handleManageClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      preventDropdownMenuClose(event);
+      closeMenu();
+      onManageClick();
+    },
+    [closeMenu, onManageClick, preventDropdownMenuClose],
+  );
+
+  const handleManageTouchEnd = useCallback(
+    (event: React.TouchEvent<HTMLButtonElement>) => {
+      preventDropdownMenuClose(event);
+      closeMenu();
+      onManageClick();
+    },
+    [closeMenu, onManageClick, preventDropdownMenuClose],
+  );
+
+  const stickyFooterItem = useMemo(
+    () => (
+      <div className={dropdownMenuListClassName}>
+        <button
+          type="button"
+          data-testid="add-workspaces-button"
+          className={cn(dropdownFooterActionClassName, "cursor-pointer")}
+          onMouseDown={preventDropdownMenuClose}
+          onTouchStart={preventDropdownMenuClose}
+          onTouchEnd={handleAddTouchEnd}
+          onClick={handleAddClick}
+        >
+          {t(I18nKey.HOME$ADD_WORKSPACES)}
+        </button>
+        {(showManage ?? workspaces.length > 0) && (
+          <button
+            type="button"
+            data-testid="manage-workspaces-button"
+            className={cn(dropdownFooterActionClassName, "cursor-pointer")}
+            onMouseDown={preventDropdownMenuClose}
+            onTouchStart={preventDropdownMenuClose}
+            onTouchEnd={handleManageTouchEnd}
+            onClick={handleManageClick}
+          >
+            {t(I18nKey.HOME$MANAGE_WORKSPACES)}
+          </button>
+        )}
+      </div>
+    ),
+    [
+      handleAddClick,
+      handleAddTouchEnd,
+      handleManageClick,
+      handleManageTouchEnd,
+      preventDropdownMenuClose,
+      t,
+      workspaces.length,
+      showManage,
+    ],
+  );
+
+  const control = (
+    <div className={cn("relative", className)}>
+      <div className="group relative text-[var(--oh-muted)] hover:text-white">
+        <div className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10">
+          <RepoIcon width={16} height={16} />
+        </div>
+        <input
+          {...getInputProps({
+            disabled,
+            placeholder:
+              isOpen && value
+                ? value.name
+                : (placeholder ?? t(I18nKey.HOME$WORKSPACE_PLACEHOLDER)),
+            className: cn(
+              formControlFieldClassName,
+              "text-inherit shadow-none pl-7 pr-16 text-sm font-normal leading-5",
+              "placeholder:text-[var(--oh-muted)]",
+              "disabled:cursor-not-allowed disabled:opacity-60",
+            ),
+            onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+              setInputValue(e.target.value);
+            },
+          })}
+          data-testid="workspace-dropdown"
+        />
+
+        <div className="absolute right-1 top-1/2 transform -translate-y-1/2 flex items-center">
+          {value && <ClearButton disabled={disabled} onClear={handleClear} />}
+          <ToggleButton
+            isOpen={isOpen}
+            disabled={disabled}
+            getToggleButtonProps={getToggleButtonProps}
+          />
+        </div>
+      </div>
+
+      <GenericDropdownMenu<LocalWorkspace>
+        isOpen={isOpen}
+        filteredItems={filteredWorkspaces}
+        inputValue={inputValue}
+        highlightedIndex={highlightedIndex}
+        selectedItem={selectedItem}
+        getMenuProps={getMenuProps}
+        getItemProps={getItemProps}
+        menuRef={menuRef}
+        renderItem={renderItem}
+        renderEmptyState={renderEmptyState}
+        stickyFooterItem={stickyFooterItem}
+        testId="workspace-dropdown-menu"
+        itemKey={(item) => item.id}
+      />
+    </div>
+  );
+
+  if (!disabledTooltip) {
+    return control;
+  }
+
+  return (
+    <StyledTooltip content={disabledTooltip} placement="top">
+      <span className="block">{control}</span>
+    </StyledTooltip>
+  );
+}
