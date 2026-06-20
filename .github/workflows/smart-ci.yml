@@ -1,0 +1,79 @@
+name: Smart CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - dev
+      - chore/bootstrap-workspace
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: smart-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  select:
+    runs-on: ubuntu-24.04
+
+    outputs:
+      matrix: ${{ steps.resolve.outputs.matrix }}
+      has_affected: ${{ steps.resolve.outputs.has_affected }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Resolve affected components
+        id: resolve
+        run: node scripts/ci/resolve-github.mjs
+
+  component-ci:
+    needs: select
+    if: needs.select.outputs.has_affected == 'true'
+    runs-on: ubuntu-24.04
+    name: ${{ matrix.name }}
+
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.select.outputs.matrix) }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        if: matrix.type == 'node' || matrix.type == 'mixed'
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24.15"
+
+      - name: Set up Rust
+        if: matrix.type == 'rust' || matrix.type == 'mixed'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Run component checks
+        working-directory: ${{ matrix.workingDirectory }}
+        run: |
+          set -euo pipefail
+
+          node -e '
+            const { spawnSync } = require("node:child_process");
+            const steps = JSON.parse(process.argv[1]);
+
+            for (const step of steps) {
+              console.log(`\n=== ${step.name} ===`);
+              console.log(`$ ${step.command}`);
+              const result = spawnSync(step.command, {
+                shell: true,
+                stdio: "inherit"
+              });
+              if (result.status !== 0) process.exit(result.status ?? 1);
+            }
+          ' '${{ toJSON(matrix.steps) }}'
