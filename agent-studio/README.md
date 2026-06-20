@@ -1,145 +1,100 @@
-<a name="readme-top"></a>
-<div align="center">
-  <img src="https://assets.openhands.dev/logo-whitebackground.png" alt="OpenHands logo" width="340">
-  <h1 align="center" style="border-bottom: none">BezotCorp Agent Studio</h1>
-  <p align="center">
-    <strong>The self-hosted developer control center for coding agents and automations.</strong>
-  </p>
-  <p align="center">
-    Run OpenHands, Claude Code, Codex, Gemini, or any ACP-compatible agent across local, remote, and cloud backends.
-  </p>
-</div>
-<div align="center">
-  <a href="https://github.com/OpenHands/incubator-program"><img src="https://img.shields.io/badge/status-beta-blue?style=for-the-badge" alt="Project status beta"></a>
-  <a href="https://github.com/BezotCorp/bezotcorp-studio/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/BezotCorp/bezot-agent-studio/ci.yml?branch=main&style=for-the-badge" alt="CI status"></a>
-  <a href="https://www.npmjs.com/package/@bezotcorp/agent-studio"><img src="https://img.shields.io/npm/v/%40openhands%2Fagent-studio?style=for-the-badge&logo=npm" alt="npm version"></a>
-  <a href="https://docs.openhands.dev/openhands/usage/agent-studio/backends"><img src="https://img.shields.io/badge/Documentation-000?logo=googledocs&logoColor=FFE165&style=for-the-badge" alt="Documentation"></a>
-  <a href="https://go.openhands.dev/slack"><img src="https://img.shields.io/badge/Slack-Join%20the%20community-611f69?logo=slack&logoColor=white&style=for-the-badge" alt="Join us on Slack"></a>
-</div>
-<div align="center">
-  <a href="#quickstart">Quickstart</a> |
-  <a href="./docs/README.md">Docs</a> |
-  <a href="./docs/SELF_HOSTING.md">Self-Hosting</a> |
-  <a href="https://docs.openhands.dev/openhands/usage/agent-studio/acp-agents">ACP Agents</a> |
-  <a href="https://docs.openhands.dev/openhands/usage/agent-studio/prebuilt-automations">Automations</a> |
-  <a href="https://go.openhands.dev/slack">Slack</a>
-</div>
-<p align="center">
-  <img src="https://assets.openhands.dev/screenshot/automation-preview.png" alt="BezotCorp Agent Studio automation preview" width="100%">
-</p>
-<hr>
+# BezotCorp Agent Studio
 
-OpenHands BezotCorp Agent Studio turns your coding agents into a self-hosted, always-on engineering team. It's a developer control center for starting conversations and automating everyday tasks — like generating reports that publish to Slack or automatically decomposing GitHub issues into tasks.
+BezotCorp Agent Studio is a self-hosted control center for AI agents, coding assistants, automation workflows, and multi-backend orchestration.
 
-It runs locally on your machine by default, but can connect to multiple “agent backends”, e.g. running agents in Docker containers, on VMs, or within your company infrastructure. You can optionally choose to run agents on OpenHands Cloud or OpenHands Enterprise infrastructure.
+The goal of the project is simple: give developers a single place to run, manage, and coordinate different AI systems without being locked to a specific model, provider, company, or infrastructure.
 
-BezotCorp Agent Studio runs the open source OpenHands agent out-of-the-box, but can use any third-party agent like Claude Code and Codex.
+Today, the project supports modern coding agents and ACP-compatible systems. Tomorrow, it aims to become a flexible platform capable of integrating many different AI technologies, local or remote, while remaining developer-first and self-hostable.
 
-|    |    |
-|---|---|
-| [**Self-host your way**](https://docs.openhands.dev/openhands/usage/agent-studio/backend-setup/vm) | Run agents locally, in Docker, on VMs, or anywhere you can run an agent server backend |
-| [**Switch between different backends**](https://docs.openhands.dev/openhands/usage/agent-studio/backends) | Switch between local, remote, and cloud agents without losing focus |
-| [**Create automations**](https://docs.openhands.dev/openhands/usage/agent-studio/prebuilt-automations) | Create automations and workflows that integrate with Slack, GitHub, Linear, and more. Run on a schedule or in response to webhook events  |
-| [**Integrate with the tools you use**](https://docs.openhands.dev/openhands/usage/agent-studio/prebuilt-automations) | Connect your automations with third-party services like Slack, GitHub, Notion, and more to automate workflows |
-| [**Bring your own model**](https://docs.openhands.dev/openhands/usage/settings/llm-settings#llm-profiles) | Use with any LLM |
-| [**Use with any agent**](https://docs.openhands.dev/openhands/usage/agent-studio/acp-agents) | Use with OpenHands, Claude Code, Codex, Gemini, or any agent with Agent-Client Protocol (ACP). |
+## Features
 
+### Multi-Agent Support
 
-If you have questions or feedback, please open a GitHub issue or join the [#proj-agent-studio channel in Slack](https://openhands.dev/joinslack).
+- OpenHands
+- Claude Code
+- Codex
+- Gemini
+- ACP-compatible agents
+- Future agent integrations
 
+### Multi-Backend Support
 
-## Quickstart
+- Local execution
+- Docker environments
+- Remote servers
+- Self-hosted infrastructures
+- Custom backend integrations
 
-You can install OpenHands to run agents on any machine: on your laptop, on a dedicated computer like a Mac Mini,
-or on a server in the cloud.
+### Automation
 
-The most powerful way to run OpenHands is on a server in the cloud. This allows your agents to continue running
-even when your laptop is shut, and makes it easier to trigger your agents through third-party services
-like Slack, GitHub, and Datadog. See [SELF_HOSTING.md](docs/SELF_HOSTING.md) for details, especially with respect to security hardening.
+- Scheduled workflows
+- Event-driven automations
+- Development assistance
+- Multi-agent coordination
+- Extensible integrations
 
-Notably, you can run the backend in _multiple different environments_, and switch between
-them from the same BezotCorp Agent Studio frontend. E.g. you can share an Agent Server with your team for agents doing
-code review and dependency updates, then have your personal agents running on your laptop.
+### Self Hosting
 
-### Option 1: Without a Sandbox
+- Local workstation deployment
+- Dedicated servers
+- Virtual machines
+- Docker-based environments
+- Hybrid infrastructures
 
-> [!WARNING]
-> This runs the agent-server directly on the machine you're installing on — the agent will have full access to your filesystem!
+## Vision
 
-**Prerequisites**: Node.js 22.12.x or later, `uv`
+BezotCorp Agent Studio is designed around a simple philosophy:
 
-```sh
-npm install -g @bezotcorp/agent-studio
-agent-studio
-```
+**freedom of choice.**
 
-The `agent-studio` command starts the full local stack by default. You can also split it when you want to run pieces separately:
+Developers should not be forced into a single model, a single provider, a single infrastructure, or even a single AI architecture.
 
-```sh
-agent-studio --frontend-only  # static frontend + ingress only
-agent-studio --backend-only   # agent server + automation backend + ingress only
-```
+The project embraces local-first development while remaining open to remote and online infrastructures whenever they provide additional value.
 
-### Option 2: With a Docker Sandbox
+Our long-term goal is to support a broad ecosystem of AI systems, models, tools, and orchestration strategies while keeping the user in control.
 
-**Prerequisites**:
+## Development
 
-- Docker: Docker Desktop on macOS/Windows, or Docker Engine/Docker Desktop on Linux.
-- A host directory for `PROJECTS_PATH` containing the project folders you want the agent to access. Create it before starting the container.
-
-**macOS / Linux:**
-
-```sh
-export PROJECTS_PATH="$HOME/projects"  # directory containing your project folders
-mkdir -p "$PROJECTS_PATH" "$HOME/.openhands"
-
-docker run -it --rm \
-  -p 8000:8000 \
-  -v "$HOME/.openhands:/home/openhands/.openhands" \
-  -v "${PROJECTS_PATH}:/projects" \
-  ghcr.io/bezotcorp/agent-studio:1.0.0-rc.11
-```
-
-**Windows (PowerShell / Windows Terminal):** See [README.windows.md](./README.windows.md) for the equivalent commands.
-
-The agent will be able to access any project under `PROJECTS_PATH`.
-
-### Option 3: From Source
-
-> [!WARNING]
-> This runs the agent-server directly on the machine you're installing on — the agent will have full access to your filesystem!
-
-**Prerequisites**: Node.js 22.12.x or later, `npm`, `uv` (for running the agent server via `uvx`)
-
-```sh
+```bash
 git clone https://github.com/BezotCorp/bezotcorp-studio.git
-cd agent-studio
+cd bezotcorp-studio/agent-studio
+
 npm install
 npm run dev
 ```
 
----
+## Future Development
 
-Access the UI at [http://localhost:8000](http://localhost:8000). You can add additional backends directly from the UI.
+Planned work, ideas, and future improvements are tracked in `TODO.md`.
 
-# Architecture
+## Project Origin
 
-BezotCorp Agent Studio is powered by the [OpenHands Agent Server](https://github.com/OpenHands/software-agent-sdk/tree/main/openhands-agent-server/openhands/agent_server), a REST API for running multiple agents on a single machine. Each Agent Server runs on a single host/port; the BezotCorp Agent Studio can connect to multiple Agent Servers and easily flip between them.
+BezotCorp Agent Studio was initially created from the OpenHands Agent Canvas source tree at revision:
 
-You can run an Agent Server anywhere:
+`v1.0.0-alpha.10-180-g421b62b7`
 
-- Directly on your laptop (be careful!)
-- On a dedicated machine like a Mac Mini
-- On a virtual machine in the cloud
-- Inside OpenHands Cloud (our commercial offering)
+The project has since been rebranded and continues development under the BezotCorp roadmap, release cycle, architecture decisions, and product vision.
 
-The Agent Server is often paired with an [Automation Server](https://github.com/OpenHands/automation), which lets you set up agents that run on a schedule or in response to events.
+While the project remains compatible with technologies and integrations inherited from OpenHands Agent Canvas, BezotCorp Agent Studio is developed independently and may diverge significantly over time.
 
-<img width="1456" height="1258" alt="image" src="https://github.com/user-attachments/assets/cb6de6f5-ac30-4d04-a76a-b5c259f0c163" />
+## Genesis
 
-## More documentation
+The creation of BezotCorp Agent Studio is the result of a long exploration of existing AI-agent ecosystems.
 
-- [Documentation index](./docs/README.md)
-- [Architecture overview](./docs/architecture.md)
-- [Development guide](./docs/DEVELOPMENT.md)
-- [Self-hosting guide](./docs/SELF_HOSTING.md)
+During discussions about AI development platforms and agent orchestration systems, ChatGPT 5.5 from OpenAI helped identify older OpenHands-related projects. This research eventually led to the discovery of Agent Canvas, which became the technical foundation used to bootstrap BezotCorp Agent Studio.
+
+Rather than starting from a blank page, this approach made it possible to build upon an already functional ecosystem and focus development efforts on new ideas, architecture evolution, user experience, and future innovation.
+
+## Acknowledgements
+
+Special thanks to the OpenHands maintainers and contributors for creating and maintaining the Agent Canvas project and the technologies that made this project possible.
+
+Additional thanks to OpenAI and ChatGPT 5.5 for assisting in the research process that led to the discovery of the project that ultimately became the foundation of BezotCorp Agent Studio.
+
+Without these contributions, this project would likely have taken a very different path.
+
+## License
+
+BezotCorp Agent Studio includes work derived from OpenHands Agent Canvas and remains subject to the license terms included in this repository.
+
+See the `LICENSE` file for details.
