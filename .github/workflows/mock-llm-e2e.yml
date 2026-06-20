@@ -13,6 +13,10 @@ permissions:
   contents: read
   pull-requests: write
 
+defaults:
+  run:
+    working-directory: agent-canvas-local
+
 jobs:
   detect-pr-changes:
     runs-on: ubuntu-24.04
@@ -21,6 +25,7 @@ jobs:
     steps:
       - name: Detect PR changes relevant to mock-LLM E2E
         id: detect
+        working-directory: .
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -36,7 +41,7 @@ jobs:
           SHOULD_RUN=false
           while IFS= read -r file; do
             case "$file" in
-              src/*|public/*|scripts/*|bin/*|config/*|tests/e2e/mock-llm/*|tests/e2e/support/*|package.json|package-lock.json|vite.config.ts|tsconfig.json|react-router.config.ts|playwright.mock-llm.config.ts|tailwind.config.js|hero.ts|.github/workflows/mock-llm-e2e.yml)
+              agent-canvas-local/src/*|agent-canvas-local/public/*|agent-canvas-local/scripts/*|agent-canvas-local/bin/*|agent-canvas-local/config/*|agent-canvas-local/tests/e2e/mock-llm/*|agent-canvas-local/tests/e2e/support/*|agent-canvas-local/package.json|agent-canvas-local/package-lock.json|agent-canvas-local/vite.config.ts|agent-canvas-local/tsconfig.json|agent-canvas-local/react-router.config.ts|agent-canvas-local/playwright.mock-llm.config.ts|agent-canvas-local/tailwind.config.js|agent-canvas-local/hero.ts|.github/workflows/mock-llm-e2e.yml)
                 SHOULD_RUN=true
                 break
                 ;;
@@ -73,6 +78,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
+          cache-dependency-path: agent-canvas-local/package-lock.json
 
       - name: Install npm dependencies
         run: npm ci
@@ -148,7 +154,7 @@ jobs:
           # Get changed files from the PR
           CHANGED_FILES=$(gh api \
             "/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
-            --paginate --jq '.[].filename' | tr '\n' ',')
+            --paginate --jq '.[].filename' | sed 's#^agent-canvas-local/##' | tr '\n' ',')
 
           # Resolve which test directories to run. If the resolver fails
           # (for example malformed test-mapping.json), fail closed by

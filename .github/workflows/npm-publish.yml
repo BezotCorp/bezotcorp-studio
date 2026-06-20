@@ -19,6 +19,10 @@ permissions:
   contents: read
   id-token: write
 
+defaults:
+  run:
+    working-directory: agent-canvas-local
+
 jobs:
   publish:
     name: Publish to npm
@@ -38,6 +42,7 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+          cache-dependency-path: agent-canvas-local/package-lock.json
           registry-url: https://registry.npmjs.org
 
       - name: Verify npm version supports trusted publishing

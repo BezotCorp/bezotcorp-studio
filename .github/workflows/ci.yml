@@ -19,6 +19,10 @@ concurrency:
 permissions:
   contents: read
 
+defaults:
+  run:
+    working-directory: agent-canvas-local
+
 jobs:
   prepare-test-matrix:
     runs-on: ubuntu-24.04
@@ -28,6 +32,7 @@ jobs:
     steps:
       - name: Build test matrix
         id: matrix
+        working-directory: .
         run: |
           echo 'matrix={"include":[{"name":"ubuntu","os":"ubuntu-24.04","full_checks":true},{"name":"windows","os":"windows-latest","full_checks":false}]}' >> "$GITHUB_OUTPUT"
 
@@ -52,6 +57,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
+          cache-dependency-path: agent-canvas-local/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -102,6 +108,7 @@ jobs:
     steps:
       - name: Resolve live E2E PR context
         id: pr_context
+        working-directory: .
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -141,10 +148,12 @@ jobs:
 
       - name: Skip live E2E for fork PRs
         if: steps.pr_context.outputs.is_fork == 'true'
+        working-directory: .
         run: echo "::notice::Skipping live E2E for fork PRs so secrets are never exposed to untrusted code."
 
       - name: Check live E2E credential
         id: live_credential
+        working-directory: .
         if: steps.pr_context.outputs.is_fork != 'true'
         env:
           LIVE_E2E_LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
@@ -157,6 +166,7 @@ jobs:
 
       - name: Check out PR head
         if: steps.pr_context.outputs.is_fork != 'true'
+        working-directory: .
         env:
           PR_HEAD_REPO: ${{ steps.pr_context.outputs.head_repo }}
           PR_HEAD_SHA: ${{ steps.pr_context.outputs.head_sha }}
@@ -175,6 +185,7 @@ jobs:
 
       - name: Detect PR artifact-only commit
         id: latest_commit
+        working-directory: .
         if: steps.pr_context.outputs.is_fork != 'true'
         run: |
           set -euo pipefail
@@ -206,6 +217,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
+          cache-dependency-path: agent-canvas-local/package-lock.json
 
       - name: Create live E2E PR comment
         if: env.LIVE_E2E_PR_NUMBER != '' && steps.pr_context.outputs.is_fork != 'true' && steps.latest_commit.outputs.pr_artifact_only != 'true'

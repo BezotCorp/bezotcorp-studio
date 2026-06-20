@@ -47,6 +47,10 @@ permissions:
   pull-requests: write
   actions: read
 
+defaults:
+  run:
+    working-directory: agent-canvas-local
+
 jobs:
   detect-pr-changes:
     runs-on: ubuntu-24.04
@@ -55,6 +59,7 @@ jobs:
     steps:
       - name: Detect PR changes relevant to Docker E2E
         id: detect
+        working-directory: .
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -70,7 +75,7 @@ jobs:
           SHOULD_RUN=false
           while IFS= read -r file; do
             case "$file" in
-              src/*|public/*|scripts/*|bin/*|config/*|docker/*|tests/e2e/mock-llm/*|tests/e2e/support/*|package.json|package-lock.json|vite.config.ts|tsconfig.json|react-router.config.ts|playwright.mock-llm.config.ts|playwright.mock-llm-docker.config.ts|tailwind.config.js|hero.ts|.github/workflows/mock-llm-docker-e2e.yml)
+              agent-canvas-local/src/*|agent-canvas-local/public/*|agent-canvas-local/scripts/*|agent-canvas-local/bin/*|agent-canvas-local/config/*|agent-canvas-local/docker/*|agent-canvas-local/tests/e2e/mock-llm/*|agent-canvas-local/tests/e2e/support/*|agent-canvas-local/package.json|agent-canvas-local/package-lock.json|agent-canvas-local/vite.config.ts|agent-canvas-local/tsconfig.json|agent-canvas-local/react-router.config.ts|agent-canvas-local/playwright.mock-llm.config.ts|agent-canvas-local/playwright.mock-llm-docker.config.ts|agent-canvas-local/tailwind.config.js|agent-canvas-local/hero.ts|.github/workflows/mock-llm-docker-e2e.yml)
                 SHOULD_RUN=true
                 break
                 ;;
@@ -109,6 +114,7 @@ jobs:
       # ── Resolve which commit / PR to test ──────────────────────────────
       - name: Resolve source context
         id: ctx
+        working-directory: .
         env:
           GITHUB_REF_VALUE: ${{ github.ref }}
         run: |
@@ -144,6 +150,7 @@ jobs:
       # building. Poll the Docker workflow until it completes for this SHA.
       - name: Wait for Docker workflow to complete
         if: github.event_name == 'pull_request'
+        working-directory: .
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -192,6 +199,7 @@ jobs:
       # ── Resolve Docker image tag ───────────────────────────────────────
       - name: Resolve Docker image
         id: image
+        working-directory: .
         env:
           DOCKER_IMAGE_INPUT: ${{ inputs.docker_image }}
         run: |
@@ -211,6 +219,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull Docker image
+        working-directory: .
         env:
           DOCKER_IMAGE_TAG: ${{ steps.image.outputs.tag }}
         run: |
@@ -226,6 +235,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
+          cache-dependency-path: agent-canvas-local/package-lock.json
 
       - name: Install npm dependencies
         run: npm ci
@@ -380,7 +390,7 @@ jobs:
             "/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
             --paginate \
             --jq '[.[] | select(.status == "added") | .filename
-                   | select(test("tests/e2e/mock-llm/.*\\.spec\\.ts$"))]
+                   | select(test("^(agent-canvas-local/)?tests/e2e/mock-llm/.*\\.spec\\.ts$"))]
                    | join(",")')
           echo "files=$NEW_FILES" >> "$GITHUB_OUTPUT"
 
