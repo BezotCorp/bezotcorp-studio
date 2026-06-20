@@ -56,7 +56,7 @@ jobs:
       - name: Check out PR branch
         if: steps.check_fork.outputs.is_fork == 'false' && steps.pr_context.outputs.has_pr_dir == 'true'
         env:
-          PR_ARTIFACT_PUSH_TOKEN: ${{ secrets.OPENHANDS_BOT_GITHUB_PAT_PUBLIC || github.token }}
+          PR_ARTIFACT_PUSH_TOKEN: ${{ github.token }}
           PR_HEAD_SHA: ${{ steps.pr_context.outputs.head_sha }}
         run: |
           set -euo pipefail
@@ -75,7 +75,7 @@ jobs:
         id: remove
         if: steps.check_fork.outputs.is_fork == 'false' && steps.pr_context.outputs.has_pr_dir == 'true'
         env:
-          PR_ARTIFACT_PUSH_TOKEN: ${{ secrets.OPENHANDS_BOT_GITHUB_PAT_PUBLIC || github.token }}
+          PR_ARTIFACT_PUSH_TOKEN: ${{ github.token }}
           PR_HEAD_REF: ${{ steps.pr_context.outputs.head_ref }}
           PR_HEAD_SHA: ${{ steps.pr_context.outputs.head_sha }}
         run: |
@@ -86,8 +86,8 @@ jobs:
             exit 0
           fi
 
-          git config user.name "allhands-bot"
-          git config user.email "allhands-bot@users.noreply.github.com"
+          git config user.name "bezotcorp-bot"
+          git config user.email "bezotcorp-bot@users.noreply.github.com"
           git rm -rf --ignore-unmatch .pr/
           if git diff --cached --quiet; then
             echo "removed=false" >> "$GITHUB_OUTPUT"

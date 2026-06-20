@@ -318,7 +318,7 @@ jobs:
         env:
           MEDIA_KEEP_RUNS: ${{ env.LIVE_E2E_PR_ARTIFACT_KEEP_RUNS }}
           MEDIA_RUN_DIR: ${{ github.run_id }}
-          PR_ARTIFACT_PUSH_TOKEN: ${{ secrets.OPENHANDS_BOT_GITHUB_PAT_PUBLIC || github.token }}
+          PR_ARTIFACT_PUSH_TOKEN: ${{ github.token }}
           PR_HEAD_IS_FORK: ${{ steps.pr_context.outputs.is_fork }}
           PR_HEAD_REF: ${{ steps.pr_context.outputs.head_ref }}
           PR_HEAD_SHA: ${{ steps.pr_context.outputs.head_sha }}
@@ -370,8 +370,8 @@ jobs:
               done
           fi
 
-          git config user.name "allhands-bot"
-          git config user.email "allhands-bot@users.noreply.github.com"
+          git config user.name "bezotcorp-bot"
+          git config user.email "bezotcorp-bot@users.noreply.github.com"
           git config credential.helper '!f() { echo "username=x-access-token"; echo "password=$PR_ARTIFACT_PUSH_TOKEN"; }; f'
           git remote remove pr-artifacts >/dev/null 2>&1 || true
           git remote add pr-artifacts "https://github.com/${GITHUB_REPOSITORY}.git"

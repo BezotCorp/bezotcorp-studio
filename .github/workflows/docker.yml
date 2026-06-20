@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
     inputs:
       agent_server_image:
-        description: Agent Server base image (ghcr.io/openhands/agent-server:TAG)
+        description: Agent Server base image (ghcr.io/bezotcorp/agent-server:TAG)
         type: string
         default: ""
 
@@ -206,8 +206,8 @@ jobs:
             AGENT_SERVER_IMAGE=${{ steps.prep.outputs.agent_server_image }}
             AUTOMATION_VERSION=${{ steps.prep.outputs.automation_version }}
             AGENT_CANVAS_VERSION=${{ steps.config.outputs.agent_canvas_version }}
-            OPENHANDS_BUILD_GIT_SHA=${{ env.RELEVANT_SHA }}
-            OPENHANDS_BUILD_GIT_REF=${{ env.RELEVANT_REF }}
+            BEZOTCORP_BUILD_GIT_SHA=${{ env.RELEVANT_SHA }}
+            BEZOTCORP_BUILD_GIT_REF=${{ env.RELEVANT_REF }}
             VITE_APP_ENV=${{ steps.prep.outputs.vite_app_env }}
             VITE_POSTHOG_CLIENT_KEY=${{ steps.prep.outputs.posthog_client_key }}
           cache-from: type=gha
@@ -513,7 +513,7 @@ jobs:
           | **Image** | \`${IMAGE}\` |
           | **Architectures** | ${ARCHS} |
           | **Agent Server** | \`${AGENT_SERVER_IMAGE}\` |
-          | **Automation** | \`openhands-automation==${AUTOMATION_VERSION}\` |
+          | **Automation** | \`bezot-corp-automation==${AUTOMATION_VERSION}\` |
           | **Commit** | \`${GIT_SHA}\` |
 
           **Pull (multi-arch manifest)**

@@ -263,12 +263,12 @@ jobs:
           curl -LsSf https://astral.sh/uv/install.sh | sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: Install openhands-sdk (for mock LLM server)
+      - name: Install bezotcorp-sdk (for mock LLM server)
         env:
           AGENT_SERVER_VERSION: ${{ steps.defaults.outputs.agent_server_version }}
         run: |
           uv venv .mock-llm-venv
-          uv pip install -p .mock-llm-venv "openhands-sdk==$AGENT_SERVER_VERSION"
+          uv pip install -p .mock-llm-venv "bezot-corp-sdk==$AGENT_SERVER_VERSION"
 
       - name: Verify mock LLM server starts
         run: |
