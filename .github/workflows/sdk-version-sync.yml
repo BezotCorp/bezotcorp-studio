@@ -4,19 +4,19 @@ on:
   pull_request:
     paths:
       # Only run on PRs that touch version-related files
-      - "agent-canvas-local/config/defaults.json"
-      - "agent-canvas-local/scripts/dev-safe.mjs"
-      - "agent-canvas-local/scripts/dev-with-automation.mjs"
-      - "agent-canvas-local/scripts/check-sdk-version-sync.mjs"
+      - "agent-studio/config/defaults.json"
+      - "agent-studio/scripts/dev-safe.mjs"
+      - "agent-studio/scripts/dev-with-automation.mjs"
+      - "agent-studio/scripts/check-sdk-version-sync.mjs"
       - ".github/workflows/sdk-version-sync.yml"
   push:
     branches:
       - main
     paths:
-      - "agent-canvas-local/config/defaults.json"
-      - "agent-canvas-local/scripts/dev-safe.mjs"
-      - "agent-canvas-local/scripts/dev-with-automation.mjs"
-      - "agent-canvas-local/scripts/check-sdk-version-sync.mjs"
+      - "agent-studio/config/defaults.json"
+      - "agent-studio/scripts/dev-safe.mjs"
+      - "agent-studio/scripts/dev-with-automation.mjs"
+      - "agent-studio/scripts/check-sdk-version-sync.mjs"
       - ".github/workflows/sdk-version-sync.yml"
 
   # Triggered by external repos (e.g., OpenHands/automation) when SDK deps change
@@ -46,7 +46,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: agent-canvas-local
+    working-directory: agent-studio
 
 jobs:
   check-sdk-versions:

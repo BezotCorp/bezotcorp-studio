@@ -21,7 +21,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: agent-canvas-local
+    working-directory: agent-studio
 
 jobs:
   prepare-test-matrix:
@@ -57,7 +57,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
-          cache-dependency-path: agent-canvas-local/package-lock.json
+          cache-dependency-path: agent-studio/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -217,7 +217,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
-          cache-dependency-path: agent-canvas-local/package-lock.json
+          cache-dependency-path: agent-studio/package-lock.json
 
       - name: Create live E2E PR comment
         if: env.LIVE_E2E_PR_NUMBER != '' && steps.pr_context.outputs.is_fork != 'true' && steps.latest_commit.outputs.pr_artifact_only != 'true'

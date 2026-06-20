@@ -15,7 +15,7 @@ permissions:
 
 defaults:
   run:
-    working-directory: agent-canvas-local
+    working-directory: agent-studio
 
 jobs:
   detect-pr-changes:
@@ -41,7 +41,7 @@ jobs:
           SHOULD_RUN=false
           while IFS= read -r file; do
             case "$file" in
-              agent-canvas-local/src/*|agent-canvas-local/public/*|agent-canvas-local/scripts/*|agent-canvas-local/bin/*|agent-canvas-local/config/*|agent-canvas-local/tests/e2e/mock-llm/*|agent-canvas-local/tests/e2e/support/*|agent-canvas-local/package.json|agent-canvas-local/package-lock.json|agent-canvas-local/vite.config.ts|agent-canvas-local/tsconfig.json|agent-canvas-local/react-router.config.ts|agent-canvas-local/playwright.mock-llm.config.ts|agent-canvas-local/tailwind.config.js|agent-canvas-local/hero.ts|.github/workflows/mock-llm-e2e.yml)
+              agent-studio/src/*|agent-studio/public/*|agent-studio/scripts/*|agent-studio/bin/*|agent-studio/config/*|agent-studio/tests/e2e/mock-llm/*|agent-studio/tests/e2e/support/*|agent-studio/package.json|agent-studio/package-lock.json|agent-studio/vite.config.ts|agent-studio/tsconfig.json|agent-studio/react-router.config.ts|agent-studio/playwright.mock-llm.config.ts|agent-studio/tailwind.config.js|agent-studio/hero.ts|.github/workflows/mock-llm-e2e.yml)
                 SHOULD_RUN=true
                 break
                 ;;
@@ -78,7 +78,7 @@ jobs:
           # < 1.60.0. Remove this pin after upgrading to Playwright >= 1.60.0.
           node-version: "24.15"
           cache: npm
-          cache-dependency-path: agent-canvas-local/package-lock.json
+          cache-dependency-path: agent-studio/package-lock.json
 
       - name: Install npm dependencies
         run: npm ci
@@ -154,7 +154,7 @@ jobs:
           # Get changed files from the PR
           CHANGED_FILES=$(gh api \
             "/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
-            --paginate --jq '.[].filename' | sed 's#^agent-canvas-local/##' | tr '\n' ',')
+            --paginate --jq '.[].filename' | sed 's#^agent-studio/##' | tr '\n' ',')
 
           # Resolve which test directories to run. If the resolver fails
           # (for example malformed test-mapping.json), fail closed by
