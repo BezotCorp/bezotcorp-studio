@@ -13,7 +13,7 @@
     "build:skills": "node scripts/build-skills-catalog.mjs"
   },
   "engines": {
-    "node": ">=18.20.0"
+    "node": ">=19.0.0"
   },
   "peerDependencies": {
     "lucide-react": ">=0.400.0",

@@ -20,3 +20,24 @@ Repository:
 The original OpenHands license is preserved in:
 
 - [agent-studio/LICENSE](./agent-studio/LICENSE)
+
+## OpenHands Extensions
+
+Component:
+extensions-studio
+
+Origin revision:
+0.5.0
+
+License:
+MIT
+
+Copyright:
+© 2025 OpenHands contributors
+
+Repository:
+<https://github.com/OpenHands/extensions>
+
+The original OpenHands license is preserved in:
+
+- [extensions-studio/LICENSE](./extensions-studio/LICENSE)
